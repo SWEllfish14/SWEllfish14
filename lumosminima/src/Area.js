@@ -1,7 +1,6 @@
 import axios from "axios";
 import {useState} from 'react';
 import { useQuery } from "react-query";
-import {useLocation} from "react-router-dom"
 import { useParams } from 'react-router-dom';
 const headers = {
     
@@ -19,14 +18,14 @@ export function Area(){
         )
         return (
             <div>
-            <p>Area </p>
+            <p>Area {params.id}</p>
             {isLoading ? <p>Loading...</p>:
             <>
             
             <ul>
                 {lampList.map(lamp => (
-                    <li key={lamp.IP}>
-                       Lampione all'ip:{lamp.IP} Stato:{lamp.status}
+                    <li key={lamp.lamp_id}>
+                       Lampione ID:{lamp.lamp_id} Luminosità:{lamp.brightness} Stato:{lamp.lamp_status? <>Acceso</>:<>Spento <button>Accendi</button></>}
                     </li>
                 ) )}
             </ul>
