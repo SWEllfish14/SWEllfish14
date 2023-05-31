@@ -3,6 +3,11 @@ const bodyParser = require('body-parser')
 const pool = require('./queries')
 const app = express()
 const port = 3002
+const http = require('http');
+
+
+const axios = require('axios');
+axios.defaults.baseURL = 'http://localhost:142';
 const cors = require("cors");
 app.use(cors());
 app.use(express.json())
@@ -39,12 +44,15 @@ app.get('/', (request, response) => {
         if (conn) return conn.release();
     }
 });
+const headers = {
+    
+  'Content-Type': 'application/json'
 
+}
 app.get('/area/:id', async (req, res) => {
   const id = parseInt(req.params.id)
   let conn;
   try {
-    console.log("prova"+id)
       // here we make a connection to MariaDB
       conn = await pool.getConnection();
 
@@ -53,9 +61,24 @@ app.get('/area/:id', async (req, res) => {
 
       // we run the query and set the result to a new variable
       var rows = await conn.query(query,[id]);
-      var lamps=  
+      var lamp;
+      var result = [];
+      await Promise.all(rows.map(async(lamp) =>{
+        try {
+         const response=await axios.get("http://192.168.1.124:3020/lamp",headers)
+         console.log(response.data)
+         lamp=response.data;
+         result.push(response.data)
+         }
+         catch(e){
+          console.log(e.response)
+         }
+      }))
+      
       // return the results
-      res.send(rows);
+      
+res.contentType('application/json');
+res.send(JSON.stringify(result));
   } catch (err) {
       throw err;
   } finally {
