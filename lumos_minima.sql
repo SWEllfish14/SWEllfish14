@@ -26,7 +26,15 @@ CREATE TABLE IF NOT EXISTS `amministratore` (
   PRIMARY KEY (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- L’esportazione dei dati non era selezionata.
+-- Dump dei dati della tabella lumosminima.amministratore: ~7 rows (circa)
+INSERT INTO `amministratore` (`Username`, `PASSWORD`) VALUES
+	('admin', '1234'),
+	('andrea', '1234'),
+	('claudio', '1234'),
+	('davide', '1234'),
+	('elena', '1234'),
+	('francesco', '1234'),
+	('jude', '1234');
 
 -- Dump della struttura di tabella lumosminima.area_illuminata
 CREATE TABLE IF NOT EXISTS `area_illuminata` (
@@ -41,7 +49,15 @@ CREATE TABLE IF NOT EXISTS `area_illuminata` (
   CONSTRAINT `fk_user_amministratore` FOREIGN KEY (`user_amministratore`) REFERENCES `amministratore` (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- L’esportazione dei dati non era selezionata.
+-- Dump dei dati della tabella lumosminima.area_illuminata: ~7 rows (circa)
+INSERT INTO `area_illuminata` (`ID`, `zona_geografica`, `stato`, `luminosita_impostata`, `luminosita_default`, `user_amministratore`) VALUES
+	(1, 'Padova_via Scrovegni', '1', 8, 2, 'admin'),
+	(2, 'Mantova', '0', 9, 1, 'andrea'),
+	(3, 'Parma', '1', 3, 0, 'jude'),
+	(4, 'Viareggio', '0', 5, 9, 'elena'),
+	(5, 'Catania', '1', 9, 9, 'claudio'),
+	(6, 'Gorizia', '1', 8, 3, 'francesco'),
+	(7, 'Cittadella', '0', 10, 1, 'davide');
 
 -- Dump della struttura di tabella lumosminima.gestione_guasto
 CREATE TABLE IF NOT EXISTS `gestione_guasto` (
@@ -53,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `gestione_guasto` (
   CONSTRAINT `fk_username_manutentore` FOREIGN KEY (`Username_manutentore`) REFERENCES `manutentore` (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- L’esportazione dei dati non era selezionata.
+-- Dump dei dati della tabella lumosminima.gestione_guasto: ~0 rows (circa)
 
 -- Dump della struttura di tabella lumosminima.guasto
 CREATE TABLE IF NOT EXISTS `guasto` (
@@ -65,7 +81,9 @@ CREATE TABLE IF NOT EXISTS `guasto` (
   CONSTRAINT `fk_id_area_illuminata_guasto` FOREIGN KEY (`id_area_illuminata`) REFERENCES `area_illuminata` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- L’esportazione dei dati non era selezionata.
+-- Dump dei dati della tabella lumosminima.guasto: ~1 rows (circa)
+INSERT INTO `guasto` (`ID`, `zona_geografica`, `id_area_illuminata`) VALUES
+	(0, 'Viareggio', 4);
 
 -- Dump della struttura di tabella lumosminima.lampione
 CREATE TABLE IF NOT EXISTS `lampione` (
@@ -80,7 +98,9 @@ CREATE TABLE IF NOT EXISTS `lampione` (
   CONSTRAINT `fk_id_area_illuminata_lampioni` FOREIGN KEY (`id_area_illuminata`) REFERENCES `area_illuminata` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- L’esportazione dei dati non era selezionata.
+-- Dump dei dati della tabella lumosminima.lampione: ~1 rows (circa)
+INSERT INTO `lampione` (`IP`, `polling_time`, `status`, `iterazione`, `luminosita_default`, `luminosita_impostata`, `id_area_illuminata`) VALUES
+	('2003001255', 3, '1', 'push', 5, 8, 5);
 
 -- Dump della struttura di tabella lumosminima.manutentore
 CREATE TABLE IF NOT EXISTS `manutentore` (
@@ -89,7 +109,9 @@ CREATE TABLE IF NOT EXISTS `manutentore` (
   PRIMARY KEY (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- L’esportazione dei dati non era selezionata.
+-- Dump dei dati della tabella lumosminima.manutentore: ~1 rows (circa)
+INSERT INTO `manutentore` (`Username`, `password`) VALUES
+	('manutentore', 'abcd');
 
 -- Dump della struttura di tabella lumosminima.sensore
 CREATE TABLE IF NOT EXISTS `sensore` (
@@ -104,7 +126,9 @@ CREATE TABLE IF NOT EXISTS `sensore` (
   CONSTRAINT `fk_id_area_illuminata` FOREIGN KEY (`id_area_illuminata`) REFERENCES `area_illuminata` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- L’esportazione dei dati non era selezionata.
+-- Dump dei dati della tabella lumosminima.sensore: ~1 rows (circa)
+INSERT INTO `sensore` (`IP`, `zona_geografica`, `iterazione`, `raggio_azione`, `polling_time`, `id_area_illuminata`) VALUES
+	('192168116', 'boh', 'pull', 10, 3, 6);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
