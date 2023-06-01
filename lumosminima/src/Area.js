@@ -13,15 +13,18 @@ export function Area(){
     
     const [lampList,setLampList] = useState([]);
         const {isLoading, error} = useQuery(["lamp"], () =>
-        axios.get("http://localhost:3002/area/"+params.id,{headers})
+        axios.get("http://localhost:3002/lamps/"+params.id,{headers})
         .then((res) => setLampList(res.data))
         )
+    const [area,setArea] = useState("");
+    const {isLoading:areaLoading,error:areaError}= useQuery(["area"],  () =>
+    axios.get("http://localhost:3002/area/"+params.id,{headers})
+    .then((res) => setArea(res.data)))
         return (
             <div>
             <p>Area {params.id}</p>
             {isLoading ? <p>Loading...</p>:
             <>
-            
             <ul>
                 {lampList.map(lamp => (
                     <li key={lamp.lamp_id}>
@@ -31,7 +34,14 @@ export function Area(){
             </ul>
             </>
             }
-            
+            {areaLoading ? <p>Loading</p>:
+            <>
+                {area.map(info =>(
+                    <p>Luminosità di default{info.luminosita_default} Luminosità impostata{info.luminosita_impostata}</p>
+                ))}
+                
+            </>
+            }
         </div>
         )
 }

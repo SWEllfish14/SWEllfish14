@@ -7,13 +7,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { GestioneAree } from './GestioneAree';
 import { Area } from './Area';
+import { Home } from './Home';
 const queryClient= new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <QueryClientProvider client={queryClient}>
   <Router>
     <Routes>
-      <Route exact path='/' element={<App/>}></Route>
+      <Route exact path='/' element={<Home/>}></Route>
       <Route exact path='/aree' element={<GestioneAree/>}></Route>
       <Route exact path='/area/:id' element={<Area/>}></Route>
     </Routes>
