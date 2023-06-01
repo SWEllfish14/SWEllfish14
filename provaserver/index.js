@@ -16,14 +16,12 @@ app.use(
     extended: true,
   })
 )
-app.get('/', (request, response) => {
-    response.json({ info: 'Node.js, Express, and Postgres API' })
-  })
 
   app.listen(port, () => {
     console.log(`App running on port ${port}.`)
   })
   
+  //lista di tutte le aree
   app.get('/aree', async (req, res) => {
     let conn;
     try {
@@ -44,22 +42,48 @@ app.get('/', (request, response) => {
         if (conn) return conn.release();
     }
 });
-const headers = {
-    
-  'Content-Type': 'application/json'
 
-}
-app.get('/area/:id', async (req, res) => {
-  const id = parseInt(req.params.id)
+//lista di tutti i guasti
+app.get('/guasti', async (req, res) => {
   let conn;
   try {
       // here we make a connection to MariaDB
       conn = await pool.getConnection();
 
       // create a new query to fetch all records from the table
-      var query = "SELECT IP,status FROM lumosminima.lampione WHERE id_area_illuminata=?";
+      var query = "SELECT ID,zona_geografica,id_area_illuminata FROM lumosminima.guasto";
 
       // we run the query and set the result to a new variable
+      var rows = await conn.query(query);
+
+      // return the results
+      res.send(rows);
+  } catch (err) {
+      throw err;
+  } finally {
+      if (conn) return conn.release();
+  }
+});
+
+const headers = {
+    
+  'Content-Type': 'application/json'
+
+}
+
+//Lampioni dell'area
+
+app.get('/lamps/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  let conn;
+  try {
+     
+      conn = await pool.getConnection();
+
+      
+      var query = "SELECT IP,status FROM lumosminima.lampione WHERE id_area_illuminata=?";
+
+      
       var rows = await conn.query(query,[id]);
       var lamp;
       var result = [];
@@ -75,7 +99,7 @@ app.get('/area/:id', async (req, res) => {
          }
       }))
       
-      // return the results
+      
       
 res.contentType('application/json');
 res.send(JSON.stringify(result));
@@ -85,4 +109,25 @@ res.send(JSON.stringify(result));
       if (conn) return conn.release();
   }
 });
-  
+
+//Area da ID
+app.get('/area/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  let conn;
+    try {
+      
+        conn = await pool.getConnection();
+
+        
+        var query = "SELECT ID,zona_geografica,stato,luminosita_impostata,luminosita_default,user_amministratore FROM lumosminima.area_illuminata WHERE ID=?";
+
+        
+        var rows = await conn.query(query,[id]);
+
+        res.send(rows);
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) return conn.release();
+    }
+});
