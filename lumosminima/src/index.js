@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import { GestioneAree } from './GestioneAree';
 import { Area } from './Area';
 import { Home } from './Home';
+import { AggiungiArea } from './AggiungiArea';
 const queryClient= new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +17,7 @@ root.render(
     <Routes>
       <Route exact path='/' element={<Home/>}></Route>
       <Route exact path='/aree' element={<GestioneAree/>}></Route>
+      <Route exact path='/aree/aggiungiArea' element={<AggiungiArea/>}></Route>
       <Route exact path='/area/:id' element={<Area/>}></Route>
     </Routes>
   </Router>
