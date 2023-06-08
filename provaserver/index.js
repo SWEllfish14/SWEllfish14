@@ -85,13 +85,11 @@ app.get('/lamps/:id', async (req, res) => {
 
       
       var rows = await conn.query(query,[id]);
-      var lamp;
       var result = [];
       await Promise.all(rows.map(async(lamp) =>{
         try {
-         const response=await axios.get("http://192.168.1.124:3020/lamp",headers)
+         const response=await axios.get('http://'+lamp.IP+":3020/lamp",headers)
          console.log(response.data)
-         lamp=response.data;
          result.push(response.data)
          }
          catch(e){
@@ -131,3 +129,95 @@ app.get('/area/:id', async (req, res) => {
         if (conn) return conn.release();
     }
 });
+
+//lista sensori
+app.get('/sensori/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  let conn;
+  try {
+     
+      conn = await pool.getConnection();
+
+      
+      var query = "SELECT IP,zona_geografica,iterazione,raggio_azione,polling_time,id_area_illuminata FROM lumosminima.sensore WHERE id_area_illuminata=?";
+
+      
+      var rows = await conn.query(query,[id]);
+      var sensore;
+      var result = [];
+      await Promise.all(rows.map(async(sens) =>{
+        try {
+         const response=await axios.get(sens.IP+"/sensore",headers)
+         console.log(response.data)
+         sensore=response.data;
+         result.push(response.data)
+         }
+         catch(e){
+          console.log(e.response)
+         }
+      }))
+      
+      
+      
+res.contentType('application/json');
+res.send(JSON.stringify(result));
+  } catch (err) {
+      throw err;
+  } finally {
+      if (conn) return conn.release();
+  }
+});
+
+//lista  amministratori
+app.get('/amministratori', async (req, res) => {
+  const id = parseInt(req.params.id)
+  let conn;
+    try {
+      
+        conn = await pool.getConnection();
+
+        
+        var query = "SELECT Username FROM lumosminima.amministratore";
+
+        
+        var rows = await conn.query(query);
+
+        res.send(rows);
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) return conn.release();
+    }
+});
+
+//aggiungi nuova area
+app.post('/aggiungiArea', async (req, res) => {
+  let conn;
+  const { zonaArea, statoArea, luminositaImpostataArea, luminositaDefaultArea , userAmministratore }  = req.body;
+    try {
+
+        console.log(req.body)
+        conn = await pool.getConnection();
+
+        console.log("connesso")
+        var idQuery = "SELECT MAX(ID) FROM lumosminima.area_illuminata";
+        var id =  await conn.query(idQuery);
+        id=(id[0]["MAX(ID)"])+1
+        var insertquery = "INSERT INTO lumosminima.area_illuminata (ID,zona_geografica,stato,luminosita_impostata,luminosita_default,user_amministratore) VALUES(?,?,?,?,?,?)";
+
+        var result = await conn.query(insertquery, [id,zonaArea, statoArea, luminositaImpostataArea, luminositaDefaultArea , userAmministratore.Username]);
+
+        console.log(result)
+    } catch (err) {
+        console.log(err)
+        throw err;
+        
+    } finally {
+        if (conn) return conn.release();
+    }
+});
+
+//accendi luce 
+app.post('/accendi',async(req,res) => {
+  let conn;
+})
