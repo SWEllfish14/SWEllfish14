@@ -9,6 +9,8 @@ import { GestioneAree } from './GestioneAree';
 import { Area } from './Area';
 import { Home } from './Home';
 import { AggiungiArea } from './AggiungiArea';
+import { Login } from './Login';
+import {GestioneGuasti} from './GestioneGuasti'
 const queryClient= new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +21,8 @@ root.render(
       <Route exact path='/aree' element={<GestioneAree/>}></Route>
       <Route exact path='/aree/aggiungiArea' element={<AggiungiArea/>}></Route>
       <Route exact path='/area/:id' element={<Area/>}></Route>
+      <Route exact path='/login' element={<Login/>}></Route>
+      <Route exact path='/guasti' element={<GestioneGuasti/>}></Route>
     </Routes>
   </Router>
 

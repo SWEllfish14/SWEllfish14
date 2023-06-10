@@ -29,7 +29,7 @@ export function AggiungiArea() {
                 <label htmlFor="zonaArea">Inserisci la zona dell'area:</label>
                 <input id="zonaArea" type="text" value={zonaArea} onChange={(e) => setZonaArea(e.target.value)}></input>
                 <label htmlFor="statoArea">Stato dell'area:</label>
-                <input id="statoArea" type="text" value={statoArea} onChange={(e) => setStatoArea(e.target.value)}></input>
+                <input id="statoArea" size={1} type="text" value={statoArea} onChange={(e) => setStatoArea(e.target.value)}></input>
                 <label htmlFor="luminositaImpostataArea">Luminosità impostata dell'area:</label>
                 <input id="luminositaImpostataArea" type='number' value={luminositaImpostataArea} onChange={(e) => setLuminositaImpostataArea(e.target.value)}></input>
                 <label htmlFor="luminositaDefaultArea">Luminosità default dell'area:</label>
