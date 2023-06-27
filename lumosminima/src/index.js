@@ -10,6 +10,7 @@ import { Area } from './Area';
 import { Home } from './Home';
 import { AggiungiArea } from './AggiungiArea';
 import { Login } from './Login';
+import {Header} from './Header';
 import {GestioneGuasti} from './GestioneGuasti'
 const queryClient= new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root'));

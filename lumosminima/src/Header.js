@@ -1,14 +1,35 @@
 import { Link } from "react-router-dom";
+
 export function Header() {
     return (
+      
       <header>
+        <div class= 'box'>
+          <h1>LUMOS MINIMA</h1>
+        </div>
         <nav>
-        <h1>LUMOS MINIMA</h1>
-        <Link to='/'>Home</Link>
-        <Link to='/aree'>Gestione Aree</Link>
-        <Link to='/'>Gestione guasti</Link>
-        <Link to='/'>Chi siamo</Link>
-        </nav>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item">
+      <Link to='/'>Home</Link>
+      </a>
+      <a class="navbar-item">
+      <Link to='/aree'>Gestione Aree</Link>
+      </a>
+      <a class="navbar-item">
+      <Link to='/'>Gestione guasti</Link>
+      </a>
+
+      <a class="navbar-item">
+      <Link to='/'>Chi siamo</Link>
+      </a>
+
+      </div>
+      </div>
+</nav>
+
+
+       
       </header>
     )
   }

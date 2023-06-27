@@ -4,6 +4,22 @@ import axios from "axios";
 import { useState } from 'react';
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+
+
+var styles = `
+    .menu-list { 
+        font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+        color: red;
+    }
+    .menu-list-border-left{
+        1px solid 
+    }
+`
+
+var styleSheet = document.createElement("style")
+styleSheet.innerText = styles
+document.head.appendChild(styleSheet)
+
 export function Home() {
     const [areaList, setAreaList] = useState([]);
     const [guastoList, setGuastoList] = useState([]);
@@ -16,20 +32,24 @@ export function Home() {
         .then((res) => setGuastoList(res.data))
         )
     return (
+        
         <>
-            <Header></Header>
-            <Grid container spacing={8}>
-                <Grid item xs={6}>
-                    Generali
-                    <ul>
-                        <li>Stato</li>
-                        <li>Guasti</li>
-                        <li>Manuale</li>
-                    </ul>
-                </Grid>
-                <Grid item xs={6}>
+        <div class ="tile is-ancestor">
+            <div class="tile is-parent">
+            <article class="tile is-child box">
+            
+            <p class="menu-label">
+                Stato sistema
+            </p>
+        </article>
+        </div>
+
+        <div class="tile is-child">
+        <article class="tile is-child box">
+                    
                     Gestione aree
                     {areaLoading ? <p>Loading...</p> :
+                    
                 <ul>
                     {areaList.map(area => (
                         <li key={area.ID}>
@@ -39,24 +59,33 @@ export function Home() {
                         </li>
                     ))}
                 </ul>}
-                </Grid>
-                <Grid item xs={6}>
+                </article>
+                </div>
+            </div>  
+
+            <div class = "tile is-ancestor">
+                <div class="tile is-parent">
+                 <article class="tile is-child box">
                     Gestione guasti
                     {
                         guastiLoading ? <p>Loading...</p>:
                         <ul>
                             {guastoList.map(guasto => (
                                 <li key={guasto.ID}>
-                                   Guasto a {guasto.zona_geografica} all'area {guasto.id_area_illuminata}
+                                   Guasto a {guasto.zona_geografica} 
                                 </li>
                             ))}
                         </ul>
                     }
-                </Grid>
-                <Grid item xs={6}>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+        <article class="tile is-child box">
                     Altro
-                </Grid>
-            </Grid>
+                
+            </article>
+            </div>
+            </div>
         </>
 
     )

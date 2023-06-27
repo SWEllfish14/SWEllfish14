@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
@@ -24,10 +24,31 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>LumosMinima - Home</title>
   </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+      <noscript>You need to enable JavaScript to run this app.</noscript>
+      <header>
+        <div class= 'box'>
+          <h1>LUMOS MINIMA</h1>
+        </div>
+
+        <nav>
+    <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item">
+      <Link to='/'>Home</Link>
+      </a>
+      <a class="navbar-item">
+      <Link to='/aree'>Gestione Aree</Link>
+      </a>
+      <a class="navbar-item">
+      <Link to='/guasti'>Gestione guasti</Link>
+      </a>
+      </div>
+      </div>
+  </nav>
+     
+    </header>
     <div id="root"></div>
     <!--
       This HTML file is a template.

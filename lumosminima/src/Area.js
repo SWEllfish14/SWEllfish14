@@ -9,30 +9,38 @@ const headers = {
   
 }
 
-export function Area(){
+export function Area() {
     const params = useParams();
-    const id = params.id
-    
-    const [area,setArea] = useState("");
-    const {isLoading:areaLoading,error:areaError}= useQuery(["area"],  () =>
-    axios.get("http://localhost:3002/area/"+params.id,{headers})
-    .then((res) => setArea(res.data)))
-        return (
-            <div>
-            <p>Area {params.id}</p>
-            
-            <>
-            <LampList id={id}/>
-            </>
-            
-            {areaLoading ? <p>Loading</p>:
-            <>
-                
-                    <p>Luminosità di default{area.luminosita_default} Luminosità impostata{area.luminosita_impostata}</p>
-                
-                
-            </>
-            }
-        </div>
-        )
-}
+    const id = params.id;
+    const { data: area, isLoading: areaLoading, error: areaError } = useQuery(
+      ['area', id],
+      () => axios.get(`http://localhost:3002/area/${id}`, { headers })
+        .then((res) => res.data)
+    );
+  
+    return (
+      <div>
+        <h1>Query Result:</h1>
+        {areaLoading && <p>Loading...</p>}
+        {areaError && <p>Error: {areaError.message}</p>}
+        {area && (
+          <pre>{JSON.stringify(area, null, 2)}</pre>
+        )}
+      </div>
+    );
+  }
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -37,20 +37,8 @@ export function GestioneGuasti() {
     }
     return (
         <>
-            Lista aree con guasti
-            {
-                guastiLoading ? <p>Loading...</p> :
-                    <ul>
-                        {guastoList.map(guasto => (
-                            <li key={guasto.ID}>
-                                Guasto a {guasto.zona_geografica} all'area {guasto.id_area_illuminata} <button onClick={() => rimuoviAreaDaGuasto(guasto.ID)}>Rimuovi</button>
-                            </li>
-                        ))}
-                    </ul>
-            }
-
+        <div class ="box">
             Aggiungi una nuova area alla sezione guasti
-
             <Select
                 name="amministratori"
                 options={areaList}
@@ -58,7 +46,32 @@ export function GestioneGuasti() {
                 onChange={setAreaDaAggiungere}
                 getOptionLabel={(area) => area.zona_geografica}
                 getOptionValue={(area) => area.ID}></Select>
-            <button onClick={() => aggiungiAreaGuasto(areaDaAggiungere)}>Aggiungi</button>
+            <button class = "button is-success" onClick={() => aggiungiAreaGuasto(areaDaAggiungere)}>Aggiungi</button>
+            </div>
+            
+        <div class ="box">
+            Lista aree con guasti
+        </div>
+            {
+                guastiLoading ? <p>Loading...</p> :
+                    <ul>
+                        {guastoList.map(guasto => (
+                           <div class="tile is-ancestor">
+                            <div class="tile is-parent">
+                              <article class="tile is-child box">
+                            <li key={guasto.ID}>
+                                <h1>{guasto.zona_geografica}</h1>
+                                Guasto nell'area {guasto.id_area_illuminata}
+                                <li><button class ="button is-success" onClick={() => rimuoviAreaDaGuasto(guasto.ID)}>Rimuovi</button></li>
+                            </li>
+                            </article>
+                            </div>
+                            </div> 
+                        ))}
+                    </ul>
+                    
+            }
+            
         </>
 
     )
