@@ -1,30 +1,56 @@
-function getLampData(){
-    fetch('http://127.0.0.1:5000/lamp',{
-      method:"GET",
-    })
-    .then(response => response.json())  // converte la mia risposta in un oggetto json
-    .then((lampData) => {
-      dataDisplayerParagraph.innerHTML = "Brightness: " + lampData.brightness + " lamp_id: " + lampData.lamp_id + " lamp_status: " + lampData.lamp_status;
-    })
-    .catch(error => {
-      // gestione degli errori
-      console.log(error);
+async function getLampData() {
+  try {
+    const response = await fetch('http://127.0.0.1:5000/lamp', {
+      method: 'GET'
     });
+    const lampData = await response.json();  
+    return lampData;
+
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
 
-/* function printLampData(){
+async function printLampData(){
+  try {
+    const lampData = await getLampData();
+    dataDisplayerParagraph.innerHTML = "Brightness: " + lampData.brightness + " lamp_id: " + lampData.lamp_id + " lamp_status: " + lampData.lamp_status;
+  } catch (error) {
+    console.log('Errore:', error);
+  }
+}
 
-    getLampData().then(data => {
-    dataDisplayerParagraph.innerHTML("ciao")
-  }) 
-} */
 
+async function changeBrightness(brightnessValue) {
+  const lampData = await getLampData();
+  lampData.brightness = brightnessValue;
+
+  try {
+    const response = await fetch('http://127.0.0.1:5000/lamp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(lampData)
+    });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
 const brightnessButton = document.getElementById("brightnessButton");
-const dataDisplayerParagraph = document.getElementById("dataDisplayerParagraph");
+const lampInfoButton = document.getElementById("lampInfoButton");
+const changeBrightnessButton = document.getElementById("changeBrightnessButton");
+let newBrightness = document.getElementById("newBrightness")
 
 // aggiunta degli eventListener
 
-brightnessButton.addEventListener('click', function(){
-    getLampData();
+lampInfoButton.addEventListener('click', function(){
+  printLampData();
+});
+
+changeBrightnessButton.addEventListener('click', function(){
+  changeBrightness(newBrightness.value);
 });
