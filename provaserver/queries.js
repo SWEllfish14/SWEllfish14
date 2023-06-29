@@ -2,7 +2,7 @@ const { response } = require('express');
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({ host: 'localhost', 
 user: 'root', 
-password:'Ameisrain22',
+password:'SWEllfish14',
 connectionLimit: 100 });
 
 

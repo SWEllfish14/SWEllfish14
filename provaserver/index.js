@@ -43,6 +43,7 @@ app.get('/aree', async (req, res) => {
   }
 });
 
+
 //lista di tutti i guasti
 app.get('/guasti', async (req, res) => {
   let conn;
@@ -66,11 +67,6 @@ app.get('/guasti', async (req, res) => {
   }
 });
 
-const headers = {
-
-  'Content-Type': 'application/json'
-
-}
 
 //Lampioni dell'area
 
@@ -131,6 +127,58 @@ app.get('/area/:id', async (req, res) => {
   }
 });
 
+//numero lampioni a sistema
+app.get('/overviewlampioni', async (req, res) => {
+  let conn;
+  try {
+    // here we make a connection to MariaDB
+    conn = await pool.getConnection();
+
+    // create a new query to fetch all records from the table
+    var query = "SELECT COUNT(*) from lumosminima.lampione";
+
+    // we run the query and set the result to a new variable
+    var rows = await conn.query(query);
+
+    // return the results
+    res.send(rows);
+  } catch (err) {
+    console.log("oof")
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
+
+//numero sensori a sistema
+app.get('/overviewsensori', async (req, res) => {
+  let conn;
+  try {
+    // here we make a connection to MariaDB
+    conn = await pool.getConnection();
+
+    // create a new query to fetch all records from the table
+    var query = "SELECT COUNT(*) from lumosminima.sensore";
+
+    // we run the query and set the result to a new variable
+    var rows = await conn.query(query);
+
+    // return the results
+    res.send(rows);
+  } catch (err) {
+    console.log("oof")
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
+
+
+const headers = {
+
+  'Content-Type': 'application/json'
+
+}
 //lista sensori
 app.get('/sensori/:id', async (req, res) => {
   const id = parseInt(req.params.id)
@@ -142,24 +190,18 @@ app.get('/sensori/:id', async (req, res) => {
 
     var query = "SELECT IP,zona_geografica,iterazione,raggio_azione,polling_time,id_area_illuminata FROM lumosminima.sensore WHERE id_area_illuminata=?";
 
-
     var rows = await conn.query(query, [id]);
-    var sensore;
-    var result = [];
-    await Promise.all(rows.map(async (sens) => {
-      try {
-        const response = await axios.get(sens.IP + "/sensore", headers)
-        console.log(response.data)
-        sensore = response.data;
-        result.push(response.data)
-      }
-      catch (e) {
-        console.log(e.response)
-      }
-    }))
+
+    res.send(rows);
+  } catch (err) {
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
 
 
-
+/*
     res.contentType('application/json');
     res.send(JSON.stringify(result));
   } catch (err) {
@@ -169,6 +211,7 @@ app.get('/sensori/:id', async (req, res) => {
   }
 });
 
+*/
 //lista  amministratori
 app.get('/amministratori', async (req, res) => {
   const id = parseInt(req.params.id)
@@ -290,6 +333,23 @@ app.post('/aggiungiGuasto', async (req, res) => {
 
     var rimuoviQuery = "INSERT INTO lumosminima.guasto (ID,zona_geografica,id_area_illuminata) VALUES(?,?,?) "
     var rows = await conn.query(rimuoviQuery, [id,zonaGeografica,idArea])
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+//per ottenere il numero di guasti da mostrare nella dashboard
+app.post('/numeroGuasti', async (req, res) => {
+  let conn;
+  const id = req.query.id
+  try {
+    
+    conn = await pool.getConnection();
+    var rimuoviQuery = "SELECT COUNT(*) AS numero_guasti FROM lumosminima.guasto;"
+    var rows = await conn.query(rimuoviQuery, [id])
     res.sendStatus(200)
   } catch (err) {
     console.log(err)
