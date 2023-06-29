@@ -20,7 +20,9 @@ var styleSheet = document.createElement("style")
 styleSheet.innerText = styles
 document.head.appendChild(styleSheet)
 
+
 export function Home() {
+
     const [areaList, setAreaList] = useState([]);
     const [guastoList, setGuastoList] = useState([]);
     const { isLoading:areaLoading, error, data, isFetching } = useQuery(["area"], () =>
@@ -40,6 +42,7 @@ export function Home() {
             
             <p class="menu-label">
                 Stato sistema
+                <li>Numero Guasti a sistema:{}</li>
             </p>
         </article>
         </div>
@@ -72,7 +75,10 @@ export function Home() {
                         <ul>
                             {guastoList.map(guasto => (
                                 <li key={guasto.ID}>
-                                   Guasto a {guasto.zona_geografica} 
+                                     <Link to={{
+                                 pathname: `/guasti/`
+                                }}>Guasto a {guasto.zona_geografica} </Link>
+                                   
                                 </li>
                             ))}
                         </ul>
@@ -82,7 +88,7 @@ export function Home() {
                 <div class="tile is-parent">
         <article class="tile is-child box">
                     Altro
-                
+                    <li>Manuale Utente</li>
             </article>
             </div>
             </div>

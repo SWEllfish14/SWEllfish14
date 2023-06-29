@@ -17,7 +17,7 @@ export function Header() {
       <Link to='/aree'>Gestione Aree</Link>
       </a>
       <a class="navbar-item">
-      <Link to='/'>Gestione guasti</Link>
+      <Link to='/guasti'>Gestione guasti</Link>
       </a>
 
       <a class="navbar-item">

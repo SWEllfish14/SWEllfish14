@@ -7,7 +7,7 @@ import { Header } from "./Header";
 
 export function GestioneAree() {
     const [areaList, setAreaList] = useState([]);
-
+    
     const { isLoading, error, data, isFetching } = useQuery(["area"], () =>
         axios.get("http://localhost:3002/aree")
             .then((res) => setAreaList(res.data))
@@ -30,7 +30,6 @@ export function GestioneAree() {
 
         </div>
         </>
-        
     )
 
 }

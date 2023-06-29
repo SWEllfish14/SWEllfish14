@@ -10,6 +10,7 @@ const headers = {
 }
 
 export function Area() {
+  Sensori();
     const params = useParams();
     const id = params.id;
     const { data: area, isLoading: areaLoading, error: areaError } = useQuery(
@@ -28,8 +29,29 @@ export function Area() {
         )}
       </div>
     );
-  }
- 
+        }
+
+    export function Sensori(){
+      const params = useParams();
+    const id = params.id;
+    const { data: area, isLoading: areaLoading, error: areaError } = useQuery(
+      ['area', id],
+      () => axios.get(`http://localhost:3002/sensori/${id}`, { headers })
+        .then((res) => res.data)
+    );
+  
+    return (
+      <div>
+        <h1>Lista Sensori:</h1>
+        {areaLoading && <p>Loading...</p>}
+        {areaError && <p>Error: {areaError.message}</p>}
+        {area && (
+          <pre>{JSON.stringify(area, null, 2)}</pre>
+        )}
+      </div>
+    );
+        }
+
   
   
   

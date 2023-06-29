@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { GestioneAree } from './GestioneAree';
 import { Area } from './Area';
+import { Sensori } from './Area';
 import { Home } from './Home';
 import { AggiungiArea } from './AggiungiArea';
 import { Login } from './Login';
@@ -22,6 +23,7 @@ root.render(
       <Route exact path='/aree' element={<GestioneAree/>}></Route>
       <Route exact path='/aree/aggiungiArea' element={<AggiungiArea/>}></Route>
       <Route exact path='/area/:id' element={<Area/>}></Route>
+      <Route exact path='/sensori/:id' element={<Sensori/>}></Route>
       <Route exact path='/login' element={<Login/>}></Route>
       <Route exact path='/guasti' element={<GestioneGuasti/>}></Route>
     </Routes>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from "react-query";
 import Select from "react-select";
 import { AggiungiArea } from "./AggiungiArea";
@@ -10,6 +10,7 @@ export function GestioneGuasti() {
     const [areaList, setAreaList] = useState([]);
     const [areaDaAggiungere, setAreaDaAggiungere] = useState("");
     const [guastoList, setGuastoList] = useState([]);
+    const [NumeroGuasti] = useState([]);
     const { } = useQuery(["amministratore"], () =>
         axios.get("http://localhost:3002/aree")
             .then((res) => setAreaList(res.data))
@@ -27,6 +28,19 @@ export function GestioneGuasti() {
                 .then((res) => setGuastoList(res.data)))
     }
 
+    
+    const getNumeroGuasti = () =>{
+        axios.post("http://127.0.0.1:3002/numeroGuasti" , null, {}).then((res) =>
+            NumeroGuasti(res.data))
+    return (
+        <>
+        <div>
+            Numero Guasti a sistema: {NumeroGuasti}
+            </div>
+            </>
+    )
+    }
+   
     const aggiungiAreaGuasto = (id) => {
         axios.post("http://127.0.0.1:3002/AggiungiGuasto" , null, {
             params: {
@@ -76,3 +90,5 @@ export function GestioneGuasti() {
 
     )
 }
+
+
