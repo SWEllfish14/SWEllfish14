@@ -9,6 +9,7 @@ const http = require('http');
 const axios = require('axios');
 axios.defaults.baseURL = 'http://localhost:142';
 const cors = require("cors");
+
 app.use(cors());
 app.use(express.json())
 app.use(
@@ -113,13 +114,11 @@ app.get('/area/:id', async (req, res) => {
 
     conn = await pool.getConnection();
 
-
     var query = "SELECT ID,zona_geografica,stato,luminosita_impostata,luminosita_default,user_amministratore FROM lumosminima.area_illuminata WHERE ID=?";
 
 
     var rows = await conn.query(query, [id]);
-
-    res.send(rows);
+    res.send(rows[0]);
   } catch (err) {
     throw err;
   } finally {
@@ -128,20 +127,21 @@ app.get('/area/:id', async (req, res) => {
 });
 
 //numero lampioni a sistema
-app.get('/overviewlampioni', async (req, res) => {
+app.get('/overviewlampioni/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
   let conn;
   try {
     // here we make a connection to MariaDB
     conn = await pool.getConnection();
 
     // create a new query to fetch all records from the table
-    var query = "SELECT COUNT(*) from lumosminima.lampione";
+    var query = "SELECT COUNT(*) AS numero_lampioni from lumosminima.lampione WHERE id_area_illuminata = ?";
 
     // we run the query and set the result to a new variable
-    var rows = await conn.query(query);
+    var rows = await conn.query(query, [id]);
 
     // return the results
-    res.send(rows);
+    res.send(rows[0].numero_lampioni.toString());
   } catch (err) {
     console.log("oof")
     throw err;
@@ -151,20 +151,21 @@ app.get('/overviewlampioni', async (req, res) => {
 });
 
 //numero sensori a sistema
-app.get('/overviewsensori', async (req, res) => {
+app.get('/overviewsensori/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
   let conn;
   try {
     // here we make a connection to MariaDB
     conn = await pool.getConnection();
 
     // create a new query to fetch all records from the table
-    var query = "SELECT COUNT(*) from lumosminima.sensore";
+    var query = "SELECT COUNT(*) as numero_sensori from lumosminima.sensore WHERE id_area_illuminata = ?";
 
     // we run the query and set the result to a new variable
-    var rows = await conn.query(query);
+    var rows = await conn.query(query,[id]);
 
     // return the results
-    res.send(rows);
+    res.send(rows[0].numero_sensori.toString());
   } catch (err) {
     console.log("oof")
     throw err;
@@ -200,6 +201,23 @@ app.get('/sensori/:id', async (req, res) => {
   }
 });
 
+//rimuovi sensore
+app.post('/rimuoviSensore', async (req, res) => {
+  let conn;
+  const ip = req.query.ip
+  try {
+    
+    conn = await pool.getConnection();
+    var rimuoviQuery = "DELETE FROM lumosminima.sensore WHERE IP = ?"
+    var rows = await conn.query(rimuoviQuery, [ip])
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
 
 /*
     res.contentType('application/json');
@@ -342,18 +360,72 @@ app.post('/aggiungiGuasto', async (req, res) => {
   }
 })
 //per ottenere il numero di guasti da mostrare nella dashboard
-app.post('/numeroGuasti', async (req, res) => {
+app.get('/numeroGuasti', async (req, res) => {
   let conn;
-  const id = req.query.id
+  try {
+    conn = await pool.getConnection();
+    var rimuoviQuery = "SELECT COUNT(*) AS numero_guasti FROM lumosminima.guasto;"
+    var rows = await conn.query(rimuoviQuery)
+    console.log(rows[0].numero_guasti)
+    res.send(rows[0].numero_guasti.toString())
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+
+
+//aumentare luminosita a una specifica area
+app.post('/aumentaluminosita', async (req, res) => {
+  let conn;
+  const id= req.query.id;
   try {
     
     conn = await pool.getConnection();
-    var rimuoviQuery = "SELECT COUNT(*) AS numero_guasti FROM lumosminima.guasto;"
-    var rows = await conn.query(rimuoviQuery, [id])
+
+    console.log("connesso")
+    var getcurrentlumquery = "SELECT luminosita_impostata FROM lumosminima.area_illuminata WHERE ID = ?"
+    var luminositaimpostata = await conn.query(getcurrentlumquery, [id]);
+    luminositadaimpostare = (luminositaimpostata[0]["luminosita_impostata"])+1
+    console.log(luminositadaimpostare)
+    var aumentalumquery = "UPDATE lumosminima.area_illuminata SET luminosita_impostata = ? WHERE ID = ? ";
+
+    var result = await conn.query(aumentalumquery, [luminositadaimpostare,id]);
+    console.log(result)
     res.sendStatus(200)
   } catch (err) {
     console.log(err)
     throw err;
+
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+
+//diminuire luminosita a una specifica area
+app.post('/diminuisciluminosita', async (req, res) => {
+  let conn;
+  const id= req.query.id;
+  try {
+    
+    conn = await pool.getConnection();
+
+    console.log("connesso")
+    var getcurrentlumquery = "SELECT luminosita_impostata FROM lumosminima.area_illuminata WHERE ID = ?"
+    var luminositaimpostata = await conn.query(getcurrentlumquery, [id]);
+    luminositadaimpostare = (luminositaimpostata[0]["luminosita_impostata"])-1
+    console.log(luminositadaimpostare)
+    var aumentalumquery = "UPDATE lumosminima.area_illuminata SET luminosita_impostata = ? WHERE ID = ? ";
+
+    var result = await conn.query(aumentalumquery, [luminositadaimpostare,id]);
+    console.log(result)
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    throw err;
+
   } finally {
     if (conn) return conn.release();
   }
