@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import LampList from "./LampList";
+import { useNavigate } from 'react-router-dom';
 const headers = {
   "Content-Type": "application/json",
 };
 
 export function Area() {
+  const navigate = useNavigate();
   const params = useParams();
   const id = params.id;
   const [area, setArea] = useState();
@@ -54,6 +56,16 @@ export function Area() {
       });
   };
 
+
+  const eliminaArea = async () => {
+    const id = params.id;
+    await axios.post("http://localhost:3002/eliminaArea/", null, {
+      params: {
+        id: id,
+      },
+    })
+    .then(() => navigate('/'));
+  }
   return (
     <>
       <div>
@@ -84,6 +96,13 @@ export function Area() {
           Diminuisci Luminosita
         </button>
       </div>
+
+      <button
+        class="button is-danger is-light"
+        onClick={() => eliminaArea()}
+      >
+        Elimina area
+      </button>
     </>
   );
 }
@@ -101,14 +120,19 @@ export function Sensori() {
       .get(`http://localhost:3002/sensori/${id}`, { headers })
       .then((res) => setsensoriList(res.data))
   );
-  const rimuoviSensore =(ip)=>{
-    axios.post("http://127.0.0.1:3002/rimuoviSensore" , null, {
-      params: {
-        ip: ip
-      }}).then((res) =>
-      axios.get("http://localhost:3002/sensori/${id}`", { headers })
-          .then((res) => setsensoriList(res.data)))
-  }
+  const rimuoviSensore = (ip) => {
+    axios
+      .post("http://127.0.0.1:3002/rimuoviSensore", null, {
+        params: {
+          ip: ip,
+        },
+      })
+      .then((res) =>
+        axios
+          .get("http://localhost:3002/sensori/${id}`", { headers })
+          .then((res) => setsensoriList(res.data))
+      );
+  };
   return (
     <div>
       <h1>Lista Sensori:</h1>
@@ -121,7 +145,12 @@ export function Sensori() {
               <li key={sensore.IP}>
                 <h1>Zona geografica:{sensore.zona_geografica}</h1>
                 <h1>IP sensore:{sensore.IP}</h1>
-                <button class="button is-danger is-light" onClick={() => rimuoviSensore(sensore.IP)}>Elimina</button>
+                <button
+                  class="button is-danger is-light"
+                  onClick={() => rimuoviSensore(sensore.IP)}
+                >
+                  Elimina
+                </button>
               </li>
             </article>
           </div>

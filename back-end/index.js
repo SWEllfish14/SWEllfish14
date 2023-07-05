@@ -126,6 +126,30 @@ app.get('/area/:id', async (req, res) => {
   }
 });
 
+//rimuovi area
+app.post('/eliminaArea', async (req, res) => {
+  let conn;
+  const id = req.query.id
+  try {
+    
+    conn = await pool.getConnection();
+    var rimuoviSensoriQuery = "DELETE FROM lumosminima.sensore WHERE id_area_illuminata = ?"
+    await conn.query(rimuoviSensoriQuery,[id])
+    var rimuoviLampioniQuery = "DELETE FROM lumosminima.lampione WHERE id_area_illuminata = ?"
+    await conn.query(rimuoviLampioniQuery,[id])
+    var rimuoviGuastiQuery = "DELETE FROM lumosminima.guasto WHERE id_area_illuminata = ?"
+    await conn.query(rimuoviGuastiQuery,[id])
+    var rimuoviAreaQuery = "DELETE FROM lumosminima.area_illuminata WHERE ID = ?"
+    var rows = await conn.query(rimuoviAreaQuery, [id])
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+
 //numero lampioni a sistema
 app.get('/overviewlampioni/:id', async (req, res) => {
   const id = parseInt(req.params.id)
