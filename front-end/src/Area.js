@@ -81,7 +81,7 @@ export function Area() {
           </div>
         )}
       </div>
-
+          <LampList id={id}></LampList>
       <Sensori />
       <div>
         <h1>Impostazioni Luminosita</h1>
