@@ -41,6 +41,20 @@ export default function LampList({ id }) {
           .then((res) => setLampList(res.data))
       );
   };
+
+  const eliminaLampione = async(ip) =>{
+    await axios
+      .post("http://127.0.0.1:3002/eliminaLampione", null, {
+        params: {
+          ip: ip,
+        },
+      })
+      .then(() =>
+        axios
+          .get("http://localhost:3002/lamps/" + id, { headers })
+          .then((res) => setLampList(res.data))
+      );
+  }
   return (
     <>
       Lista lampioni
@@ -65,6 +79,10 @@ export default function LampList({ id }) {
                 </button>
               </>
             )}
+            <button
+                  class="button is-danger"
+                  onClick={() => eliminaLampione(lamp.ip)}
+                >Elimina lampione</button>
           </li>
         ))}
       </ul>

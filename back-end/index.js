@@ -159,6 +159,27 @@ app.post('/spegniLampione', async (req, res) => {
     if (conn) return conn.release();
   }
 })
+//elimina lampione
+app.post('/eliminaLampione', async (req, res) => {
+  let conn;
+  const ip = req.query.ip
+  
+  
+  try {
+    conn = await pool.getConnection();
+    var eliminaQuery = 'DELETE FROM lumosminima.lampione WHERE IP = ?'
+    await conn.query(eliminaQuery,[ip])
+   
+    res.sendStatus(200)
+    
+    
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
 
 //Area da ID
 app.get('/area/:id', async (req, res) => {

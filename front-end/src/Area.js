@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import LampList from "./LampList";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 const headers = {
   "Content-Type": "application/json",
 };
@@ -56,49 +56,58 @@ export function Area() {
       });
   };
 
-
   const eliminaArea = async () => {
     const id = params.id;
-    await axios.post("http://localhost:3002/eliminaArea/", null, {
-      params: {
-        id: id,
-      },
-    })
-    .then(() => navigate('/'));
-  }
+    await axios
+      .post("http://localhost:3002/eliminaArea/", null, {
+        params: {
+          id: id,
+        },
+      })
+      .then(() => navigate("/"));
+  };
   return (
     <>
-      <div>
-        <h1>Query Result:</h1>
-        {areaLoading && <p>Loading...</p>}
-        {areaError && <p>Error: {areaError.message}</p>}
-        {area && (
-          <div>
-            <p>Stato:{area.stato ? <>Manuale</> : <>Automatico</>}</p>
-            <p>Luminosità:{area.luminosita_impostata}</p>
-            <p>Numero lampioni: {numeroLampioni}</p>
-            <p>Numero sensori: {numeroSensori}</p>
+      <div className="columns">
+        <div className="column is-half">
+          {areaLoading && <p>Loading...</p>}
+          {areaError && <p>Error: {areaError.message}</p>}
+          {area && (
+            <div className="box">
+              <p>Stato:{area.stato ? <>Manuale</> : <>Automatico</>}</p>
+              <p>Luminosità:{area.luminosita_impostata}</p>
+              <p>Numero lampioni: {numeroLampioni}</p>
+              <p>Numero sensori: {numeroSensori}</p>
+            </div>
+          )}
+          <div className="box">
+            <LampList id={id} />
           </div>
-        )}
-      </div>
-          <LampList id={id}></LampList>
-      <Sensori />
-      <div>
-        <h1>Impostazioni Luminosita</h1>
+        </div>
+        <div className="column is-half">
+          <div className="box">
+            <h2>Impostazioni Luminosità</h2>
 
-        <button class="button is-success" onClick={() => aumentaLuminosita()}>
-          Aumenta Luminosita
-        </button>
-        <button
-          class="button is-success"
-          onClick={() => diminuisciLuminosita()}
-        >
-          Diminuisci Luminosita
-        </button>
+            <button
+              className="button is-success"
+              onClick={() => aumentaLuminosita()}
+            >
+              Aumenta Luminosità
+            </button>
+            <button
+              className="button is-success"
+              onClick={() => diminuisciLuminosita()}
+            >
+              Diminuisci Luminosità
+            </button>
+          </div>
+          <div className="box">
+            <Sensori />
+          </div>
+        </div>
       </div>
-
       <button
-        class="button is-danger is-light"
+        className="button is-danger is-light is-full"
         onClick={() => eliminaArea()}
       >
         Elimina area
@@ -127,7 +136,7 @@ export function Sensori() {
           ip: ip,
         },
       })
-      .then((res) =>
+      .then(() =>
         axios
           .get("http://localhost:3002/sensori/${id}`", { headers })
           .then((res) => setsensoriList(res.data))
@@ -139,14 +148,14 @@ export function Sensori() {
       {sensoriLoading && <p>Loading...</p>}
       {sensoriError && <p>Error: {sensoriError.message}</p>}
       {sensoriList.map((sensore) => (
-        <div class="tile is-ancestor">
-          <div class="tile is-parent">
-            <article class="tile is-child box">
+        <div className="tile is-ancestor">
+          <div className="tile is-parent">
+            <article className="tile is-child box">
               <li key={sensore.IP}>
                 <h1>Zona geografica:{sensore.zona_geografica}</h1>
                 <h1>IP sensore:{sensore.IP}</h1>
                 <button
-                  class="button is-danger is-light"
+                  className="button is-danger is-light"
                   onClick={() => rimuoviSensore(sensore.IP)}
                 >
                   Elimina
