@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 var styles = `
     .menu-list { 
         font-family: Georgia,Cambria,"Times New Roman",Times,serif;
-        color: red;
     }
     .menu-list-border-left{
         1px solid 
@@ -28,8 +27,8 @@ export function Home() {
     const [numeroGuasti, setNumeroGuasti] = useState();
     const [numeroLampioni, setNumeroLampioni] = useState();
     const [numeroSensori, setNumeroSensori] = useState();
-    const { isLoading:areaLoading, error, data, isFetching } = useQuery(["area"], () =>
-        axios.get("http://localhost:3002/aree")
+    const { isLoading:areaLoading, error, data, isFetching } = useQuery(["areelimit"], () =>
+        axios.get("http://localhost:3002/areelimit")
             .then((res) => setAreaList(res.data))
             )
     const {isLoading:guastiLoading} = useQuery(["guasto"], () =>
@@ -48,25 +47,24 @@ export function Home() {
             axios.get("http://localhost:3002/numeroSensori")
                 .then((res) => setNumeroSensori(res.data)))
     return (
-        
         <>
         <div class ="tile is-ancestor">
-            <div class="tile is-parent">
-            <article class="tile is-child box">
+        <div class="tile is-parent">
+        <article class="tile is-child box">
+        <h1>Stato sistema</h1>
+        <p class="menu-label">
             
-            <p class="menu-label">
-                Stato sistema
-                <li>Numero Guasti a sistema:{numeroGuastiLoading ? <p>Loading...</p> : numeroGuasti}</li>
-                <li>Numero lampioni a sistema:{numeroLampioniLoading ? <p>Loading...</p> : numeroLampioni}</li>
-                <li>Numero sensori a sistema:{numeroSensoriLoading ? <p>Loading...</p> : numeroSensori}</li>
-            </p>
-        </article>
-        </div>
+            <li>Numero Guasti a sistema:{numeroGuastiLoading ? <p>Loading...</p> : numeroGuasti}</li>
+            <li>Numero lampioni a sistema:{numeroLampioniLoading ? <p>Loading...</p> : numeroLampioni}</li>
+            <li>Numero sensori a sistema:{numeroSensoriLoading ? <p>Loading...</p> : numeroSensori}</li>
+        </p>
+    </article>
+    </div>
 
         <div class="tile is-child">
-        <article class="tile is-child box">
-                    
-                    Gestione aree
+       <article class="tile is-child box">
+        <h1>Gestione aree più congestionate</h1>  
+             <p class ="menu-label">      
                     {areaLoading ? <p>Loading...</p> :
                     
                 <ul>
@@ -85,14 +83,17 @@ export function Home() {
                     ))}
                     
                 </ul>}
+                </p>
                 </article>
                 </div>
-            </div>  
+                </div>
+              
 
             <div class = "tile is-ancestor">
-                <div class="tile is-parent">
-                 <article class="tile is-child box">
-                    Gestione guasti
+            <div class="tile is-parent">
+            <article class="tile is-child box">
+                    <h1>Gestione guasti</h1>
+                    <p class="menu-label">
                     {
                         guastiLoading ? <p>Loading...</p>:
                         <ul>
@@ -112,12 +113,18 @@ export function Home() {
                                  pathname: `/guasti/`
                                 }}>Gestisci Guasti </Link>
                         </button>
+                        </p>
                     </article>
                 </div>
-                <div class="tile is-parent">
-        <article class="tile is-child box">
-                    Altro
+
+
+
+         <div class="tile is-parent">
+         <article class="tile is-child box">
+                    <h1>Altro</h1>
+                    <p class="menu-list">
                     <li>Manuale Utente</li>
+                    </p>
             </article>
             </div>
             </div>
