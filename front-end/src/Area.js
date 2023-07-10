@@ -81,13 +81,13 @@ export function Area() {
             </div>
           )}
           <div className="box">
-            <LampList id={id} />
+            <LampList id = {1} />
           </div>
         </div>
         <div className="column is-half">
           <div className="box">
             <h2>Impostazioni Luminosità</h2>
-
+            
             <button
               className="button is-success"
               onClick={() => aumentaLuminosita()}
@@ -154,6 +154,7 @@ export function Sensori() {
               <li key={sensore.IP}>
                 <h1>Zona geografica:{sensore.zona_geografica}</h1>
                 <h1>IP sensore:{sensore.IP}</h1>
+                <h1>Raggio Azione: {sensore.raggio_azione} metri</h1>
                 <button
                   className="button is-danger is-light"
                   onClick={() => rimuoviSensore(sensore.IP)}

@@ -26,6 +26,8 @@ export function Home() {
     const [areaList, setAreaList] = useState([]);
     const [guastoList, setGuastoList] = useState([]);
     const [numeroGuasti, setNumeroGuasti] = useState();
+    const [numeroLampioni, setNumeroLampioni] = useState();
+    const [numeroSensori, setNumeroSensori] = useState();
     const { isLoading:areaLoading, error, data, isFetching } = useQuery(["area"], () =>
         axios.get("http://localhost:3002/aree")
             .then((res) => setAreaList(res.data))
@@ -37,6 +39,14 @@ export function Home() {
     const {isLoading:numeroGuastiLoading} = useQuery(["numeroguasto"], () =>
     axios.get("http://localhost:3002/numeroGuasti")
         .then((res) => setNumeroGuasti(res.data)))
+
+        const {isLoading:numeroLampioniLoading} = useQuery(["numerolampioni"], () =>
+        axios.get("http://localhost:3002/numeroLampioni")
+            .then((res) => setNumeroLampioni(res.data)))
+
+            const {isLoading:numeroSensoriLoading} = useQuery(["numerosensori"], () =>
+            axios.get("http://localhost:3002/numeroSensori")
+                .then((res) => setNumeroSensori(res.data)))
     return (
         
         <>
@@ -47,6 +57,8 @@ export function Home() {
             <p class="menu-label">
                 Stato sistema
                 <li>Numero Guasti a sistema:{numeroGuastiLoading ? <p>Loading...</p> : numeroGuasti}</li>
+                <li>Numero lampioni a sistema:{numeroLampioniLoading ? <p>Loading...</p> : numeroLampioni}</li>
+                <li>Numero sensori a sistema:{numeroSensoriLoading ? <p>Loading...</p> : numeroSensori}</li>
             </p>
         </article>
         </div>
@@ -58,13 +70,20 @@ export function Home() {
                     {areaLoading ? <p>Loading...</p> :
                     
                 <ul>
+                    
                     {areaList.map(area => (
                         <li key={area.ID}>
+                            {area.zona_geografica}
+                            
+                            <button className ="button is-small is-responsive ">
                             <Link to={{
                                 pathname: `/area/${area.ID}`
-                            }}>{area.zona_geografica}</Link>
+                            }}>Gestisci area</Link>
+                            </button>
                         </li>
+                        
                     ))}
+                    
                 </ul>}
                 </article>
                 </div>
@@ -79,14 +98,20 @@ export function Home() {
                         <ul>
                             {guastoList.map(guasto => (
                                 <li key={guasto.ID}>
-                                     <Link to={{
-                                 pathname: `/guasti/`
-                                }}>Guasto a {guasto.zona_geografica} </Link>
+                                     
+                                
+                                Guasto a {guasto.zona_geografica} 
                                    
                                 </li>
                             ))}
                         </ul>
+                        
                     }
+                    <button className="button is-success">
+                    <Link to={{
+                                 pathname: `/guasti/`
+                                }}>Gestisci Guasti </Link>
+                        </button>
                     </article>
                 </div>
                 <div class="tile is-parent">
