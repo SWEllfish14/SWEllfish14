@@ -98,7 +98,7 @@ app.get('/lamps/:id', async (req, res) => {
     }))
 
 
-
+    
     res.contentType('application/json');
     res.send(JSON.stringify(result));
   } catch (err) {
@@ -474,6 +474,42 @@ app.get('/numeroGuasti', async (req, res) => {
     if (conn) return conn.release();
   }
 })
+
+//per ottenere il numero dei lampioni da mostrare nella dashboard
+app.get('/numeroLampioni', async (req, res) => {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    var Query = "SELECT COUNT(*) AS numero_lampioni FROM lumosminima.lampione;"
+    var rows = await conn.query(Query)
+    console.log(rows[0].numero_lampioni)
+    res.send(rows[0].numero_lampioni.toString())
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+
+
+//per ottenere il numero disensori da mostrare nella dashboard
+app.get('/numeroSensori', async (req, res) => {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    var Query = "SELECT COUNT(*) AS numero_sensori FROM lumosminima.sensore;"
+    var rows = await conn.query(Query)
+    console.log(rows[0].numero_sensori)
+    res.send(rows[0].numero_sensori.toString())
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+
 
 
 //aumentare luminosita a una specifica area
