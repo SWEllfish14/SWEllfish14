@@ -44,6 +44,29 @@ app.get('/aree', async (req, res) => {
   }
 });
 
+//lista di tutte le aree per la dashboard(limitate a 5)
+app.get('/areelimit', async (req, res) => {
+  let conn;
+  try {
+    // here we make a connection to MariaDB
+    conn = await pool.getConnection();
+
+    // create a new query to fetch all records from the table
+    var query = "SELECT ID,zona_geografica FROM lumosminima.area_illuminata ORDER BY ID DESC limit 5; ";
+
+    // we run the query and set the result to a new variable
+    var rows = await conn.query(query);
+
+    // return the results
+    res.send(rows);
+  } catch (err) {
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
+
+
 
 //lista di tutti i guasti
 app.get('/guasti', async (req, res) => {
@@ -201,6 +224,8 @@ app.get('/area/:id', async (req, res) => {
   }
 });
 
+
+
 //rimuovi area
 app.post('/eliminaArea', async (req, res) => {
   let conn;
@@ -248,6 +273,8 @@ app.get('/overviewlampioni/:id', async (req, res) => {
     if (conn) return conn.release();
   }
 });
+
+
 
 //numero sensori a sistema
 app.get('/overviewsensori/:id', async (req, res) => {
@@ -492,8 +519,7 @@ app.get('/numeroLampioni', async (req, res) => {
   }
 })
 
-
-//per ottenere il numero disensori da mostrare nella dashboard
+//per ottenere il numero dei sensori per la dashboard
 app.get('/numeroSensori', async (req, res) => {
   let conn;
   try {
