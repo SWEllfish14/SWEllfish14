@@ -69,19 +69,24 @@ export function Area() {
   return (
     <>
       <div className="columns">
+      
         <div className="column is-half">
+          
           {areaLoading && <p>Loading...</p>}
           {areaError && <p>Error: {areaError.message}</p>}
           {area && (
             <div className="box">
+              <h1>Zona Geografica: {area.zona_geografica}</h1>
+              
               <p>Stato:{area.stato ? <>Manuale</> : <>Automatico</>}</p>
               <p>Luminosità:{area.luminosita_impostata}</p>
               <p>Numero lampioni: {numeroLampioni}</p>
               <p>Numero sensori: {numeroSensori}</p>
             </div>
+            
           )}
           <div className="box">
-            <LampList id = {1} />
+            <LampList id = {2} />
           </div>
         </div>
         <div className="column is-half">

@@ -63,7 +63,7 @@ export function Home() {
 
         <div class="tile is-child">
        <article class="tile is-child box">
-        <h1>Gestione aree più congestionate</h1>  
+        <h1>Gestione aree aggiunte di recente</h1>  
              <p class ="menu-label">      
                     {areaLoading ? <p>Loading...</p> :
                     
@@ -72,7 +72,6 @@ export function Home() {
                     {areaList.map(area => (
                         <li key={area.ID}>
                             {area.zona_geografica}
-                            
                             <button className ="button is-small is-responsive ">
                             <Link to={{
                                 pathname: `/area/${area.ID}`

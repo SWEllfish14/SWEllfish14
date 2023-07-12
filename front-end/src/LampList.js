@@ -60,8 +60,8 @@ export default function LampList({ id }) {
       Lista lampioni
       <ul>
         {lampList.map((lamp) => (
-          <li key={lamp.lamp_id}>
-            Lampione ID:{lamp.lamp_id} Luminosità:{lamp.brightness} Stato:
+          <li key={lamp.ID}>
+            Lampione ID:{lamp.ID} Luminosità:{lamp.luminosita_impostata} Stato:
             {lamp.lamp_status ? (
               <>Acceso
               <button
