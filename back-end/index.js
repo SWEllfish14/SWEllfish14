@@ -94,7 +94,7 @@ app.get('/guasti', async (req, res) => {
 
 //Lampioni dell'area
 
-app.get('/lamps/:id', async (req, res) => {
+app.get('/lamps/:id', async (req, res) =>{
   const id = parseInt(req.params.id)
   let conn;
   try {
@@ -102,7 +102,7 @@ app.get('/lamps/:id', async (req, res) => {
     conn = await pool.getConnection();
 
 
-    var query = "SELECT IP,status FROM lumosminima.lampione WHERE id_area_illuminata=?";
+    var query = "SELECT IP,ID,luminosita_impostata,status FROM lumosminima.lampione WHERE id_area_illuminata=?";
 
 
     var rows = await conn.query(query, [id]);
@@ -116,13 +116,21 @@ app.get('/lamps/:id', async (req, res) => {
         result.push(response.data)
       }
       catch (e) {
-        console.log(e.response)
+       console.log(e.response)
       }
-    }))
-
-
+      }))
     
-    res.contentType('application/json');
+    
+    res.send(rows);
+  } catch (err) {
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+  });
+  
+/*
+   res.contentType('application/json');
     res.send(JSON.stringify(result));
   } catch (err) {
     throw err;
@@ -131,6 +139,43 @@ app.get('/lamps/:id', async (req, res) => {
   }
 });
 
+const id = parseInt(req.params.id)
+let conn;
+try {
+
+  conn = await pool.getConnection();
+
+
+  var query = "SELECT IP,status FROM lumosminima.lampione WHERE id_area_illuminata=?";
+
+
+  var rows = await conn.query(query, [id]);
+  var result = [];
+  await Promise.all(rows.map(async (lamp) => {
+   try {
+      //console.log('http://' + lamp.IP + ":3020/lamp")
+      //const response = await axios.get('http://' + lamp.IP + ":3020/lamp", headers)
+      //response.data.ip = lamp.IP
+      //console.log(response.data)
+      //result.push(response.data)
+    }
+    catch (e) {
+      console.log(e.response)
+    }
+    
+  }))
+
+  
+  res.contentType('application/json');
+  res.send(JSON.stringify(result));
+} 
+catch (err) {
+  throw err;
+} finally {
+  if (conn) return conn.release();
+}
+});
+*/
 //accendi lampione
 app.post('/accendiLampione', async (req, res) => {
   let conn;
@@ -206,6 +251,7 @@ app.post('/eliminaLampione', async (req, res) => {
 
 //Area da ID
 app.get('/area/:id', async (req, res) => {
+
   const id = parseInt(req.params.id)
   let conn;
   try {
