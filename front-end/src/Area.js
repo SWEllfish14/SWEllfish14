@@ -86,7 +86,7 @@ export function Area() {
             
           )}
           <div className="box">
-            <LampList id = {2} />
+            <LampList id = {id} />
           </div>
         </div>
         <div className="column is-half">
@@ -146,7 +146,10 @@ export function Sensori() {
           .get("http://localhost:3002/sensori/${id}`", { headers })
           .then((res) => setsensoriList(res.data))
       );
+
+      
   };
+
   return (
     <div>
       <h1>Lista Sensori:</h1>
@@ -156,17 +159,15 @@ export function Sensori() {
         <div className="tile is-ancestor">
           <div className="tile is-parent">
             <article className="tile is-child box">
-              <li key={sensore.IP}>
+             
                 <h1>Zona geografica:{sensore.zona_geografica}</h1>
                 <h1>IP sensore:{sensore.IP}</h1>
                 <h1>Raggio Azione: {sensore.raggio_azione} metri</h1>
                 <button
-                  className="button is-danger is-light"
-                  onClick={() => rimuoviSensore(sensore.IP)}
-                >
+                  className="button is-danger"
+                  onClick={() => rimuoviSensore(sensore.IP)}>
                   Elimina
-                </button>
-              </li>
+                  </button>
             </article>
           </div>
         </div>

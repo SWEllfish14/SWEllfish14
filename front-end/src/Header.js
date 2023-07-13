@@ -53,11 +53,6 @@ export function Header() {
       <a class="navbar-item">
       <Link to='/guasti'>Gestione guasti</Link>
       </a>
-
-      <a class="navbar-item">
-      <Link to='/'>Chi siamo</Link>
-      </a>
-
     </div>
       </div>
       </nav>

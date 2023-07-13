@@ -91,7 +91,7 @@ export function Home() {
             <div class = "tile is-ancestor">
             <div class="tile is-parent">
             <article class="tile is-child box">
-                    <h1>Gestione guasti</h1>
+                    <h1>Ultimi guasti inseriti a sistema</h1>
                     <p class="menu-label">
                     {
                         guastiLoading ? <p>Loading...</p>:

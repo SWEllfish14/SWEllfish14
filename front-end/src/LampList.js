@@ -61,16 +61,17 @@ export default function LampList({ id }) {
       <ul>
         {lampList.map((lamp) => (
           <li key={lamp.ID}>
-            Lampione ID:{lamp.ID} Luminosità:{lamp.luminosita_impostata} Stato:
-            {lamp.lamp_status ? (
+            Lampione ID:{lamp.ID}
+            Luminosità:{lamp.luminosita_impostata} 
+            Stato:{lamp.status  ? (
               <>Acceso
               <button
-                  class="button is-danger"
+                  class="button is-danger is-light"
                   onClick={() => spegni(lamp.ip)}
                 >Spegni</button></>
             ) : (
               <>
-                Spento{" "}
+                Spento
                 <button
                   class="button is-success"
                   onClick={() => accendi(lamp.ip)}
