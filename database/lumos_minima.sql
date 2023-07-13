@@ -49,15 +49,21 @@ CREATE TABLE IF NOT EXISTS `area_illuminata` (
   CONSTRAINT `fk_user_amministratore` FOREIGN KEY (`user_amministratore`) REFERENCES `amministratore` (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dump dei dati della tabella lumosminima.area_illuminata: ~7 rows (circa)
+-- Dump dei dati della tabella lumosminima.area_illuminata: ~13 rows (circa)
 INSERT INTO `area_illuminata` (`ID`, `zona_geografica`, `stato`, `luminosita_impostata`, `luminosita_default`, `user_amministratore`) VALUES
-	(1, 'Padova_via Scrovegni', '1', 8, 2, 'admin'),
+	(1, 'Padova_via Scrovegni', '1', 5, 2, 'admin'),
 	(2, 'Mantova', '0', 9, 1, 'andrea'),
 	(3, 'Parma', '1', 3, 0, 'jude'),
 	(4, 'Viareggio', '0', 5, 9, 'elena'),
 	(5, 'Catania', '1', 5, 9, 'claudio'),
 	(6, 'Gorizia', '1', 8, 3, 'francesco'),
-	(7, 'Cittadella', '0', 10, 1, 'davide');
+	(7, 'Cittadella', '0', 10, 1, 'davide'),
+	(8, 'Roma', '1', 10, 1, 'davide'),
+	(9, 'Napoli', '0', 1, 1, 'davide'),
+	(10, 'Verona', '0', 1, 1, 'elena'),
+	(11, 'Torino', '1', 1, 1, 'elena'),
+	(12, 'Asiago', '1', 1, 10, 'elena'),
+	(13, 'Firenze', '0', 1, 10, 'andrea');
 
 -- Dump della struttura di tabella lumosminima.gestione_guasto
 CREATE TABLE IF NOT EXISTS `gestione_guasto` (
@@ -81,17 +87,17 @@ CREATE TABLE IF NOT EXISTS `guasto` (
   CONSTRAINT `fk_id_area_illuminata_guasto` FOREIGN KEY (`id_area_illuminata`) REFERENCES `area_illuminata` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dump dei dati della tabella lumosminima.guasto: ~3 rows (circa)
+-- Dump dei dati della tabella lumosminima.guasto: ~6 rows (circa)
 INSERT INTO `guasto` (`ID`, `zona_geografica`, `id_area_illuminata`) VALUES
-	(0, 'Viareggio', 4),
 	(1, 'Gorizia', 6),
 	(2, 'Padova', 1);
 
 -- Dump della struttura di tabella lumosminima.lampione
 CREATE TABLE IF NOT EXISTS `lampione` (
   `IP` varchar(12) NOT NULL,
+  `ID` varchar(12) NOT NULL,
   `polling_time` int(11) NOT NULL,
-  `status` varchar(50) NOT NULL,
+  `status` char(1) NOT NULL DEFAULT '0',
   `iterazione` varchar(50) NOT NULL,
   `luminosita_default` int(11) NOT NULL,
   `luminosita_impostata` int(11) NOT NULL,
@@ -101,20 +107,20 @@ CREATE TABLE IF NOT EXISTS `lampione` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Dump dei dati della tabella lumosminima.lampione: ~13 rows (circa)
-INSERT INTO `lampione` (`IP`, `polling_time`, `status`, `iterazione`, `luminosita_default`, `luminosita_impostata`, `id_area_illuminata`) VALUES
-	('2003001255', 3, '1', 'push', 5, 8, 5),
-	('2003001254', 3, '1', 'push', 5, 8, 1),
-	('2003001250', 3, '1', 'push', 2, 10, 1),
-	('2003001230', 3, '1', 'push', 2, 10, 2),
-	('2003001229', 3, '1', 'push', 6, 10, 2),
-	('2003001228', 3, '1', 'push', 0, 10, 3),
-	('2003001238', 3, '1', 'push', 3, 7, 4),
-	('2013001238', 3, '1', 'push', 2, 7, 4),
-	('2013001221', 3, '1', 'push', 2, 7, 5),
-	('2013001233', 3, '1', 'push', 5, 7, 5),
-	('2014001233', 3, '1', 'push', 7, 7, 6),
-	('2014001288', 3, '1', 'push', 7, 9, 7),
-	('2015001288', 3, '1', 'push', 8, 9, 7);
+INSERT INTO `lampione` (`IP`, `ID`, `polling_time`, `status`, `iterazione`, `luminosita_default`, `luminosita_impostata`, `id_area_illuminata`) VALUES
+	('2003001255', '123', 3, '1', 'push', 5, 8, 5),
+	('192.168.2.25', '124', 3, '1', 'push', 5, 8, 1),
+	('2003001250', '125', 3, '1', 'push', 2, 10, 1),
+	('2003001230', '126', 3, '1', 'push', 2, 10, 2),
+	('2003001229', '127', 3, '1', 'push', 6, 10, 2),
+	('2003001228', '128', 3, '1', 'push', 0, 10, 3),
+	('2003001238', '129', 3, '1', 'push', 3, 7, 4),
+	('2013001238', '130', 3, '1', 'push', 2, 7, 4),
+	('2013001221', '131', 3, '1', 'push', 2, 7, 5),
+	('2013001233', '132', 3, '1', 'push', 5, 7, 5),
+	('2014001233', '133', 3, '1', 'push', 7, 7, 6),
+	('2014001288', '134', 3, '1', 'push', 7, 9, 7),
+	('2015001288', '135', 3, '1', 'push', 8, 9, 7);
 
 -- Dump della struttura di tabella lumosminima.manutentore
 CREATE TABLE IF NOT EXISTS `manutentore` (
@@ -123,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `manutentore` (
   PRIMARY KEY (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dump dei dati della tabella lumosminima.manutentore: ~1 rows (circa)
+-- Dump dei dati della tabella lumosminima.manutentore: ~0 rows (circa)
 INSERT INTO `manutentore` (`Username`, `password`) VALUES
 	('manutentore', 'abcd');
 
