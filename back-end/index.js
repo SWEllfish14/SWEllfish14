@@ -76,7 +76,7 @@ app.get('/guasti', async (req, res) => {
     conn = await pool.getConnection();
 
     // create a new query to fetch all records from the table
-    var query = "SELECT ID,zona_geografica,id_area_illuminata FROM lumosminima.guasto";
+    var query = "SELECT ID,zona_geografica,id_area_illuminata FROM lumosminima.guasto ORDER BY ID DESC LIMIT 5";
 
     // we run the query and set the result to a new variable
     var rows = await conn.query(query);
@@ -109,11 +109,11 @@ app.get('/lamps/:id', async (req, res) =>{
     var result = [];
     await Promise.all(rows.map(async (lamp) => {
       try {
-        console.log('http://' + lamp.IP + ":3020/lamp")
-        const response = await axios.get('http://' + lamp.IP + ":3020/lamp", headers)
-        response.data.ip = lamp.IP
-        console.log(response.data)
-        result.push(response.data)
+        //console.log('http://' + lamp.IP + ":3020/lamp")
+        //const response = await axios.get('http://' + lamp.IP + ":3020/lamp", headers)
+        //response.data.ip = lamp.IP
+        //console.log(response.data)
+      //  result.push(response.data)
       }
       catch (e) {
        console.log(e.response)
@@ -536,7 +536,7 @@ app.get('/numeroGuasti', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    var rimuoviQuery = "SELECT COUNT(*) AS numero_guasti FROM lumosminima.guasto;"
+    var rimuoviQuery = "SELECT ID, count(ID) AS numero_guasti FROM lumosminima.guasto;"
     var rows = await conn.query(rimuoviQuery)
     console.log(rows[0].numero_guasti)
     res.send(rows[0].numero_guasti.toString())
@@ -597,7 +597,10 @@ app.post('/aumentaluminosita', async (req, res) => {
     var luminositaimpostata = await conn.query(getcurrentlumquery, [id]);
     luminositadaimpostare = (luminositaimpostata[0]["luminosita_impostata"])+1
     console.log(luminositadaimpostare)
-    var aumentalumquery = "UPDATE lumosminima.area_illuminata SET luminosita_impostata = ? WHERE ID = ? ";
+    var aumentalumquery = " ";
+    if(luminositadaimpostare <= 10){
+     aumentalumquery = "UPDATE lumosminima.area_illuminata SET luminosita_impostata = ? WHERE ID = ? ";
+    }
 
     var result = await conn.query(aumentalumquery, [luminositadaimpostare,id]);
     console.log(result)
@@ -624,8 +627,10 @@ app.post('/diminuisciluminosita', async (req, res) => {
     var luminositaimpostata = await conn.query(getcurrentlumquery, [id]);
     luminositadaimpostare = (luminositaimpostata[0]["luminosita_impostata"])-1
     console.log(luminositadaimpostare)
-    var aumentalumquery = "UPDATE lumosminima.area_illuminata SET luminosita_impostata = ? WHERE ID = ? ";
-
+    var aumentalumquery = " ";
+    if(luminositadaimpostare >= 0){
+    aumentalumquery = "UPDATE lumosminima.area_illuminata SET luminosita_impostata = ? WHERE ID = ? ";
+    }
     var result = await conn.query(aumentalumquery, [luminositadaimpostare,id]);
     console.log(result)
     res.sendStatus(200)
