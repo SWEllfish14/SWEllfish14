@@ -5,15 +5,18 @@ import json
 
 app = Flask(__name__)
 CORS(app)
-
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3020',
+    'http://127.0.0.1:3020/lamp'
+]
 # Identificativo del lampione
 lamp_id = 123
 
 # Stato del lampione (True = acceso, False = spento)
-lamp_status = False
+lamp_status = True
 
 # Luminosità del lampione (0 = spento, 1-10 = luminosità impostata)
-brightness = 0
+brightness = 3
 
 """
 # Configurazione del client MQTT
@@ -74,4 +77,4 @@ def index():
 if __name__ == '__main__':
     #mqtt_client.connect(mqtt_broker_address, mqtt_broker_port)
     #mqtt_client.loop_start()
-    app.run(debug=True)
+    app.run(host="127.0.0.1",debug=True, port="3020");
