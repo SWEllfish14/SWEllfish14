@@ -109,11 +109,11 @@ app.get('/lamps/:id', async (req, res) =>{
     var result = [];
     await Promise.all(rows.map(async (lamp) => {
       try {
-        //console.log('http://' + lamp.IP + ":3020/lamp")
+       // console.log('http://' + lamp.IP + ":3020/lamp")
         //const response = await axios.get('http://' + lamp.IP + ":3020/lamp", headers)
         //response.data.ip = lamp.IP
         //console.log(response.data)
-      //  result.push(response.data)
+        //result.push(response.data)
       }
       catch (e) {
        console.log(e.response)
@@ -184,15 +184,22 @@ app.post('/accendiLampione', async (req, res) => {
   
   try {
     
-    conn = await pool.getConnection();
-    const response = await axios.get('http://' + ip + ":3020/lamp", headers)
-    var brightnessQuery = 'SELECT luminosita_impostata FROM lumosminima.area_illuminata WHERE ID=?'
-    var brightness = await conn.query(brightnessQuery,id)
-    var accendiQuery = 'UPDATE lumosminima.lampione SET status = ?,luminosita_impostata = ? WHERE IP = ?'
-    await conn.query(accendiQuery,[1,brightness[0].luminosita_impostata,ip])
-    response.data.brightness= brightness[0].luminosita_impostata
-    response.data.lamp_status = true
-    await axios.post('http://' + ip + ":3020/lamp",{brightness:response.data.brightness,lamp_status:response.data.lamp_status,lamp_id:response.data.lamp_id}).then(
+    //conn = await pool.getConnection();
+    //const response = await axios.get('http://' + ip + ":3020/lamp", headers)
+   // var brightnessQuery = 'SELECT luminosita_impostata FROM lumosminima.area_illuminata WHERE ID=?'
+    //var brightness = await conn.query(brightnessQuery,id)
+    
+    //var accendiQuery = 'UPDATE lumosminima.lampione SET status = ?,luminosita_impostata = ? WHERE IP = ?'
+    //await conn.query(accendiQuery,[1,brightness[0].luminosita_impostata,ip])
+    //response.data.brightness= brightness[0].luminosita_impostata
+    //response.data.lamp_status = true
+    
+    
+    await axios.post("http://127.0.0.1:3020/lamp",{brightness:'10',lamp_status:true,lamp_id:123},{
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  }).then(
       res.sendStatus(200)
     )
     
@@ -211,14 +218,19 @@ app.post('/spegniLampione', async (req, res) => {
   
   
   try {
-    conn = await pool.getConnection();
-    const response = await axios.get('http://' + ip + ":3020/lamp", headers)
-    var spegniQuery = 'UPDATE lumosminima.lampione SET status = ? WHERE IP = ?'
-    await conn.query(spegniQuery,[0,ip])
-    response.data.lamp_status = false
-    await axios.post('http://' + ip + ":3020/lamp",{brightness:response.data.brightness,lamp_status:response.data.lamp_status,lamp_id:response.data.lamp_id}).then(
+    //conn = await pool.getConnection();
+   // const response = await axios.get('http://' + ip + ":3020/lamp", headers)
+    //var spegniQuery = 'UPDATE lumosminima.lampione SET status = ? WHERE IP = ?'
+    //await conn.query(spegniQuery,[0,ip])
+    //response.data.lamp_status = false
+    await axios.post("http://127.0.0.1:3020/lamp",{brightness:'0',lamp_status:false,lamp_id:123},{
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  }).then(
       res.sendStatus(200)
     )
+    
     
   } catch (err) {
     console.log(err)
