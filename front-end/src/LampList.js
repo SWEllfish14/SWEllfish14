@@ -63,7 +63,7 @@ export default function LampList({ id }) {
           <li key={lamp.ID}>
             Lampione ID:{lamp.ID}
             Luminosità:{lamp.luminosita_impostata} 
-            Stato:{lamp.status  ? (
+            Stato:{lamp.status == 1 ? (
               <>Acceso
               <button
                   class="button is-danger is-light"
