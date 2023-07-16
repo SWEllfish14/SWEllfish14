@@ -57,34 +57,38 @@ export default function LampList({ id }) {
   }
   return (
     <>
-      Lista lampioni
+     <h1>Lista Lampioni</h1>
+        <p class="menu-label"></p>
       <ul>
         {lampList.map((lamp) => (
           <li key={lamp.ID}>
-            Lampione ID:{lamp.ID}
-            Luminosità:{lamp.luminosita_impostata} 
-            Stato:{lamp.status == 1 ? (
+            <p>Lampione ID:{lamp.ID}</p>
+            <p>IP: {lamp.IP}</p>
+            <p>Stato:{lamp.status == 1 ? (
               <>Acceso
               <button
                   class="button is-danger is-light"
-                  onClick={() => spegni(lamp.ip)}
+                  onClick={() => spegni(lamp.IP)}
                 >Spegni</button></>
             ) : (
               <>
                 Spento
                 <button
                   class="button is-success"
-                  onClick={() => accendi(lamp.ip)}
+                  onClick={() => accendi(lamp.IP)}
                 >
                   Accendi
                 </button>
               </>
+              
             )}
+            
             <button
                   class="button is-danger"
-                  onClick={() => eliminaLampione(lamp.ip)}
-                >Elimina lampione</button>
+                  onClick={() => eliminaLampione(lamp.IP)}
+                >Elimina lampione</button></p>
           </li>
+          
         ))}
       </ul>
     </>

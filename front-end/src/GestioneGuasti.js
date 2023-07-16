@@ -75,7 +75,8 @@ export function GestioneGuasti() {
                               <article class="tile is-child box">
                             <li key={guasto.ID}>
                                 <h1>{guasto.zona_geografica}</h1>
-                                Guasto nell'area {guasto.id_area_illuminata}
+                                <p>Guasto nell'area {guasto.id_area_illuminata}</p>
+                                <p>Manutentore associato: {guasto.Username_manutentore}</p>
                                 <li><button class ="button is-success" onClick={() => rimuoviAreaDaGuasto(guasto.ID)}>Rimuovi</button></li>
                             </li>
                             </article>

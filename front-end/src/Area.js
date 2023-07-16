@@ -76,7 +76,7 @@ export function Area() {
           {areaError && <p>Error: {areaError.message}</p>}
           {area && (
             <div className="box">
-              <h1>Zona Geografica: {area.zona_geografica}</h1>
+              <h1>Zona geografica:{area.zona_geografica}</h1>
               
               <p>Stato:{area.stato ? <>Manuale</> : <>Automatico</>}</p>
               <p>Luminosità:{area.luminosita_impostata}</p>
