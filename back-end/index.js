@@ -52,7 +52,7 @@ app.get('/areelimit', async (req, res) => {
     conn = await pool.getConnection();
 
     // create a new query to fetch all records from the table
-    var query = "SELECT ID,zona_geografica FROM lumosminima.area_illuminata ORDER BY ID DESC limit 5; ";
+    var query = "SELECT ID,zona_geografica FROM lumosminima.area_illuminata ORDER BY ID ASC limit 5; ";
 
     // we run the query and set the result to a new variable
     var rows = await conn.query(query);
@@ -76,7 +76,7 @@ app.get('/guasti', async (req, res) => {
     conn = await pool.getConnection();
 
     // create a new query to fetch all records from the table
-    var query = "SELECT ID,zona_geografica,id_area_illuminata FROM lumosminima.guasto ORDER BY ID DESC LIMIT 5";
+    var query = "SELECT lumosminima.guasto.ID,lumosminima.guasto.zona_geografica,lumosminima.guasto.id_area_illuminata, lumosminima.gestione_guasto.Username_manutentore FROM lumosminima.guasto LEFT JOIN lumosminima.gestione_guasto ON lumosminima.guasto.ID = lumosminima.gestione_guasto.id_guasto";
 
     // we run the query and set the result to a new variable
     var rows = await conn.query(query);
@@ -179,30 +179,29 @@ catch (err) {
 //accendi lampione
 app.post('/accendiLampione', async (req, res) => {
   let conn;
-  const ip = req.query.ip
-  const id = req.query.id
+  const zona_id = req.query.id
+  const lamp_ip = req.query.ip;
   
   try {
     
-    //conn = await pool.getConnection();
-    //const response = await axios.get('http://' + ip + ":3020/lamp", headers)
-   // var brightnessQuery = 'SELECT luminosita_impostata FROM lumosminima.area_illuminata WHERE ID=?'
-    //var brightness = await conn.query(brightnessQuery,id)
+    conn = await pool.getConnection();
+    var brightnessQuery = 'SELECT luminosita_impostata FROM lumosminima.area_illuminata WHERE ID=?'
     
-    //var accendiQuery = 'UPDATE lumosminima.lampione SET status = ?,luminosita_impostata = ? WHERE IP = ?'
-    //await conn.query(accendiQuery,[1,brightness[0].luminosita_impostata,ip])
-    //response.data.brightness= brightness[0].luminosita_impostata
-    //response.data.lamp_status = true
-    
-    
-    await axios.post("http://127.0.0.1:3020/lamp",{brightness:'10',lamp_status:true,lamp_id:123},{
-      headers: {
+    var rows = await conn.query(brightnessQuery,[zona_id]);
+    var bright = rows[0].luminosita_impostata; 
+      
+    await axios.post("http://127.0.0.1:3020/lamp",{brightness:bright,lamp_status:true,lamp_id:123},{
+    headers: {
           'Content-Type': 'application/json'
       }
   }).then(
       res.sendStatus(200)
     )
     
+    var accendiQuery = 'UPDATE lumosminima.lampione SET status = ?,luminosita_impostata = ? WHERE IP = ?'
+    await conn.query(accendiQuery,[1,bright,lamp_ip])
+
+
   } catch (err) {
     console.log(err)
     throw err;
@@ -214,15 +213,14 @@ app.post('/accendiLampione', async (req, res) => {
 //spegni lampione
 app.post('/spegniLampione', async (req, res) => {
   let conn;
-  const ip = req.query.ip
+  const lamp_ip = req.query.ip;
   
   
   try {
-    //conn = await pool.getConnection();
-   // const response = await axios.get('http://' + ip + ":3020/lamp", headers)
-    //var spegniQuery = 'UPDATE lumosminima.lampione SET status = ? WHERE IP = ?'
-    //await conn.query(spegniQuery,[0,ip])
-    //response.data.lamp_status = false
+    conn = await pool.getConnection();
+    var spegniQuery = 'UPDATE lumosminima.lampione SET status = ? WHERE IP = ?'
+    await conn.query(spegniQuery,[0,lamp_ip])
+
     await axios.post("http://127.0.0.1:3020/lamp",{brightness:'0',lamp_status:false,lamp_id:123},{
       headers: {
           'Content-Type': 'application/json'
