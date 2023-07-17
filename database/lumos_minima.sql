@@ -57,7 +57,7 @@ INSERT INTO `area_illuminata` (`ID`, `zona_geografica`, `stato`, `luminosita_imp
 	(4, 'Viareggio', '0', 5, 9, 'elena'),
 	(5, 'Catania', '1', 5, 9, 'claudio'),
 	(6, 'Gorizia', '1', 8, 3, 'francesco'),
-	(7, 'Cittadella', '0', 10, 1, 'davide'),
+	(7, 'Cittadella', '0', 10, 10, 'davide'),
 	(8, 'Roma', '1', 10, 1, 'davide'),
 	(9, 'Napoli', '0', 1, 1, 'davide'),
 	(10, 'Verona', '0', 1, 1, 'elena'),
