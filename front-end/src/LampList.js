@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useQuery } from "react-query";
+import './LampList.css';
 const headers = {
   "Content-Type": "application/json",
 };
@@ -57,40 +58,54 @@ export default function LampList({ id }) {
   }
   return (
     <>
-     <h1>Lista Lampioni</h1>
-        <p class="menu-label"></p>
-      <ul>
+  <div>
+    <h1>Lista Lampioni</h1>
+    
+     
+     
+      
         {lampList.map((lamp) => (
-          <li key={lamp.ID}>
+
+          <div class="tile is-ancestor">
+      <div class="tile is-parent">
+      <article class="tile is-child box">
             <p>Lampione ID:{lamp.ID}</p>
             <p>IP: {lamp.IP}</p>
             <p>Stato:{lamp.status == 1 ? (
               <>Acceso
+              <p>
               <button
                   class="button is-danger is-light"
                   onClick={() => spegni(lamp.IP)}
-                >Spegni</button></>
+                >Spegni</button></p></>
             ) : (
               <>
                 Spento
+                <p>
                 <button
                   class="button is-success"
                   onClick={() => accendi(lamp.IP)}
                 >
                   Accendi
                 </button>
+                </p>
               </>
               
             )}
             
             <button
-                  class="button is-danger"
+                  class="button is-danger is-small"
                   onClick={() => eliminaLampione(lamp.IP)}
                 >Elimina lampione</button></p>
-          </li>
           
+          </article>
+          </div>
+          </div>
         ))}
-      </ul>
+      
+     
+      </div>
+
     </>
   );
 }

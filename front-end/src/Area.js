@@ -4,9 +4,11 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import LampList from "./LampList";
 import { useNavigate } from "react-router-dom";
+import './Area.css';
 const headers = {
   "Content-Type": "application/json",
 };
+
 
 export function Area() {
   const navigate = useNavigate();
@@ -76,9 +78,10 @@ export function Area() {
           {areaError && <p>Error: {areaError.message}</p>}
           {area && (
             <div className="box">
-              <h1>Zona geografica:{area.zona_geografica}</h1>
+              <h1>{area.zona_geografica}</h1>
               
-              <p>Stato:{area.stato ? <>Manuale</> : <>Automatico</>}</p>
+              <p>Località: {area.localita}</p>
+              <p>Stato:{area.luminosita_impostata != area.luminosita_default ? <>Manuale</> : <>Automatico</>}</p>
               <p>Luminosità:{area.luminosita_impostata}</p>
               <p>Numero lampioni: {numeroLampioni}</p>
               <p>Numero sensori: {numeroSensori}</p>
@@ -92,19 +95,22 @@ export function Area() {
         <div className="column is-half">
           <div className="box">
             <h2>Impostazioni Luminosità</h2>
-            
+            <p>
             <button
-              className="button is-success"
+              className="button is-warning"
               onClick={() => aumentaLuminosita()}
             >
               Aumenta Luminosità
             </button>
+            </p>
+            <p>
             <button
-              className="button is-success"
+              className="button is-warning is-light"
               onClick={() => diminuisciLuminosita()}
             >
               Diminuisci Luminosità
             </button>
+            </p>
           </div>
           <div className="box">
             <Sensori />
@@ -112,7 +118,7 @@ export function Area() {
         </div>
       </div>
       <button
-        className="button is-danger is-light is-full"
+        className="button is-danger is-small"
         onClick={() => eliminaArea()}
       >
         Elimina area
@@ -164,7 +170,7 @@ export function Sensori() {
                 <h1>IP sensore:{sensore.IP}</h1>
                 <h1>Raggio Azione: {sensore.raggio_azione} metri</h1>
                 <button
-                  className="button is-danger"
+                  className="button is-danger is-small"
                   onClick={() => rimuoviSensore(sensore.IP)}>
                   Elimina
                   </button>

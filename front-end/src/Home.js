@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 
-
 var styles = `
     .menu-list { 
         font-family: Georgia,Cambria,"Times New Roman",Times,serif;
@@ -13,7 +12,9 @@ var styles = `
     .menu-list-border-left{
         1px solid 
     }
+    }
 `
+
 
 var styleSheet = document.createElement("style")
 styleSheet.innerText = styles
@@ -53,10 +54,9 @@ export function Home() {
         <article class="tile is-child box">
         <h1>Stato sistema</h1>
         <p class="menu-label">
-            
             <li>Numero Guasti a sistema:{numeroGuastiLoading ? <p>Loading...</p> : numeroGuasti}</li>
             <li>Numero lampioni a sistema:{numeroLampioniLoading ? <p>Loading...</p> : numeroLampioni}</li>
-            <li>Numero sensori a sistema:{numeroSensoriLoading ? <p>Loading...</p> : numeroSensori}</li>
+            <li>Numero sensori a sistema:{numeroSensoriLoading ? <p>Loading...</p> : numeroSensori}</li> 
         </p>
     </article>
     </div>
@@ -71,12 +71,14 @@ export function Home() {
                     
                     {areaList.map(area => (
                         <li key={area.ID}>
-                            {area.zona_geografica}
+                            {area.zona_geografica}, Stato: {area.stato == 1? 'On' : 'Off'}, Località: {area.localita}
+                            <p>
                             <button className ="button is-small is-responsive ">
                             <Link to={{
                                 pathname: `/area/${area.ID}`
                             }}>Gestisci area</Link>
                             </button>
+                            </p>
                         </li>
                         
                     ))}
