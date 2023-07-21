@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Versione server:              11.0.2-MariaDB - mariadb.org binary distribution
+-- Host:                         127.0.0.2
+-- Versione server:              11.1.0-MariaDB - mariadb.org binary distribution
 -- S.O. server:                  Win64
 -- HeidiSQL Versione:            12.3.0.6589
 -- --------------------------------------------------------
@@ -44,26 +44,27 @@ CREATE TABLE IF NOT EXISTS `area_illuminata` (
   `luminosita_impostata` int(11) NOT NULL,
   `luminosita_default` int(11) NOT NULL,
   `user_amministratore` varchar(32) NOT NULL,
+  `localita` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `fk_user_amministratore` (`user_amministratore`),
   CONSTRAINT `fk_user_amministratore` FOREIGN KEY (`user_amministratore`) REFERENCES `amministratore` (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Dump dei dati della tabella lumosminima.area_illuminata: ~13 rows (circa)
-INSERT INTO `area_illuminata` (`ID`, `zona_geografica`, `stato`, `luminosita_impostata`, `luminosita_default`, `user_amministratore`) VALUES
-	(1, 'Padova', '1', 5, 2, 'admin'),
-	(2, 'Mantova', '0', 7, 1, 'andrea'),
-	(3, 'Parma', '1', 3, 0, 'jude'),
-	(4, 'Viareggio', '0', 5, 9, 'elena'),
-	(5, 'Catania', '1', 5, 9, 'claudio'),
-	(6, 'Gorizia', '1', 8, 3, 'francesco'),
-	(7, 'Cittadella', '0', 10, 10, 'davide'),
-	(8, 'Roma', '1', 10, 1, 'davide'),
-	(9, 'Napoli', '0', 1, 1, 'davide'),
-	(10, 'Verona', '0', 1, 1, 'elena'),
-	(11, 'Torino', '1', 1, 1, 'elena'),
-	(12, 'Asiago', '1', 1, 10, 'elena'),
-	(13, 'Firenze', '0', 1, 10, 'andrea');
+INSERT INTO `area_illuminata` (`ID`, `zona_geografica`, `stato`, `luminosita_impostata`, `luminosita_default`, `user_amministratore`, `localita`) VALUES
+	(1, 'Padova', '1', 6, 2, 'admin', 'Via Scrovegni'),
+	(2, 'Mantova', '0', 7, 1, 'andrea', 'Mura storiche'),
+	(3, 'Parma', '1', 3, 0, 'jude', 'Via Kofler'),
+	(4, 'Viareggio', '0', 5, 9, 'elena', 'Piazza centrale'),
+	(5, 'Catania', '1', 5, 9, 'claudio', 'Via Roma'),
+	(6, 'Gorizia', '1', 8, 3, 'francesco', 'Via Asticella'),
+	(7, 'Cittadella', '0', 10, 10, 'davide', 'Mura storiche'),
+	(8, 'Roma', '1', 10, 1, 'davide', 'Colosseo'),
+	(9, 'Napoli', '0', 1, 1, 'davide', 'Via Brombeis'),
+	(10, 'Verona', '0', 1, 1, 'elena', 'Stazione Porta Nuova'),
+	(11, 'Torino', '1', 1, 1, 'elena', 'Stadio'),
+	(12, 'Asiago', '1', 1, 10, 'elena', 'Piazza Carli'),
+	(13, 'Firenze', '0', 1, 10, 'andrea', 'Ponte Vecchio');
 
 -- Dump della struttura di tabella lumosminima.gestione_guasto
 CREATE TABLE IF NOT EXISTS `gestione_guasto` (
@@ -119,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `lampione` (
 
 -- Dump dei dati della tabella lumosminima.lampione: ~26 rows (circa)
 INSERT INTO `lampione` (`IP`, `ID`, `polling_time`, `status`, `iterazione`, `luminosita_default`, `luminosita_impostata`, `id_area_illuminata`) VALUES
-	('192.168.2.25', '124', 3, '1', 'push', 5, 8, 1),
+	('192.168.2.25', '124', 3, '1', 'push', 5, 6, 1),
 	('2003001228', '128', 3, '1', 'push', 0, 10, 3),
 	('2003001229', '127', 3, '0', 'push', 6, 7, 2),
 	('2003001230', '126', 3, '0', 'push', 6, 7, 2),
