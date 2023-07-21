@@ -26,7 +26,7 @@ root.render(
       <Route exact path='/area/:id' element={<Area/>}></Route>
       <Route exact path='/sensori/:id' element={<Sensori/>}></Route>
       <Route exact path='/login' element={<Login/>}></Route>
-      <Route exact path='/guasti' element={<GestioneGuasti/>}></Route>
+      <Route exact path='/guasto' element={<GestioneGuasti/>}></Route>
     </Routes>
   </Router>
 

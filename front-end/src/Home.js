@@ -28,6 +28,7 @@ export function Home() {
     const [numeroGuasti, setNumeroGuasti] = useState();
     const [numeroLampioni, setNumeroLampioni] = useState();
     const [numeroSensori, setNumeroSensori] = useState();
+    const [numeroAree, setNumeroAree] = useState();
     const { isLoading:areaLoading, error, data, isFetching } = useQuery(["areelimit"], () =>
         axios.get("http://localhost:3002/areelimit")
             .then((res) => setAreaList(res.data))
@@ -47,6 +48,10 @@ export function Home() {
             const {isLoading:numeroSensoriLoading} = useQuery(["numerosensori"], () =>
             axios.get("http://localhost:3002/numeroSensori")
                 .then((res) => setNumeroSensori(res.data)))
+
+                const {isLoading:numeroAreeLoading} = useQuery(["areenumber"], () =>
+            axios.get("http://localhost:3002/areenumber")
+                .then((res) => setNumeroAree(res.data)))
     return (
         <>
         <div class ="tile is-ancestor">
@@ -57,6 +62,7 @@ export function Home() {
             <li>Numero Guasti a sistema:{numeroGuastiLoading ? <p>Loading...</p> : numeroGuasti}</li>
             <li>Numero lampioni a sistema:{numeroLampioniLoading ? <p>Loading...</p> : numeroLampioni}</li>
             <li>Numero sensori a sistema:{numeroSensoriLoading ? <p>Loading...</p> : numeroSensori}</li> 
+            <li>Numero aree geografiche a sistema:{numeroSensoriLoading ? <p>Loading...</p> : numeroSensori}</li>
         </p>
     </article>
     </div>
