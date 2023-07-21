@@ -66,6 +66,26 @@ app.get('/areelimit', async (req, res) => {
   }
 });
 
+app.get('/areenumber', async (req, res) => {
+  let conn;
+  try {
+    // here we make a connection to MariaDB
+    conn = await pool.getConnection();
+
+    // create a new query to fetch all records from the table
+    var query = "SELECT ID, COUNT(*) AS Num_aree FROM lumosminima.area_illuminata;";
+
+    // we run the query and set the result to a new variable
+    var rows = await conn.query(query);
+
+    // return the results
+    res.send(rows);
+  } catch (err) {
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
 
 
 //lista di tutti i guasti
