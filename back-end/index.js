@@ -96,7 +96,7 @@ app.get('/guasti', async (req, res) => {
     conn = await pool.getConnection();
 
     // create a new query to fetch all records from the table
-    var query = "SELECT lumosminima.guasto.ID,lumosminima.guasto.zona_geografica,lumosminima.guasto.id_area_illuminata, lumosminima.gestione_guasto.Username_manutentore FROM lumosminima.guasto LEFT JOIN lumosminima.gestione_guasto ON lumosminima.guasto.ID = lumosminima.gestione_guasto.id_guasto";
+    var query = "SELECT guasto.ID, guasto.zona_geografica, guasto.id_area_illuminata, area_illuminata.localita FROM lumosminima.guasto JOIN lumosminima.area_illuminata ON guasto.id_area_illuminata = area_illuminata.ID;";
 
     // we run the query and set the result to a new variable
     var rows = await conn.query(query);
