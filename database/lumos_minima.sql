@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `area_illuminata` (
 
 -- Dump dei dati della tabella lumosminima.area_illuminata: ~13 rows (circa)
 INSERT INTO `area_illuminata` (`ID`, `zona_geografica`, `stato`, `luminosita_impostata`, `luminosita_default`, `user_amministratore`, `localita`) VALUES
-	(1, 'Padova', '1', 6, 2, 'admin', 'Via Scrovegni'),
+	(1, 'Padova', '1', 7, 2, 'admin', 'Via Scrovegni'),
 	(2, 'Mantova', '0', 7, 1, 'andrea', 'Mura storiche'),
 	(3, 'Parma', '1', 3, 0, 'jude', 'Via Kofler'),
 	(4, 'Viareggio', '0', 5, 9, 'elena', 'Piazza centrale'),
@@ -68,21 +68,10 @@ INSERT INTO `area_illuminata` (`ID`, `zona_geografica`, `stato`, `luminosita_imp
 
 -- Dump della struttura di tabella lumosminima.gestione_guasto
 CREATE TABLE IF NOT EXISTS `gestione_guasto` (
-  `Username_manutentore` varchar(32) NOT NULL DEFAULT '',
-  `id_guasto` int(11) NOT NULL,
-  PRIMARY KEY (`Username_manutentore`,`id_guasto`),
-  KEY `fk_id_guasto` (`id_guasto`),
-  CONSTRAINT `fk_id_guasto` FOREIGN KEY (`id_guasto`) REFERENCES `guasto` (`ID`),
-  CONSTRAINT `fk_username_manutentore` FOREIGN KEY (`Username_manutentore`) REFERENCES `manutentore` (`Username`)
+  `Username_manutentore` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dump dei dati della tabella lumosminima.gestione_guasto: ~5 rows (circa)
-INSERT INTO `gestione_guasto` (`Username_manutentore`, `id_guasto`) VALUES
-	('manutentore', 1),
-	('manutentore', 2),
-	('manutantore2', 3),
-	('manutantore3', 4),
-	('manutantore4', 5);
+-- Dump dei dati della tabella lumosminima.gestione_guasto: ~0 rows (circa)
 
 -- Dump della struttura di tabella lumosminima.guasto
 CREATE TABLE IF NOT EXISTS `guasto` (
@@ -94,13 +83,14 @@ CREATE TABLE IF NOT EXISTS `guasto` (
   CONSTRAINT `fk_id_area_illuminata_guasto` FOREIGN KEY (`id_area_illuminata`) REFERENCES `area_illuminata` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dump dei dati della tabella lumosminima.guasto: ~5 rows (circa)
+-- Dump dei dati della tabella lumosminima.guasto: ~6 rows (circa)
 INSERT INTO `guasto` (`ID`, `zona_geografica`, `id_area_illuminata`) VALUES
 	(1, 'Gorizia', 6),
 	(2, 'Padova', 1),
 	(3, 'Mantova', 2),
 	(4, 'Viareggio', 4),
-	(5, 'Napoli', 9);
+	(5, 'Napoli', 9),
+	(6, 'Padova', 1);
 
 -- Dump della struttura di tabella lumosminima.lampione
 CREATE TABLE IF NOT EXISTS `lampione` (
@@ -125,7 +115,7 @@ INSERT INTO `lampione` (`IP`, `ID`, `polling_time`, `status`, `iterazione`, `lum
 	('2003001229', '127', 3, '0', 'push', 6, 7, 2),
 	('2003001230', '126', 3, '0', 'push', 6, 7, 2),
 	('2003001238', '129', 3, '0', 'push', 3, 5, 4),
-	('2003001250', '125', 3, '0', 'push', 2, 10, 1),
+	('2003001250', '125', 3, '0', 'push', 2, 7, 1),
 	('2003001255', '123', 3, '0', 'push', 5, 8, 5),
 	('2003001256', '136', 3, '0', 'push', 5, 8, 8),
 	('2003001257', '137', 3, '0', 'push', 5, 8, 8),
