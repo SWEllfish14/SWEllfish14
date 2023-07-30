@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sensore</title>
+    <style>
+      #sensor-box {
+        width: 200px;
+        height: 200px;
+        border: 1.5px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Sensore</h1>
+    <div id="sensor-box"></div>
+    <h3><div id="subtitle">Sensor ID: N/D, sensor detection: N/D, range of detection: N/D</div></h3>
+    <script>
+      // Funzione per aggiornare il quadrato in base allo stato del lampione e la luminosità impostata
+      function updateSensorBox(sensor_id, sensor_detection, range_detection) {
+        var subtitle = document.getElementById('subtitle');
+       
+        subtitle.innerHTML = "Sensore ID: "+ sensor_id + " sensor detection: " + sensor_detection + ", range of detection: "+ range_detection;
+
+        var sensorBox = document.getElementById('sensor-box');
+        if (sensor_detection) {
+          // Acceso: impostare la luminosità del quadrato in base al valore impostato
+          sensorBox.style.backgroundColor = "green";
+        } else {
+          // Spento: impostare la luminosità del quadrato a zero
+          sensorBox.style.backgroundColor = "red";
+        }
+      }
+
+      // Funzione per effettuare una richiesta GET per ottenere lo stato del lampione e la luminosità impostata
+      function getSensorStatus() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              var response = JSON.parse(xhr.responseText);
+              updateSensorBox(response.sensor_id, response.sensor_detection, response.range_detection);
+            }
+          }
+        };
+        xhr.open('GET', '/sensor');
+        xhr.send();
+      }
+
+      // Aggiornare il quadrato ogni 3 secondi
+      setInterval(getSensorStatus, 3000);
+    </script>
+  </body>
+</html>
