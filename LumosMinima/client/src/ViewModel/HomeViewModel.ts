@@ -7,15 +7,21 @@ import { SensoriStore } from "../stores/SensoriStore";
 export type IHomeViewModel = ReturnType<typeof HomeViewModel>;
 
 export const HomeViewModel=()=> {
-     const {aree} =useInstance(AreeStore);
-     const {guasti} = useInstance(GuastiStore);
+     const {aree, numeroAree, areeLimit} =useInstance(AreeStore);
+     const {guastiNumber, guasti} = useInstance(GuastiStore);
      const {numeroLampioni} = useInstance(LampioniStore);
      const {numeroSensori} = useInstance(SensoriStore);
      return {
         aree: ()=> aree.data,
-        areeisLoading: ()=> aree.data,
-        guastiNumber: ()=> guasti.data,
-        guastiisLoading: ()=> guasti.isLoading,
+        areeisLoading: ()=> aree.isLoading,
+        numeroAree: () => numeroAree.data,
+        numeroAareeisLoading: () => numeroAree.isLoading,
+        areeLimit: () => areeLimit.data,
+        areeLimitisLoading:() => areeLimit.isLoading,
+        guastiNumber: ()=> guastiNumber.data,
+        guastiNumberisLoading: ()=> guastiNumber.isLoading,
+        guasti: () => guasti.data,
+        guastiisLoading: () => guasti.isLoading,
         lampioniNumber:() => numeroLampioni.data,
         lampioniisLoading: () =>numeroLampioni.isLoading,
         sensoriNumber:() => numeroSensori.data,
