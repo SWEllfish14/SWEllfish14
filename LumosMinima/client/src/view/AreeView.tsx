@@ -10,7 +10,7 @@ import {IAreeViewModel } from "../ViewModel/AreeViewModel";
 <div className="tile is-parent">
 <article className="tile is-child box">
 <h1>Lista aree</h1>
-<p className="menu-label">
+{/*<p className="menu-label">
     
     {viewModel.isLoading() ? <p>Loading...</p> :
         <ul>
@@ -22,6 +22,7 @@ import {IAreeViewModel } from "../ViewModel/AreeViewModel";
             ))}
         </ul>}
 </p>
+            */}
 </article>
 </div>
 </div>

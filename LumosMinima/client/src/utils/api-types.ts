@@ -1,10 +1,23 @@
-type AreaJTO = { ID: number; zona_geografica: string; stato: number ;luminosita_impostata: number; luminosita_default: number;user_amministratore: string};
+type AreaJTO = { ID: number; città: string; zona_geografica_città: string ;modalità_funzionamento: string; luminosita_standard: number;luminosità_rilevamento: string, luminosità_manuale: string};
+
+
+type GuastoJTO = {ID: number; zona_geografica: string; id_area_illuminata: number };
+
+
+type LampioniJTO = {IP: number; ID: number; polling_time: number; status: number;iterazione:string;luminosita_default: number; luminosita_impostata: number;id_area_illuminata: number };
+
+
+type SensoriJTO = {ID: number; IP: number; polling_time: number; zona_geografica_posizionamento: string;tipo_iterazione:string;raggio_azione: number; id_area_illuminata: number};
+
+export type GetNumeroLampioniJT0 = number;
+export type GetLampioniJT0 = Array<LampioniJTO>;
+
+export type GetNumeroAreeJTO = number;
 export type GetAreeJTO = Array<AreaJTO>;
 
-type GuastoJTO = {ID: number; zona_geografica: string; id_area_illuminata: number }
-export type GetGuastiJTO = Array<GuastoJTO>;
+export type GetNumeroGuastiJTO = number;
+export type GetGuastoJTO = Array<GuastoJTO>;
 
-type LampioniJTO = {IP: number; ID: number; polling_time: number; status: number;iterazione:string;luminosita_default: number; luminosita_impostata: number;id_area_illuminata: number }
-export type GetLampioniJTO = Array<LampioniJTO>;
+export type GetNumeroSensoriJT0 = number;
+export type GetSensoriJTO = Array<SensoriJTO>;
 
-export type GetNumeroLampioniJT0 = number

@@ -6,8 +6,8 @@ import HomeViewModel from "../ViewModel/HomeViewModel";
 import HomeView from "../view/HomeView";
 import { GuastiStore } from "../stores/GuastiStore";
 import { LampioniStore } from "../stores/LampioniStore";
-
-export const Home = provider(AreeStore,GuastiStore,LampioniStore, [QueryClient, toValue(queryClient)])(
+import { SensoriStore } from "../stores/SensoriStore";
+export const Home = provider(AreeStore,GuastiStore,LampioniStore,SensoriStore, [QueryClient, toValue(queryClient)])(
     () => {
       const viewModel = HomeViewModel();
       return <HomeView viewModel={viewModel}></HomeView>;
