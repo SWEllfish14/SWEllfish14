@@ -65,7 +65,7 @@ app.get('/aree', async (req, res) => {
     conn = await pool.getConnection();
 
     // create a new query to fetch all records from the table
-    var query = "SELECT ID,zona_geografica FROM lumosminima.area_illuminata";
+    var query = "SELECT ID,zona_geografica_città FROM lumosminima.area_illuminata";
 
     // we run the query and set the result to a new variable
     var rows = await conn.query(query);
@@ -134,32 +134,56 @@ app.get('/areelimit', async (req, res) => {
       if (conn) return conn.release();
     }
   });
+  //lista di tutti i guasti
+app.get('/guasti', async (req, res) => {
+  let conn;
+  try {
+    // here we make a connection to MariaDB
+    conn = await pool.getConnection();
+
+    // create a new query to fetch all records from the table
+    var query = "SELECT guasto.ID, guasto.data_rilevamento, guasto.stato, guasto.id_area_illuminata FROM lumosminima.guasto;";
+
+    // we run the query and set the result to a new variable
+    var rows = await conn.query(query);
+
+    // return the results
+    res.send(rows);
+  } catch (err) {
+    console.log("oof")
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
+
   
 
 /*
-//lista di tutti i guasti
-app.get('/guasti', async (req, res) => {
-    let conn;
-    try {
-      // here we make a connection to MariaDB
-      conn = await pool.getConnection();
-  
-      // create a new query to fetch all records from the table
-      var query = "SELECT COUNT(ID) FROM lumosminima.guasto;";
-  
-      // we run the query and set the result to a new variable
-      var rows = await conn.query(query);
-  
-      // return the results
-      res.send(rows);
-    } catch (err) {
-      console.log("oof")
-      throw err;
-    } finally {
-      if (conn) return conn.release();
-    }
-  });
 
+
+  //lista di tutti i guasti
+app.get('/guasti', async (req, res) => {
+  let conn;
+  try {
+    // here we make a connection to MariaDB
+    conn = await pool.getConnection();
+
+    // create a new query to fetch all records from the table
+    var query = "SELECT COUNT(ID) FROM lumosminima.guasto;";
+
+    // we run the query and set the result to a new variable
+    var rows = await conn.query(query);
+
+    // return the results
+    res.send(rows);
+  } catch (err) {
+    console.log("oof")
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
 
 
 app.get('/areenumber', async (req, res) => {
