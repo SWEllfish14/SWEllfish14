@@ -175,6 +175,44 @@ app.get('/area/:id', async (req, res) => {
     if (conn) return conn.release();
   }
 });
+
+//Lampioni dell'area
+
+app.get('/lamps/:id', async (req, res) =>{
+  const id = parseInt(req.params.id)
+  let conn;
+  try {
+
+    conn = await pool.getConnection();
+
+
+    var query = "SELECT IP,ID,luminosità_default,luminosità_impostata, id_area_illuminata FROM lumosminima_pb.lampione WHERE id_area_illuminata=?";
+
+
+    var rows = await conn.query(query, [id]);
+    var result = [];
+    await Promise.all(rows.map(async (lamp) => {
+      try {
+       // console.log('http://' + lamp.IP + ":3020/lamp")
+        //const response = await axios.get('http://' + lamp.IP + ":3020/lamp", headers)
+        //response.data.ip = lamp.IP
+        //console.log(response.data)
+        //result.push(response.data)
+      }
+      catch (e) {
+       console.log(e.response)
+      }
+      }))
+    
+    
+    res.send(rows);
+  } catch (err) {
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+  });
+  
   
 
 /*
@@ -227,43 +265,7 @@ app.get('/areenumber', async (req, res) => {
 
 
 
-//Lampioni dell'area
 
-app.get('/lamps/:id', async (req, res) =>{
-  const id = parseInt(req.params.id)
-  let conn;
-  try {
-
-    conn = await pool.getConnection();
-
-
-    var query = "SELECT IP,ID,luminosita_impostata,status FROM lumosminima_pb.lampione WHERE id_area_illuminata=?";
-
-
-    var rows = await conn.query(query, [id]);
-    var result = [];
-    await Promise.all(rows.map(async (lamp) => {
-      try {
-       // console.log('http://' + lamp.IP + ":3020/lamp")
-        //const response = await axios.get('http://' + lamp.IP + ":3020/lamp", headers)
-        //response.data.ip = lamp.IP
-        //console.log(response.data)
-        //result.push(response.data)
-      }
-      catch (e) {
-       console.log(e.response)
-      }
-      }))
-    
-    
-    res.send(rows);
-  } catch (err) {
-    throw err;
-  } finally {
-    if (conn) return conn.release();
-  }
-  });
-  
 /*
    res.contentType('application/json');
     res.send(JSON.stringify(result));
