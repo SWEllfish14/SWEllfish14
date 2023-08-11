@@ -7,6 +7,7 @@ import { BrowserRouter as  Router, Routes, Route } from 'react-router-dom';
 import { GestioneAree } from './pages/GestioneAree';
 import { queryClient } from './utils/utils';
 import { Home } from './pages/Home';
+import { AreaDetails } from './pages/AreaDetails';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -17,6 +18,7 @@ root.render(
     <Routes>
       <Route path='/' element={<Home/>}></Route>
       <Route path='/aree' element={<GestioneAree/>}></Route>
+      <Route path='/area/:id' element={<AreaDetails/>}></Route>
     </Routes>
     </Router>
     

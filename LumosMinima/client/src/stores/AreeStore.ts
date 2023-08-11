@@ -2,7 +2,7 @@
 import { makeAutoObservable } from 'mobx';
 import axios from "axios";
 import { MobxQuery } from '../utils/mobxqueryts';
-import { GetNumeroAreeJTO } from '../utils/api-types';
+import { GetAreaDetailsJTO, GetNumeroAreeJTO } from '../utils/api-types';
 import { GetLimitAreeJTO } from '../utils/api-types';
 import { GetAreeJTO } from '../utils/api-types';
 import { QueryKey, QueryObserverResult } from '@tanstack/react-query';
@@ -24,11 +24,18 @@ export class AreeStore implements IAreeStore {
         queryKey: ['numeroAree'],
         queryFn: () => axios.get('http://localhost:3002/numeroAree').then((r) => r.data),
       });
-      areeLimitQueryResult  = new MobxQuery<GetLimitAreeJTO>({
-        queryKey: ['areelimit'],
-        queryFn: () => axios.get('http://localhost:3002/areelimit').then((r) => r.data),
-      });
-      
+    areaDetailsQueryResult = new MobxQuery<GetAreaDetailsJTO>({
+      queryFn: ({ queryKey }) => {
+        return axios
+          .get(`http://localhost:3002/area/${queryKey[1]}`)
+          .then((r) => r.data);
+      },
+    });
+    areeLimitQueryResult  = new MobxQuery<GetLimitAreeJTO>({
+      queryKey: ['areelimit'],
+      queryFn: () => axios.get('http://localhost:3002/areelimit').then((r) => r.data),
+    });
+    
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
   }
@@ -37,6 +44,12 @@ export class AreeStore implements IAreeStore {
     return this.areeQueryResult.query();
   }
 
+
+  getAreaDetails(areaId: string) {
+    return this.areaDetailsQueryResult.query({
+      queryKey: ['area', areaId],
+    });
+  }
   get numeroAree(){
     return this.areeNumeroQueryResult.query();
   }
@@ -47,6 +60,7 @@ export class AreeStore implements IAreeStore {
   dispose() {
     this.areeQueryResult.dispose();
     this.areeNumeroQueryResult.dispose();
+    this.areaDetailsQueryResult.dispose();
     this.areeLimitQueryResult.dispose();
   }
 }
