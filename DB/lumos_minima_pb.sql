@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Versione server:              11.0.2-MariaDB - mariadb.org binary distribution
+-- Host:                         127.0.0.2
+-- Versione server:              11.1.0-MariaDB - mariadb.org binary distribution
 -- S.O. server:                  Win64
 -- HeidiSQL Versione:            12.3.0.6589
 -- --------------------------------------------------------
@@ -46,23 +46,24 @@ CREATE TABLE IF NOT EXISTS `area_illuminata` (
   `luminosità_standard` int(11) NOT NULL,
   `luminosità_rilevamento` int(11) NOT NULL,
   `luminosità_manuale` int(11) DEFAULT NULL,
+  `stato` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Dump dei dati della tabella lumosminima_pb.area_illuminata: ~12 rows (circa)
-INSERT INTO `area_illuminata` (`ID`, `città`, `zona_geografica_città`, `modalità_funzionamento`, `luminosità_standard`, `luminosità_rilevamento`, `luminosità_manuale`) VALUES
-	(1, 'Padova', 'Piazzale Stazione', 'A', 4, 10, NULL),
-	(2, 'Asiago', 'Piazza Carli', 'A', 6, 7, NULL),
-	(3, 'Genova', 'Stazione FS', 'M', 6, 7, 3),
-	(4, 'Pizzo Calabro', 'Via Angelis', 'M', 3, 5, 1),
-	(5, 'Torino', 'Stadio', 'M', 3, 5, 10),
-	(6, 'Firenze', 'Ponte Vecchio', 'A', 1, 3, NULL),
-	(7, 'Padova', 'Ospedali', 'A', 1, 3, NULL),
-	(8, 'Venezia', 'Campo San Torvaso', 'A', 8, 10, NULL),
-	(9, 'Brindisi', 'Via Brombeis', 'M', 3, 7, 10),
-	(10, 'Mestre', 'Terraglio', 'A', 6, 9, NULL),
-	(11, 'Siracusa', 'Via Nazionale', 'A', 3, 9, NULL),
-	(12, 'Roma', 'Altare della Patria', 'M', 1, 6, 8);
+INSERT INTO `area_illuminata` (`ID`, `città`, `zona_geografica_città`, `modalità_funzionamento`, `luminosità_standard`, `luminosità_rilevamento`, `luminosità_manuale`, `stato`) VALUES
+	(1, 'Padova', 'Piazzale Stazione', 'A', 4, 10, NULL, 1),
+	(2, 'Asiago', 'Piazza Carli', 'A', 6, 7, NULL, 0),
+	(3, 'Genova', 'Stazione FS', 'M', 6, 7, 3, 1),
+	(4, 'Pizzo Calabro', 'Via Angelis', 'M', 3, 5, 1, 1),
+	(5, 'Torino', 'Stadio', 'M', 3, 5, 10, 1),
+	(6, 'Firenze', 'Ponte Vecchio', 'A', 1, 3, NULL, 0),
+	(7, 'Padova', 'Ospedali', 'A', 1, 3, NULL, 0),
+	(8, 'Venezia', 'Campo San Torvaso', 'A', 8, 10, NULL, 1),
+	(9, 'Brindisi', 'Via Brombeis', 'M', 3, 7, 10, 0),
+	(10, 'Mestre', 'Terraglio', 'A', 6, 9, NULL, 1),
+	(11, 'Siracusa', 'Via Nazionale', 'A', 3, 9, NULL, 0),
+	(12, 'Roma', 'Altare della Patria', 'M', 1, 6, 8, 1);
 
 -- Dump della struttura di tabella lumosminima_pb.gestione_admin_area
 CREATE TABLE IF NOT EXISTS `gestione_admin_area` (
