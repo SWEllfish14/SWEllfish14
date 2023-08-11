@@ -121,7 +121,7 @@ app.get('/areelimit', async (req, res) => {
       conn = await pool.getConnection();
   
       // create a new query to fetch all records from the table
-      var query = "SELECT ID,città,zona_geografica_città FROM lumosminima_pb.area_illuminata ORDER BY ID ASC limit 5;";
+      var query = "SELECT ID,città,stato,zona_geografica_città FROM lumosminima_pb.area_illuminata ORDER BY ID ASC limit 5;";
   
       // we run the query and set the result to a new variable
       var rows = await conn.query(query);
@@ -142,7 +142,7 @@ app.get('/guasti', async (req, res) => {
     conn = await pool.getConnection();
 
     // create a new query to fetch all records from the table
-    var query = "SELECT guasto.ID, guasto.data_rilevamento, guasto.stato, guasto.id_area_illuminata FROM lumosminima_pb.guasto;";
+    var query = "SELECT guasto.ID, guasto.data_rilevamento, guasto.id_area_illuminata, area_illuminata.città, area_illuminata.zona_geografica_città FROM lumosminima_pb.guasto JOIN lumosminima_pb.area_illuminata ON guasto.id_area_illuminata = area_illuminata.ID;";
 
     // we run the query and set the result to a new variable
     var rows = await conn.query(query);
