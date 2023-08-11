@@ -6,12 +6,17 @@ export type IAreaDetailsViewModel = ReturnType<typeof AreaDetailsViewModel>;
 
 export const AreaDetailsViewModel = () => {
     const { id } = useParams();
-    const {aree,getAreaDetails} =useInstance(AreeStore);
+    const store =useInstance(AreeStore);
+    const error = store.getAreaDetails(id!).error
     return {
-        areaDetails: ()=> getAreaDetails(id!),
-        isLoading: ()=> getAreaDetails(id!).isLoading,
-        isError: () => getAreaDetails(id!).isError,
-        error:() => getAreaDetails(id!).error,
+        areaDetails: ()=> store.getAreaDetails(id!),
+        isLoading: ()=> store.getAreaDetails(id!).isLoading,
+        isError: () => store.getAreaDetails(id!).isError,
+        error:() =>  {if(error instanceof Error){
+            return error}
+        },
+        aumentaLuminosità:() => {if(id !== undefined)store.aumentaLuminositàMutation.mutate({id})},
+        diminuisciLuminosità:() => {if(id !== undefined)store.diminuisciLuminositàMutation.mutate({id})}
     };
   };
 

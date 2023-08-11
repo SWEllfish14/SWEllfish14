@@ -5,10 +5,13 @@ import { MobxQuery } from '../utils/mobxqueryts';
 import { GetAreaDetailsJTO, GetNumeroAreeJTO } from '../utils/api-types';
 import { GetLimitAreeJTO } from '../utils/api-types';
 import { GetAreeJTO } from '../utils/api-types';
-import { QueryKey, QueryObserverResult } from '@tanstack/react-query';
+import { QueryClient, QueryKey, QueryObserverResult } from '@tanstack/react-query';
+import { MobxMutation } from '../utils/mobx_mutation';
+import { inject } from 'react-ioc';
 
 
 export default interface IAreeStore{
+  
   areeQueryResult: MobxQuery<GetAreeJTO, unknown, GetAreeJTO, GetAreeJTO, QueryKey>
   areeNumeroQueryResult: MobxQuery<GetNumeroAreeJTO, unknown, GetNumeroAreeJTO, GetNumeroAreeJTO, QueryKey>
   areeLimitQueryResult:MobxQuery<GetLimitAreeJTO, unknown, GetLimitAreeJTO, GetLimitAreeJTO, QueryKey>
@@ -16,6 +19,7 @@ export default interface IAreeStore{
   dispose: ()=>void
 }
 export class AreeStore implements IAreeStore {
+    queryClient = inject(this, QueryClient);
     areeQueryResult = new MobxQuery<GetAreeJTO>({
         queryKey: ['aree'],
         queryFn: () => axios.get('http://localhost:3002/aree').then((r) => r.data),
@@ -57,6 +61,24 @@ export class AreeStore implements IAreeStore {
     return this.areeLimitQueryResult.query();
   }
   
+  aumentaLuminositàMutation = new MobxMutation<unknown,unknown,{id: string}>({
+    mutationFn: async (variables) => {
+      await axios.post(`http://127.0.0.1:3002/area/${variables.id}/aumentaluminosita`);
+    },
+    onSuccess: (data, variables) => {
+      this.queryClient.invalidateQueries(['area', variables.id]);
+    },
+  });
+
+  diminuisciLuminositàMutation = new MobxMutation<unknown,unknown,{id: string}>({
+    mutationFn: async (variables) => {
+      await axios.post(`http://127.0.0.1:3002/area/${variables.id}/diminuisciluminosita`);
+    },
+    onSuccess: (data, variables) => {
+      this.queryClient.invalidateQueries(['area', variables.id]);
+    },
+  });
+
   dispose() {
     this.areeQueryResult.dispose();
     this.areeNumeroQueryResult.dispose();

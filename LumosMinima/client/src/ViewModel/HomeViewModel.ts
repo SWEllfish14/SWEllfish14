@@ -15,7 +15,7 @@ export const HomeViewModel=()=> {
         aree: ()=> aree.data,
         areeisLoading: ()=> aree.isLoading,
         numeroAree: () => numeroAree.data,
-        numeroAareeisLoading: () => numeroAree.isLoading,
+        numeroAreeisLoading: () => numeroAree.isLoading,
         areeLimit: () => areeLimit.data,
         areeLimitisLoading:() => areeLimit.isLoading,
         guastiNumber: ()=> guastiNumber.data,

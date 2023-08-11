@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite"
 import {IAreeViewModel } from "../ViewModel/AreeViewModel";
+import { Link } from "react-router-dom";
 
  interface Props {
    viewModel:IAreeViewModel;
@@ -16,11 +17,12 @@ import {IAreeViewModel } from "../ViewModel/AreeViewModel";
         <ul>
             {viewModel.aree()?.map(area => (
                 <li key={area.ID}>
-                    <a href='area/${area.ID.toString}'>
-                    ID: {area.ID}
-                    Città: {area.città}
-                    Zona geografica: {area.zona_geografica_città}
-                    </a>
+                    
+                    <Link to={{
+                                pathname: `/area/${area.ID}`
+                            }}>ID: {area.ID}
+                            Città: {area.città}
+                            Zona geografica: {area.zona_geografica_città}</Link>
                 </li>
             ))}
         </ul>}

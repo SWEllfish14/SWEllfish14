@@ -165,7 +165,7 @@ app.get('/area/:id', async (req, res) => {
 
     conn = await pool.getConnection();
 
-    var query = "SELECT ID,città,zona_geografica_città,modalità_funzionamento,luminosità_standard,luminosità_rilevamento,luminosità_manuale FROM lumosminima_pb.area_illuminata WHERE ID=?";
+    var query = "SELECT ID,città,zona_geografica_città,modalità_funzionamento,luminosità_standard,luminosità_rilevamento,luminosità_manuale, stato FROM lumosminima_pb.area_illuminata WHERE ID=?";
     var rows = await conn.query(query, [id]);
     res.send(rows[0]);
   } catch (err) {
@@ -214,6 +214,62 @@ app.get('/lamps/:id', async (req, res) =>{
   });
   
   
+//aumentare luminosita a una specifica area
+app.post('/area/:id/aumentaluminosita', async (req, res) => {
+  let conn;
+  const id= req.params.id;
+  try {
+    
+    conn = await pool.getConnection();
+
+    var getcurrentlumquery = "SELECT luminosità_manuale FROM lumosminima_pb.area_illuminata WHERE ID = ?"
+    var luminositaimpostata = await conn.query(getcurrentlumquery, [id]);
+    luminositadaimpostare = (luminositaimpostata[0]["luminosità_manuale"])+1
+    console.log(luminositadaimpostare)
+    var aumentalumquery = " ";
+    if(luminositadaimpostare <= 10){
+     aumentalumquery = "UPDATE lumosminima_pb.area_illuminata SET luminosità_manuale = ? WHERE ID = ? ";
+    }
+
+    var result = await conn.query(aumentalumquery, [luminositadaimpostare,id]);
+    console.log(result)
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    throw err;
+
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+
+//diminuire luminosita a una specifica area
+app.post('/area/:id/diminuisciluminosita', async (req, res) => {
+  let conn;
+  const id= req.params.id;
+  try {
+    
+    conn = await pool.getConnection();
+
+    var getcurrentlumquery = "SELECT luminosità_manuale FROM lumosminima_pb.area_illuminata WHERE ID = ?"
+    var luminositaimpostata = await conn.query(getcurrentlumquery, [id]);
+    luminositadaimpostare = (luminositaimpostata[0]["luminosità_manuale"])-1
+    var aumentalumquery = " ";
+    if(luminositadaimpostare >= 0){
+    aumentalumquery = "UPDATE lumosminima_pb.area_illuminata SET luminosità_manuale = ? WHERE ID = ? ";
+    }
+    var result = await conn.query(aumentalumquery, [luminositadaimpostare,id]);
+    console.log(result)
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    throw err;
+
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+
 
 /*
 
@@ -633,70 +689,6 @@ app.post('/aggiungiGuasto', async (req, res) => {
   } catch (err) {
     console.log(err)
     throw err;
-  } finally {
-    if (conn) return conn.release();
-  }
-})
-
-
-
-
-
-
-//aumentare luminosita a una specifica area
-app.post('/aumentaluminosita', async (req, res) => {
-  let conn;
-  const id= req.query.id;
-  try {
-    
-    conn = await pool.getConnection();
-
-    console.log("connesso")
-    var getcurrentlumquery = "SELECT luminosita_impostata FROM lumosminima_pb.area_illuminata WHERE ID = ?"
-    var luminositaimpostata = await conn.query(getcurrentlumquery, [id]);
-    luminositadaimpostare = (luminositaimpostata[0]["luminosita_impostata"])+1
-    console.log(luminositadaimpostare)
-    var aumentalumquery = " ";
-    if(luminositadaimpostare <= 10){
-     aumentalumquery = "UPDATE lumosminima_pb.area_illuminata SET luminosita_impostata = ? WHERE ID = ? ";
-    }
-
-    var result = await conn.query(aumentalumquery, [luminositadaimpostare,id]);
-    console.log(result)
-    res.sendStatus(200)
-  } catch (err) {
-    console.log(err)
-    throw err;
-
-  } finally {
-    if (conn) return conn.release();
-  }
-})
-
-//diminuire luminosita a una specifica area
-app.post('/diminuisciluminosita', async (req, res) => {
-  let conn;
-  const id= req.query.id;
-  try {
-    
-    conn = await pool.getConnection();
-
-    console.log("connesso")
-    var getcurrentlumquery = "SELECT luminosita_impostata FROM lumosminima_pb.area_illuminata WHERE ID = ?"
-    var luminositaimpostata = await conn.query(getcurrentlumquery, [id]);
-    luminositadaimpostare = (luminositaimpostata[0]["luminosita_impostata"])-1
-    console.log(luminositadaimpostare)
-    var aumentalumquery = " ";
-    if(luminositadaimpostare >= 0){
-    aumentalumquery = "UPDATE lumosminima_pb.area_illuminata SET luminosita_impostata = ? WHERE ID = ? ";
-    }
-    var result = await conn.query(aumentalumquery, [luminositadaimpostare,id]);
-    console.log(result)
-    res.sendStatus(200)
-  } catch (err) {
-    console.log(err)
-    throw err;
-
   } finally {
     if (conn) return conn.release();
   }
