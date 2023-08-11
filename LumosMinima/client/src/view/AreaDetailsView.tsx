@@ -19,7 +19,7 @@ interface Props {
             <div className="box">
               <h1>{viewModel.areaDetails().data?.città}</h1>
               
-              <p>Zona: {viewModel.areaDetails().data?.città}</p>
+              <p>Zona: {viewModel.areaDetails().data?.zona_geografica_città}</p>
               {/* <p>Stato:{viewModel.areaDetails().data?..luminosita_impostata != area.luminosita_default ? <>Manuale</> : <>Automatico</>}</p> */}
               <p>Luminosità:{viewModel.areaDetails().data?.luminosità_standard}</p>
               {/* <p>Numero lampioni: {numeroLampioni}</p>
@@ -61,6 +61,18 @@ interface Props {
         // onClick={() => eliminaArea()}
       >
         Elimina area
+      </button>
+
+      <button className="button is-outlined">
+        Modifica dettagli area
+      </button>
+
+      <button className="button is-outlined">
+      <a href="/aggiungiSensore"><button className = "button is-outlined">Aggiungi sensore</button></a>
+      </button>
+
+      <button className="button is-outlined">
+      <a href="/aggiungiLampione"><button className = "button is-outlined">Aggiungi lampione</button></a>
       </button>
     </>
   );

@@ -8,6 +8,9 @@ import { GestioneAree } from './pages/GestioneAree';
 import { queryClient } from './utils/utils';
 import { Home } from './pages/Home';
 import { AreaDetails } from './pages/AreaDetails';
+import { AggiungiArea } from './pages/AggiungiArea';
+import { AggiungiLampione } from './pages/AggiungiLampione';
+import { AggiungiSensore } from './pages/AggiungiSensore';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -19,6 +22,9 @@ root.render(
       <Route path='/' element={<Home/>}></Route>
       <Route path='/aree' element={<GestioneAree/>}></Route>
       <Route path='/area/:id' element={<AreaDetails/>}></Route>
+      <Route path='/aggiungiArea/' element={<AggiungiArea/>}></Route>
+      <Route path='/aggiungiLampione/' element={<AggiungiLampione/>}></Route>
+      <Route path='/aggiungiSensore/' element={<AggiungiSensore/>}></Route>
     </Routes>
     </Router>
     

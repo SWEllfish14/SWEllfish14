@@ -1,11 +1,12 @@
 import { observer } from "mobx-react-lite";
 import { IHomeViewModel } from "../ViewModel/HomeViewModel";
 
+
 interface Props {
     viewModel:IHomeViewModel;
   }
   const HomeView = ({viewModel}: Props) => (
-   
+   <div>
  <div className ="tile is-ancestor">
     <div className="tile is-parent">
     <article className="tile is-child box">
@@ -18,7 +19,7 @@ interface Props {
         </p>
     </article>
     </div>
- <div className="tile is-child">
+ <div className="tile is-parent">
  <article className="tile is-child box">
  <h1>Lista aree</h1>
 
@@ -26,16 +27,17 @@ interface Props {
      {viewModel.areeLimitisLoading() ? <p>Loading...</p> :
          <ul>
              {viewModel.areeLimit()?.map(area => (
-                 <li key={area.ID}>
-                     ID: {area.ID}
-                     Città: {area.città}
-                 </li>
+                <li key={area.ID}>
+                    {area.città}, Località: {area.zona_geografica_città}.Stato: {area.stato == 1? 'On' : 'Off'}
+
+                </li>
              ))}
          </ul>}
              
  </p>
              
  </article>
+ </div>
  </div>
 
 
@@ -49,8 +51,11 @@ interface Props {
         <ul>
             {viewModel.guasti()?.map(guasto => (
                 <li key={guasto.ID}>
-                   ID guasto: {guasto.ID}
-                   ID zona illuminata: {guasto.id_area_illuminata}
+                  
+                   <p style={styles.p}>
+                   Guasto a {guasto.città},{guasto.zona_geografica_città}.
+                   Data rilevamento: {guasto.data_rilevamento.toString()}
+                   </p>
                    </li>
             ))}
         </ul>}
@@ -58,20 +63,25 @@ interface Props {
             
 </p>
 </article>
+</div>
 <div className="tile is-parent">
          <article className="tile is-child box">
-                    <h1>Altro</h1>
-                    <p className="menu-list">
-                    <li>Manuale Utente</li>
-                    </p>
+                    <h1>Utility</h1>
+                    
+                   <a href='/'>Manuale Utente</a>
+                    
             </article>
             </div>
             </div>
             </div>
-            </div>
+ 
  
     )
-  
+    const styles = {
+        p: {
+          margin: "10px"
+        }
+      } as const;
  
  
  export default observer(HomeView)
