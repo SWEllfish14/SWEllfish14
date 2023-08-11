@@ -34,6 +34,7 @@ export class GuastiStore implements IGuastiStore {
   }
 
   dispose() {
+    this.guastiNumberQueryResult.dispose();
     this.guastiQueryResult.dispose();
 
   }

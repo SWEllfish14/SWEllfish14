@@ -3,9 +3,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { provider, toValue, useInstance } from "react-ioc";
 
 import { AreeViewModel } from "./ViewModel/AreeViewModel";
+import { AreaDetailsViewModel} from "./ViewModel/AreaDetailsViewModel";
 import { IAreeViewModel } from "./ViewModel/AreeViewModel";
 import { AreeStore } from "./stores/AreeStore";
 import AreeView from "./view/AreeView";
+import AreaDetailsView from "./view/AreaDetailsView";
 
 const queryClient = new QueryClient({
   defaultOptions: {

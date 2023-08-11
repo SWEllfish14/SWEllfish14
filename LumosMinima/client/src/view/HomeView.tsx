@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { IHomeViewModel } from "../ViewModel/HomeViewModel";
+import { useParams } from "react-router-dom";
 
 
 interface Props {

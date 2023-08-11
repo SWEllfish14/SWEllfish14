@@ -8,7 +8,7 @@ interface Props {
   
   const AreaDetailsView = ({viewModel}: Props) => (
    
-    <>
+    <div>
       <div className="columns">
       
         <div className="column is-half">
@@ -74,6 +74,11 @@ interface Props {
       <button className="button is-outlined">
       <a href="/aggiungiLampione"><button className = "button is-outlined">Aggiungi lampione</button></a>
       </button>
-    </>
+
+      <button className="button is-outlined">
+      <a href="/lamps/:id"><button className = "button is-outlined">Lista Lampioni</button></a>
+      </button>
+      </div>
+      
   );
   export default observer(AreaDetailsView)
