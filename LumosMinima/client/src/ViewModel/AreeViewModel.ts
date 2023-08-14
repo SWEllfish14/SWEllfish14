@@ -1,6 +1,6 @@
-import { observer } from "mobx-react-lite"
+
 import {AreeStore} from "../stores/AreeStore"
-import { provider, useInstance } from "react-ioc"
+import {  useInstance } from "react-ioc"
 
 
 export type IAreeViewModel = ReturnType<typeof AreeViewModel>;

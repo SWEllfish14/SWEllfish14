@@ -15,8 +15,8 @@ export const AreaDetailsViewModel = () => {
         error:() =>  {if(error instanceof Error){
             return error}
         },
-        aumentaLuminosità:() => {if(id !== undefined)store.aumentaLuminositàMutation.mutate({id})},
-        diminuisciLuminosità:() => {if(id !== undefined)store.diminuisciLuminositàMutation.mutate({id})}
+        aumentaLuminosità:() => {if(id !== undefined &&parseInt(store.getAreaDetails(id!).data?.luminosità_manuale!) <10)store.aumentaLuminositàMutation.mutate({id})},
+        diminuisciLuminosità:() => {if(id !== undefined && parseInt(store.getAreaDetails(id!).data?.luminosità_manuale!) >0)store.diminuisciLuminositàMutation.mutate({id})}
     };
   };
 

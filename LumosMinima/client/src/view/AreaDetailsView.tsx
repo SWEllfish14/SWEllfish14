@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+
 import { IAreaDetailsViewModel } from "../ViewModel/AreaDetailsViewModel";
 import { observer } from "mobx-react-lite";
 
