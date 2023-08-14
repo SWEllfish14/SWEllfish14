@@ -13,3 +13,4 @@ export const ListaGuastiViewModel = (guastiStore?:GuastiStore ) => {
     };
   };
 
+export default ListaGuastiViewModel;

@@ -13,6 +13,8 @@ import { AggiungiLampione } from './pages/AggiungiLampione';
 import { AggiungiSensore } from './pages/AggiungiSensore';
 import { ListaGuasti } from './pages/ListaGuasti';
 import { ListaLampioni } from './pages/ListaLampioni';
+import { ModificaArea } from './pages/ModificaArea';
+import { ListaSensori } from './pages/ListaSensori';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -24,11 +26,13 @@ root.render(
       <Route path='/' element={<Home/>}></Route>
       <Route path='/aree' element={<GestioneAree/>}></Route>
       <Route path='/area/:id' element={<AreaDetails/>}></Route>
-      <Route path='/aggiungiArea/' element={<AggiungiArea/>}></Route>
-      <Route path='/aggiungiLampione/' element={<AggiungiLampione/>}></Route>
-      <Route path='/aggiungiSensore/' element={<AggiungiSensore/>}></Route>
-      <Route path='/guasti/' element={<ListaGuasti/>}></Route>
+      <Route path='/aggiungiArea' element={<AggiungiArea/>}></Route>
+      <Route path='/aggiungiLampione' element={<AggiungiLampione/>}></Route>
+      <Route path='/aggiungiSensore' element={<AggiungiSensore/>}></Route>
+      <Route path='/guasti' element={<ListaGuasti/>}></Route>
       <Route path='/lampioni/:id' element={<ListaLampioni/>}></Route>
+      <Route path='/sensori/:id' element={<ListaSensori/>}></Route>
+      <Route path='/modificaArea/:id' element={<ModificaArea/>}></Route>
     </Routes>
     </Router>
     
