@@ -2,7 +2,7 @@
 import { makeAutoObservable } from 'mobx';
 import axios from "axios";
 import { MobxQuery } from '../utils/mobxqueryts';
-import { GetAreaDetailsJTO, GetNumeroAreeJTO } from '../utils/api-types';
+import { GetAreaDetailsJTO, GetNumeroAreeJTO, GetModificaAreaJTO } from '../utils/api-types';
 import { GetLimitAreeJTO } from '../utils/api-types';
 import { GetAreeJTO } from '../utils/api-types';
 import { QueryClient, QueryKey, QueryObserverResult } from '@tanstack/react-query';
@@ -15,6 +15,7 @@ export default interface IAreeStore{
   areeQueryResult: MobxQuery<GetAreeJTO, unknown, GetAreeJTO, GetAreeJTO, QueryKey>
   areeNumeroQueryResult: MobxQuery<GetNumeroAreeJTO, unknown, GetNumeroAreeJTO, GetNumeroAreeJTO, QueryKey>
   areeLimitQueryResult:MobxQuery<GetLimitAreeJTO, unknown, GetLimitAreeJTO, GetLimitAreeJTO, QueryKey>
+  editAreaQueryResult:MobxQuery<GetModificaAreaJTO, unknown, GetModificaAreaJTO, GetModificaAreaJTO, QueryKey>
   get aree():QueryObserverResult<GetAreeJTO, unknown>
   dispose: ()=>void
 }
@@ -38,6 +39,14 @@ export class AreeStore implements IAreeStore {
     areeLimitQueryResult  = new MobxQuery<GetLimitAreeJTO>({
       queryKey: ['areelimit'],
       queryFn: () => axios.get('http://localhost:3002/areelimit').then((r) => r.data),
+    });
+
+    editAreaQueryResult = new MobxQuery<GetModificaAreaJTO>({
+      queryFn: ({ queryKey }) => {
+        return axios
+          .get(`http://localhost:3002/area/${queryKey[1]}`)
+          .then((r) => r.data);
+      },
     });
     
   constructor() {

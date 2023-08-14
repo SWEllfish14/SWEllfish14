@@ -6,12 +6,15 @@ import { useParams } from "react-router-dom";
 
 export type IListaLampioniViewModel = ReturnType<typeof ListaLampioniViewModel>;
 
-export const ListaLampioniViewModel = (lampioniStore?:LampioniStore ) => {
+export const ListaLampioniViewModel = (lampioniStore ?: LampioniStore) => {
     const { id } = useParams();
-    const {numeroLampioni, getdettagliLampioni} =useInstance(LampioniStore);
+    const {lampID} = useParams();
+    const {getdettagliLampioni, geteliminaLampione} =useInstance(LampioniStore);
+    const error = getdettagliLampioni(id!).error
     return {
-       dettaglilampioni: ()=> getdettagliLampioni(id!),
-      isLoading: ()=> getdettagliLampioni(id!).isLoading
+       dettaglilampioni: ()=> getdettagliLampioni(id!).data,
+       isLoading: ()=> getdettagliLampioni(id!).isLoading,
+       eliminaLampione: () => geteliminaLampione(lampID!).data
     };
   };
 

@@ -176,6 +176,46 @@ app.get('/area/:id', async (req, res) => {
   }
 });
 
+//Area da ID
+app.get('/editarea/:id', async (req, res) => {
+
+  const id = parseInt(req.params.id)
+  let conn;
+  try {
+
+    conn = await pool.getConnection();
+
+   // var query = "UPDATE area_illuminata SET città,zona_geografica_città,modalità_funzionamento,luminosità_standard,luminosità_rilevamento,luminosità_manuale, stato FROM lumosminima_pb.area_illuminata WHERE ID=?";
+    var rows = await conn.query(query, [id]);
+    res.send(rows[0]);
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
+
+//elimina lampione
+app.post('/eliminaLampione/:id', async (req, res) => {
+  let conn;
+  const id = req.query.id
+  try {
+    conn = await pool.getConnection();
+    var eliminaQuery = 'DELETE FROM lumosminima_pb.lampione WHERE ID = ?'
+    await conn.query(eliminaQuery,[id])
+   
+    res.sendStatus(200)
+    
+    
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+
 //Lampioni dell'area
 
 app.get('/lamps/:id', async (req, res) =>{
@@ -186,7 +226,7 @@ app.get('/lamps/:id', async (req, res) =>{
     conn = await pool.getConnection();
 
 
-    var query = "SELECT IP,ID,luminosità_default,luminosità_impostata, id_area_illuminata FROM lumosminima_pb.lampione WHERE id_area_illuminata=?";
+    var query = "SELECT IP,ID,tipo_interazione,luminosità_default,luminosità_impostata, id_area_illuminata FROM lumosminima_pb.lampione WHERE id_area_illuminata=? ";
 
 
     var rows = await conn.query(query, [id]);
@@ -213,7 +253,77 @@ app.get('/lamps/:id', async (req, res) =>{
   }
   });
   
+  app.get('/sensori/:id', async (req, res) =>{
+    const id = parseInt(req.params.id)
+    let conn;
+    try {
   
+      conn = await pool.getConnection();
+  
+  
+      var query = "SELECT IP,ID,polling_time,zona_geografica_posizionamento,tipo_interazione,raggio_azione, id_area_illuminata FROM lumosminima_pb.sensore WHERE id_area_illuminata=? ";
+  
+  
+      var rows = await conn.query(query, [id]);
+      var result = [];
+      await Promise.all(rows.map(async (lamp) => {
+        try {
+         // console.log('http://' + lamp.IP + ":3020/lamp")
+          //const response = await axios.get('http://' + lamp.IP + ":3020/lamp", headers)
+          //response.data.ip = lamp.IP
+          //console.log(response.data)
+          //result.push(response.data)
+        }
+        catch (e) {
+         console.log(e.response)
+        }
+        }))
+      
+      
+      res.send(rows);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) return conn.release();
+    }
+    });
+    
+ 
+/*app.get('/lamps', async (req, res) =>{
+  const id = parseInt(req.params.id)
+  let conn;
+  try {
+
+    conn = await pool.getConnection();
+
+
+    var query = "SELECT IP,ID,luminosità_default,luminosità_impostata, id_area_illuminata FROM lumosminima_pb.lampione WHERE id_area_illuminata=1 ";
+
+
+    var rows = await conn.query(query);
+    var result = [];
+    await Promise.all(rows.map(async (lamp) => {
+      try {
+       // console.log('http://' + lamp.IP + ":3020/lamp")
+        //const response = await axios.get('http://' + lamp.IP + ":3020/lamp", headers)
+        //response.data.ip = lamp.IP
+        //console.log(response.data)
+        //result.push(response.data)
+      }
+      catch (e) {
+       console.log(e.response)
+      }
+      }))
+    
+    
+    res.send(rows);
+  } catch (err) {
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+  });
+  */
 //aumentare luminosita a una specifica area
 app.post('/area/:id/aumentaluminosita', async (req, res) => {
   let conn;

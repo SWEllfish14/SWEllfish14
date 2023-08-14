@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite"
 import {IListaLampioniViewModel } from "../ViewModel/ListaLampioniViewModel";
+import { Link } from "react-router-dom";
 
  interface Props {
    viewModel:IListaLampioniViewModel;
@@ -14,13 +15,30 @@ import {IListaLampioniViewModel } from "../ViewModel/ListaLampioniViewModel";
     
     {viewModel.isLoading() ? <p>Loading...</p> :
         <ul>
-            {/*viewModel.lampioni()?.map(lampione => (
-                <li key={lampione.ID}>
-                    ID: {lampione.ID}, IP: {lampione.IP}, luminosità default: {lampione.luminosita_default}, luminosità impostata: {lampione.luminosita_impostata}
+            {viewModel.dettaglilampioni()?.map(lampioni => (
+                <li key={lampioni.ID}>
+                    <p>
+                    ID: {lampioni.ID}, IP: {lampioni.IP}
+                    </p>
+                    <p>Tipo interazione: {lampioni.tipo_iterazione}, luminosità default: {lampioni.luminosita_default}, luminosità impostata: {lampioni.luminosita_impostata}
+                    </p>
+                    <p>
+                    <button
+              className="button is-danger"
+                 onClick={() => viewModel.eliminaLampione()}
+            > Elimina Lampione </button>
+
+<button
+              className="button is-outlined"
+                 onClick={() => viewModel.eliminaLampione()}
+            > Modifica dettagli Lampione </button>
+                    </p>
                 </li>
             ))}
-            }
-            {/*<h1>{viewModel.lampioni().data?.IP}</h1>*/}
+        <p>
+        </p>            
+            
+    
               
         </ul>
         }
@@ -31,7 +49,7 @@ import {IListaLampioniViewModel } from "../ViewModel/ListaLampioniViewModel";
 </div>
 </div>
 
-   )
+   );
  
 
 

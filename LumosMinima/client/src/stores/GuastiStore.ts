@@ -3,7 +3,7 @@ import axios from "axios";
 import { MobxQuery } from '../utils/mobxqueryts';
 import { GetAreeJTO, GetNumeroGuastiJTO, GetGuastoJTO } from '../utils/api-types';
 import { QueryKey, QueryObserverResult } from '@tanstack/react-query';
-
+import { inject } from 'react-ioc';
 
 export default interface IGuastiStore{
   guastiNumberQueryResult: MobxQuery<GetNumeroGuastiJTO, unknown, GetNumeroGuastiJTO, GetNumeroGuastiJTO, QueryKey>
