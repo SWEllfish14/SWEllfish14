@@ -79,6 +79,48 @@ app.get('/aree', async (req, res) => {
   }
 });
 
+//dettagli lampione in base all'ID
+  app.get('/lampione/:id', async (req, res) => {
+
+    const id = parseInt(req.params.id)
+    let conn;
+    try {
+  
+      conn = await pool.getConnection();
+  
+      var query = "SELECT ID,IP, luminosità_default, luminosità_impostata FROM lumosminima_pb.lampione WHERE ID = ?";
+      var rows = await conn.query(query, [id]);
+      res.send(rows[0]);
+    } catch (err) {
+      console.log(err)
+      throw err;
+    } finally {
+      if (conn) return conn.release();
+    }
+  });
+  
+
+  //dettagli sensore in base all'ID
+  app.get('/sensore/:id', async (req, res) => {
+
+    const id = parseInt(req.params.id)
+    let conn;
+    try {
+  
+      conn = await pool.getConnection();
+  
+      var query = "SELECT ID, IP, polling_time, zona_geografica_posizionamento, raggio_azione FROM lumosminima_pb.sensore WHERE ID = ?";
+      var rows = await conn.query(query, [id]);
+      res.send(rows[0]);
+    } catch (err) {
+      console.log(err)
+      throw err;
+    } finally {
+      if (conn) return conn.release();
+    }
+  });
+  
+
 //per ottenere il numero dei sensori per la dashboard
 app.get('/numeroSensori', async (req, res) => {
     let conn;
