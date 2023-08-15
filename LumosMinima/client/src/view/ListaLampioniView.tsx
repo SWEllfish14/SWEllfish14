@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
     
     {viewModel.isLoading() ? <p>Loading...</p> :
         <ul>
-            {viewModel.dettaglilampioni()?.map(lampioni => (
+            {viewModel.listaLampioni()?.map(lampioni => (
                 <li key={lampioni.ID}>
                     <p>
                     ID: {lampioni.ID}, IP: {lampioni.IP}
@@ -28,10 +28,12 @@ import { Link } from "react-router-dom";
                  onClick={() => viewModel.eliminaLampione(lampioni.ID)}
             > Elimina Lampione </button>
 
+<Link to={{pathname: `/modificaLampione/${lampioni.ID}`}}>
 <button
               className="button is-outlined"
                  onClick={() => viewModel.eliminaLampione(lampioni.ID)}
             > Modifica dettagli Lampione </button>
+            </Link>
                     </p>
                 </li>
             ))}

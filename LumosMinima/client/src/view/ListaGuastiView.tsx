@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite"
 import {IListaGuastiViewModel } from "../ViewModel/ListaGuastiViewModel";
+import { Link } from "react-router-dom";
 
  interface Props {
    viewModel:IListaGuastiViewModel;
@@ -16,9 +17,9 @@ import {IListaGuastiViewModel } from "../ViewModel/ListaGuastiViewModel";
         <ul>
             {viewModel.guasti()?.map(guasto => (
                 <li key={guasto.ID}>
-                    <a href='guasto/${area.ID.toString}'>
-                    ID: {guasto.ID}: Guasto a {guasto["area.città"]}, zona {guasto["area.zona_geografica_città"]}
-                    </a>
+                    <Link to={{pathname: `/guasti/${guasto.ID}`}}>
+                    ID: {guasto.ID}: Guasto a {guasto.città}, zona {guasto.zona_geografica_città}
+                    </Link>
                 </li>
             ))}
             

@@ -15,6 +15,9 @@ import { ListaGuasti } from './pages/ListaGuasti';
 import { ListaLampioni } from './pages/ListaLampioni';
 import { ModificaArea } from './pages/ModificaArea';
 import { ListaSensori } from './pages/ListaSensori';
+import { ModificaSensore } from './pages/ModificaSensore';
+import { ModificaLampione} from './pages/ModificaLampione';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -33,6 +36,8 @@ root.render(
       <Route path='/lampioni/:id' element={<ListaLampioni/>}></Route>
       <Route path='/sensori/:id' element={<ListaSensori/>}></Route>
       <Route path='/modificaArea/:id' element={<ModificaArea/>}></Route>
+      <Route path='/modificaSensore/:id' element={<ModificaSensore/>}></Route>
+      <Route path='/modificaLampione/:id' element={<ModificaLampione/>}></Route>
     </Routes>
     </Router>
     

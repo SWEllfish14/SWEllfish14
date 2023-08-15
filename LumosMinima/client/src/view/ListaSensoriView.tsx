@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
     
     {viewModel.isLoading() ? <p>Loading...</p> :
         <ul>
-            {viewModel.dettaglisensori()?.map(sensori => (
+            {viewModel.listaSensori()?.map(sensori => (
                 <li key={sensori.ID}>
                     <p>
                     ID: {sensori.ID}, IP: {sensori.IP}
@@ -28,10 +28,12 @@ import { Link } from "react-router-dom";
                 // onClick={() => null}
             > Elimina Sensore </button>
 
+      <Link to={{pathname: `/modificaSensore/${sensori.ID}`}}>
             <button
               className="button is-outlined"
                 // onClick={() => null}
             > Modifica dettagli Sensore </button>
+            </Link>
                     </p>
                 </li>
             ))}

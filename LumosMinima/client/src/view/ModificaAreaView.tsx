@@ -9,16 +9,16 @@ import { useParams } from "react-router-dom";
 <div className ="tile is-ancestor">
 <div className="tile is-parent">
 <article className="tile is-child box">
-<h1>Aggiunta area</h1>
+<h1>Modifica area</h1>
 <p className="menu-label">
     <h1>Nome città</h1>
-    <input className="input" type="text" placeholder="Nome città in cui si trova il sistema di illuminazione"></input>
+    <input className="input" type="text" placeholder={viewModel.areaDetails().data?.città}></input>
     <h1>Zona geografica città</h1>
-    <input className="input" type="text" placeholder="Zona geografica della città in cui si trova il sistema di illuminazione"></input>
+    <input className="input" type="text" placeholder={viewModel.areaDetails().data?.zona_geografica_città}></input>
     <h1>Luminosità default</h1>
-    <input className="input" type="text" placeholder="Luminosità che l'impianto produrrà quando non ci sono rilevamenti di utenti stradali"></input>
+    <input className="input" type="text" placeholder={viewModel.areaDetails().data?.luminosità_standard.toString()}></input>
     <h1>Luminosità rilevamento </h1>
-    <input className="input" type="text" placeholder="Luminosità che l'imianto produrrà quando ci sarà un rilevamento di un utente stradale"></input>
+    <input className="input" type="text" placeholder={viewModel.areaDetails().data?.luminosità_rilevamento.toString()}></input>
 
     </p>
     

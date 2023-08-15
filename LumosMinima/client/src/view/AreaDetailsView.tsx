@@ -75,7 +75,9 @@ const AreaDetailsView = ({ viewModel }: Props) => (
       Elimina area
     </button>
 
-    <button className="button is-outlined">Modifica dettagli area</button>
+    <Link to={{pathname: `/modificaArea/${viewModel.areaDetails().data?.ID}`}}>
+        <button className="button is-outlined">Modifica dettagli area</button>
+      </Link>
           </div>
           </div>
 

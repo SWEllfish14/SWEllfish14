@@ -10,11 +10,11 @@ export const ListaLampioniViewModel = (lampioniStore ?: LampioniStore) => {
     const { id } = useParams();
 
     const store =useInstance(LampioniStore);
-    const error = store.getdettagliLampioni(id!).error
+    const error = store.getlistaLampioni(id!).error
     return {
-       dettaglilampioni: ()=> store.getdettagliLampioni(id!).data,
-       isLoading: ()=> store.getdettagliLampioni(id!).isLoading,
-       eliminaLampione: (lampID:number) => store.geteliminaLampione(lampID!)
+       listaLampioni: ()=> store.getlistaLampioni(id!).data,
+       isLoading: ()=> store.getlistaLampioni(id!).isLoading,
+       eliminaLampione: (lampID:string) => store.geteliminaLampione(lampID!)
     };
   };
 

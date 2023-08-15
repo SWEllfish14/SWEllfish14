@@ -36,6 +36,7 @@ export class AreeStore implements IAreeStore {
           .then((r) => r.data);
       },
     });
+
     areeLimitQueryResult  = new MobxQuery<GetLimitAreeJTO>({
       queryKey: ['areelimit'],
       queryFn: () => axios.get('http://localhost:3002/areelimit').then((r) => r.data),

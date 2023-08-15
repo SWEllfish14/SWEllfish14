@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import axios from "axios";
 import { MobxQuery } from '../utils/mobxqueryts';
-import { GetSensoriJTO, GetNumeroSensoriJT0 } from '../utils/api-types';
+import { GetSensoriJTO, GetNumeroSensoriJT0, GetDettagliSensoriJTO } from '../utils/api-types';
 import { QueryKey, QueryObserverResult } from '@tanstack/react-query';
 import { inject } from 'react-ioc';
 
@@ -9,7 +9,8 @@ import { inject } from 'react-ioc';
 export default interface ISensoriStore{
   sensoriQueryResult: MobxQuery<GetNumeroSensoriJT0, unknown, GetNumeroSensoriJT0, GetNumeroSensoriJT0, QueryKey>
   get numeroSensori():QueryObserverResult<GetNumeroSensoriJT0, unknown>
-  getdettagliSensori(areaId: string): QueryObserverResult<GetSensoriJTO, unknown>
+  getlistaSensori(areaId: string): QueryObserverResult<GetSensoriJTO, unknown>
+  getdettagliSensori(sensore_id: string): QueryObserverResult<GetDettagliSensoriJTO, unknown>
   dispose: ()=>void
 }
 export class SensoriStore implements ISensoriStore {
@@ -18,13 +19,21 @@ export class SensoriStore implements ISensoriStore {
         queryFn: () => axios.get('http://localhost:3002/numeroSensori').then((r) => r.data),
       });
 
-      sensoriDetailsQueryResult = new MobxQuery<GetSensoriJTO>({
+      sensoriListaQueryResult = new MobxQuery<GetSensoriJTO>({
         queryFn: ({ queryKey }) => {
           return axios
           .get(`http://localhost:3002/sensori/${queryKey[1]}`)
           .then((r) => r.data);
       },
     });
+
+    sensoriDettagliQueryResult = new MobxQuery<GetDettagliSensoriJTO>({
+      queryFn: ({ queryKey }) => {
+        return axios
+        .get(`http://localhost:3002/sensore/${queryKey[1]}`)
+        .then((r) => r.data);
+    },
+  });
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
@@ -34,13 +43,18 @@ export class SensoriStore implements ISensoriStore {
     return this.sensoriQueryResult.query();
   }
 
-  getdettagliSensori(areaId: string) {
-    return this.sensoriDetailsQueryResult.query({
+  getlistaSensori(areaId: string) {
+    return this.sensoriListaQueryResult.query({
       queryKey: ['sensori', areaId],
+    });
+  }
+  getdettagliSensori(sensore_id: string) {
+    return this.sensoriDettagliQueryResult.query({
+      queryKey: ['sensore', sensore_id],
     });
   }
   dispose() {
     this.sensoriQueryResult.dispose();
-    this.sensoriDetailsQueryResult.dispose();
+    this.sensoriListaQueryResult.dispose();
   }
 }
