@@ -17,7 +17,7 @@ import {IListaGuastiViewModel } from "../ViewModel/ListaGuastiViewModel";
             {viewModel.guasti()?.map(guasto => (
                 <li key={guasto.ID}>
                     <a href='guasto/${area.ID.toString}'>
-                    ID: {guasto.ID}: Guasto a {guasto.città}, zona {guasto.zona_geografica_città}
+                    ID: {guasto.ID}: Guasto a {guasto["area.città"]}, zona {guasto["area.zona_geografica_città"]}
                     </a>
                 </li>
             ))}

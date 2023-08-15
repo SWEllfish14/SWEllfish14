@@ -88,7 +88,7 @@ const HomeView = ({ viewModel }: Props) => (
                 {viewModel.guasti()?.map((guasto) => (
                   <li key={guasto.ID}>
                     <p style={styles.p}>
-                      Guasto a {guasto.città},{guasto.zona_geografica_città}.
+                      Guasto a {guasto["area.città"]},{guasto["area.zona_geografica_città"]}.
                       Data rilevamento: {guasto.data_rilevamento.toString()}
                     </p>
                   </li>

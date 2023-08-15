@@ -1,8 +1,23 @@
+const { raw } = require("express");
 const db = require("../models/index");
 Guasto = db.guasti;
-
+Area = db.aree;
 const getAllGuasti = async () => {
-  const guasti = await Guasto.findAll();
+  const guasti = await Guasto.findAll(
+    {
+    
+      include: [
+        {
+            
+                model: Area,
+                as: 'area',
+                attributes: ['città','zona_geografica_città']
+      }  ],
+          raw:true
+        }
+    
+    
+  );
   return guasti;
 };
 

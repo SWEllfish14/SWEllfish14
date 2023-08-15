@@ -36,7 +36,7 @@ export class SensoriStore implements ISensoriStore {
 
   getdettagliSensori(areaId: string) {
     return this.sensoriDetailsQueryResult.query({
-      queryKey: ['area', areaId],
+      queryKey: ['sensori', areaId],
     });
   }
   dispose() {

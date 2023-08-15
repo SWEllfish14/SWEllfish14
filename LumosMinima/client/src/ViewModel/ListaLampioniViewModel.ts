@@ -8,13 +8,13 @@ export type IListaLampioniViewModel = ReturnType<typeof ListaLampioniViewModel>;
 
 export const ListaLampioniViewModel = (lampioniStore ?: LampioniStore) => {
     const { id } = useParams();
-    const {lampID} = useParams();
-    const {getdettagliLampioni, geteliminaLampione} =useInstance(LampioniStore);
-    const error = getdettagliLampioni(id!).error
+
+    const store =useInstance(LampioniStore);
+    const error = store.getdettagliLampioni(id!).error
     return {
-       dettaglilampioni: ()=> getdettagliLampioni(id!).data,
-       isLoading: ()=> getdettagliLampioni(id!).isLoading,
-       eliminaLampione: () => geteliminaLampione(lampID!).data
+       dettaglilampioni: ()=> store.getdettagliLampioni(id!).data,
+       isLoading: ()=> store.getdettagliLampioni(id!).isLoading,
+       eliminaLampione: (lampID:number) => store.geteliminaLampione(lampID!)
     };
   };
 
