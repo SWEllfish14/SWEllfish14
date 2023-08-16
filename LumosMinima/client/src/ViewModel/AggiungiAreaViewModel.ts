@@ -1,17 +1,43 @@
 import { useInstance } from "react-ioc";
 import{ AreeStore } from "../stores/AreeStore";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 export type IAggiungiAreaViewModel = ReturnType<typeof AggiungiAreaViewModel>;
 
 export const AggiungiAreaViewModel = () => {
     const { id } = useParams();
-    const {aree,getAreaDetails} =useInstance(AreeStore);
+    const store =useInstance(AreeStore);
+    let [submitHasError,setSubmitHasError]= useState(false)
+    let [submitError,setSubmitError] = useState("")
+    let e
+    const navigate = useNavigate()
     return {
-        areaDetails: ()=> getAreaDetails(id!),
-        isLoading: ()=> getAreaDetails(id!).isLoading,
-        isError: () => getAreaDetails(id!).isError,
-        error:() => getAreaDetails(id!).error,
+        areaDetails: ()=> store.getAreaDetails(id!),
+        isLoading: ()=> store.getAreaDetails(id!).isLoading,
+        isError: () => store.getAreaDetails(id!).isError,
+        error:() => store.getAreaDetails(id!).error,
+        submitIsError:()=>submitHasError,
+        submit:async (e:any) => {
+            e.preventDefault()
+            const data = new FormData(e.target)
+            const result = await store.aggiungiAreaMutation.mutateAsync({data})
+                if(result.isSuccess){
+                    navigate("/area/"+data.get("id"))
+                }
+                if(result.isError){
+                    
+                    e=result.error
+                    setSubmitError(e.message)
+                    setSubmitHasError(true)
+                    
+                }
+                      
+        },
+        clearError:() =>{
+            setSubmitHasError(false)
+        },
+        submitError:() => submitError
+        
     };
   };
 

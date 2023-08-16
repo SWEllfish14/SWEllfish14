@@ -92,11 +92,21 @@ const diminuisciLuminositaArea= (req, res) => {
   }
   };
 
+  const aggiungiArea = async (req, res) => {
+    try{
+      const result = await areaService.aggiungiArea(req.body);
+      res.status(200).send(result)
+    }catch (error){
+      res.status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } })
+    }
+  };
   module.exports = {
     getAllAree,
     getNumeroAree,
     getFiveAree,
     getOneArea,
     aumentaLuminositaArea,
-    diminuisciLuminositaArea
+    diminuisciLuminositaArea,
+    aggiungiArea
   }

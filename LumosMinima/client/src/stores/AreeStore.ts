@@ -1,55 +1,114 @@
-
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from "mobx";
 import axios from "axios";
-import { MobxQuery } from '../utils/mobxqueryts';
-import { GetAreaDetailsJTO, GetNumeroAreeJTO, GetModificaAreaJTO } from '../utils/api-types';
-import { GetLimitAreeJTO } from '../utils/api-types';
-import { GetAreeJTO } from '../utils/api-types';
-import { QueryClient, QueryKey, QueryObserverResult } from '@tanstack/react-query';
-import { MobxMutation } from '../utils/mobx_mutation';
-import { inject } from 'react-ioc';
-
-
-export default interface IAreeStore{
-  
-  areeQueryResult: MobxQuery<GetAreeJTO, unknown, GetAreeJTO, GetAreeJTO, QueryKey>
-  areeNumeroQueryResult: MobxQuery<GetNumeroAreeJTO, unknown, GetNumeroAreeJTO, GetNumeroAreeJTO, QueryKey>
-  areeLimitQueryResult:MobxQuery<GetLimitAreeJTO, unknown, GetLimitAreeJTO, GetLimitAreeJTO, QueryKey>
-  editAreaQueryResult:MobxQuery<GetModificaAreaJTO, unknown, GetModificaAreaJTO, GetModificaAreaJTO, QueryKey>
-  get aree():QueryObserverResult<GetAreeJTO, unknown>
-  dispose: ()=>void
+import { MobxQuery } from "../utils/mobxqueryts";
+import {
+  GetAreaDetailsJTO,
+  GetNumeroAreeJTO,
+  GetModificaAreaJTO,
+} from "../utils/api-types";
+import { GetLimitAreeJTO } from "../utils/api-types";
+import { GetAreeJTO } from "../utils/api-types";
+import {
+  QueryClient,
+  QueryKey,
+  QueryObserverResult,
+} from "@tanstack/react-query";
+import { MobxMutation } from "../utils/mobx_mutation";
+import { inject } from "react-ioc";
+const headers = {
+  "Content-Type": "application/json",
+};
+export default interface IAreeStore {
+  areeQueryResult: MobxQuery<
+    GetAreeJTO,
+    unknown,
+    GetAreeJTO,
+    GetAreeJTO,
+    QueryKey
+  >;
+  areeNumeroQueryResult: MobxQuery<
+    GetNumeroAreeJTO,
+    unknown,
+    GetNumeroAreeJTO,
+    GetNumeroAreeJTO,
+    QueryKey
+  >;
+  areeLimitQueryResult: MobxQuery<
+    GetLimitAreeJTO,
+    unknown,
+    GetLimitAreeJTO,
+    GetLimitAreeJTO,
+    QueryKey
+  >;
+  editAreaQueryResult: MobxQuery<
+    GetModificaAreaJTO,
+    unknown,
+    GetModificaAreaJTO,
+    GetModificaAreaJTO,
+    QueryKey
+  >;
+  aumentaLuminositàMutation: MobxMutation<
+    unknown,
+    unknown,
+    {
+      id: string;
+    },
+    unknown
+  >;
+  diminuisciLuminositàMutation: MobxMutation<
+    unknown,
+    unknown,
+    {
+      id: string;
+    },
+    unknown
+  >;
+  aggiungiAreaMutation: MobxMutation<
+    unknown,
+    unknown,
+    {
+      data: FormData;
+    },
+    unknown
+  >;
+  get aree(): QueryObserverResult<GetAreeJTO, unknown>;
+  get numeroAree() : QueryObserverResult<number, unknown>;
+  get areeLimit() : QueryObserverResult<GetLimitAreeJTO, unknown>
+  dispose: () => void;
 }
 export class AreeStore implements IAreeStore {
-    queryClient = inject(this, QueryClient);
-    areeQueryResult = new MobxQuery<GetAreeJTO>({
-        queryKey: ['aree'],
-        queryFn: () => axios.get('http://localhost:3002/aree').then((r) => r.data),
-      });
-      areeNumeroQueryResult = new MobxQuery<GetNumeroAreeJTO>({
-        queryKey: ['numeroAree'],
-        queryFn: () => axios.get('http://localhost:3002/numeroAree').then((r) => r.data),
-      });
-    areaDetailsQueryResult = new MobxQuery<GetAreaDetailsJTO>({
-      queryFn: ({ queryKey }) => {
-        return axios
-          .get(`http://localhost:3002/area/${queryKey[1]}`)
-          .then((r) => r.data);
-      },
-    });
+  queryClient = inject(this, QueryClient);
+  areeQueryResult = new MobxQuery<GetAreeJTO>({
+    queryKey: ["aree"],
+    queryFn: () => axios.get("http://localhost:3002/aree").then((r) => r.data),
+  });
+  areeNumeroQueryResult = new MobxQuery<GetNumeroAreeJTO>({
+    queryKey: ["numeroAree"],
+    queryFn: () =>
+      axios.get("http://localhost:3002/numeroAree").then((r) => r.data),
+  });
+  areaDetailsQueryResult = new MobxQuery<GetAreaDetailsJTO>({
+    queryFn: ({ queryKey }) => {
+      return axios
+        .get(`http://localhost:3002/area/${queryKey[1]}`)
+        .then((r) => r.data);
+    },
+  });
 
-    areeLimitQueryResult  = new MobxQuery<GetLimitAreeJTO>({
-      queryKey: ['areelimit'],
-      queryFn: () => axios.get('http://localhost:3002/areelimit').then((r) => r.data),
-    });
+  areeLimitQueryResult = new MobxQuery<GetLimitAreeJTO>({
+    queryKey: ["areelimit"],
+    queryFn: () =>
+      axios.get("http://localhost:3002/areelimit").then((r) => r.data),
+  });
 
-    editAreaQueryResult = new MobxQuery<GetModificaAreaJTO>({
-      queryFn: ({ queryKey }) => {
-        return axios
-          .get(`http://localhost:3002/area/${queryKey[1]}`)
-          .then((r) => r.data);
-      },
-    });
-    
+  editAreaQueryResult = new MobxQuery<GetModificaAreaJTO>({
+    queryFn: ({ queryKey }) => {
+      return axios
+        .get(`http://localhost:3002/area/${queryKey[1]}`)
+        .then((r) => r.data);
+    },
+  });
+
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
   }
@@ -58,41 +117,65 @@ export class AreeStore implements IAreeStore {
     return this.areeQueryResult.query();
   }
 
-
   getAreaDetails(areaId: string) {
     return this.areaDetailsQueryResult.query({
-      queryKey: ['area', areaId],
+      queryKey: ["area", areaId],
     });
   }
-  get numeroAree(){
+  get numeroAree() {
     return this.areeNumeroQueryResult.query();
   }
-  get areeLimit(){
+  get areeLimit() {
     return this.areeLimitQueryResult.query();
   }
-  
-  aumentaLuminositàMutation = new MobxMutation<unknown,unknown,{id: string}>({
+
+  aumentaLuminositàMutation = new MobxMutation<
+    unknown,
+    unknown,
+    { id: string }
+  >({
     mutationFn: async (variables) => {
-      await axios.post(`http://127.0.0.1:3002/area/${variables.id}/aumentaluminosita`);
+      await axios.post(
+        `http://127.0.0.1:3002/area/${variables.id}/aumentaluminosita`
+      );
     },
     onSuccess: (data, variables) => {
-      this.queryClient.invalidateQueries(['area', variables.id]);
+      this.queryClient.invalidateQueries(["area", variables.id]);
     },
   });
 
-  diminuisciLuminositàMutation = new MobxMutation<unknown,unknown,{id: string}>({
+  diminuisciLuminositàMutation = new MobxMutation<
+    unknown,
+    unknown,
+    { id: string }
+  >({
     mutationFn: async (variables) => {
-      await axios.post(`http://127.0.0.1:3002/area/${variables.id}/diminuisciluminosita`);
+      await axios.post(
+        `http://127.0.0.1:3002/area/${variables.id}/diminuisciluminosita`
+      );
     },
     onSuccess: (data, variables) => {
-      this.queryClient.invalidateQueries(['area', variables.id]);
+      this.queryClient.invalidateQueries(["area", variables.id]);
     },
   });
+
+  aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/aggiungiArea`, variables.data, {
+          headers,
+        })
+      },
+    }
+  );
 
   dispose() {
     this.areeQueryResult.dispose();
     this.areeNumeroQueryResult.dispose();
     this.areaDetailsQueryResult.dispose();
     this.areeLimitQueryResult.dispose();
+    this.aumentaLuminositàMutation.dispose();
+    this.diminuisciLuminositàMutation.dispose();
+    this.aggiungiAreaMutation.dispose();
   }
 }

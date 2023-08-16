@@ -29,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             defaultValue: ''
         },
-        status: {
+        stato: {
             type: Sequelize.INTEGER(1),
             allowNull: false,
             defaultValue: 0
