@@ -15,7 +15,7 @@ export default interface ILampioniStore{
   getlistaLampioni(areaId: string): QueryObserverResult<GetLampioniJT0, unknown>
   getdettagliLampioni(lampId: string): QueryObserverResult<GetLampioneJT0, unknown>
   geteliminaLampione(lampID: string): MutationObserverResult<unknown, unknown>
-
+  getaggiuntaLampione(lampID:string, lampIP: string, tipo_interazione: string, luminosità_default: number,luminosità_rilevamento: number, id_area_illuminata: number): QueryObserverResult<GetLampioneJT0, unknown>
   get numeroLampioni():QueryObserverResult<GetNumeroLampioniJT0, unknown>
   dispose: ()=>void
 }
@@ -44,6 +44,18 @@ export class LampioniStore implements ILampioniStore {
     },
   });
 
+  addLampioneQueryResult = new MobxQuery<GetLampioneJT0>({
+    queryKey: ['aggiungiLampione'],
+    queryFn: () => {
+      return axios
+      .get(`http://localhost:3002/aggiungiLampione`)
+      .then((r) => r.data);
+  },
+
+  });
+
+ 
+
     deleteLampioneMutation = new MobxMutation<unknown,unknown,{lampID: string}>({
       mutationFn: async (variables) => {
         await axios.post(`http://127.0.0.1:3002/eliminaLampione/${variables.lampID}`);
@@ -68,6 +80,13 @@ export class LampioniStore implements ILampioniStore {
     });
   }
 
+  getaggiuntaLampione(lampID: string, lampIP: string, tipo_interazione: string, luminosità_default: number, luminosità_rilevamento: number, id_area_illuminata: number): QueryObserverResult<{ IP: number; ID: string; tipo_iterazione: string; luminosita_default: number; luminosita_impostata: number; id_area_illuminata: number; }, unknown> {
+    return this.addLampioneQueryResult.query({
+      queryKey: ['aggiungiLampione', lampID, lampIP, tipo_interazione, luminosità_default, luminosità_rilevamento, id_area_illuminata],
+    })
+  }
+  
+
   getdettagliLampioni(lampId: string) {
     return this.lampioniDettagliQueryResult.query({
       queryKey: ['lamps', lampId],
@@ -86,5 +105,7 @@ export class LampioniStore implements ILampioniStore {
     this.lampioniQueryResult.dispose();
     this.lampioniListaQueryResult.dispose();
     this.lampioniDettagliQueryResult.dispose();
+    this.addLampioneQueryResult.dispose();
+    
   }
 }

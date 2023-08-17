@@ -47,6 +47,13 @@ export default interface IAreeStore {
     GetModificaAreaJTO,
     QueryKey
   >;
+  idAreeListaQueryResult:  MobxQuery<
+  GetAreeJTO,
+  unknown,
+  GetAreeJTO,
+  GetAreeJTO,
+  QueryKey
+  >
   aumentaLuminositàMutation: MobxMutation<
     unknown,
     unknown,
@@ -95,6 +102,15 @@ export class AreeStore implements IAreeStore {
     },
   });
 
+  idAreeListaQueryResult = new MobxQuery<GetAreeJTO>({
+    queryKey:['idAree'],
+    queryFn:() => {
+      return axios
+      .get(`http://localhost:3002/idAree`)
+      .then((r) => r.data);
+  },
+  })
+
   areeLimitQueryResult = new MobxQuery<GetLimitAreeJTO>({
     queryKey: ["areelimit"],
     queryFn: () =>
@@ -127,6 +143,10 @@ export class AreeStore implements IAreeStore {
   }
   get areeLimit() {
     return this.areeLimitQueryResult.query();
+  }
+
+  get AreeId(){
+    return this.idAreeListaQueryResult.query();
   }
 
   aumentaLuminositàMutation = new MobxMutation<
@@ -189,5 +209,6 @@ export class AreeStore implements IAreeStore {
     this.diminuisciLuminositàMutation.dispose();
     this.aggiungiAreaMutation.dispose();
     this.modificaAreaMutation.dispose();
+    this.idAreeListaQueryResult.dispose();
   }
 }

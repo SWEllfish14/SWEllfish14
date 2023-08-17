@@ -3,6 +3,7 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
 
  interface Props {
    viewModel:IAggiungiLampioneViewModel;
+   
  }
  const AggiungiLampioneView = ({viewModel}: Props) => (
   <div>
@@ -12,10 +13,10 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
 <h1>Aggiunta Lampione</h1>
 <p className="menu-label">
     <h1>ID Lampione</h1>
-    <input className="input" type="text" placeholder="Inserisci ID"></input>
+    <input className="input" type="text" name="id" placeholder="Inserisci ID"></input>
 
     <h1>IP lampione</h1>
-    <input className="input" type="text" placeholder="Inserisci l'indirizzo IP del lampione"></input>
+    <input className="input" type="text" name="Ip" placeholder="Inserisci l'indirizzo IP del lampione"></input>
 
     <h1>Tipo interazione con il lampione</h1>
     <div className="select is-info">
@@ -42,8 +43,14 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
     </div>
 
     <h1>Area Illuminata afferenza</h1>
-    <input className="input" type="text" placeholder="Luminosità che l'impianto produrrà quando non ci sono rilevamenti di utenti stradali"></input>
-
+    <div className="select is-info">
+    <select>
+    {viewModel.IDAree()?.map(area => (
+                <option key={area.ID}>{area.ID}</option>
+                
+    ))}
+    </select>
+    </div>
     </p>
     
     </article>
