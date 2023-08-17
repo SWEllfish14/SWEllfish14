@@ -35,6 +35,30 @@ const aggiungiArea = async(data) =>{
   return("1");
 }
 
+const modificaArea = async(data,id) =>{
+  const {citta,zonaCitta,luminositaDefault,luminositaRilevamento} = data
+  const  area=await Area.findByPk(id);
+  if(citta){
+    area.set({
+      città:citta
+    })
+  }
+  if(zonaCitta){
+    area.set({
+      zona_geografica_città:zonaCitta
+    })  }
+  if(luminositaDefault){
+    area.set({
+      luminosità_standard:luminositaDefault
+    })  }
+  if(luminositaRilevamento){
+    area.set({
+      luminosità_rilevamento:luminositaRilevamento
+    })  }
+    await area.save()
+    return ("1")
+}
+
 module.exports = {
   getAllAree,
   getNumeroAree,
@@ -42,5 +66,6 @@ module.exports = {
   getOneArea,
   aumentaLuminositaArea,
   diminuisciLuminositaArea,
-  aggiungiArea
+  aggiungiArea,
+  modificaArea
 };

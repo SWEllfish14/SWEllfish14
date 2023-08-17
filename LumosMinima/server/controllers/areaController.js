@@ -101,6 +101,27 @@ const diminuisciLuminositaArea= (req, res) => {
       .send({ status: "FAILED", data: { error: error?.message || error } })
     }
   };
+
+  const modificaArea = async (req,res) => {
+    const {
+      params: { id },
+    } = req;
+    if (!id) {
+      res
+        .status(400)
+        .send({
+          status: "FAILED",
+          data: { error: "Parameter 'id' can not be empty" },
+        });
+    }
+    try{
+      const result = await areaService.modificaArea(req.body,id)
+      res.status(200).send(result)
+    }catch (error){
+      res.status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } })
+    }
+  }
   module.exports = {
     getAllAree,
     getNumeroAree,
@@ -108,5 +129,6 @@ const diminuisciLuminositaArea= (req, res) => {
     getOneArea,
     aumentaLuminositaArea,
     diminuisciLuminositaArea,
-    aggiungiArea
+    aggiungiArea,
+    modificaArea
   }

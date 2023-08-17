@@ -8,8 +8,8 @@ export const AggiungiAreaViewModel = () => {
     const { id } = useParams();
     const store =useInstance(AreeStore);
     let [submitHasError,setSubmitHasError]= useState(false)
-    let [submitError,setSubmitError] = useState("")
-    let e
+    let [submitError,setSubmitError] = useState()
+    
     const navigate = useNavigate()
     return {
         areaDetails: ()=> store.getAreaDetails(id!),

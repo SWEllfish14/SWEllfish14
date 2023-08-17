@@ -168,7 +168,18 @@ export class AreeStore implements IAreeStore {
       },
     }
   );
-
+  modificaAreaMutation = new MobxMutation<unknown,unknown,{data:FormData,id:string}>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/modificaArea/${variables.id}`, variables.data, {
+          headers,
+        })
+      },
+      onSuccess: (data, variables) => {
+        this.queryClient.invalidateQueries(["area", variables.id]);
+      },
+    }
+  )
   dispose() {
     this.areeQueryResult.dispose();
     this.areeNumeroQueryResult.dispose();
@@ -177,5 +188,6 @@ export class AreeStore implements IAreeStore {
     this.aumentaLuminositàMutation.dispose();
     this.diminuisciLuminositàMutation.dispose();
     this.aggiungiAreaMutation.dispose();
+    this.modificaAreaMutation.dispose();
   }
 }
