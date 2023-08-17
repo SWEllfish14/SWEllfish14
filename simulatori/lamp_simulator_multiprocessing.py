@@ -17,20 +17,20 @@ f = open('lamps.json')
 data = json.load(f)
 active = (len(data['lampione']))
 
-numbero_of_subprocesses = active
+numbero_of_subprocesses = 25
 def run_script(i):
-    # Your code here
     if i < active:
-        print("okkk")
-        id = data['lampione'][i]["ID"]
-        status = True
-        brightness = data['lampione'][i]["luminosita_default"]
-        print(id)
-        port = 3020 + i
-        subprocess.Popen(['python', 'lamp_simulator.py', "-i " + str(id) , "-b " + str(brightness) , "-p " + str(port) ])
+        print(data['lampione'][i]["ID"])
+        port = 3000 + int(data['lampione'][i]["ID"])
+        if (data['lampione'][i]["stato"]) == "1":
+            status = True
+            subprocess.Popen(['python', './lamp_simulator.py', "-i " + str(data['lampione'][i]["ID"]) ,"-s" + str(status), "-b " + str(data['lampione'][i]["luminosita_default"]) , "-p " + str(port) ])
+            
+        if (data['lampione'][i]["stato"]) == "0":
+            status = False
+            subprocess.Popen(['python', './lamp_simulator.py', "-i " + str(data['lampione'][i]["ID"]) ,"-s" + str(status), "-b " + str(data['lampione'][i]["luminosita_default"]) , "-p " + str(port) ])
     i = i+1
-    print(port)
-    f.close()
+f.close()
         
 if __name__ == "__main__":
     num_processes = numbero_of_subprocesses  # Adjust the number of parallel processes as needed
@@ -45,7 +45,6 @@ if __name__ == "__main__":
         process.join()
 
 print("All processes completed")
-
 
 
 

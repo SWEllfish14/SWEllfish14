@@ -4,26 +4,45 @@ from flask_cors import CORS
 import json
 import argparse
 
-
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
 app = Flask(__name__)
 CORS(app)
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3020',
-    'http://127.0.0.1:3020/lamp'
+    'http://127.0.0.1:3020/lamp',
+    '*'
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--id", type=str)
-#parser.add_argument("-s", "--status", type=str)
+parser.add_argument("-s", "--status",type=str2bool, nargs='?',
+                        const=True, default=False)
+
 parser.add_argument("-b", "--brightness", type=str)
 parser.add_argument("-p", "--port", type=str)
 
 args = parser.parse_args()
 lamp_id = args.id
-lamp_status = True
+lamp_status = []
 brightness = args.brightness
 lamp_port = args.port
 
+if bool(args.status) is True:
+ print("On")
+ lamp_status = True
+if bool(args.status) is False:
+ print("off")
+ lamp_status = False
 # API REST per ottenere lo stato del lampione e la luminosità impostata
 @app.route('/lamp', methods=['GET'])
 def get_lamp_status():
