@@ -258,6 +258,50 @@ app.post('/eliminaLampione/:id', async (req, res) => {
   }
 })
 
+//aggiunta lampione
+app.post('/aggiungiLampione', async (req, res) => {
+  let conn;
+  const id = req.query.id;
+  const ip = req.query.ip;
+  const iter = req.query.tipo_interazione;
+  const lum_def = req.query-lumonosità_default;
+  const lum_rilev = req.query.luminostità_rilevamento;
+  const id_area = req.query.id_area_illuminata;
+
+
+  try {
+    conn = await pool.getConnection();
+    var aggiungiaQuery = 'INSERT INTO lampione VALUES (?,?,?,?,?,?)'
+    await conn.query(eliminaQuery,[id], [ip], [iter],[lum_def],[lum_ril], [id_area])
+   
+    res.sendStatus(200)
+    
+    
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
+
+//query per ottenere id aree da inserire nel form di aggiunta del lampione
+app.get('/idAree', async (req, res) => {
+    let conn;
+    try {
+  
+      conn = await pool.getConnection();
+  
+      var query = "SELECT ID FROM lumosminima_pb.area_illuminata;";
+      var rows = await conn.query(query);
+      res.send(rows);
+    } catch (err) {
+      console.log(err)
+      throw err;
+    } finally {
+      if (conn) return conn.release();
+    }
+  });
 //Lampioni dell'area
 
 app.get('/lamps/:id', async (req, res) =>{
