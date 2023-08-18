@@ -78,6 +78,14 @@ export default interface IAreeStore {
     },
     unknown
   >;
+  eliminaAreaMutation :MobxMutation<
+  unknown,
+  unknown,
+  {
+    id: string;
+  },
+  unknown
+>;
   get aree(): QueryObserverResult<GetAreeJTO, unknown>;
   get numeroAree() : QueryObserverResult<number, unknown>;
   get areeLimit() : QueryObserverResult<GetLimitAreeJTO, unknown>
@@ -200,6 +208,28 @@ export class AreeStore implements IAreeStore {
       },
     }
   )
+
+  eliminaAreaMutation = new MobxMutation<unknown,unknown,{id:string}>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/eliminaArea/${variables.id}`)
+      },
+      onSuccess: (data, variables) => {
+        this.queryClient.invalidateQueries(["aree"]);
+      },
+    }
+  )
+
+  cambiaModalitaMutation = new MobxMutation<unknown,unknown,{id:string}>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/cambiaModalitaArea/${variables.id}`)
+      },
+      onSuccess: (data, variables) => {
+        this.queryClient.invalidateQueries(["area",variables.id]);
+      },
+    }
+  )
   dispose() {
     this.areeQueryResult.dispose();
     this.areeNumeroQueryResult.dispose();
@@ -209,6 +239,8 @@ export class AreeStore implements IAreeStore {
     this.diminuisciLuminositàMutation.dispose();
     this.aggiungiAreaMutation.dispose();
     this.modificaAreaMutation.dispose();
+    this.eliminaAreaMutation.dispose();
     this.idAreeListaQueryResult.dispose();
+    this.cambiaModalitaMutation.dispose();
   }
 }

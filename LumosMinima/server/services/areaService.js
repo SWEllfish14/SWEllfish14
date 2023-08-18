@@ -59,6 +59,33 @@ const modificaArea = async(data,id) =>{
     return ("1")
 }
 
+const eliminaArea = async(id) =>{
+  area = await Area.findOne({
+    where: {
+      id: id,
+    },
+ });
+ count = await area.destroy();
+  return(`deleted row(s): ${count}`);
+}
+const cambiaModalitaArea = async(id) =>{
+  const  area=await Area.findByPk(id);
+  if(area.modalità_funzionamento === "M"){
+    result = await Area.update({ modalità_funzionamento: "A" }, {
+      where: {
+        ID: id,
+      },
+    });
+  }
+  else{
+    result = await Area.update({ modalità_funzionamento: "M" }, {
+      where: {
+        ID: id,
+      },
+    });
+  }
+  return(result);
+}
 module.exports = {
   getAllAree,
   getNumeroAree,
@@ -67,5 +94,7 @@ module.exports = {
   aumentaLuminositaArea,
   diminuisciLuminositaArea,
   aggiungiArea,
-  modificaArea
+  modificaArea,
+  eliminaArea,
+  cambiaModalitaArea
 };

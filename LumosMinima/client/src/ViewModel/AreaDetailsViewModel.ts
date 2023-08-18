@@ -1,23 +1,44 @@
 import { useInstance } from "react-ioc";
 import{ AreeStore } from "../stores/AreeStore";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 
 export type IAreaDetailsViewModel = ReturnType<typeof AreaDetailsViewModel>;
 
 export const AreaDetailsViewModel = () => {
     const { id } = useParams();
-    const store =useInstance(AreeStore);
-    const error = store.getAreaDetails(id!).error
+    const areaStore =useInstance(AreeStore);
+    const error = areaStore.getAreaDetails(id!).error
+    const navigate = useNavigate()
+    let [modalita,setModalita] = useState(areaStore.getAreaDetails(id!).data?.modalità_funzionamento === "M" ? true:false)
     return {
-        areaDetails: ()=> store.getAreaDetails(id!),
-        isLoading: ()=> store.getAreaDetails(id!).isLoading,
-        isError: () => store.getAreaDetails(id!).isError,
+        areaDetails: ()=> areaStore.getAreaDetails(id!),
+        isLoading: ()=> areaStore.getAreaDetails(id!).isLoading,
+        isError: () => areaStore.getAreaDetails(id!).isError,
         error:() =>  {if(error instanceof Error){
             return error}
         },
-        aumentaLuminosità:() => {if(id !== undefined &&parseInt(store.getAreaDetails(id!).data?.luminosità_manuale!) <10)store.aumentaLuminositàMutation.mutate({id})},
-        diminuisciLuminosità:() => {if(id !== undefined && parseInt(store.getAreaDetails(id!).data?.luminosità_manuale!) >0)store.diminuisciLuminositàMutation.mutate({id})}
-        
+        aumentaLuminosità:() => {if(id !== undefined &&parseInt(areaStore.getAreaDetails(id!).data?.luminosità_manuale!) <10)areaStore.aumentaLuminositàMutation.mutate({id})},
+        diminuisciLuminosità:() => {if(id !== undefined && parseInt(areaStore.getAreaDetails(id!).data?.luminosità_manuale!) >0)areaStore.diminuisciLuminositàMutation.mutate({id})},
+        eliminaArea: async () => {
+            if(id !== undefined){
+              const result = await  areaStore.eliminaAreaMutation.mutateAsync({id})
+              if(result.isSuccess){
+                navigate("/aree")
+              }
+            }},
+        modalita,
+        cambiaModalità:async() => {
+            if(id !== undefined){
+               const result = await areaStore.cambiaModalitaMutation.mutateAsync({id})
+               if(result.isSuccess){
+                setModalita(!modalita)
+               }
+                
+            } 
+            
+
+        }
     };
   };
 

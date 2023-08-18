@@ -11,4 +11,6 @@ router.post('/area/:id/aumentaluminosita',areaController.aumentaLuminositaArea)
 router.post('/area/:id/diminuisciluminosita',areaController.diminuisciLuminositaArea)
 router.post('/aggiungiArea',areaController.aggiungiArea)
 router.post('/modificaArea/:id',areaController.modificaArea)
+router.post('/eliminaArea/:id', areaController.eliminaArea)
+router.post('/cambiaModalitaArea/:id',areaController.cambiaModalitaArea)
 module.exports = router;
