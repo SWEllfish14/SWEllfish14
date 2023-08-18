@@ -11,8 +11,8 @@ const getAllGuasti= async (req, res) => {
     };
   const getNumeroGuasti= async (req, res) => {
     try{
-      const numeroAree = await guastoService.getNumeroGuasti();
-      res.status(200).send(numeroAree)
+      const numeroGuasti = await guastoService.getNumeroGuasti();
+      res.status(200).send({numeroGuasti:numeroGuasti})
     }catch(error) {
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })

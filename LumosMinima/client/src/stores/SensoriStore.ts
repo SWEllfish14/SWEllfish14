@@ -15,7 +15,7 @@ export default interface ISensoriStore{
 export class SensoriStore implements ISensoriStore {
     sensoriQueryResult = new MobxQuery<GetNumeroSensoriJT0>({
         queryKey: ['numeroSensori'],
-        queryFn: () => axios.get('http://localhost:3002/numeroSensori').then((r) => r.data),
+        queryFn: () => axios.get('http://localhost:3002/numeroSensori').then((r) => r.data["numeroSensori"]),
       });
 
       sensoriListaQueryResult = new MobxQuery<GetSensoriJTO>({

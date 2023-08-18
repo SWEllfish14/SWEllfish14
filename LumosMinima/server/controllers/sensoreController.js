@@ -23,7 +23,7 @@ sensoreService = require("../services/sensoreService")
   const getNumeroSensori= async (req, res) => {
     try{
       const numeroSensori = await sensoreService.getNumeroSensori();
-      res.status(200).send(numeroSensori)
+      res.status(200).send({numeroSensori:numeroSensori})
     }catch(error) {
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })

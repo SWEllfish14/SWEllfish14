@@ -23,7 +23,7 @@ lampioneService = require("../services/lampioneService")
   const getNumeroLampioni= async (req, res) => {
     try{
       const numeroLampioni = await lampioneService.getNumeroLampioni();
-      res.status(200).send(numeroLampioni)
+      res.status(200).send({numeroLampioni:numeroLampioni})
     }catch(error) {
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })

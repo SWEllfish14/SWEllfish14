@@ -23,7 +23,7 @@ export class LampioniStore implements ILampioniStore {
   queryClient = inject(this, QueryClient);
     lampioniQueryResult = new MobxQuery<GetNumeroLampioniJT0>({
         queryKey: ['numeroLampioni'],
-        queryFn: () => axios.get('http://localhost:3002/numeroLampioni').then((r) => r.data),
+        queryFn: () => axios.get('http://localhost:3002/numeroLampioni').then((r) => r.data["numeroLampioni"]),
       });
 
       lampioniListaQueryResult = new MobxQuery<GetLampioniJT0>({

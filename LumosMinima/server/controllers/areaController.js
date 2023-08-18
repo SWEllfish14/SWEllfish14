@@ -12,7 +12,7 @@ const getAllAree= async (req, res) => {
 const getNumeroAree= async (req, res) => {
   try{
     const numeroAree = await areaService.getNumeroAree();
-    res.status(200).send(numeroAree)
+    res.status(200).send({numeroAree:numeroAree})
   }catch(error) {
     res.status(error?.status || 500)
     .send({ status: "FAILED", data: { error: error?.message || error } })
@@ -63,7 +63,7 @@ const aumentaLuminositaArea= (req, res) => {
   }
   try {
     result = areaService.aumentaLuminositaArea(id);
-    res.status(200).send(result)
+    res.status(200).send({result:result})
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -84,7 +84,7 @@ const diminuisciLuminositaArea= (req, res) => {
   }
   try {
     result = areaService.diminuisciLuminositaArea(id);
-    res.status(200).send(result)
+    res.status(200).send({result:result})
   } catch (error) {
     res
       .status(error?.status || 500)
@@ -95,7 +95,7 @@ const diminuisciLuminositaArea= (req, res) => {
   const aggiungiArea = async (req, res) => {
     try{
       const result = await areaService.aggiungiArea(req.body);
-      res.status(200).send(result)
+      res.status(200).send({result:result})
     }catch (error){
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })
@@ -116,7 +116,7 @@ const diminuisciLuminositaArea= (req, res) => {
     }
     try{
       const result = await areaService.modificaArea(req.body,id)
-      res.status(200).send(result)
+      res.status(200).send({result:result})
     }catch (error){
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })
@@ -137,7 +137,7 @@ const diminuisciLuminositaArea= (req, res) => {
     }
     try{
       const result = await areaService.eliminaArea(id)
-      res.status(200).send(result)
+      res.status(200).send({result:result})
     }catch (error){
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })
@@ -158,7 +158,7 @@ const diminuisciLuminositaArea= (req, res) => {
     }
     try{
       const result = await areaService.cambiaModalitaArea(id)
-      res.status(200).send(result)
+      res.status(200).send({result:result})
     }catch (error){
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })

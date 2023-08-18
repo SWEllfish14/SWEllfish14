@@ -21,18 +21,18 @@ const getOneArea = async (id) => {
 const aumentaLuminositaArea = async (id) => {
   const area = await Area.findByPk(id);
   const result = await area.increment('luminosità_manuale',{by:1})
-  return result;
+  return ("Luminosità aumentata");
 };
 const diminuisciLuminositaArea = async (id) => {
   const area = await Area.findByPk(id);
   const result = await area.decrement('luminosità_manuale',{by:1})
-  return result;
+  return ("Luminosità diminuita");
 };
 
 const aggiungiArea = async(data) =>{
   const {id,citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
   const newArea = await Area.create({ ID: id,città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,stato:stato,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0})
-  return("1");
+  return("Area aggiunta");
 }
 
 const modificaArea = async(data,id) =>{
@@ -56,7 +56,7 @@ const modificaArea = async(data,id) =>{
       luminosità_rilevamento:luminositaRilevamento
     })  }
     await area.save()
-    return ("1")
+    return ("Area modificata")
 }
 
 const eliminaArea = async(id) =>{
@@ -84,7 +84,7 @@ const cambiaModalitaArea = async(id) =>{
       },
     });
   }
-  return(result);
+  return("Modalità funzionamento cambiata");
 }
 module.exports = {
   getAllAree,
