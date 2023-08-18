@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 import json
 import requests
+import argparse
 
 def str2bool(v):
     if isinstance(v, bool):
@@ -26,14 +27,14 @@ parser.add_argument("-s", "--status",type=str2bool, nargs='?',
                         const=True, default=False)
 
 parser.add_argument("-r", "--range", type=str)
-parser.add_argument("-idlamp", "--idlamp", type=str)
+parser.add_argument("-p", "--port", type=str)
 
 
 args = parser.parse_args()
 sensor_id = args.id
 sensor_detection = []
 range_detection = args.range
-lamp_id = args.idlamp
+sensor_port = args.port
 
 
 if bool(args.status) is True:
@@ -42,16 +43,6 @@ if bool(args.status) is True:
 if bool(args.status) is False:
  print("off")
  sensor_detection= False
-
-# Identificativo del sensore
-#sensor_id = 1
-
-# Stato del sensore (True = acceso, False = spento)
-#sensor_detection = True
-
-# raggio rilevamento sensore 0-100m
-#range_detection = 25
-
 
 # API REST per ottenere lo stato del lampione e la luminosità impostata
 @app.route('/sensor', methods=['GET'])
@@ -91,4 +82,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1",debug=True, port="3030")
+    app.run(host="127.0.0.1",debug=True, port=sensor_port)

@@ -1,0 +1,203 @@
+ {"sensore": [
+    {
+      "ID": "4",
+      "IP": "200.98.144.217",
+      "polling_time": "7",
+      "zona_geografica_posizionamento": "Entrata Stadio",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "33",
+      "id_area_illuminata": "5",
+      "rilevamento": "1"
+    },
+    {
+      "ID": "21",
+      "IP": "227.100.88.28",
+      "polling_time": "14",
+      "zona_geografica_posizionamento": "Retro Altare",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "40",
+      "id_area_illuminata": "11",
+      "rilevamento": "1"
+    },
+    {
+      "ID": "25",
+      "IP": "20.174.98.216",
+      "polling_time": "43",
+      "zona_geografica_posizionamento": "Varco ZTL",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "57",
+      "id_area_illuminata": "9",
+      "rilevamento": "1"
+    },
+    {
+      "ID": "43",
+      "IP": "158.233.11.83",
+      "polling_time": "32",
+      "zona_geografica_posizionamento": "Striscie Pedonali ",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "10",
+      "id_area_illuminata": "1",
+      "rilevamento": "1"
+    },
+    {
+      "ID": "77",
+      "IP": "65.92.199.219",
+      "polling_time": "10",
+      "zona_geografica_posizionamento": "Entrata galleria",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "59",
+      "id_area_illuminata": "5",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "82",
+      "IP": "167.17.34.248",
+      "polling_time": "44",
+      "zona_geografica_posizionamento": "Fine Via Siracusa",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "69",
+      "id_area_illuminata": "11",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "95",
+      "IP": "111.120.28.51",
+      "polling_time": "41",
+      "zona_geografica_posizionamento": "Uscita galleria",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "73",
+      "id_area_illuminata": "10",
+      "rilevamento": "1"
+    },
+    {
+      "ID": "98",
+      "IP": "187.133.177.192",
+      "polling_time": "23",
+      "zona_geografica_posizionamento": "Parcheggi Auto",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "56",
+      "id_area_illuminata": "4",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "109",
+      "IP": "173.245.16.58",
+      "polling_time": "27",
+      "zona_geografica_posizionamento": "Ingeresso Pedonale",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "80",
+      "id_area_illuminata": "6",
+      "rilevamento": "1"
+    },
+    {
+      "ID": "110",
+      "IP": "211.150.23.221",
+      "polling_time": "21",
+      "zona_geografica_posizionamento": "Varco ZTL",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "5",
+      "id_area_illuminata": "9",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "114",
+      "IP": "58.224.150.246",
+      "polling_time": "5",
+      "zona_geografica_posizionamento": "Ponte",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "76",
+      "id_area_illuminata": "6",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "131",
+      "IP": "25.141.73.127",
+      "polling_time": "31",
+      "zona_geografica_posizionamento": "Uscita chiesa",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "61",
+      "id_area_illuminata": "8",
+      "rilevamento": "1"
+    },
+    {
+      "ID": "138",
+      "IP": "131.35.12.104",
+      "polling_time": "10",
+      "zona_geografica_posizionamento": "Angolo sud piazza",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "81",
+      "id_area_illuminata": "2",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "142",
+      "IP": "21.46.193.58",
+      "polling_time": "48",
+      "zona_geografica_posizionamento": "Piazza",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "13",
+      "id_area_illuminata": "2",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "161",
+      "IP": "125.85.182.21",
+      "polling_time": "10",
+      "zona_geografica_posizionamento": "Ingresso Stazione",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "50",
+      "id_area_illuminata": "3",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "189",
+      "IP": "121.2.66.220",
+      "polling_time": "18",
+      "zona_geografica_posizionamento": "Varco Policlinico",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "19",
+      "id_area_illuminata": "7",
+      "rilevamento": "1"
+    },
+    {
+      "ID": "203",
+      "IP": "246.13.218.178",
+      "polling_time": "23",
+      "zona_geografica_posizionamento": "Parcheggi Taxi",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "26",
+      "id_area_illuminata": "1",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "205",
+      "IP": "228.120.101.143",
+      "polling_time": "10",
+      "zona_geografica_posizionamento": "Vie di fuga terraglio",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "28",
+      "id_area_illuminata": "10",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "211",
+      "IP": "59.47.80.230",
+      "polling_time": "10",
+      "zona_geografica_posizionamento": "Usicta FS",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "15",
+      "id_area_illuminata": "3",
+      "rilevamento": "0"
+    },
+    {
+      "ID": "224",
+      "IP": "107.249.16.168",
+      "polling_time": "11",
+      "zona_geografica_posizionamento": "Biglietteria fs",
+      "tipo_interazione": "PUSH",
+      "raggio_azione": "77",
+      "id_area_illuminata": "1",
+      "rilevamento": "1"
+    }
+  ]
+}
