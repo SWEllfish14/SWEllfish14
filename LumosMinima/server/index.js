@@ -22,7 +22,6 @@ app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })
 
-
   //per ottenere il numero di guasti da mostrare nella dashboard
 app.get('/numeroGuasti', async (req, res) => {
     let conn;
@@ -57,7 +56,8 @@ app.get('/numeroLampioni', async (req, res) => {
       if (conn) return conn.release();
     }
   })
-  //lista di tutte le aree
+
+//lista di tutte le aree
 app.get('/aree', async (req, res) => {
   let conn;
   try {
@@ -890,3 +890,5 @@ app.post('/aggiungiGuasto', async (req, res) => {
   }
 })
 */
+
+module.exports = app;
