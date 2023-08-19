@@ -13,4 +13,5 @@ router.post('/aggiungiArea',areaController.aggiungiArea)
 router.post('/modificaArea/:id',areaController.modificaArea)
 router.post('/eliminaArea/:id', areaController.eliminaArea)
 router.post('/cambiaModalitaArea/:id',areaController.cambiaModalitaArea)
+router.post('/cambiaStatoArea/:id',areaController.cambiaStatoArea)
 module.exports = router;

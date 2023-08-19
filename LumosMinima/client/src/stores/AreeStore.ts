@@ -86,6 +86,9 @@ export default interface IAreeStore {
   },
   unknown
 >;
+  cambiaStatoMutation : MobxMutation<unknown, unknown, {
+    id: string;
+}, unknown>
   get aree(): QueryObserverResult<GetAreeJTO, unknown>;
   get numeroAree() : QueryObserverResult<number, unknown>;
   get areeLimit() : QueryObserverResult<GetLimitAreeJTO, unknown>
@@ -230,6 +233,17 @@ export class AreeStore implements IAreeStore {
       },
     }
   )
+
+  cambiaStatoMutation = new MobxMutation<unknown,unknown,{id:string}>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/cambiaStatoArea/${variables.id}`)
+      },
+      onSuccess: (data, variables) => {
+        this.queryClient.invalidateQueries(["area",variables.id]);
+      },
+    }
+  )
   dispose() {
     this.areeQueryResult.dispose();
     this.areeNumeroQueryResult.dispose();
@@ -242,5 +256,6 @@ export class AreeStore implements IAreeStore {
     this.eliminaAreaMutation.dispose();
     this.idAreeListaQueryResult.dispose();
     this.cambiaModalitaMutation.dispose();
+    this.cambiaStatoMutation.dispose();
   }
 }

@@ -47,7 +47,7 @@ const AggiungiAreaView = ({ viewModel }: Props) => (
                 <option value="0">Spento</option>
                 <option value="1">Acceso</option>
               </select>
-
+              
               <label htmlFor="luminositaDefault">Luminosità default</label>
               <input
                 id="luminositaDefault"

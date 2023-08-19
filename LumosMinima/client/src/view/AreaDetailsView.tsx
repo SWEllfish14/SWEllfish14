@@ -19,10 +19,21 @@ const AreaDetailsView = ({ viewModel }: Props) => (
             <p>
               Stato:{" "}
               {viewModel.areaDetails().data?.stato === 1 ? (
-                <>Acceso</>
+                <>Acceso <button
+                className="button is-danger is-small"
+                onClick={() => viewModel.cambiaStatoArea()}
+              >
+                Spegni area
+              </button></>
               ) : (
-                <>Spento</>
+                <>Spento <button
+                className="button is-success is-small"
+                onClick={() => viewModel.cambiaStatoArea()}
+              >
+                Accendi area
+              </button></>
               )}
+              
             </p>
             <p>
               {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (

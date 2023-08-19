@@ -64,7 +64,7 @@ const HomeView = ({ viewModel }: Props) => (
                       }}
                     >
                       {area.città}, Località: {area.zona_geografica_città}
-                      .Stato: {area.stato === 1 ? "On" : "Off"}
+                      {" "}Stato: {area.stato === 1 ? "On" : "Off"}
                     </Link>
                   </li>
                 ))}
