@@ -103,7 +103,7 @@ export class AreeStore implements IAreeStore {
   areeNumeroQueryResult = new MobxQuery<GetNumeroAreeJTO>({
     queryKey: ["numeroAree"],
     queryFn: () =>
-      axios.get("http://localhost:3002/numeroAree").then((r) => r.data["numeroAree"]),
+      axios.get("http://localhost:3002/numeroAree").then((r) => r.data),
   });
   areaDetailsQueryResult = new MobxQuery<GetAreaDetailsJTO>({
     queryFn: ({ queryKey }) => {

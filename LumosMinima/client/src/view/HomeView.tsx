@@ -26,6 +26,8 @@ const HomeView = ({ viewModel }: Props) => (
                 <p>Loading...</p>
               ) : (
                 viewModel.lampioniNumber()
+                
+                
               )}
             </li>
             <li>

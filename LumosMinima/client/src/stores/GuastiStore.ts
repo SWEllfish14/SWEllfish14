@@ -14,7 +14,7 @@ export default interface IGuastiStore{
 export class GuastiStore implements IGuastiStore {
     guastiNumberQueryResult = new MobxQuery<GetNumeroGuastiJTO>({
         queryKey: ['numeroGuasti'],
-        queryFn: () => axios.get('http://localhost:3002/numeroGuasti').then((r) => r.data["numeroGuasti"]),
+        queryFn: () => axios.get('http://localhost:3002/numeroGuasti').then((r) => r.data),
       });
 
       guastiQueryResult = new MobxQuery<GetGuastoJTO>({

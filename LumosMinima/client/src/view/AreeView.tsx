@@ -17,12 +17,14 @@ import { Link } from "react-router-dom";
         <ul>
             {viewModel.aree()?.map(area => (
                 <li key={area.ID}>
-                    
+                    <div>
                     <Link to={{
                                 pathname: `/area/${area.ID}`
                             }}>ID: {area.ID}
-                            Città: {area.città}
-                            Zona geografica: {area.zona_geografica_città}</Link>
+                            <p>
+                            {area.città}, {area.zona_geografica_città}</p></Link>
+                            
+                            </div>
                 </li>
             ))}
         </ul>}

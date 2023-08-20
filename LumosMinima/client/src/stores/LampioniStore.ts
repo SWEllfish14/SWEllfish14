@@ -14,16 +14,17 @@ export default interface ILampioniStore{
   lampioniDettagliQueryResult: MobxQuery<GetLampioneJT0, unknown, GetLampioneJT0, GetLampioneJT0, QueryKey>
   getlistaLampioni(areaId: string): QueryObserverResult<GetLampioniJT0, unknown>
   getdettagliLampioni(lampId: string): QueryObserverResult<GetLampioneJT0, unknown>
-  geteliminaLampione(lampID: string): MutationObserverResult<unknown, unknown>
+ // geteliminaLampione(lampID: string): MutationObserverResult<unknown, unknown>
   getaggiuntaLampione(lampID:string, lampIP: string, tipo_interazione: string, luminosità_default: number,luminosità_rilevamento: number, id_area_illuminata: number): QueryObserverResult<GetLampioneJT0, unknown>
   get numeroLampioni():QueryObserverResult<GetNumeroLampioniJT0, unknown>
+  deleteLampioneMutation :MobxMutation<unknown,unknown,{lampID: string;},unknown>;
   dispose: ()=>void
 }
 export class LampioniStore implements ILampioniStore {
   queryClient = inject(this, QueryClient);
     lampioniQueryResult = new MobxQuery<GetNumeroLampioniJT0>({
         queryKey: ['numeroLampioni'],
-        queryFn: () => axios.get('http://localhost:3002/numeroLampioni').then((r) => r.data["numeroLampioni"]),
+        queryFn: () => axios.get('http://localhost:3002/numeroLampioni').then((r) => r.data),
       });
 
       lampioniListaQueryResult = new MobxQuery<GetLampioniJT0>({
@@ -56,16 +57,16 @@ export class LampioniStore implements ILampioniStore {
 
  
 
-    deleteLampioneMutation = new MobxMutation<unknown,unknown,{lampID: string}>({
+  deleteLampioneMutation = new MobxMutation<unknown,unknown,{lampID:string}>(
+    {
       mutationFn: async (variables) => {
-        await axios.post(`http://127.0.0.1:3002/eliminaLampione/${variables.lampID}`);
+        await axios.post(`http://127.0.0.1:3002/eliminaLampione/${variables.lampID}`)
       },
       onSuccess: (data, variables) => {
-        this.queryClient.invalidateQueries(['lamps']);
+        this.queryClient.invalidateQueries(["eliminaLampione",variables.lampID]);
       },
-    });
-    
-
+    }
+  )
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
   }
@@ -93,12 +94,12 @@ export class LampioniStore implements ILampioniStore {
     });
   }
 
-  geteliminaLampione(lampID: string) {
+  /*geteliminaLampione(lampID: string) {
     return this.deleteLampioneMutation.mutate({
       lampID
     });
   }
-
+*/
  
 
   dispose() {
@@ -106,6 +107,6 @@ export class LampioniStore implements ILampioniStore {
     this.lampioniListaQueryResult.dispose();
     this.lampioniDettagliQueryResult.dispose();
     this.addLampioneQueryResult.dispose();
-    
+    this.deleteLampioneMutation.dispose();    
   }
 }

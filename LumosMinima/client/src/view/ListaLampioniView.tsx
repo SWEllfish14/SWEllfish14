@@ -25,13 +25,13 @@ import { Link } from "react-router-dom";
                     <p>
                     <button
               className="button is-danger"
-                 onClick={() => viewModel.eliminaLampione(lampioni.ID)}
+                 onClick={() => viewModel.eliminaLampione()}
             > Elimina Lampione </button>
 
 <Link to={{pathname: `/modificaLampione/${lampioni.ID}`}}>
 <button
               className="button is-outlined"
-                 onClick={() => viewModel.eliminaLampione(lampioni.ID)}
+                 onClick={() => viewModel.eliminaLampione()}
             > Modifica dettagli Lampione </button>
             </Link>
                     </p>
