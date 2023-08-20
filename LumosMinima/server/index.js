@@ -57,6 +57,28 @@ app.get('/numeroLampioni', async (req, res) => {
     }
   })
 
+  //rimuovi area
+app.post('/eliminaArea/:id', async (req, res) => {
+  let conn;
+  const id= req.params.id;
+  try {
+    conn = await pool.getConnection();
+    //var rimuoviSensoriQuery = "DELETE FROM lumosminima_pb.sensore WHERE id_area_illuminata = ?"
+    //await conn.query(rimuoviSensoriQuery,[id])
+    //var rimuoviLampioniQuery = "DELETE FROM lumosminima_pb.lampione WHERE id_area_illuminata = ?"
+    //await conn.query(rimuoviLampioniQuery,[id])
+    //var rimuoviGuastiQuery = "DELETE FROM lumosminima_pb.guasto WHERE id_area_illuminata = ?"
+    //await conn.query(rimuoviGuastiQuery,[id])
+    var rimuoviAreaQuery = "DELETE FROM lumosminima_pb.area_illuminata WHERE ID = ?"
+    var rows = await conn.query(rimuoviAreaQuery, [id])
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+})
 //lista di tutte le aree
 app.get('/aree', async (req, res) => {
   let conn;
@@ -65,7 +87,7 @@ app.get('/aree', async (req, res) => {
     conn = await pool.getConnection();
 
     // create a new query to fetch all records from the table
-    var query = "SELECT ID,zona_geografica_città FROM lumosminima_pb.area_illuminata";
+    var query = "SELECT ID,città,zona_geografica_città FROM lumosminima_pb.area_illuminata";
 
     // we run the query and set the result to a new variable
     var rows = await conn.query(query);
@@ -74,6 +96,33 @@ app.get('/aree', async (req, res) => {
     res.send(rows);
   } catch (err) {
     throw err;
+  } finally {
+    if (conn) return conn.release();
+  }
+});
+
+//aggiungi nuova area
+app.post('/aggiungiArea', async (req, res) => {
+  let conn;
+  const { zonaArea, statoArea, luminositaImpostataArea, luminositaDefaultArea, userAmministratore } = req.body;
+  try {
+
+    console.log(req.body)
+    conn = await pool.getConnection();
+
+    console.log("connesso")
+    var idQuery = "SELECT MAX(ID) FROM lumosminima_pb.area_illuminata";
+    var id = await conn.query(idQuery);
+    id = (id[0]["MAX(ID)"]) + 1
+    var insertquery = "INSERT INTO lumosminima_pb.area_illuminata (ID,zona_geografica,stato,luminosita_impostata,luminosita_default,user_amministratore) VALUES(?,?,?,?,?,?)";
+
+    var result = await conn.query(insertquery, [id, zonaArea, statoArea, luminositaImpostataArea, luminositaDefaultArea, userAmministratore.Username]);
+
+    console.log(result)
+  } catch (err) {
+    console.log(err)
+    throw err;
+
   } finally {
     if (conn) return conn.release();
   }
@@ -240,23 +289,21 @@ app.get('/editarea/:id', async (req, res) => {
 
 //elimina lampione
 app.post('/eliminaLampione/:id', async (req, res) => {
-  let conn;
-  const id = req.query.id
-  try {
-    conn = await pool.getConnection();
-    var eliminaQuery = 'DELETE FROM lumosminima_pb.lampione WHERE ID = ?'
-    await conn.query(eliminaQuery,[id])
-   
-    res.sendStatus(200)
-    
-    
-  } catch (err) {
-    console.log(err)
-    throw err;
-  } finally {
-    if (conn) return conn.release();
-  }
-})
+    let conn;
+    const id= req.params.id;
+    try {
+      conn = await pool.getConnection();
+      var rimuoviQuery = "DELETE FROM lumosminima_pb.lampione WHERE ID = ?"
+      var rows = await conn.query(rimuoviQuery, [id])
+      res.sendStatus(200)
+    } catch (err) {
+      console.log(err)
+      throw err;
+    } finally {
+      if (conn) return conn.release();
+    }
+  })
+
 
 //aggiunta lampione
 app.post('/aggiungiLampione', async (req, res) => {
@@ -652,29 +699,7 @@ app.post('/eliminaLampione', async (req, res) => {
 
 
 
-//rimuovi area
-app.post('/eliminaArea', async (req, res) => {
-  let conn;
-  const id = req.query.id
-  try {
-    
-    conn = await pool.getConnection();
-    var rimuoviSensoriQuery = "DELETE FROM lumosminima_pb.sensore WHERE id_area_illuminata = ?"
-    await conn.query(rimuoviSensoriQuery,[id])
-    var rimuoviLampioniQuery = "DELETE FROM lumosminima_pb.lampione WHERE id_area_illuminata = ?"
-    await conn.query(rimuoviLampioniQuery,[id])
-    var rimuoviGuastiQuery = "DELETE FROM lumosminima_pb.guasto WHERE id_area_illuminata = ?"
-    await conn.query(rimuoviGuastiQuery,[id])
-    var rimuoviAreaQuery = "DELETE FROM lumosminima_pb.area_illuminata WHERE ID = ?"
-    var rows = await conn.query(rimuoviAreaQuery, [id])
-    res.sendStatus(200)
-  } catch (err) {
-    console.log(err)
-    throw err;
-  } finally {
-    if (conn) return conn.release();
-  }
-})
+
 
 
 
@@ -782,32 +807,7 @@ app.post('/rimuoviSensore', async (req, res) => {
   }
 });
 
-//aggiungi nuova area
-app.post('/aggiungiArea', async (req, res) => {
-  let conn;
-  const { zonaArea, statoArea, luminositaImpostataArea, luminositaDefaultArea, userAmministratore } = req.body;
-  try {
 
-    console.log(req.body)
-    conn = await pool.getConnection();
-
-    console.log("connesso")
-    var idQuery = "SELECT MAX(ID) FROM lumosminima_pb.area_illuminata";
-    var id = await conn.query(idQuery);
-    id = (id[0]["MAX(ID)"]) + 1
-    var insertquery = "INSERT INTO lumosminima_pb.area_illuminata (ID,zona_geografica,stato,luminosita_impostata,luminosita_default,user_amministratore) VALUES(?,?,?,?,?,?)";
-
-    var result = await conn.query(insertquery, [id, zonaArea, statoArea, luminositaImpostataArea, luminositaDefaultArea, userAmministratore.Username]);
-
-    console.log(result)
-  } catch (err) {
-    console.log(err)
-    throw err;
-
-  } finally {
-    if (conn) return conn.release();
-  }
-});
 
 //accendi luce 
 app.post('/accendi', async (req, res) => {

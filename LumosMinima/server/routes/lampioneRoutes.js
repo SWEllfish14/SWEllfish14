@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/lamps/:id',lampioneController.getAllLampsFromArea)
 router.get('/numeroLampioni',lampioneController.getNumeroLampioni)
-router.post('/eliminaLampione/:id',lampioneController.eliminaLampione)
+//router.post('/eliminaLampione/:id',lampioneController.eliminaLampione)
 
 module.exports = router;
