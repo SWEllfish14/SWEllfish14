@@ -23,8 +23,16 @@ const eliminaLampione = async (id) => {
     })
     return result;
 }
+
+const aggiungiLampione = async(data) =>{
+    //const {id,ip,tipo_interazione,luminosità_default,luminositaRilevamento,modalita,stato} =data
+    //const newArea = await Area.create({ ID: id,città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,stato:stato,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0})
+    return("Lampione aggiunto");
+  }
+  
 module.exports = {
     getAllLampsFromArea,
     getNumeroLampioni,
-    eliminaLampione
+    eliminaLampione,
+    aggiungiLampione
 }
