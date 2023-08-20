@@ -7,43 +7,69 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
  }
  const AggiungiLampioneView = ({viewModel}: Props) => (
   <div>
+  <form action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
 <div className ="tile is-ancestor">
 <div className="tile is-parent">
 <article className="tile is-child box">
 <h1>Aggiunta Lampione</h1>
 <p className="menu-label">
-    <h1>ID Lampione</h1>
-    <input className="input" type="text" name="id" placeholder="Inserisci ID"></input>
 
-    <h1>IP lampione</h1>
-    <input className="input" type="text" name="Ip" placeholder="Inserisci l'indirizzo IP del lampione"></input>
+              <label htmlFor="ID">ID Lampione</label>
+              <input
+                id="id"
+                name="id"
+                className="input"
+                type="text"
+                placeholder="Inserisci ID"
+              ></input>
+              <label htmlFor="IP">IP</label>
+              <input
+                id="ip"
+                name="ip"
+                className="input"
+                type="text"
+                placeholder="Ip lampione"
+              ></input>
 
-    <h1>Tipo interazione con il lampione</h1>
+<h1>Tipo interazione con il lampione</h1>
     <div className="select is-info">
-    <select>
+    <select id="tipo_interazione" name="tipo_interazione">
     <option>PUSH</option>
     <option>PULL</option>
     </select>
     </div>
 
-    <h1>Luminosità default</h1>
-    <div className="select is-info">
-    <select>
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-    </select>
-    </div>
+    <label htmlFor="luminositaDefault">Luminosità default</label>
+              <input
+                id="luminositaDefault"
+                name="luminositaDefault"
+                className="input"
+                type="number"
+                min={0}
+                max={10}
+                placeholder="Luminosità che l'impianto produrrà quando non ci sono rilevamenti di utenti stradali"
+              ></input>
 
-    <h1>Area Illuminata afferenza</h1>
-    <div className="select is-info">
+<label htmlFor="luminositaDefault">Luminosità impostata</label>
+              <input
+                id="luminositaManuale"
+                name="luminositaManuale"
+                className="input"
+                type="number"
+                min={0}
+                max={10}
+                placeholder="Luminosità che l'impianto produrrà quando è in modalità manuale"
+              ></input>
+
+<label htmlFor="stato">Stato</label>
+              <select id="stato" name="stato" className="input">
+                <option value="0">Spento</option>
+                <option value="1">Acceso</option>
+              </select>
+              
+
+   <label htmlFor="id_area">Id area illuminata afferenza</label>
+    <div className="select is-info" id="id_area">
     <select>
     {viewModel.IDAree()?.map(area => (
                 <option key={area.ID}>{area.ID}</option>
@@ -60,11 +86,12 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
     <div className ="tile is-ancestor">
     <div className="tile is-parent">
     <article className="tile is-child box">
-    <button className="button is-success">Conferma e Inserisci</button>
+    <button type="submit" className="button is-success">Conferma e Inserisci</button>
     <button className="button is-outlined">Cancella campi</button>
     </article>
     </div>
     </div>
+    </form>
     </div>
 
    )

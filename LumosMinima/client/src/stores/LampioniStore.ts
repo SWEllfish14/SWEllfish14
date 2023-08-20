@@ -7,15 +7,18 @@ import { MutationObserverResult, QueryClient, QueryKey, QueryObserverResult } fr
 import { MobxMutation } from '../utils/mobx_mutation';
 import { inject } from 'react-ioc';
 
-
+const headers = {
+  "Content-Type": "application/json",
+};
 export default interface ILampioniStore{
   lampioniQueryResult: MobxQuery<GetNumeroLampioniJT0, unknown, GetNumeroLampioniJT0, GetNumeroLampioniJT0, QueryKey>
   lampioniListaQueryResult: MobxQuery<GetLampioniJT0, unknown, GetLampioniJT0, GetLampioniJT0, QueryKey>
   lampioniDettagliQueryResult: MobxQuery<GetLampioneJT0, unknown, GetLampioneJT0, GetLampioneJT0, QueryKey>
   getlistaLampioni(areaId: string): QueryObserverResult<GetLampioniJT0, unknown>
   getdettagliLampioni(lampId: string): QueryObserverResult<GetLampioneJT0, unknown>
+  aggiungiLampioneMutation: MobxMutation<unknown,unknown,{data: FormData;},unknown>;
  // geteliminaLampione(lampID: string): MutationObserverResult<unknown, unknown>
-  getaggiuntaLampione(lampID:string, lampIP: string, tipo_interazione: string, luminosità_default: number,luminosità_rilevamento: number, id_area_illuminata: number): QueryObserverResult<GetLampioneJT0, unknown>
+ // getaggiuntaLampione(lampID:string, lampIP: string, tipo_interazione: string, luminosità_default: number,luminosità_rilevamento: number, id_area_illuminata: number): QueryObserverResult<GetLampioneJT0, unknown>
   get numeroLampioni():QueryObserverResult<GetNumeroLampioniJT0, unknown>
   deleteLampioneMutation :MobxMutation<unknown,unknown,{lampID: string;},unknown>;
   dispose: ()=>void
@@ -45,7 +48,7 @@ export class LampioniStore implements ILampioniStore {
     },
   });
 
-  addLampioneQueryResult = new MobxQuery<GetLampioneJT0>({
+  /*addLampioneQueryResult = new MobxQuery<GetLampioneJT0>({
     queryKey: ['aggiungiLampione'],
     queryFn: () => {
       return axios
@@ -54,7 +57,15 @@ export class LampioniStore implements ILampioniStore {
   },
 
   });
+*/
 
+aggiungiLampioneMutation = new MobxMutation<unknown, unknown, { data: FormData }>(
+  {
+    mutationFn: async (variables) => {
+      await axios.post(`http://127.0.0.1:3002/aggiungiLampione`, variables.data)
+    },
+  }
+);
  
 
   deleteLampioneMutation = new MobxMutation<unknown,unknown,{lampID:string}>(
@@ -81,12 +92,12 @@ export class LampioniStore implements ILampioniStore {
     });
   }
 
-  getaggiuntaLampione(lampID: string, lampIP: string, tipo_interazione: string, luminosità_default: number, luminosità_rilevamento: number, id_area_illuminata: number): QueryObserverResult<{ IP: number; ID: string; tipo_iterazione: string; luminosita_default: number; luminosita_impostata: number; id_area_illuminata: number; }, unknown> {
+ /* getaggiuntaLampione(lampID: string, lampIP: string, tipo_interazione: string, luminosità_default: number, luminosità_rilevamento: number, id_area_illuminata: number): QueryObserverResult<{ IP: number; ID: string; tipo_iterazione: string; luminosita_default: number; luminosita_impostata: number; id_area_illuminata: number; }, unknown> {
     return this.addLampioneQueryResult.query({
       queryKey: ['aggiungiLampione', lampID, lampIP, tipo_interazione, luminosità_default, luminosità_rilevamento, id_area_illuminata],
     })
   }
-  
+  */
 
   getdettagliLampioni(lampId: string) {
     return this.lampioniDettagliQueryResult.query({
@@ -106,7 +117,8 @@ export class LampioniStore implements ILampioniStore {
     this.lampioniQueryResult.dispose();
     this.lampioniListaQueryResult.dispose();
     this.lampioniDettagliQueryResult.dispose();
-    this.addLampioneQueryResult.dispose();
+  //  this.addLampioneQueryResult.dispose();
     this.deleteLampioneMutation.dispose();    
+    this.aggiungiLampioneMutation.dispose();
   }
 }

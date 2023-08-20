@@ -70,7 +70,7 @@ export default interface IAreeStore {
     },
     unknown
   >;
-  aggiungiAreaMutation: MobxMutation<
+ aggiungiAreaMutation: MobxMutation<
     unknown,
     unknown,
     {
@@ -199,6 +199,7 @@ export class AreeStore implements IAreeStore {
       },
     }
   );
+  
   modificaAreaMutation = new MobxMutation<unknown,unknown,{data:FormData,id:string}>(
     {
       mutationFn: async (variables) => {

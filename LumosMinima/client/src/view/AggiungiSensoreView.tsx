@@ -6,6 +6,7 @@ import {IAggiungiSensoreViewModel } from "../ViewModel/AggiungiSensoreViewModel"
  }
  const AggiungiSensoreView = ({viewModel}: Props) => (
   <div>
+  <form action="" method="post" onSubmit={viewModel.submit}></form>
 <div className ="tile is-ancestor">
 <div className="tile is-parent">
 <article className="tile is-child box">
@@ -46,7 +47,7 @@ import {IAggiungiSensoreViewModel } from "../ViewModel/AggiungiSensoreViewModel"
     <div className ="tile is-ancestor">
     <div className="tile is-parent">
     <article className="tile is-child box">
-    <button className="button is-success">Conferma e Inserisci</button>
+    <button type="submit" className="button is-success">Conferma e Inserisci</button>
     <button className="button is-outlined">Cancella campi</button>
     </article>
     </div>

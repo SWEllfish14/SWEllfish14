@@ -1,5 +1,5 @@
 import { useInstance } from "react-ioc";
-import{ AreeStore } from "../stores/AreeStore";
+import{ SensoriStore } from "../stores/SensoriStore";
 import { useParams } from "react-router-dom";
 
 export type IAggiungiSensoreViewModel = ReturnType<typeof AggiungiSensoreViewModel>;
@@ -15,5 +15,26 @@ export const AggiungiSensoreViewModel = () => {
         
     };
     */
+    const store = useInstance(SensoriStore);
+   return {
+   
+
+    submit:async (e:any) => {
+        e.preventDefault()
+        const data = new FormData(e.target)
+        const result = await store.aggiungiSensoreMutation.mutateAsync({data})
+            if(result.isSuccess){
+               // navigate("/area/"+data.get("id"))
+            }
+            if(result.isError){
+                
+                e=result.error
+                //setSubmitError(e.message)
+                //setSubmitHasError(true)
+                
+            }
+                  
+    },
   };
+};
 

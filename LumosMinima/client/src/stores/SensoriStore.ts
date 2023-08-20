@@ -3,13 +3,14 @@ import axios from "axios";
 import { MobxQuery } from '../utils/mobxqueryts';
 import { GetSensoriJTO, GetNumeroSensoriJT0, GetDettagliSensoriJTO } from '../utils/api-types';
 import { QueryKey, QueryObserverResult } from '@tanstack/react-query';
-
+import { MobxMutation } from "../utils/mobx_mutation";
 
 export default interface ISensoriStore{
   sensoriQueryResult: MobxQuery<GetNumeroSensoriJT0, unknown, GetNumeroSensoriJT0, GetNumeroSensoriJT0, QueryKey>
   get numeroSensori():QueryObserverResult<GetNumeroSensoriJT0, unknown>
   getlistaSensori(areaId: string): QueryObserverResult<GetSensoriJTO, unknown>
   getdettagliSensori(sensore_id: string): QueryObserverResult<GetDettagliSensoriJTO, unknown>
+  aggiungiSensoreMutation: MobxMutation<unknown,unknown,{data: FormData;},unknown>;
   dispose: ()=>void
 }
 export class SensoriStore implements ISensoriStore {
@@ -52,8 +53,18 @@ export class SensoriStore implements ISensoriStore {
       queryKey: ['sensore', sensore_id],
     });
   }
+
+  aggiungiSensoreMutation = new MobxMutation<unknown, unknown, { data: FormData }>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/aggiungiSensore`, variables.data)
+      },
+    }
+  );
+   
   dispose() {
     this.sensoriQueryResult.dispose();
     this.sensoriListaQueryResult.dispose();
+  this.aggiungiSensoreMutation.dispose();
   }
 }
