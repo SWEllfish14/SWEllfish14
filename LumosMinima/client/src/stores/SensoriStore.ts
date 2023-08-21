@@ -56,8 +56,7 @@ export class SensoriStore implements ISensoriStore {
     });
   }
 
-  aggiungiSensoreMutation = new MobxMutation<unknown, unknown, { data: FormData }, unknown>(
-    {
+  aggiungiSensoreMutation = new MobxMutation<unknown, unknown, { data: FormData }, unknown>({
       mutationFn: async (variables) => {
         await axios.post(`http://127.0.0.1:3002/aggiungiSensore/${variables.data.get('ip')}/${variables.data.get('polling')}/${variables.data.get('zona_geografica')}/${variables.data.get('tipo_interazione')}/${variables.data.get('raggio_azione')}/${variables.data.get('id_area')}`, variables.data, {
           headers,

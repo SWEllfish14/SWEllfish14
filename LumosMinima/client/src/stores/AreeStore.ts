@@ -176,11 +176,7 @@ export class AreeStore implements IAreeStore {
     },
   });
 
-  diminuisciLuminositàMutation = new MobxMutation<
-    unknown,
-    unknown,
-    { id: string }
-  >({
+  diminuisciLuminositàMutation = new MobxMutation<unknown,unknown,{ id: string }>({
     mutationFn: async (variables) => {
       await axios.post(
         `http://127.0.0.1:3002/area/${variables.id}/diminuisciluminosita`
@@ -191,8 +187,7 @@ export class AreeStore implements IAreeStore {
     },
   });
 
-  aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>(
-    {
+  aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
       mutationFn: async (variables) => {
         await axios.post(`http://127.0.0.1:3002/aggiungiArea/${variables.data.get('citta')}/${variables.data.get('zonaGeografica')}/${variables.data.get('modalita')}/${variables.data.get('stato')}/${variables.data.get('luminositaDefault')}/${variables.data.get('luminositaRilevamento')}`, variables.data, {
           headers,

@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
                     </p>
                     <p>Tipo interazione: {lampioni.tipo_iterazione}, luminosità default: {lampioni.luminosita_default}, luminosità impostata: {lampioni.luminosita_impostata}
                     </p>
-                    <p>
+                    
                     <button
               className="button is-danger"
                  onClick={() => viewModel.eliminaLampione(lampioni.ID)}
@@ -31,10 +31,9 @@ import { Link } from "react-router-dom";
 <Link to={{pathname: `/modificaLampione/${lampioni.ID}`}}>
 <button
               className="button is-outlined"
-                 onClick={() => viewModel.eliminaLampione(lampioni.ID)}
             > Modifica dettagli Lampione </button>
             </Link>
-                    </p>
+                    
                 </li>
             ))}
         <p>

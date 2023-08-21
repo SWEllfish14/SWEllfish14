@@ -1,5 +1,7 @@
 import { observer } from "mobx-react-lite"
 import { LampioniStore } from "../stores/LampioniStore"
+
+import { AreeStore } from "../stores/AreeStore"
 import { provider, useInstance } from "react-ioc"
 import { useParams,useNavigate, useResolvedPath } from "react-router-dom";
 

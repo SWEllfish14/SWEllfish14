@@ -12,7 +12,7 @@ export const AggiungiLampioneViewModel = () => {
     const store  = useInstance(LampioniStore);
     let [submitHasError,setSubmitHasError]= useState(false)
     let [submitError,setSubmitError] = useState()
-    
+    let navigate = useNavigate()
     return {
         //LampioneDetails: ()=> getdettagliLampioni(id!),
         //isLoading: ()=> getdettagliLampioni(id!).isLoading,
@@ -20,20 +20,20 @@ export const AggiungiLampioneViewModel = () => {
         //error:() => getdettagliLampioni(id!).error,
         submitIsError:()=>submitHasError,
         IDAree: () => AreeId.data,
-       submit:async (e:any) => {
-        e.preventDefault()
-        const data = new FormData(e.target)
-        const result = await store.aggiungiLampioneMutation.mutateAsync({data})
-            if(result.isSuccess){
-                //navigate("/area/"+data.get("id"))
+       aggiungiLampione:async (a:any) => {
+        a.preventDefault()
+        var data2 = new FormData(a.target)
+        const result2 = await store.aggiungiLampioneMutation.mutateAsync({data2})
+            if(result2.isSuccess){
+                //navigate("/area/"+AreeId)
             }
-            if(result.isError){
-                e=result.error
-                setSubmitError(e.message)
+            if(result2.isError){
+                a=result2.error
+                setSubmitError(a.message)
                 setSubmitHasError(true)
                 
             }
-                  
+                 
     },
     clearError:() =>{
         setSubmitHasError(false)

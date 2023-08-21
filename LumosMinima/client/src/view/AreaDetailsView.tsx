@@ -145,7 +145,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
     <div className="column is-half">
       <div className="box">
         <p>Impostazioni Lampioni</p>
-        <Link to={{ pathname: `/aggiungiLampione` }}>
+        <Link to={{ pathname: `/aggiungiLampione`}}>
           <button className="button is-outlined">Aggiungi lampione</button>
         </Link>
 
