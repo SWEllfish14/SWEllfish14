@@ -52,7 +52,7 @@ lampioneService = require("../services/lampioneService")
               .send({ status: "FAILED", data: { error: error?.message || error } });
           }
     }
-    const aggiungiLampione = async (req, res) => {
+    /*const aggiungiLampione = async (req, res) => {
       try{
         const result = await lampioneService.aggiungiLampione(req.body);
         res.status(200).send({result:result})
@@ -61,7 +61,7 @@ lampioneService = require("../services/lampioneService")
         .send({ status: "FAILED", data: { error: error?.message || error } })
       }
     };
-  
+  */
     module.exports = {
         getAllLampsFromArea,
         eliminaLampione,

@@ -9,6 +9,7 @@ const http = require('http');
 const axios = require('axios');
 axios.defaults.baseURL = 'http://localhost:142';
 const cors = require("cors");
+const { stat } = require('fs')
 
 app.use(cors());
 app.use(express.json())
@@ -102,13 +103,20 @@ app.get('/aree', async (req, res) => {
 });
 
 //aggiungi nuova area
-app.post('/aggiungiArea', async (req, res) => {
+app.post('/aggiungiArea/:citta/:zonaGeografica/:modalita_funzionamento/:status/:luminosita_default/:luminosita_rilevamento', async (req, res) => {
   let conn;
-  const {zonaArea, statoArea, luminositaImpostataArea, luminositaDefaultArea } = req.query;
+  //const città = parseInt(req.query.get('citta').toString())
+  //const zona_geografica_città = req.query.get('zonaGeografica').toString()
   try {
 
     console.log(req.body)
     conn = await pool.getConnection();
+    const citta= req.params.citta;
+    const zonaGeografica = req.params.zonaGeografica;
+    const modalità = req.params.modalita_funzionamento;
+    const status = req.params.status;
+    const lum_def = req.params.luminosita_default;
+    const lum_ril = req.params.luminosita_rilevamento;
 
     console.log("connesso")
     var idQuery = "SELECT MAX(ID) FROM lumosminima_pb.area_illuminata";
@@ -116,7 +124,7 @@ app.post('/aggiungiArea', async (req, res) => {
     id = (id[0]["MAX(ID)"]) + 1
     var insertquery = "INSERT INTO lumosminima_pb.area_illuminata (ID,città,zona_geografica_città,modalità_funzionamento,stato,luminosità_standard,luminosità_rilevamento) VALUES(?,?,?,?,?,?,?)";
 
-    var result = await conn.query(insertquery, [id, 'albarella', 'alb0','A',0, 1, 1]);
+    var result = await conn.query(insertquery, [id, citta, zonaGeografica,modalità,status,lum_def, lum_ril]);
     res.send(result)
     console.log(result)
   } catch (err) {
@@ -127,6 +135,38 @@ app.post('/aggiungiArea', async (req, res) => {
     if (conn) return conn.release();
   }
 });
+
+//modifica  area
+app.post('/modificaArea/:id/:citta/:zonaGeografica/:modalita_funzionamento/:stato/:luminosita_rilevamento/:luminosità_default', async (req, res) => {
+  let conn;
+  //const città = parseInt(req.query.get('citta').toString())
+  //const zona_geografica_città = req.query.get('zonaGeografica').toString()
+  try {
+
+    console.log(req.body)
+    conn = await pool.getConnection();
+    const id = req.params.id;
+    const citta= req.params.citta;
+    const zonaGeografica = req.params.zonaGeografica;
+    const modalità = req.params.modalita_funzionamento;
+    const stato= req.params.stato;
+    const lum_def = req.params.luminosita_default;
+    const lum_ril = req.params.luminosita_rilevamento;
+
+    var insertquery = " UPDATE lumosminima_pb.area_illuminata SET città = ?,zona_geografica_città = ?,modalità_funzionamento = ?,luminosità_standard = ?,luminosità_rilevamento = ?, luminosità_manuale = ?,stato = ? WHERE ID = ?";
+
+    var result = await conn.query(insertquery, [citta, zonaGeografica,modalità,lum_def,lum_ril,0,stato, id]);
+    res.send(result)
+    console.log(result)
+  } catch (err) {
+    console.log(err)
+    throw err;
+
+  } finally {
+    if (conn) return conn.release();
+  }
+});
+
 
 //dettagli lampione in base all'ID
   app.get('/lampione/:id', async (req, res) => {
@@ -149,9 +189,14 @@ app.post('/aggiungiArea', async (req, res) => {
   });
   
   //aggiungi nuova sensore
-app.post('/aggiungiSensore', async (req, res) => {
+app.post('/aggiungiSensore/:ip/:polling_time/:zona_geografica/:tipo_interazione/:raggio_azione/:id_area_illuminata', async (req, res) => {
   let conn;
-  //const {zonaArea, statoArea, luminositaImpostataArea, luminositaDefaultArea } = req.query;
+  const ip = req.params.ip;
+  const polling = req.params.polling_time;
+  const zona_geografica = req.params.zona_geografica;
+  const interazione = req.params.tipo_interazione;
+  const raggio_azione = req.params.raggio_azione;
+  const id_area = req.params.id_area_illuminata;
   try {
 
     console.log(req.body)
@@ -161,9 +206,9 @@ app.post('/aggiungiSensore', async (req, res) => {
     var idQuery = "SELECT MAX(ID) FROM lumosminima_pb.sensore";
     var id = await conn.query(idQuery);
     id = (id[0]["MAX(ID)"]) + 1
-    var insertquery = "INSERT INTO lumosminima_pb.sensore (ID,città,polling_time,zona_geografica_posizionamento,tipo_interazione,raggio_azione,id_area_illuminata) VALUES(?,?,?,?,?,?,?)";
+    var insertquery = "INSERT INTO lumosminima_pb.sensore (ID,IP,polling_time,zona_geografica_posizionamento,tipo_interazione,raggio_azione,id_area_illuminata) VALUES(?,?,?,?,?,?,?)";
 
-    var result = await conn.query(insertquery, [id, 'albarella', '10','alllll','PUSH', 1, 1]);
+    var result = await conn.query(insertquery, [id, ip, polling,zona_geografica,interazione, raggio_azione, id_area]);
     res.send(result)
     console.log(result)
   } catch (err) {
@@ -359,9 +404,14 @@ app.post('/eliminaLampione/:id', async (req, res) => {
 })
 */
 //aggiungi nuova area
-app.post('/aggiungiLampione', async (req, res) => {
+app.post('/aggiungiLampione/:ip/:tipo_interazione/:luminosità_default/:luminosità_impostata/:id_area_illuminata/:stato', async (req, res) => {
   let conn;
-  //const {zonaArea, statoArea, luminositaImpostataArea, luminositaDefaultArea } = req.query;
+  const ip = req.params.ip;
+  const interazione = req.params.tipo_interazione;
+  const lum_def = req.params.luminosità_default;
+  const lum_man = req.params.luminosità_impostata;
+  const id_area = req.params.id_area_illuminata;
+  const stato = req.params.stato;
   try {
 
     console.log(req.body)
@@ -373,7 +423,7 @@ app.post('/aggiungiLampione', async (req, res) => {
     id = (id[0]["MAX(ID)"]) + 1
     var insertquery = "INSERT INTO lumosminima_pb.lampione (ID,IP,tipo_interazione,luminosità_default,luminosità_impostata, id_area_illuminata, stato) VALUES(?,?,?,?,?,?,?)";
 
-    var result = await conn.query(insertquery, [id, '0.0.0.0', 'PUSH',0, 1, 1,1]);
+    var result = await conn.query(insertquery, [id, ip, interazione,lum_def, lum_man, id_area,stato]);
     res.send(result)
     console.log(result)
   } catch (err) {
@@ -383,6 +433,7 @@ app.post('/aggiungiLampione', async (req, res) => {
   } finally {
     if (conn) return conn.release();
   }
+  
 });
 
 //query per ottenere id aree da inserire nel form di aggiunta del lampione
