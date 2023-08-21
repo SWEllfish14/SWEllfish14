@@ -13,15 +13,6 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
 <article className="tile is-child box">
 <h1>Aggiunta Lampione</h1>
 <p className="menu-label">
-
-              <label htmlFor="ID">ID Lampione</label>
-              <input
-                id="id"
-                name="id"
-                className="input"
-                type="text"
-                placeholder="Inserisci ID"
-              ></input>
               <label htmlFor="IP">IP</label>
               <input
                 id="ip"
@@ -29,15 +20,13 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
                 className="input"
                 type="text"
                 placeholder="Ip lampione"
-              ></input>
+              ></input> 
 
-<h1>Tipo interazione con il lampione</h1>
-    <div className="select is-info">
-    <select id="tipo_interazione" name="tipo_interazione">
-    <option>PUSH</option>
-    <option>PULL</option>
+<label htmlFor="tipo_interazione">Tipo interazione con il lampione</label>
+    <select id="tipo_interazione" name="tipo_interazione" className="input">
+    <option value="PUSH">PUSH</option>
+    <option value ="PULL">PULL</option>
     </select>
-    </div>
 
     <label htmlFor="luminositaDefault">Luminosità default</label>
               <input
@@ -69,14 +58,12 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
               
 
    <label htmlFor="id_area">Id area illuminata afferenza</label>
-    <div className="select is-info" id="id_area">
-    <select>
+    <select id="id_area" name = "id_area" className="input">
     {viewModel.IDAree()?.map(area => (
-                <option key={area.ID}>{area.ID}</option>
+                <option value={area.ID}>{area.ID}</option>
                 
     ))}
     </select>
-    </div>
     </p>
     
     </article>
@@ -92,6 +79,7 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
     </div>
     </div>
     </form>
+    {viewModel.submitIsError() ===true ? <>{viewModel.submitError()}</>:<></>}
     </div>
 
    )

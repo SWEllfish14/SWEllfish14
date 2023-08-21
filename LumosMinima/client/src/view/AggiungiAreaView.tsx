@@ -12,14 +12,6 @@ const AggiungiAreaView = ({ viewModel }: Props) => (
           <article className="tile is-child box">
             <h1>Aggiunta area</h1>
             <p className="menu-label">
-              <label htmlFor="ID">ID Area</label>
-              <input
-                id="id"
-                name="id"
-                className="input"
-                type="text"
-                placeholder="Inserisci ID"
-              ></input>
               <label htmlFor="citta">Nome città</label>
               <input
                 id="citta"

@@ -1,6 +1,7 @@
 import { useInstance } from "react-ioc";
 import{ SensoriStore } from "../stores/SensoriStore";
 import { useParams } from "react-router-dom";
+import { AreeStore } from "../stores/AreeStore";
 
 export type IAggiungiSensoreViewModel = ReturnType<typeof AggiungiSensoreViewModel>;
 
@@ -16,9 +17,10 @@ export const AggiungiSensoreViewModel = () => {
     };
     */
     const store = useInstance(SensoriStore);
+    const {AreeId} = useInstance(AreeStore);
    return {
    
-
+    IDAree: () => AreeId.data,
     submit:async (e:any) => {
         e.preventDefault()
         const data = new FormData(e.target)
@@ -34,6 +36,7 @@ export const AggiungiSensoreViewModel = () => {
                 
             }
                   
+            
     },
   };
 };

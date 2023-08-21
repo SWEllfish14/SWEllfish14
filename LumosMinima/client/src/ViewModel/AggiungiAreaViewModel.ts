@@ -19,10 +19,13 @@ export const AggiungiAreaViewModel = () => {
         submitIsError:()=>submitHasError,
         submit:async (e:any) => {
             e.preventDefault()
-            const data = new FormData(e.target)
+            var data = new FormData(e.target)
+
+            
+            
             const result = await store.aggiungiAreaMutation.mutateAsync({data})
-                if(result.isSuccess){
-                    navigate("/area/"+data.get("id"))
+               if(result.isSuccess){
+                    
                 }
                 if(result.isError){
                     
@@ -31,7 +34,7 @@ export const AggiungiAreaViewModel = () => {
                     setSubmitHasError(true)
                     
                 }
-                      
+                   
         },
         clearError:() =>{
             setSubmitHasError(false)

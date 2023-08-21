@@ -2,29 +2,29 @@ import { useInstance } from "react-ioc";
 import{ AreeStore } from "../stores/AreeStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-
 export type IModificaAreaViewModel = ReturnType<typeof ModificaAreaViewModel>;
 
 export const ModificaAreaViewModel = () => {
     const { id } = useParams();
     const store =useInstance(AreeStore);
-    const navigate = useNavigate()
     let [submitHasError,setSubmitHasError]= useState(false)
-    let [submitError,setSubmitError] = useState("")
+    let [submitError,setSubmitError] = useState()
+    
+    const navigate = useNavigate()
     return {
         areaDetails: ()=> store.getAreaDetails(id!),
         isLoading: ()=> store.getAreaDetails(id!).isLoading,
         isError: () => store.getAreaDetails(id!).isError,
         error:() => store.getAreaDetails(id!).error,
         submitIsError:()=>submitHasError,
-        modificaArea: async (e:any) => {
+        submit:async (e:any) => {
             e.preventDefault()
-            const data = new FormData(e.target)
-            console.log(data)
+            var data = new FormData(e.target)
             if(typeof id === "string"){
                 const result = await store.modificaAreaMutation.mutateAsync({data,id})
-                if(result.isSuccess){
-                    navigate("/area/"+id)
+            
+               if(result.isSuccess){
+                    
                 }
                 if(result.isError){
                     
@@ -34,13 +34,13 @@ export const ModificaAreaViewModel = () => {
                     
                 }
             }
-            else{
-                setSubmitError("ID non valido")
-            }
-                
-                
-            
-        }
+                   
+        },
+        clearError:() =>{
+            setSubmitHasError(false)
+        },
+        submitError:() => submitError
+        
     };
   };
 
