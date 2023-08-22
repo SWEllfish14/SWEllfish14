@@ -5,19 +5,21 @@ import { Link } from "react-router-dom";
  interface Props {
    viewModel:IAreeViewModel;
  }
+
  const AreeView = ({viewModel}: Props) => (
   <div>
+     <h1>Lista aree</h1>
 <div className ="tile is-ancestor">
 <div className="tile is-parent">
 <article className="tile is-child box">
-<h1>Lista aree</h1>
+
 <p className="menu-label">
     
     {viewModel.isLoading() ? <p>Loading...</p> :
         <ul>
             {viewModel.aree()?.map(area => (
                 <li key={area.ID}>
-                    <div>
+                    <div className="tile is-child">
                     <Link to={{
                                 pathname: `/area/${area.ID}`
                             }}>ID: {area.ID}

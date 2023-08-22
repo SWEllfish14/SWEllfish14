@@ -79,6 +79,15 @@ export default interface IAreeStore {
     },
     unknown
   >;
+  modificaAreaMutation: MobxMutation<
+    unknown,
+    unknown,
+    {
+      id:string,
+      data: FormData
+    },
+    unknown
+  >;
   eliminaAreaMutation :MobxMutation<
   unknown,
   unknown,
@@ -104,7 +113,7 @@ export class AreeStore implements IAreeStore {
   areeNumeroQueryResult = new MobxQuery<GetNumeroAreeJTO>({
     queryKey: ["numeroAree"],
     queryFn: () =>
-      axios.get("http://localhost:3002/numeroAree").then((r) => r.data),
+      axios.get("http://localhost:3002/numeroAree").then((r) => r.data["numeroAree"]),
   });
   areaDetailsQueryResult = new MobxQuery<GetAreaDetailsJTO>({
     queryFn: ({ queryKey }) => {
@@ -196,15 +205,13 @@ export class AreeStore implements IAreeStore {
     }
   );
   
-  modificaAreaMutation = new MobxMutation<unknown,unknown,{data:FormData,id:string}>(
+  modificaAreaMutation = new MobxMutation<unknown,unknown,{id:string,data:FormData}>(
     {
       mutationFn: async (variables) => {
-        await axios.post(`http://127.0.0.1:3002/modificaArea/${variables.id}/${variables.data.get('citta')}/${variables.data.get('zonaGeografica')}/${variables.data.get('modalita')}/${variables.data.get('stato')}/${variables.data.get('luminositaDefault')}/${variables.data.get('luminositaRilevamento')}`, variables.data, {
-          headers,
-        })
+        await axios.post(`http://127.0.0.1:3002/modificaArea/${variables.id}/${variables.data.get('citta')}/${variables.data.get('zonaGeografica')}/${variables.data.get('modalita')}/${variables.data.get('stato')}/${variables.data.get('luminositaDefault')}/${variables.data.get('luminositaRilevamento')}`, variables.data)
       },
       onSuccess: (data, variables) => {
-        this.queryClient.invalidateQueries(["area", variables.id]);
+        //this.queryClient.invalidateQueries(["area", variables.data.get('id')]);
       },
     }
   )

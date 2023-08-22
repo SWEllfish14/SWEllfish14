@@ -13,12 +13,13 @@ export default interface ISensoriStore{
   getlistaSensori(areaId: string): QueryObserverResult<GetSensoriJTO, unknown>
   getdettagliSensori(sensore_id: string): QueryObserverResult<GetDettagliSensoriJTO, unknown>
   aggiungiSensoreMutation: MobxMutation<unknown,unknown,{data: FormData},unknown>;
+  modificaSensoreMutation: MobxMutation<unknown,unknown,{id: string,data: FormData},unknown>;
   dispose: ()=>void
 }
 export class SensoriStore implements ISensoriStore {
     sensoriQueryResult = new MobxQuery<GetNumeroSensoriJT0>({
         queryKey: ['numeroSensori'],
-        queryFn: () => axios.get('http://localhost:3002/numeroSensori').then((r) => r.data),
+        queryFn: () => axios.get('http://localhost:3002/numeroSensori').then((r) => r.data["numeroSensori"]),
       });
 
       sensoriListaQueryResult = new MobxQuery<GetSensoriJTO>({
@@ -63,7 +64,13 @@ export class SensoriStore implements ISensoriStore {
         })
       },
     }
-  );
+  )
+  modificaSensoreMutation = new MobxMutation<unknown, unknown, {id: string, data: FormData }, unknown>({
+    mutationFn: async (variables) => {
+      await axios.post(`http://127.0.0.1:3002/modificaSensore/${variables.id}/${variables.data.get('ip')}/${variables.data.get('polling_time')}/${variables.data.get('zona_geografica')}/${variables.data.get('tipo_interazione')}/${variables.data.get('raggio_azione')}}`, variables.data)
+    },
+  }
+)
    
   dispose() {
     this.sensoriQueryResult.dispose();

@@ -5,12 +5,21 @@ interface Props {
 }
 const ModificaAreaView = ({ viewModel }: Props) => (
   <div>
-    <form action="" method="post" onSubmit={viewModel.submit}>
+    <form action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
       <div className="tile is-ancestor">
         <div className="tile is-parent">
           <article className="tile is-child box">
             <h1>Modifica area</h1>
             <p className="menu-label">
+              <label htmlFor="id">ID città</label>
+              <input
+                id="id"
+                name="id"
+                className="input"
+                type="text"
+                placeholder={viewModel.areaDetails().data?.ID.toString()}
+                readOnly
+              ></input>
               <label htmlFor="citta">Nome città</label>
               <input
                 id="citta"

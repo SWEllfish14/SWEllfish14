@@ -26,8 +26,6 @@ const HomeView = ({ viewModel }: Props) => (
                 <p>Loading...</p>
               ) : (
                 viewModel.lampioniNumber()
-                
-                
               )}
             </li>
             <li>
@@ -75,9 +73,9 @@ const HomeView = ({ viewModel }: Props) => (
           </p>
         </article>
       </div>
-    </div>
+      </div>
 
-    <div className="tile is-anchestor">
+      <div className="tile is-anchestor">
       <div className="tile is-parent">
         <article className="tile is-child box">
           <h1>Ultimi guasti inseriti a sistema </h1>
@@ -89,10 +87,8 @@ const HomeView = ({ viewModel }: Props) => (
               <ul>
                 {viewModel.guasti()?.map((guasto) => (
                   <li key={guasto.ID}>
-                    <p style={styles.p}>
                       Guasto a {guasto.città},{guasto.zona_geografica_città}.
                       Data rilevamento: {guasto.data_rilevamento.toString()}
-                    </p>
                   </li>
                 ))}
               </ul>
@@ -110,10 +106,4 @@ const HomeView = ({ viewModel }: Props) => (
     </div>
   </div>
 );
-const styles = {
-  p: {
-    margin: "10px",
-  },
-} as const;
-
 export default observer(HomeView);
