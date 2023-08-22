@@ -80,6 +80,71 @@ app.post('/eliminaArea/:id', async (req, res) => {
     if (conn) return conn.release();
   }
 })
+
+//cambia stato area
+  app.post('/cambiaStatoArea/:id', async (req, res) => {
+    let conn;
+    const id= req.params.id;
+    try {
+      conn = await pool.getConnection();
+      var getStato = "SELECT stato from lumosminima_pb.area_illuminata WHERE ID = ?"
+      var stato = await conn.query(getStato, [id])
+
+      console.log(stato)
+      
+      if(stato[0]["stato"] == 1){
+        var newStato = 0
+        
+      }
+
+      if(stato[0]["stato"] == 0){
+       var newStato = 1 
+      }
+
+       var cambiaModalitaQuery = "UPDATE lumosminima_pb.area_illuminata SET stato = ? WHERE ID = ?"
+       var rows = await conn.query(cambiaModalitaQuery, [newStato, id])
+
+      
+    } catch (err) {
+      console.log(err)
+      throw err;
+    } finally {
+      if (conn) return conn.release();
+    }
+  })
+
+  //cambia modalità area
+  app.post('/cambiaModalitaArea/:id', async (req, res) => {
+    let conn;
+    const id= req.params.id;
+    try {
+      conn = await pool.getConnection();
+      var getStato = "SELECT modalità_funzionamento from lumosminima_pb.area_illuminata WHERE ID = ?"
+      var stato = await conn.query(getStato, [id])
+
+      console.log(stato)
+      
+      if(stato[0]["modalità_funzionamento"] == 'A'){
+        var newStato = 'M'
+        
+      }
+
+      if(stato[0]["modalità_funzionamento"] == 'M'){
+       var newStato = 'A'
+      }
+      
+       var cambiaModalitaQuery = "UPDATE lumosminima_pb.area_illuminata SET modalità_funzionamento = ? WHERE ID = ?"
+       var rows = await conn.query(cambiaModalitaQuery, [newStato, id])
+
+      
+    } catch (err) {
+      console.log(err)
+      throw err;
+    } finally {
+      if (conn) return conn.release();
+    }
+  })
+
 //lista di tutte le aree
 app.get('/aree', async (req, res) => {
   let conn;
@@ -142,6 +207,7 @@ app.post('/modificaArea/:id/:citta/:zonaGeografica/:modalita_funzionamento/:stat
   //const città = parseInt(req.query.get('citta').toString())
   //const zona_geografica_città = req.query.get('zonaGeografica').toString()
   try {
+    console.log("inizio query")
 
     console.log(req.body)
     conn = await pool.getConnection();
@@ -171,13 +237,13 @@ app.post('/modificaArea/:id/:citta/:zonaGeografica/:modalita_funzionamento/:stat
 //dettagli lampione in base all'ID
   app.get('/lampione/:id', async (req, res) => {
 
-    const id = parseInt(req.params.id)
+    
     let conn;
     try {
-  
+      const id = req.params.id;
       conn = await pool.getConnection();
   
-      var query = "SELECT ID,IP, luminosità_default, luminosità_impostata FROM lumosminima_pb.lampione WHERE ID = ?";
+      var query = "SELECT ID,IP,tipo_interazione, luminosità_default, luminosità_impostata, stato FROM lumosminima_pb.lampione WHERE ID = ?";
       var rows = await conn.query(query, [id]);
       res.send(rows[0]);
     } catch (err) {
@@ -223,10 +289,10 @@ app.post('/aggiungiSensore/:ip/:polling_time/:zona_geografica/:tipo_interazione/
   //dettagli sensore in base all'ID
   app.get('/sensore/:id', async (req, res) => {
 
-    const id = parseInt(req.params.id)
+   
     let conn;
     try {
-  
+      const id = req.params.id;
       conn = await pool.getConnection();
   
       var query = "SELECT ID, IP, polling_time, zona_geografica_posizionamento, raggio_azione FROM lumosminima_pb.sensore WHERE ID = ?";
@@ -441,7 +507,7 @@ app.post('/modificaLampione/:id/:ip/:tipo_interazione/:luminositaDefault/:lumino
   let conn;
   
   try {
-    console.log(req.params)
+    console.log("connesso")
   const id = req.params.id
   const ip = req.params.ip;
   const interazione = req.params.tipo_interazione;
@@ -453,7 +519,7 @@ app.post('/modificaLampione/:id/:ip/:tipo_interazione/:luminositaDefault/:lumino
     conn = await pool.getConnection();
 
     
-    var insertquery = "UPDATE lumosminima_pb.lampione SET IP = ?,tipo_interazione = ?,luminosità_default = ?,luminosità_impostata = ?, stato = ?)  WHERE ID = ?";
+    var insertquery = "UPDATE lumosminima_pb.lampione SET IP = ?,tipo_interazione = ?,luminosità_default = ?,luminosità_impostata = ?, stato = ?  WHERE ID = ?";
 
     var result = await conn.query(insertquery, [ip, interazione,lum_def, lum_man,stato, id]);
     res.send(result)
@@ -498,20 +564,6 @@ app.get('/lamps/:id', async (req, res) =>{
 
 
     var rows = await conn.query(query, [id]);
-    var result = [];
-    await Promise.all(rows.map(async (lamp) => {
-      try {
-       // console.log('http://' + lamp.IP + ":3020/lamp")
-        //const response = await axios.get('http://' + lamp.IP + ":3020/lamp", headers)
-        //response.data.ip = lamp.IP
-        //console.log(response.data)
-        //result.push(response.data)
-      }
-      catch (e) {
-       console.log(e.response)
-      }
-      }))
-    
     
     res.send(rows);
   } catch (err) {
