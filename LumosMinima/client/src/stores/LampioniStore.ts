@@ -80,7 +80,7 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, { data2: FormData 
   modificaLampioneMutation = new MobxMutation<unknown,unknown,{data:FormData}>(
     {
       mutationFn: async (variables) => {
-        await axios.post(`http://127.0.0.1:3002/modificaLampione/${variables.data.get('id')}/${variables.data.get('ip')}/${variables.data.get('tipo_interazione')}/${variables.data.get('luminositaDefault')}/${variables.data.get('luminositaImpostata')}/${variables.data.get('id_area')}/${variables.data.get('stato')}}`)
+        await axios.post(`http://127.0.0.1:3002/modificaLampione/${variables.data.get('id')}/${variables.data.get('ip')}/${variables.data.get('tipo_interazione')}/${variables.data.get('luminositaDefault')}/${variables.data.get('luminositaImpostata')}/${variables.data.get('id_area')}/${variables.data.get('stato')}`)
       },
       onSuccess: (data, variables) => {
         //this.queryClient.invalidateQueries(["eliminaLampione",variables.lampID]);

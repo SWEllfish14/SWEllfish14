@@ -21,6 +21,7 @@ export const ModificaAreaViewModel = () => {
             e.preventDefault()
             var data = new FormData(e.target)
             if(typeof id === "string"){
+                console.log("ciaooooooo")
                 const result = await store.modificaAreaMutation.mutateAsync({data,id})
             
                if(result.isSuccess){

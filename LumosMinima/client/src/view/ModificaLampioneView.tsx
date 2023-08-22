@@ -13,13 +13,13 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
   <article className="tile is-child box">
   <h1>Modifica Lampione</h1>
 
-                <label htmlFor="id">IP</label>
+                <label htmlFor="id">ID</label>
                 <input
                   id="id"
                   name="id"
                   className="input"
                   type="text"
-                  placeholder="ID lampione"
+                  placeholder = {viewModel.dettagliLampione().data?.ID.toString()}
                   readOnly
                 ></input> 
   <p className="menu-label">
@@ -29,7 +29,7 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   name="ip"
                   className="input"
                   type="text"
-                  placeholder="Ip lampione"
+                  placeholder={viewModel.dettagliLampione().data?.IP.toString()}
                 ></input> 
 
   <label htmlFor="tipo_interazione">Tipo interazione con il lampione</label>
@@ -46,7 +46,7 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   type="number"
                   min={0}
                   max={10}
-                  placeholder="Luminosità che l'impianto produrrà quando non ci sono rilevamenti di utenti stradali"
+                  placeholder="Luminosità che il lampione produrrà quando non ci sono rilevamenti di utenti stradali"
                 ></input>
 
   <label htmlFor="luminositaManuale">Luminosità impostata</label>
@@ -57,7 +57,7 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   type="number"
                   min={0}
                   max={10}
-                  placeholder="Luminosità che l'impianto produrrà quando è in modalità manuale"
+                  placeholder="Luminosità che il lampione produrrà quando è in modalità manuale"
                 ></input>
 
   <label htmlFor="stato">Stato</label>

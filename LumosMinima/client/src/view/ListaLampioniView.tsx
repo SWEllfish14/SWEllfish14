@@ -20,9 +20,6 @@ import { Link } from "react-router-dom";
                     <p>
                     ID: {lampioni.ID}, IP: {lampioni.IP}
                     </p>
-                    <p>Tipo interazione: {lampioni.tipo_iterazione}, luminosità default: {lampioni.luminosita_default}, luminosità impostata: {lampioni.luminosita_impostata}
-                    </p>
-                    
                     <button
               className="button is-danger"
                  onClick={() => viewModel.eliminaLampione(lampioni.ID)}
@@ -36,8 +33,7 @@ import { Link } from "react-router-dom";
                     
                 </li>
             ))}
-        <p>
-        </p>            
+           
             
     
               

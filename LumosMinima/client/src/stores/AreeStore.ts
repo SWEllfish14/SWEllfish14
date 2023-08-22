@@ -236,9 +236,9 @@ export class AreeStore implements IAreeStore {
       mutationFn: async (variables) => {
         await axios.post(`http://127.0.0.1:3002/cambiaStatoArea/${variables.id}`)
       },
-      onSuccess: (data, variables) => {
-        this.queryClient.invalidateQueries(["area",variables.id]);
-      },
+      //onSuccess: (data, variables) => {
+       // this.queryClient.invalidateQueries(["area",variables.id]);
+      //},
     }
   )
   dispose() {

@@ -17,7 +17,7 @@ const ModificaAreaView = ({ viewModel }: Props) => (
                 name="citta"
                 className="input"
                 type="text"
-                placeholder="Nome città in cui si trova il sistema di illuminazione"
+                placeholder={viewModel.areaDetails().data?.città}
               ></input>
               <label htmlFor="zonaGeografica">Zona geografica città</label>
               <input
@@ -25,7 +25,7 @@ const ModificaAreaView = ({ viewModel }: Props) => (
                 name="zonaGeografica"
                 className="input"
                 type="text"
-                placeholder="Zona geografica della città in cui si trova il sistema di illuminazione"
+                placeholder={viewModel.areaDetails().data?.zona_geografica_città}
               ></input>
               <label htmlFor="modalita">Modalità funzionamento</label>
               <select id="modalita"
@@ -47,7 +47,7 @@ const ModificaAreaView = ({ viewModel }: Props) => (
                 type="number"
                 min={0}
                 max={10}
-                placeholder="Luminosità che l'impianto produrrà quando non ci sono rilevamenti di utenti stradali"
+                placeholder={viewModel.areaDetails().data?.luminosità_standard.toString()}
               ></input>
               <label htmlFor="luminositaRilevamento">
                 Luminosità rilevamento{" "}
@@ -59,7 +59,7 @@ const ModificaAreaView = ({ viewModel }: Props) => (
                 type="number"
                 min={0}
                 max={10}
-                placeholder="Luminosità che l'imianto produrrà quando ci sarà un rilevamento di un utente stradale"
+                placeholder={viewModel.areaDetails().data?.luminosità_rilevamento.toString()}
               ></input>
             </p>
           </article>
