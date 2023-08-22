@@ -93,6 +93,7 @@ const diminuisciLuminositaArea= (req, res) => {
   };
 
   const aggiungiArea = async (req, res) => {
+    console.log("chiamo funzione aggiunta da controller")
     try{
       const result = await areaService.aggiungiArea(req.body);
       res.status(200).send({result:result})
@@ -103,8 +104,9 @@ const diminuisciLuminositaArea= (req, res) => {
   };
 
   const modificaArea = async (req,res) => {
+    console.log("chiamo funzione modifica da controller")
     const {
-      params: { id },
+      params: { id, citta, zonaGeografica,stato,modalita,luminositaDefault, luminositaRilevamento },
     } = req;
     if (!id) {
       res
@@ -115,7 +117,14 @@ const diminuisciLuminositaArea= (req, res) => {
         });
     }
     try{
-      const result = await areaService.modificaArea(req.body,id)
+      console.log(id)
+      console.log(citta)
+      console.log(zonaGeografica)
+      console.log(stato)
+      console.log(modalita)
+      console.log(luminositaDefault)
+      console.log(luminositaRilevamento)
+      const result = await areaService.modificaArea(req,id)
       res.status(200).send({result:result})
     }catch (error){
       res.status(error?.status || 500)

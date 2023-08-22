@@ -30,23 +30,38 @@ const diminuisciLuminositaArea = async (id) => {
 };
 
 const aggiungiArea = async(data) =>{
+  console.log("chiamo funzione aggiunta da service")
   const {id,citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
   const newArea = await Area.create({ ID: id,città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,stato:stato,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0})
+  await newArea.save()
   return("Area aggiunta");
 }
 
 const modificaArea = async(data,id) =>{
-  const {citta,zonaCitta,luminositaDefault,luminositaRilevamento} = data
+  console.log("chiamo funzione salvataggio")
+  const {citta,modalita,stato,zonaGeografica,luminositaDefault,luminositaRilevamento} = data
+
   const  area=await Area.findByPk(id);
+
+  console.log(città)
+  console.log(zonaCitta)
   if(citta){
     area.set({
-      città:citta
+      città:città
     })
   }
   if(zonaCitta){
     area.set({
-      zona_geografica_città:zonaCitta
+      zona_geografica_città:zonaGeografica
     })  }
+    if(stato){
+      area.set({
+        stato:stato
+      })  }
+      if(modalita){
+        area.set({
+          modalità_funzionamento:modalita
+        })  }
   if(luminositaDefault){
     area.set({
       luminosità_standard:luminositaDefault
@@ -87,7 +102,7 @@ const cambiaModalitaArea = async(id) =>{
   return("Modalità funzionamento cambiata");
 }
 
-/*const cambiaStatoArea = async(id) => {
+const cambiaStatoArea = async(id) => {
   const area= await Area.findByPk(id);
   if(area.stato){
     result = await Area.update({ stato: 0}, {
@@ -105,7 +120,7 @@ const cambiaModalitaArea = async(id) =>{
     return("Area accesa")
   }
 }
-*/
+
 module.exports = {
   getAllAree,
   getNumeroAree,
