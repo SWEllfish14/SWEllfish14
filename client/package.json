@@ -1,0 +1,56 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@tanstack/react-query": "^4.32.6",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.4.0",
+    "bulma": "^0.9.4",
+    "bulma-extensions": "^6.2.7",
+    "mobx-react-lite": "^4.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-ioc": "^1.0.0",
+    "react-router-dom": "^6.14.2",
+    "react-scripts": "^5.0.1",
+    "typescript": "^5.0.3",
+    "web-vitals": "^2.1.4"
+  },
+  "overrides": {
+    "react-scripts": {
+      "typescript": "^5"
+    }
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1"
+  }
+}
