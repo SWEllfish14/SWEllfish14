@@ -18,7 +18,7 @@ import { useParams } from "react-router-dom";
               name="id"
               className="input"
               type="text"
-              placeholder={viewModel.sensoreDetails().data?.ID.toString()}
+              value={viewModel.sensoreDetails().data?.ID.toString()}
               readOnly
             ></input>
             <label htmlFor="ip">IP sensore</label>

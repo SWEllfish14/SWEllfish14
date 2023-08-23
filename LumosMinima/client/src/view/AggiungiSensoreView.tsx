@@ -20,7 +20,7 @@ import {IAggiungiSensoreViewModel } from "../ViewModel/AggiungiSensoreViewModel"
                 type="text"
                 placeholder="Indirizzo ip del sensore"
               ></input>
-              <label htmlFor="polling">Zona geografica città</label>
+              <label htmlFor="polling">Polling time sensore</label>
               <input
                 id="polling"
                 name="polling"
@@ -38,11 +38,11 @@ import {IAggiungiSensoreViewModel } from "../ViewModel/AggiungiSensoreViewModel"
               ></input>
               <label htmlFor="tipo_interazione">Stato</label>
               <select id="tipo_interazione" name="tipo_interazione" className="input">
-                <option value="0">PUSH</option>
-                <option value="1">PULL</option>
+                <option value="PUSH">PUSH</option>
+                <option value="PULL">PULL</option>
               </select>
               
-              <label htmlFor="raggio_azione">Luminosità default</label>
+              <label htmlFor="raggio_azione">Raggio azione del sensore</label>
               <input
                 id="raggio_azione"
                 name="raggio_azione"
@@ -58,7 +58,7 @@ import {IAggiungiSensoreViewModel } from "../ViewModel/AggiungiSensoreViewModel"
                   name="id_area"
                   className="input"
                   type="text"
-                  placeholder={viewModel.areaDetails().data?.ID.toString()}
+                  value={viewModel.areaDetails().data?.ID.toString()}
                   readOnly
                 ></input>
             </p>

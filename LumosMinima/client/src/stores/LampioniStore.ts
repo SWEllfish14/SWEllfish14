@@ -18,7 +18,7 @@ export default interface ILampioniStore{
   getdettagliLampioni(lampId: string): QueryObserverResult<GetLampioneJT0, unknown>
   aggiungiLampioneMutation: MobxMutation<unknown,unknown,{ data2: FormData},unknown>;
   get numeroLampioni():QueryObserverResult<GetNumeroLampioniJT0, unknown>
-  deleteLampioneMutation :MobxMutation<unknown,unknown,{lampID: string;},unknown>;
+  deleteLampioneMutation :MobxMutation<unknown,unknown,{id: string;},unknown>;
   modificaLampioneMutation :MobxMutation<unknown,unknown,{data:FormData},unknown>;
   dispose: ()=>void
 }
@@ -66,13 +66,13 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
 );
  
 
-  deleteLampioneMutation = new MobxMutation<unknown,unknown,{lampID:string}>(
+  deleteLampioneMutation = new MobxMutation<unknown,unknown,{id:string}>(
     {
       mutationFn: async (variables) => {
-        await axios.post(`http://127.0.0.1:3002/eliminaLampione/${variables.lampID}`)
+        await axios.post(`http://127.0.0.1:3002/eliminaLampione/${variables.id}`)
       },
       onSuccess: (data, variables) => {
-        this.queryClient.invalidateQueries(["eliminaLampione",variables.lampID]);
+        this.queryClient.invalidateQueries(["eliminaLampione",variables.id]);
       },
     }
   );

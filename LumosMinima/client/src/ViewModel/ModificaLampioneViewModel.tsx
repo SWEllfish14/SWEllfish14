@@ -27,8 +27,24 @@ export const ModificaLampioneViewModel = () => {
               if (result.isSuccess) {
                 //navigate("/lampioni/"+id);
               }
+                if(result.isError){
+                    
+                    e=result.error
+                    setSubmitError(e.message)
+                    setSubmitHasError(true)
+                    
+                }
             
     },
+    eliminaLampione: async (id:string) => {
+      if (id !== undefined) {
+        const result = await store.deleteLampioneMutation.mutateAsync({ id });
+        if (result.isSuccess) {
+          //navigate("/lampioni/"+id);
+        }
+      }
+    },
+    
     submitIsError:()=>submitHasError,
 
     clearError:() =>{

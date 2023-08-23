@@ -63,7 +63,7 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
                   name="area"
                   className="input"
                   type="text"
-                  placeholder={viewModel.areaDetails().data?.ID.toString()}
+                  value={viewModel.areaDetails().data?.ID.toString()}
                   readOnly
                 ></input>
                   

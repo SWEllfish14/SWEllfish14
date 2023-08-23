@@ -20,10 +20,7 @@ import { Link } from "react-router-dom";
                     <p>
                     ID: {lampioni.ID}, IP: {lampioni.IP}
                     </p>
-                    <button
-              className="button is-danger"
-                 onClick={() => viewModel.eliminaLampione(lampioni.ID)}
-            > Elimina Lampione </button>
+                    
 
 <Link to={{pathname: `/modificaLampione/${lampioni.ID}`}}>
 <button
