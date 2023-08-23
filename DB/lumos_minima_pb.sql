@@ -39,7 +39,7 @@ INSERT INTO `amministratore` (`nome_utente`, `password`, `tipo`, `comune_afferen
 
 -- Dump della struttura di tabella lumosminima_pb.area_illuminata
 CREATE TABLE IF NOT EXISTS `area_illuminata` (
-  `ID` int(10) NOT NULL,
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
   `città` varchar(128) NOT NULL DEFAULT '',
   `zona_geografica_città` varchar(128) NOT NULL DEFAULT '',
   `modalità_funzionamento` char(1) NOT NULL DEFAULT '',
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `gestione_guasto_manutentore` (
 
 -- Dump della struttura di tabella lumosminima_pb.guasto
 CREATE TABLE IF NOT EXISTS `guasto` (
-  `ID` int(10) NOT NULL,
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
   `data_rilevamento` date NOT NULL,
   `stato` char(1) DEFAULT NULL,
   `id_area_illuminata` int(11) NOT NULL,
@@ -114,7 +114,7 @@ INSERT INTO `guasto` (`ID`, `data_rilevamento`, `stato`, `id_area_illuminata`, `
 
 -- Dump della struttura di tabella lumosminima_pb.lampione
 CREATE TABLE IF NOT EXISTS `lampione` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `IP` varchar(50) NOT NULL,
   `tipo_interazione` varchar(50) NOT NULL,
   `luminosità_default` int(11) NOT NULL,
@@ -231,7 +231,7 @@ INSERT INTO `manutentore` (`username`, `password`) VALUES
 
 -- Dump della struttura di tabella lumosminima_pb.sensore
 CREATE TABLE IF NOT EXISTS `sensore` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `IP` varchar(50) NOT NULL,
   `polling_time` int(11) NOT NULL,
   `zona_geografica_posizionamento` varchar(50) NOT NULL,

@@ -31,8 +31,8 @@ const diminuisciLuminositaArea = async (id) => {
 
 const aggiungiArea = async(data) =>{
   console.log("chiamo funzione aggiunta da service")
-  const {id,citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
-  const newArea = await Area.create({ ID: id,città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,stato:stato,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0})
+  const {citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
+  const newArea = await Area.create({città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,stato:stato,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0})
   await newArea.save()
   return("Area aggiunta");
 }
@@ -43,14 +43,13 @@ const modificaArea = async(data,id) =>{
 
   const  area=await Area.findByPk(id);
 
-  console.log(città)
-  console.log(zonaCitta)
+  console.log(citta)
   if(citta){
     area.set({
-      città:città
+      città:citta
     })
   }
-  if(zonaCitta){
+  if(zonaGeografica){
     area.set({
       zona_geografica_città:zonaGeografica
     })  }

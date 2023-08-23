@@ -23,11 +23,11 @@ export const ModificaAreaViewModel = () => {
             e.preventDefault()
             var data = new FormData(e.target)
             if(typeof id === "string"){
-                console.log("okk")
+                
                 const result = await store.modificaAreaMutation.mutateAsync({id,data})
             
                if(result.isSuccess){
-                    
+                navigate("/area/id")
                 }
                 if(result.isError){
                     

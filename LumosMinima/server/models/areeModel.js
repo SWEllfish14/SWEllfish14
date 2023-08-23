@@ -42,6 +42,7 @@ module.exports = (sequelize, Sequelize) => {
         },
     },{
         timestamps: false,
+        initialAutoIncrement: 1000,
     });
     
     return Area;

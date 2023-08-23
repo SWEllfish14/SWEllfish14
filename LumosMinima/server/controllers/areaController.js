@@ -106,7 +106,7 @@ const diminuisciLuminositaArea= (req, res) => {
   const modificaArea = async (req,res) => {
     console.log("chiamo funzione modifica da controller")
     const {
-      params: { id, citta, zonaGeografica,stato,modalita,luminositaDefault, luminositaRilevamento },
+      params: {id},
     } = req;
     if (!id) {
       res
@@ -117,14 +117,8 @@ const diminuisciLuminositaArea= (req, res) => {
         });
     }
     try{
-      console.log(id)
-      console.log(citta)
-      console.log(zonaGeografica)
-      console.log(stato)
-      console.log(modalita)
-      console.log(luminositaDefault)
-      console.log(luminositaRilevamento)
-      const result = await areaService.modificaArea(req,id)
+      
+      const result = await areaService.modificaArea(req.body,id)
       res.status(200).send({result:result})
     }catch (error){
       res.status(error?.status || 500)

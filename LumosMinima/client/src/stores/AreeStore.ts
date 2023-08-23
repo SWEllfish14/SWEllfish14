@@ -197,21 +197,21 @@ export class AreeStore implements IAreeStore {
   });
 
   aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
-      mutationFn: async (variables) => {
-        await axios.post(`http://127.0.0.1:3002/aggiungiArea/${variables.data.get('citta')}/${variables.data.get('zonaGeografica')}/${variables.data.get('modalita')}/${variables.data.get('stato')}/${variables.data.get('luminositaDefault')}/${variables.data.get('luminositaRilevamento')}`, variables.data, {
+    mutationFn: async (variables) => {
+      await axios.post(`http://127.0.0.1:3002/aggiungiArea`, variables.data, {
           headers,
         })
-      },
-    }
-  );
+    },
+  }
+);
   
   modificaAreaMutation = new MobxMutation<unknown,unknown,{id:string,data:FormData}>(
     {
       mutationFn: async (variables) => {
-        await axios.post(`http://127.0.0.1:3002/modificaArea/${variables.id}/${variables.data.get('citta')}/${variables.data.get('zonaGeografica')}/${variables.data.get('modalita')}/${variables.data.get('stato')}/${variables.data.get('luminositaDefault')}/${variables.data.get('luminositaRilevamento')}`, variables.data)
+        await axios.post(`http://127.0.0.1:3002/modificaArea/${variables.id}`, variables.data)
       },
       onSuccess: (data, variables) => {
-        //this.queryClient.invalidateQueries(["area", variables.data.get('id')]);
+        this.queryClient.invalidateQueries(["area", variables.data.get('id')]);
       },
     }
   )
