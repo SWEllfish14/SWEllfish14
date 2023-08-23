@@ -53,8 +53,14 @@ lampioneService = require("../services/lampioneService")
           }
     }
     const aggiungiLampione = async (req, res) => {
+      console.log("aggiunta Lampione da controller")
+      console.log(req.body.area)
+      console.log(req.body.ip)
+      console.log(req.body.stato)
+      console.log(req.body.luminositaDefault)
+      console.log(req.body.luminositaManuale)
       try{
-        const result = await lampioneService.aggiungiLampione(req.body);
+        //const result = await lampioneService.aggiungiLampione(req.body);
         res.status(200).send({result:result})
       }catch (error){
         res.status(error?.status || 500)

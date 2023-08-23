@@ -24,8 +24,8 @@ const eliminaLampione = async (id) => {
     return result;
 }
 
-const aggiungiLampione = async(data) =>{
-    const {id,ip,tipo_interazione,luminosità_default,luminositaRilevamento,modalita,stato, id_area} =data
+const aggiungiLampione = async(id_area,ip,tipo_interazione,luminositaDefault,luminositaManuale,stato) =>{
+   // const {id,ip,tipo_interazione,luminosità_default,luminositaRilevamento,modalita,stato, id_area} =data
     const newLampione = await Lampione.create({ ID: id, IP:ip,tipo_interazione:tipo_interazione,luminosità_default:luminosità_default,luminosità_impostata:luminositaRilevamento,stato:stato,id_area_illuminata:id_area})
     return("Lampione aggiunto");
   }

@@ -29,21 +29,32 @@ const diminuisciLuminositaArea = async (id) => {
   return ("Luminosità diminuita");
 };
 
-const aggiungiArea = async(data) =>{
+
+
+const aggiungiArea = async(citta,zonaGeografica,stato,modalita,luminositaDefault,luminositaRilevamento) =>{
   console.log("chiamo funzione aggiunta da service")
-  const {citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
-  const newArea = await Area.create({città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,stato:stato,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0})
-  await newArea.save()
+  var id = await Area.count() +1;
+  console.log(id)
+  console.log(citta)
+  console.log(zonaGeografica)
+  console.log(stato)
+  console.log(modalita)
+  console.log(luminositaDefault)
+  console.log(luminositaRilevamento)
+  const lum_manuale = 0;
+  
+  //const {citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
+  const newArea = await Area.create({id:id,città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0,stato:stato})
+ await newArea.save()
   return("Area aggiunta");
 }
 
-const modificaArea = async(data,id) =>{
-  console.log("chiamo funzione salvataggio")
-  const {citta,modalita,stato,zonaGeografica,luminositaDefault,luminositaRilevamento} = data
+const modificaArea = async(id,citta,zonaGeografica,stato,modalita,luminositaDefault,luminositaRilevamento) =>{
+  console.log("chiamo funzione modifica da service")
+  //const {citta,modalita,stato,zonaGeografica,luminositaDefault,luminositaRilevamento} = data
 
   const  area=await Area.findByPk(id);
 
-  console.log(citta)
   if(citta){
     area.set({
       città:citta

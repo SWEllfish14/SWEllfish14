@@ -92,10 +92,17 @@ const diminuisciLuminositaArea= (req, res) => {
   }
   };
 
+  
   const aggiungiArea = async (req, res) => {
     console.log("chiamo funzione aggiunta da controller")
     try{
-      const result = await areaService.aggiungiArea(req.body);
+      console.log(req.body.citta)
+      console.log(req.body.zonaGeografica)
+      console.log(req.body.stato)
+      console.log(req.body.modalita)
+      console.log(req.body.luminositaDefault)
+      console.log(req.body.luminositaRilevamento)
+      const result = await areaService.aggiungiArea(req.body.citta, req.body.zonaGeografica, req.body.stato, req.body.modalita, req.body.luminositaDefault, req.body.luminositaRilevamento);
       res.status(200).send(result)
     }catch (error){
       res.status(error?.status || 500)
@@ -104,10 +111,17 @@ const diminuisciLuminositaArea= (req, res) => {
   };
 
   const modificaArea = async (req,res) => {
-    console.log("chiamo funzione modifica da controller")
     const {
-      params: {id},
+      params: { id,citta,zonaGeografica,stato,modalita,luminositaDefault,luminositaRilevamento },
     } = req;
+    console.log("chiamo funzione modifica da controller")
+    console.log(req.params.id)
+    console.log(req.params.citta)
+      console.log(req.params.zonaGeografica)
+      console.log(req.params.stato)
+      console.log(req.params.modalita)
+      console.log(req.params.luminositaDefault)
+      console.log(req.params.luminositaRilevamento)
     if (!id) {
       res
         .status(400)
@@ -118,12 +132,13 @@ const diminuisciLuminositaArea= (req, res) => {
     }
     try{
       
-      const result = await areaService.modificaArea(req.body,id)
+      const result = await areaService.modificaArea(id,citta,zonaGeografica,stato,modalita,luminositaDefault,luminositaRilevamento);
       res.status(200).send({result:result})
     }catch (error){
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })
     }
+    
   }
 
   const eliminaArea = async  (req,res) => {
