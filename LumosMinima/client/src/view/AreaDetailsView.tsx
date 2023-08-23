@@ -132,7 +132,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
     <div className="column is-half">
       <div className="box">
         <p>Impostazioni Sensori</p>
-        <Link to={{ pathname: `/aggiungiSensore` }}>
+        <Link to={{ pathname: `/aggiungiSensore/${viewModel.areaDetails().data?.ID}` }}>
           <button className="button is-outlined">Aggiungi sensore</button>
         </Link>
 
@@ -145,7 +145,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
     <div className="column is-half">
       <div className="box">
         <p>Impostazioni Lampioni</p>
-        <Link to={{ pathname: `/aggiungiLampione`}}>
+        <Link to={{ pathname: `/aggiungiLampione/${viewModel.areaDetails().data?.ID}`}}>
           <button className="button is-outlined">Aggiungi lampione</button>
         </Link>
 

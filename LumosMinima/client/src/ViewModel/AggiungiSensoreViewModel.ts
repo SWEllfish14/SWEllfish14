@@ -1,12 +1,15 @@
 import { useInstance } from "react-ioc";
 import{ SensoriStore } from "../stores/SensoriStore";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { AreeStore } from "../stores/AreeStore";
+import { useState } from "react";
+
 
 export type IAggiungiSensoreViewModel = ReturnType<typeof AggiungiSensoreViewModel>;
 
 export const AggiungiSensoreViewModel = () => {
-    /*const { id } = useParams();
+    const { id } = useParams();
+    /*
     const {aree,getSensoreDetails} =useInstance(AreeStore);
     return {
         SensoreDetails: ()=> getSensoreDetails(id!),
@@ -17,10 +20,14 @@ export const AggiungiSensoreViewModel = () => {
     };
     */
     const store = useInstance(SensoriStore);
-    const {AreeId} = useInstance(AreeStore);
+    const area_store = useInstance(AreeStore);
+    let [submitHasError,setSubmitHasError]= useState(false)
+    let [submitError,setSubmitError] = useState()
+    let navigate = useNavigate()
    return {
    
-    IDAree: () => AreeId.data,
+    areaDetails: ()=> area_store.getAreaDetails(id!),
+    submitIsError:()=>submitHasError,
     submit:async (e:any) => {
         e.preventDefault()
         const data = new FormData(e.target)
@@ -31,13 +38,19 @@ export const AggiungiSensoreViewModel = () => {
             if(result.isError){
                 
                 e=result.error
-                //setSubmitError(e.message)
-                //setSubmitHasError(true)
+                setSubmitError(e.message)
+                setSubmitHasError(true)
                 
             }
+        },
+            clearError:() =>{
+                setSubmitHasError(false)
+            },
+            submitError:() => submitError
+            
                   
             
-    },
+    
   };
 };
 

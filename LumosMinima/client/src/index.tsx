@@ -30,8 +30,8 @@ root.render(
       <Route path='/aree' element={<GestioneAree/>}></Route>
       <Route path='/area/:id' element={<AreaDetails/>}></Route>
       <Route path='/aggiungiArea' element={<AggiungiArea/>}></Route>
-      <Route path='/aggiungiLampione' element={<AggiungiLampione/>}></Route>
-      <Route path='/aggiungiSensore' element={<AggiungiSensore/>}></Route>
+      <Route path='/aggiungiLampione/:id' element={<AggiungiLampione/>}></Route>
+      <Route path='/aggiungiSensore/:id' element={<AggiungiSensore/>}></Route>
       <Route path='/guasti' element={<ListaGuasti/>}></Route>
       <Route path='/lampioni/:id' element={<ListaLampioni/>}></Route>
       <Route path='/sensori/:id' element={<ListaSensori/>}></Route>

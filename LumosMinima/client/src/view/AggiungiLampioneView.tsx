@@ -19,7 +19,7 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
                   name="ip"
                   className="input"
                   type="text"
-                  placeholder="Ip lampione"
+                  placeholder="IP lampione"
                 ></input> 
 
   <label htmlFor="tipo_interazione">Tipo interazione con il lampione</label>
@@ -57,13 +57,16 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
                 </select>
                 
 
-    <label htmlFor="id_area">Id area illuminata afferenza</label>
-       <select id="id_area" name = "id_area" className="input">
-      {viewModel.IDAree()?.map(area => (
-                  <option value={area.ID}>{area.ID}</option>
+    <label htmlFor="area">Id area illuminata afferenza</label>
+    <input
+                  id="area"
+                  name="area"
+                  className="input"
+                  type="text"
+                  placeholder={viewModel.areaDetails().data?.ID.toString()}
+                  readOnly
+                ></input>
                   
-      ))}
-      </select>
       </p>
       
       </article>
@@ -78,9 +81,9 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
       </article>
       </div>
       </div>
+      </form>
       {viewModel.submitIsError() ===true ? <>{viewModel.submitError()}</>:<></>}
       <></>
-      </form>
       </div>
       
 

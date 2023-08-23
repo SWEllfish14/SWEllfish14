@@ -52,13 +52,15 @@ import {IAggiungiSensoreViewModel } from "../ViewModel/AggiungiSensoreViewModel"
                 max={100}
                 placeholder="Raggio Azione del sensore"
               ></input>
-              <label htmlFor="id_area">Id area illuminata afferenza</label>
-              <select id="id_area" name="id_area" className="input">
-              {viewModel.IDAree()?.map(area => (
-                <option key={area.ID}>{area.ID}</option>
-        
-                ))}
-                </select>
+               <label htmlFor="id_area">Id area illuminata afferenza</label>
+    <input
+                  id="id_area"
+                  name="id_area"
+                  className="input"
+                  type="text"
+                  placeholder={viewModel.areaDetails().data?.ID.toString()}
+                  readOnly
+                ></input>
             </p>
           </article>
         </div>
@@ -72,6 +74,8 @@ import {IAggiungiSensoreViewModel } from "../ViewModel/AggiungiSensoreViewModel"
     </div>
     </div>
     </form>
+    {viewModel.submitIsError() ===true ? <>{viewModel.submitError()}</>:<></>}
+      <></>
     </div>
 
    )

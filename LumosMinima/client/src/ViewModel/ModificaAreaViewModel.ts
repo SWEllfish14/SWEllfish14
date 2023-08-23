@@ -27,7 +27,7 @@ export const ModificaAreaViewModel = () => {
                 const result = await store.modificaAreaMutation.mutateAsync({id,data})
             
                if(result.isSuccess){
-                navigate("/area/id")
+                navigate("/aree")
                 }
                 if(result.isError){
                     
