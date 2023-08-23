@@ -2,10 +2,11 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.js", 
   "scripts": {
     "test": "jest",
-    "dev": "nodemon indexPb.js"
+    "dev": "nodemon indexPb.js",
+    "testWithAsyncControll": "jest --detectOpenHandles"
   },
   "author": "SWEllfish",
   "license": "ISC",
@@ -24,4 +25,5 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1"
   }
+  
 }

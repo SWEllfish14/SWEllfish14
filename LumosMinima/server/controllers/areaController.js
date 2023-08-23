@@ -96,7 +96,7 @@ const diminuisciLuminositaArea= (req, res) => {
     console.log("chiamo funzione aggiunta da controller")
     try{
       const result = await areaService.aggiungiArea(req.body);
-      res.status(200).send({result:result})
+      res.status(200).send(result)
     }catch (error){
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })
