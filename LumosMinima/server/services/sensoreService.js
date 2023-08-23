@@ -19,12 +19,83 @@ const getNumeroSensori = async () => {
 };
 
 const aggiungiSensore = async(ip,polling,zona_geografica,tipo_interazione,raggio_azione, id_area) =>{
-  // const {id,ip,tipo_interazione,luminosità_default,luminositaRilevamento,modalita,stato, id_area} =data
+  console.log("aggiungi sensore da service")
+  
+  var id = await Sensore.count() +1;
+  console.log(id)
+  console.log(ip)
+  console.log(polling)
+  console.log(zona_geografica)
+  console.log(tipo_interazione)
+  console.log(raggio_azione)
+  console.log(id_area)
+  
    const newSensore = await Sensore.create({ ID: id, IP:ip,polling_time:polling,zona_geografica_posizionamento:zona_geografica,tipo_interazione:tipo_interazione,raggio_azione:raggio_azione,id_area_illuminata:id_area})
+   await newSensore.save()
    return("sensore aggiunto");
- }
+};
+
+const modificaSensore = async(id,ip,polling_time,zona_geografica,tipo_interazione,raggio_azione,id_area) =>{
+    console.log("chiamo funzione modifica da service")
+    //const {citta,modalita,stato,zonaGeografica,luminositaDefault,luminositaRilevamento} = data
+  console.log(id)
+  console.log(ip)
+  console.log(polling_time)
+  console.log(zona_geografica)
+  console.log(tipo_interazione)
+  console.log(raggio_azione)
+  console.log(id_area)
+    const  sensore=await Sensore.findByPk(id);
+  
+    if(ip){
+      sensore.update({
+        IP:ip
+      },{ where: {
+        ID: id,
+      }})
+    }
+    if(polling_time){
+      sensore.update({
+        polling_time:polling_time
+      },{ where: {
+        ID: id,
+      }})  }
+      if(zona_geografica){
+        sensore.update({
+          zona_geografica_posizionamento:zona_geografica
+        },{ where: {
+          ID: id,
+        }})  }
+        if(tipo_interazione){
+          sensore.update({
+            tipo_interazione:tipo_interazione
+          },{ where: {
+            ID: id,
+          }})  }
+    if(raggio_azione){
+      sensore.update({
+        raggio_azione:raggio_azione
+      },{ where: {
+        ID: id,
+      }})  }
+    if(id_area){
+      sensore.update({
+        id_area_illuminata:id_area
+      },{ where: {
+        ID: id,
+      }})  }
+      //await area.save()
+      return ("Sensore modificato")
+  }
+
+  const getOneSensore = async (id) => {
+    const sensore = await Sensore.findByPk(id);
+    return sensore;
+  };
 module.exports = {
     getAllSensoriFromArea,
     getNumeroSensori,
-    aggiungiSensore
+    aggiungiSensore,
+    modificaSensore,
+    getOneSensore
 }

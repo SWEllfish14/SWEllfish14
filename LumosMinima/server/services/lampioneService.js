@@ -10,6 +10,10 @@ const getAllLampsFromArea = async (id) => {
     return lampioni;
 }
  
+const getOneLampione = async (id) => {
+    const lampione = await Lampione.findByPk(id);
+    return lampione;
+  };
 const getNumeroLampioni = async () => {
   const numeroLampioni = await Lampione.count();
   return numeroLampioni.toString();
@@ -34,5 +38,6 @@ module.exports = {
     getAllLampsFromArea,
     getNumeroLampioni,
     eliminaLampione,
-    aggiungiLampione
+    aggiungiLampione,
+    getOneLampione
 }

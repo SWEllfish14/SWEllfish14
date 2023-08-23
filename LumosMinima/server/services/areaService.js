@@ -52,35 +52,49 @@ const aggiungiArea = async(citta,zonaGeografica,stato,modalita,luminositaDefault
 const modificaArea = async(id,citta,zonaGeografica,stato,modalita,luminositaDefault,luminositaRilevamento) =>{
   console.log("chiamo funzione modifica da service")
   //const {citta,modalita,stato,zonaGeografica,luminositaDefault,luminositaRilevamento} = data
-
+console.log(id)
+console.log(citta)
+console.log(zonaGeografica)
   const  area=await Area.findByPk(id);
 
   if(citta){
-    area.set({
+    area.update({
       città:citta
-    })
+    },{ where: {
+      ID: id,
+    }})
   }
   if(zonaGeografica){
-    area.set({
+    area.update({
       zona_geografica_città:zonaGeografica
-    })  }
+    },{ where: {
+      ID: id,
+    }})  }
     if(stato){
-      area.set({
-        stato:stato
-      })  }
+      area.update({
+        stato:modalita
+      },{ where: {
+        ID: id,
+      }})  }
       if(modalita){
-        area.set({
-          modalità_funzionamento:modalita
-        })  }
+        area.update({
+          modalità_funzionamento:stato
+        },{ where: {
+          ID: id,
+        }})  }
   if(luminositaDefault){
-    area.set({
+    area.update({
       luminosità_standard:luminositaDefault
-    })  }
+    },{ where: {
+      ID: id,
+    }})  }
   if(luminositaRilevamento){
-    area.set({
+    area.update({
       luminosità_rilevamento:luminositaRilevamento
-    })  }
-    await area.save()
+    },{ where: {
+      ID: id,
+    }})  }
+    //await area.save()
     return ("Area modificata")
 }
 
