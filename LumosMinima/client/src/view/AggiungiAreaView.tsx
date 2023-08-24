@@ -19,6 +19,7 @@ const AggiungiAreaView = ({ viewModel }: Props) => (
                 className="input"
                 type="text"
                 placeholder="Nome città in cui si trova il sistema di illuminazione"
+
               ></input>
               <label htmlFor="zonaGeografica">Zona geografica città</label>
               <input
@@ -27,6 +28,7 @@ const AggiungiAreaView = ({ viewModel }: Props) => (
                 className="input"
                 type="text"
                 placeholder="Zona geografica della città in cui si trova il sistema di illuminazione"
+
               ></input>
               <label htmlFor="modalita">Modalità funzionamento</label>
               <select id="modalita"
@@ -49,6 +51,7 @@ const AggiungiAreaView = ({ viewModel }: Props) => (
                 min={0}
                 max={10}
                 placeholder="Luminosità che l'impianto produrrà quando non ci sono rilevamenti di utenti stradali"
+
               ></input>
               <label htmlFor="luminositaRilevamento">
                 Luminosità rilevamento{" "}
@@ -61,6 +64,7 @@ const AggiungiAreaView = ({ viewModel }: Props) => (
                 min={0}
                 max={10}
                 placeholder="Luminosità che l'imianto produrrà quando ci sarà un rilevamento di un utente stradale"
+
               ></input>
             </p>
           </article>

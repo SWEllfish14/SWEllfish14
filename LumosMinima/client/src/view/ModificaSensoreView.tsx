@@ -59,7 +59,7 @@ import { useParams } from "react-router-dom";
               type="number"
               min={0}
               max={100}
-              placeholder={viewModel.sensoreDetails().data?.raggio_azione.toString()}
+              placeholder={viewModel.sensoreDetails().data?.raggio_azione.toPrecision()}
             ></input>
           </p>
         </article>
@@ -73,6 +73,10 @@ import { useParams } from "react-router-dom";
             Conferma e Inserisci
           </button>
           <button className="button is-outlined">Cancella campi</button>
+          <button
+              className="button is-danger"
+                 onClick={() => viewModel.eliminaSensore()}
+            > Elimina Sensore </button>
         </article>
       </div>
     </div>

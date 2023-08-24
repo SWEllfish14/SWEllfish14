@@ -23,15 +23,10 @@ import { Link } from "react-router-dom";
                     <p>Tipo interazione: {sensori.tipo_iterazione}, Polling time: {sensori.polling_time} ms, Raggio Azione : {sensori.raggio_azione} metri
                     </p>
                     <p>
-                    <button
-              className="button is-danger"
-                // onClick={() => null}
-            > Elimina Sensore </button>
 
       <Link to={{pathname: `/modificaSensore/${sensori.ID}`}}>
             <button
               className="button is-outlined"
-                // onClick={() => null}
             > Modifica dettagli Sensore </button>
             </Link>
                     </p>

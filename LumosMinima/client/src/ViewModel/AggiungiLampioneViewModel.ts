@@ -24,11 +24,12 @@ export const AggiungiLampioneViewModel = () => {
         submitIsError:()=>submitHasError,
         //IDAree: () => AreeId.data,
        aggiungiLampione:async(a:any) => {
+        console.log(id)
         a.preventDefault()
         var data2 = new FormData(a.target)
          const result2 = await store.aggiungiLampioneMutation.mutateAsync({data2})
             if(result2.isSuccess){
-                //navigate("/area/"+AreeId)
+                navigate("/area/"+id)
             }
             if(result2.isError){
                 a=result2.error

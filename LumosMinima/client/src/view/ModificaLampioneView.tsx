@@ -19,7 +19,7 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   name="id"
                   className="input"
                   type="text"
-                  placeholder = {viewModel.dettagliLampione().data?.ID.toString()}
+                  value = {viewModel.dettagliLampione().data?.ID.toString()}
                   readOnly
                 ></input> 
   <p className="menu-label">

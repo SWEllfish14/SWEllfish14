@@ -8,11 +8,11 @@ export type IListaSensoriViewModel = ReturnType<typeof ListaSensoriViewModel>;
 
 export const ListaSensoriViewModel = (sensoriStore ?: SensoriStore) => {
     const { id } = useParams();
-    const {getlistaSensori} =useInstance(SensoriStore);
-    const error = getlistaSensori(id!).error
+    const store =useInstance(SensoriStore);
+    const error = store.getlistaSensori(id!).error
     return {
-       listaSensori: ()=> getlistaSensori(id!).data,
-       isLoading: ()=> getlistaSensori(id!).isLoading
+       listaSensori: ()=> store.getlistaSensori(id!).data,
+       isLoading: ()=> store.getlistaSensori(id!).isLoading,
     };
   };
 

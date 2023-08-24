@@ -1,6 +1,6 @@
 import { useInstance } from "react-ioc";
 import{ SensoriStore } from "../stores/SensoriStore";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export type IModificaSensoreViewModel = ReturnType<typeof ModificaSensoreViewModel>;
@@ -10,6 +10,7 @@ export const ModificaSensoreViewModel = () => {
     const store =useInstance(SensoriStore);
     let [submitHasError,setSubmitHasError]= useState(false)
     let [submitError,setSubmitError] = useState()
+    const navigate = useNavigate();
     
     return {
         sensoreDetails: ()=> store.getdettagliSensori(id!),
@@ -18,7 +19,7 @@ export const ModificaSensoreViewModel = () => {
         error:() => store.getdettagliSensori(id!).error,
         submitIsError:()=>submitHasError,
         submit:async (e:any) => {
-
+            console.log(id)
             console.log("okkk")
             e.preventDefault()
             var data = new FormData(e.target)
@@ -27,7 +28,7 @@ export const ModificaSensoreViewModel = () => {
                 const result = await store.modificaSensoreMutation.mutateAsync({id,data})
             
                if(result.isSuccess){
-                    
+                    navigate("/aree")
                 }
                 if(result.isError){
                     
@@ -39,6 +40,16 @@ export const ModificaSensoreViewModel = () => {
             }
                    
         },
+        eliminaSensore: async () => {
+            console.log(id)
+            if (id !== undefined) {
+              const result = await store.eliminaSensoreMutation.mutateAsync({ id });
+              if (result.isSuccess) {
+                navigate("/aree");
+              }
+              
+            }
+          },
         clearError:() =>{
             setSubmitHasError(false)
         },
