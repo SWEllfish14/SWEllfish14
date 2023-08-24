@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
             {viewModel.guasti()?.map(guasto => (
                 <li key={guasto.ID}>
                     <Link to={{pathname: `/guasti/${guasto.ID}`}}>
-                    ID: {guasto.ID}: Guasto a {guasto.città}, zona {guasto.zona_geografica_città}
+                    ID: {guasto.ID}: Guasto a {guasto["area.città"]}, zona {guasto["area.zona_geografica_città"]}
                     </Link>
                 </li>
             ))}
