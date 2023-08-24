@@ -35,7 +35,7 @@ const aggiungiSensore = async(ip,polling,zona_geografica,tipo_interazione,raggio
    return("sensore aggiunto");
 };
 
-const modificaSensore = async(id,ip,polling_time,zona_geografica,tipo_interazione,raggio_azione,id_area) =>{
+const modificaSensore = async(id,ip,polling_time,zona_geografica,tipo_interazione,raggio_azione) =>{
     console.log("chiamo funzione modifica da service")
     //const {citta,modalita,stato,zonaGeografica,luminositaDefault,luminositaRilevamento} = data
   console.log(id)
@@ -44,7 +44,6 @@ const modificaSensore = async(id,ip,polling_time,zona_geografica,tipo_interazion
   console.log(zona_geografica)
   console.log(tipo_interazione)
   console.log(raggio_azione)
-  console.log(id_area)
     const  sensore=await Sensore.findByPk(id);
   
     if(ip){
@@ -78,15 +77,20 @@ const modificaSensore = async(id,ip,polling_time,zona_geografica,tipo_interazion
       },{ where: {
         ID: id,
       }})  }
-    if(id_area){
-      sensore.update({
-        id_area_illuminata:id_area
-      },{ where: {
-        ID: id,
-      }})  }
-      //await area.save()
+
       return ("Sensore modificato")
   }
+
+  
+const eliminaSensore = async(id) =>{
+  sensore = await Sensore.findOne({
+    where: {
+      id: id,
+    },
+ });
+ count = await sensore.destroy();
+ return(`deleted row(s): ${count}`);
+}
 
   const getOneSensore = async (id) => {
     const sensore = await Sensore.findByPk(id);
@@ -97,5 +101,6 @@ module.exports = {
     getNumeroSensori,
     aggiungiSensore,
     modificaSensore,
-    getOneSensore
+    getOneSensore,
+    eliminaSensore
 }

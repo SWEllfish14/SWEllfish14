@@ -31,6 +31,27 @@ sensoreService = require("../services/sensoreService")
       
     };
 
+    
+  const eliminaSensore = async  (req,res) => {
+    const {
+      params: { id },
+    } = req;
+    if (!id) {
+      res
+        .status(400)
+        .send({
+          status: "FAILED",
+          data: { error: "Parameter 'id' can not be empty" },
+        });
+    }
+    try{
+      const result = await sensoreService.eliminaSensore(id)
+      res.status(200).send({result:result})
+    }catch (error){
+      res.status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } })
+    }
+  }
     const aggiungiSensore = async (req, res) => {
       console.log("aggiunta sensore da controller")
       console.log(req.body.id_area)
@@ -48,14 +69,18 @@ sensoreService = require("../services/sensoreService")
     };
 
     const modificaSensore = async (req, res) => {
+      const {
+        params: { id,ip,polling_time,zona_geografica,tipo_interazione,raggio_azione },
+      } = req;
       console.log("modifica sensore da controller")
-      console.log(req.body.id)
-      console.log(req.body.ip)
-      console.log(req.body.polling_time)
-      console.log(req.body.raggio_azione)
-      console.log(req.body.tipo_interazione)
+      console.log(req.params.id)
+      console.log(req.params.ip)
+      console.log(req.params.polling_time)
+      console.log(req.params.raggio_azione)
+      console.log(req.params.tipo_interazione)
+      console.log(req.params.zona_geografica)
       try{
-        const result = await sensoreService.modificaSensore(req.body);
+        const result = await sensoreService.modificaSensore(id,ip,polling_time,zona_geografica,tipo_interazione,raggio_azione);
         res.status(200).send({result:result})
       }catch (error){
         res.status(error?.status || 500)
@@ -89,5 +114,6 @@ sensoreService = require("../services/sensoreService")
         getNumeroSensori,
         aggiungiSensore,
         modificaSensore,
-        getOneSensore
+        getOneSensore,
+        eliminaSensore
     }

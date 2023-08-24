@@ -59,8 +59,9 @@ lampioneService = require("../services/lampioneService")
       console.log(req.body.stato)
       console.log(req.body.luminositaDefault)
       console.log(req.body.luminositaManuale)
+      console.log(req.body.tipo_interazione)
       try{
-        //const result = await lampioneService.aggiungiLampione(req.body);
+        const result = await lampioneService.aggiungiLampione(req.body.area, req.body.ip,req.body.tipo_interazione, req.body.luminositaDefault, req.body.luminositaManuale, req.body.stato);
         res.status(200).send({result:result})
       }catch (error){
         res.status(error?.status || 500)
@@ -91,15 +92,14 @@ lampioneService = require("../services/lampioneService")
 
     const modificaLampione = async (req,res) => {
       const {
-        params: { ip,id,tipo_interazione,luminositaDefault,luminositaManuale,area,stato },
+        params: { id,ip,tipo_interazione,luminositaDefault,luminositaManuale,stato },
       } = req;
       console.log("chiamo funzione modifica lampione da controller")
-      console.log(req.params.ip)
       console.log(req.params.id)
+      console.log(req.params.ip)
         console.log(req.params.tipo_interazione)
         console.log(req.params.luminositaDefault)
         console.log(req.params.luminositaManuale)
-        console.log(req.params.area)
         console.log(req.params.stato)
       if (!id) {
         res
@@ -111,7 +111,7 @@ lampioneService = require("../services/lampioneService")
       }
       try{
         
-        const result = await areaService.modificaLampione(ip,id,tipo_interazione,luminositaDefault,luminositaManuale,area,stato);
+        const result = await lampioneService.modificaLampione(id,ip,tipo_interazione,luminositaDefault,luminositaManuale,stato);
         res.status(200).send({result:result})
       }catch (error){
         res.status(error?.status || 500)

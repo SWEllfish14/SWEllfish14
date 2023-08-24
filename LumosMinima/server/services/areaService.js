@@ -44,7 +44,7 @@ const aggiungiArea = async(citta,zonaGeografica,stato,modalita,luminositaDefault
   const lum_manuale = 0;
   
   //const {citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
-  const newArea = await Area.create({id:id,città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0,stato:stato})
+  const newArea = await Area.create({ID:id,città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0,stato:stato})
  await newArea.save()
   return("Area aggiunta");
 }

@@ -4,9 +4,6 @@ module.exports = (sequelize, Sequelize) => {
         ID: {
             type: Sequelize.INTEGER(10),
             primaryKey: true,
-            autoIncrement: true,
-            allowNull: false,
-            unique: true,
             
         },
         IP: {

@@ -8,5 +8,5 @@ router.get('/numeroLampioni',lampioneController.getNumeroLampioni)
 router.get('/lampione/:id',lampioneController.getOneLampione)
 router.post('/eliminaLampione/:id',lampioneController.eliminaLampione)
 router.post('/aggiungiLampione/:area/:ip/:tipo_interazione/:luminositaDefault/:luminositaManuale/:stato',lampioneController.aggiungiLampione)
-router.post('/modificaLampione/:id/:area/:ip/:tipo_interazione/:luminositaDefault/:luminositaManuale/:stato',lampioneController.modificaLampione)
+router.post('/modificaLampione/:id/:ip/:tipo_interazione/:luminositaDefault/:luminositaManuale/:stato',lampioneController.modificaLampione)
 module.exports = router;
