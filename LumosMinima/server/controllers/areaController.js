@@ -162,6 +162,7 @@ const diminuisciLuminositaArea= (req, res) => {
     }
   }
 
+
   const cambiaModalitaArea = async  (req,res) => {
     const {
       params: { id },
@@ -183,7 +184,7 @@ const diminuisciLuminositaArea= (req, res) => {
     }
   }
 
-  const cambiaStatoArea = async (req,res) => {
+  const accendiArea = async (req,res) => {
     const {
       params: { id },
     } = req;
@@ -196,13 +197,15 @@ const diminuisciLuminositaArea= (req, res) => {
         });
     }
     try{
-      const result = await areaService.cambiaStatoArea(id)
+      const result = await areaService.accendiArea(id)
       res.status(200).send({result:result})
     }catch (error){
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })
     }
   }
+
+
 
   module.exports = {
     getAllAree,
@@ -215,5 +218,5 @@ const diminuisciLuminositaArea= (req, res) => {
     modificaArea,
     eliminaArea,
     cambiaModalitaArea,
-    cambiaStatoArea
+    accendiArea
   }

@@ -1,5 +1,7 @@
+const axios = require('axios');
 const db = require("../models/index");
 Lampione = db.lampioni;
+Area = db.area;
 
 const getAllLampsFromArea = async (id) => {
     const lampioni = await Lampione.findAll({
@@ -10,13 +12,43 @@ const getAllLampsFromArea = async (id) => {
     return lampioni;
 }
 
+const getLampIDtoPowerOn = async (id) => {
+  const lampioni = await Lampione.findAll({
+    attributes: ['ID'],
+      where: {
+          id_area_illuminata: id
+      }
+  });
+  const res = [];
+  for(let i = 0; i < lampioni.length; i++){
+    //console.log(lampioni[i].ID)
+    res.push(lampioni[i].ID)
+  }
+
+  return res;
+}
+
+const getBrightnessofArea = async (id) => {
+  const brightness = await Area.findAll({
+    attributes: ['luminosità_manuale'],
+      where: {
+          ID: id
+      }
+  });
+
+  return brightness[0].luminosità_manuale;
+}
+
 const getAllLampsFromAreaCount = async (id) => {
   const lampioni = await Lampione.count({
       where: {
           id_area_illuminata: id
       }
   });
+ 
   return lampioni;
+
+ 
 }
 
  
@@ -99,6 +131,32 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
       return ("Area modificata")
   }
 
+  const accendiLampioniArea = async(id) => {
+    console.log("accendo lampioni da service")
+    const lampioni = await getLampIDtoPowerOn(id)
+
+    const bright = await getBrightnessofArea(id);
+
+    //console.log(bright);
+
+    for(let i = 0; i < lampioni.length; i++){
+      const port = 3 + lampioni[i].toPrecision();
+      console.log(port)
+      await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:bright,lamp_status:true,lamp_id:" " +lampioni[i]},{
+    headers: {
+          'Content-Type': 'application/json'
+      }
+  }).then(
+      res.sendStatus(200)
+    )
+    
+    }
+  
+    //console.log(ID)
+}
+
+
+
 module.exports = {
     getAllLampsFromArea,
     getNumeroLampioni,
@@ -106,5 +164,6 @@ module.exports = {
     aggiungiLampione,
     getOneLampione,
     modificaLampione,
-    getAllLampsFromAreaCount
+    getAllLampsFromAreaCount,
+    accendiLampioniArea
 }

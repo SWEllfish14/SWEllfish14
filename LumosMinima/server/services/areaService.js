@@ -126,7 +126,7 @@ const cambiaModalitaArea = async(id) =>{
   return("Modalità funzionamento cambiata");
 }
 
-const cambiaStatoArea = async(id) => {
+const accendiArea = async(id) => {
   const area= await Area.findByPk(id);
   if(area.stato){
     result = await Area.update({ stato: 0}, {
@@ -145,6 +145,8 @@ const cambiaStatoArea = async(id) => {
   }
 }
 
+
+
 module.exports = {
   getAllAree,
   getNumeroAree,
@@ -156,5 +158,5 @@ module.exports = {
   modificaArea,
   eliminaArea,
   cambiaModalitaArea,
-  cambiaStatoArea
+  accendiArea
 };

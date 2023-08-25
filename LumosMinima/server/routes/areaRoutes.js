@@ -13,5 +13,5 @@ router.post('/aggiungiArea/:citta/:zonaGeografica/:stato/:modalita/:luminositaDe
 router.post('/modificaArea/:id/:citta/:zonaGeografica/:stato/:modalita/:luminositaDefault/:luminositaRilevamento',areaController.modificaArea)
 router.post('/eliminaArea/:id', areaController.eliminaArea)
 router.post('/cambiaModalitaArea/:id',areaController.cambiaModalitaArea)
-router.post('/cambiaStatoArea/:id',areaController.cambiaStatoArea)
+router.post('/accendiArea/:id',areaController.accendiArea)
 module.exports = router;
