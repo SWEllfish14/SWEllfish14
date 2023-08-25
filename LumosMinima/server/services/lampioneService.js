@@ -9,6 +9,16 @@ const getAllLampsFromArea = async (id) => {
     });
     return lampioni;
 }
+
+const getAllLampsFromAreaCount = async (id) => {
+  const lampioni = await Lampione.count({
+      where: {
+          id_area_illuminata: id
+      }
+  });
+  return lampioni;
+}
+
  
 const getOneLampione = async (id) => {
     const lampione = await Lampione.findByPk(id);
@@ -95,5 +105,6 @@ module.exports = {
     eliminaLampione,
     aggiungiLampione,
     getOneLampione,
-    modificaLampione
+    modificaLampione,
+    getAllLampsFromAreaCount
 }

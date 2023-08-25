@@ -21,7 +21,10 @@ const getNumeroSensori = async () => {
 const aggiungiSensore = async(ip,polling,zona_geografica,tipo_interazione,raggio_azione, id_area) =>{
   console.log("aggiungi sensore da service")
   
-  var id = await Sensore.count() +1;
+  var id = await Sensore.count()+1;
+  console.log(id)
+  id = id+1;
+
   console.log(id)
   console.log(ip)
   console.log(polling)
@@ -81,6 +84,15 @@ const modificaSensore = async(id,ip,polling_time,zona_geografica,tipo_interazion
       return ("Sensore modificato")
   }
 
+  const getNumeroSensoriAreaCount = async (id) => {
+    const sensori = await Sensore.count({
+        where: {
+            id_area_illuminata: id
+        }
+    });
+    return sensori;
+  }
+  
   
 const eliminaSensore = async(id) =>{
   sensore = await Sensore.findOne({
@@ -102,5 +114,6 @@ module.exports = {
     aggiungiSensore,
     modificaSensore,
     getOneSensore,
-    eliminaSensore
+    eliminaSensore,
+    getNumeroSensoriAreaCount
 }

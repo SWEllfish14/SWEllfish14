@@ -4,13 +4,23 @@ const createServer = require("../server");
 const app = createServer()
 const areaPayload = {
   ID: 1,
-  città: "Venezia",
-  zona_geografica_città: "Campo San Polo",
-  modalità_funzionamento: "M",
-  luminosità_standard:1,
-  luminosità_rilevamento:2,
+  città: "Padova",
+  zona_geografica_città: "Via Brofferio",
+  modalità_funzionamento: "A",
+  luminosità_standard:2,
+  luminosità_rilevamento:3,
   luminosità_manuale:0,
-  stato:1,
+  stato:0,
+};
+
+const areaPayloadAggiuntaArea = {
+  città: "Marostica",
+  zona_geografica_città: "Angelis",
+  modalità_funzionamento: "A",
+  luminosità_standard:2,
+  luminosità_rilevamento:3,
+  luminosità_manuale:0,
+  stato:0
 };
 
 const emptyIdPayload = {
@@ -123,12 +133,12 @@ describe("area", () => {
       it("Ritorna stato 200 e l'area appena aggiunta", async() => {
         const aggiungiAreaServiceMock = jest.
         spyOn(areaService,"aggiungiArea")
-        .mockReturnValueOnce(areaPayload)
+        .mockReturnValueOnce(areaPayloadAggiuntaArea)
         const { statusCode, body } = await supertest(app)
           .post("/aggiungiArea")
-          .send(areaPayload);
+          .send(areaPayloadAggiuntaArea);
           expect(statusCode).toBe(200)
-          expect(body).toEqual(areaPayload)
+          expect(body).toEqual(areaPayloadAggiuntaArea)
           expect(aggiungiAreaServiceMock).toHaveBeenCalled();
       })
     })

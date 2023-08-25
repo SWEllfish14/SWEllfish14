@@ -5,7 +5,7 @@ Area = db.aree;
 const getAllGuasti = async () => {
   const guasti = await Guasto.findAll(
     {
-    
+      order : [["data_rilevamento", "DESC"]],
       include: [
         {
             
@@ -14,6 +14,7 @@ const getAllGuasti = async () => {
                 attributes: ['città','zona_geografica_città']
       }  ],
           raw:true
+         
         }
     
     

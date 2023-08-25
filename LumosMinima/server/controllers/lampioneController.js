@@ -19,8 +19,22 @@ lampioneService = require("../services/lampioneService")
             .send({ status: "FAILED", data: { error: error?.message || error } })
           }
     }
+
+    const getAllLampsFromAreaCount= async (req, res) => {
+      const {
+        params: { id },
+      } = req;
+      try{
+        const numeroLampioni = await lampioneService.getAllLampsFromAreaCount(id);
+        res.status(200).send({numeroLampioni:numeroLampioni})
+      }catch(error) {
+        res.status(error?.status || 500)
+        .send({ status: "FAILED", data: { error: error?.message || error } })
+      }
+      };
   
   const getNumeroLampioni= async (req, res) => {
+    
     try{
       const numeroLampioni = await lampioneService.getNumeroLampioni();
       res.status(200).send({numeroLampioni:numeroLampioni})
@@ -126,5 +140,6 @@ lampioneService = require("../services/lampioneService")
         getNumeroLampioni,
         aggiungiLampione,
         modificaLampione,
-        getOneLampione
+        getOneLampione,
+        getAllLampsFromAreaCount
     }

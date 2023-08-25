@@ -19,6 +19,21 @@ sensoreService = require("../services/sensoreService")
             .send({ status: "FAILED", data: { error: error?.message || error } })
           }
     }
+
+    const getNumeroSensoriAreaCount= async (req, res) => {
+      const {
+        params: { id },
+      } = req;
+      try{
+        const numeroSensori = await sensoreService.getNumeroSensoriAreaCount(id);
+        res.status(200).send({numeroSensori:numeroSensori})
+      }catch(error) {
+        res.status(error?.status || 500)
+        .send({ status: "FAILED", data: { error: error?.message || error } })
+      }
+      };
+
+  
   
   const getNumeroSensori= async (req, res) => {
     try{
@@ -115,5 +130,6 @@ sensoreService = require("../services/sensoreService")
         aggiungiSensore,
         modificaSensore,
         getOneSensore,
-        eliminaSensore
+        eliminaSensore,
+        getNumeroSensoriAreaCount
     }
