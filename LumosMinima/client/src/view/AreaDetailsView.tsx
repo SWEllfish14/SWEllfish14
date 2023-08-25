@@ -18,29 +18,36 @@ const AreaDetailsView = ({ viewModel }: Props) => (
             <p>Zona: {viewModel.areaDetails().data?.zona_geografica_città}</p>
             
             <p>
+            {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
+              <>
               Stato:{" "}
+              
               {viewModel.areaDetails().data?.stato === 1 ? (
                 <>Acceso <button
                 className="button is-danger is-small"
-                onClick={() => viewModel.cambiaStatoArea()}
+                onClick={() => viewModel.accendiArea()}
               >
                 Spegni area
               </button></>
               ) : (
                 <>Spento <button
                 className="button is-success is-small"
-                onClick={() => viewModel.cambiaStatoArea()}
+                onClick={() => viewModel.accendiArea()}
               >
                 Accendi area
               </button></>
+            
               )}
-              
+              </>
+            ):(viewModel.areaDetails().data?.modalità_funzionamento === "A")
+              }
             </p>
             <p>
               {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
                 <>
                   Luminosità in modalità manuale:{" "}
-                  {viewModel.areaDetails().data?.luminosità_manuale}
+                  {viewModel.areaDetails().data?.luminosità_manuale
+                  }
                 </>
               ) : (
                 <>
@@ -59,6 +66,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
       <div className="column is-half">
         <div className="box">
           <h2>Impostazioni Luminosità</h2>
+          <button className="button is-danger is-small" onClick={() => {viewModel.accendiLampioniArea()}}>Accendi Lampioni</button>
           <h3>
             <div className="field">
               <input

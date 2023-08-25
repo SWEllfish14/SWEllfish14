@@ -60,9 +60,17 @@ export const AreaDetailsViewModel = () => {
         }
       }
     },
-    cambiaStatoArea:async () => {
+    
+    accendiArea:async () => {
       if (id !== undefined) {
-        const result = await areaStore.cambiaStatoMutation.mutateAsync({
+        const result = await areaStore.accendiAreaMutation.mutateAsync({
+          id,
+        });
+      }
+    },
+    accendiLampioniArea:async () => {
+      if (id !== undefined) {
+        const result = await lampioniStore.accendiLampioniAreaMutation.mutateAsync({
           id,
         });
       }
