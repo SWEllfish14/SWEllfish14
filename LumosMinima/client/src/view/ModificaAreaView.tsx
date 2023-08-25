@@ -17,7 +17,7 @@ const ModificaAreaView = ({ viewModel }: Props) => (
                 name="id"
                 className="input"
                 type="text"
-                placeholder={viewModel.areaDetails().data?.ID.toString()}
+                value={viewModel.areaDetails().data?.ID.toString()}
                 readOnly
               ></input>
               <label htmlFor="citta">Nome città</label>
@@ -27,6 +27,7 @@ const ModificaAreaView = ({ viewModel }: Props) => (
                 className="input"
                 type="text"
                 placeholder={viewModel.areaDetails().data?.città}
+                defaultValue={viewModel.areaDetails().data?.città}
               ></input>
               <label htmlFor="zonaGeografica">Zona geografica città</label>
               <input
@@ -35,17 +36,20 @@ const ModificaAreaView = ({ viewModel }: Props) => (
                 className="input"
                 type="text"
                 placeholder={viewModel.areaDetails().data?.zona_geografica_città}
+                defaultValue={viewModel.areaDetails().data?.zona_geografica_città}
               ></input>
               <label htmlFor="modalita">Modalità funzionamento</label>
               <select id="modalita"
                 name="modalita" className="input">
                 <option value="A">Automatico</option>
                 <option value="M">Manuale</option>
+                <option defaultValue = {viewModel.areaDetails().data?.modalità_funzionamento.toString()}></option>
               </select>
               <label htmlFor="stato">Stato</label>
               <select id="stato" name="stato" className="input">
                 <option value="0">Spento</option>
                 <option value="1">Acceso</option>
+                <option defaultValue={viewModel.areaDetails().data?.stato}></option>
               </select>
               
               <label htmlFor="luminositaDefault">Luminosità default</label>
@@ -57,6 +61,7 @@ const ModificaAreaView = ({ viewModel }: Props) => (
                 min={0}
                 max={10}
                 placeholder={viewModel.areaDetails().data?.luminosità_standard.toString()}
+                defaultValue={viewModel.areaDetails().data?.luminosità_standard.toString()}
               ></input>
               <label htmlFor="luminositaRilevamento">
                 Luminosità rilevamento{" "}
@@ -69,6 +74,7 @@ const ModificaAreaView = ({ viewModel }: Props) => (
                 min={0}
                 max={10}
                 placeholder={viewModel.areaDetails().data?.luminosità_rilevamento.toString()}
+                defaultValue={viewModel.areaDetails().data?.luminosità_rilevamento.toString()}
               ></input>
             </p>
           </article>

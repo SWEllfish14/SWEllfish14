@@ -20,7 +20,9 @@ import { Link } from "react-router-dom";
                     <p>
                     ID: {lampioni.ID}, IP: {lampioni.IP}
                     </p>
-                    
+                    <p>
+                    Tipo interazione: {lampioni.tipo_interazione}
+                    </p>
 
 <Link to={{pathname: `/modificaLampione/${lampioni.ID}`}}>
 <button

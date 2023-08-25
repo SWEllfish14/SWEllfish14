@@ -16,6 +16,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
           <div className="box">
             <h1>Città: {viewModel.areaDetails().data?.città}</h1>
             <p>Zona: {viewModel.areaDetails().data?.zona_geografica_città}</p>
+            
             <p>
               Stato:{" "}
               {viewModel.areaDetails().data?.stato === 1 ? (
@@ -48,8 +49,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                 </>
               )}
             </p>
-            {/* <p>Numero lampioni: {numeroLampioni}</p>
-              <p>Numero sensori: {numeroSensori}</p> */}
+
           </div>
         )}
         {/* { <div className="box">

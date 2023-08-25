@@ -28,6 +28,7 @@ import { useParams } from "react-router-dom";
               className="input"
               type="text"
               placeholder={viewModel.sensoreDetails().data?.IP.toString()}
+              defaultValue ={viewModel.sensoreDetails().data?.IP.toString()}
             ></input>
             <label htmlFor="polling_time">Polling Time</label>
             <input
@@ -36,6 +37,7 @@ import { useParams } from "react-router-dom";
               className="input"
               type="text"
               placeholder={viewModel.sensoreDetails().data?.polling_time.toString()}
+              defaultValue={viewModel.sensoreDetails().data?.polling_time.toString()}
             ></input>
             <label htmlFor="zona_geografica">Zona Geografica Posizionamento</label>
             <input
@@ -44,11 +46,13 @@ import { useParams } from "react-router-dom";
               className="input"
               type="text"
               placeholder={viewModel.sensoreDetails().data?.zona_geografica_posizionamento}
+              defaultValue={viewModel.sensoreDetails().data?.zona_geografica_posizionamento}
             ></input>
             <label htmlFor="tipo_interazione">Tipo Interazione</label>
             <select id="tipo_interazione" name="tipo_interazione" className="input">
               <option value="PUSH">PUSH</option>
               <option value="PULL">PULL</option>
+              <option defaultValue={viewModel.sensoreDetails().data?.tipo_interazione.toString()}></option>
             </select>
             
             <label htmlFor="raggio_azione">Raggio Azione</label>
@@ -56,10 +60,11 @@ import { useParams } from "react-router-dom";
               id="raggio_azione"
               name="raggio_azione"
               className="input"
-              type="number"
+              type="text"
               min={0}
               max={100}
-              placeholder={viewModel.sensoreDetails().data?.raggio_azione.toPrecision()}
+              placeholder={viewModel.sensoreDetails().data?.raggio_azione.toString()}
+              defaultValue={viewModel.sensoreDetails().data?.raggio_azione.toString()}
             ></input>
           </p>
         </article>

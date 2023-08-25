@@ -30,12 +30,14 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   className="input"
                   type="text"
                   placeholder={viewModel.dettagliLampione().data?.IP.toString()}
+                  defaultValue={viewModel.dettagliLampione().data?.IP.toString()}
                 ></input> 
 
   <label htmlFor="tipo_interazione">Tipo interazione con il lampione</label>
       <select id="tipo_interazione" name="tipo_interazione" className="input">
       <option value="PUSH">PUSH</option>
       <option value ="PULL">PULL</option>
+      <option defaultValue = {viewModel.dettagliLampione().data?.tipo_interazione.toString()}></option>
       </select>
 
       <label htmlFor="luminositaDefault">Luminosità default</label>
@@ -46,7 +48,8 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   type="number"
                   min={0}
                   max={10}
-                  placeholder="Luminosità che il lampione produrrà quando non ci sono rilevamenti di utenti stradali"
+                  placeholder="Luminosità che il lampione produrrà quando non ci sono rilevamenti"
+                  defaultValue="1"
                 ></input>
 
   <label htmlFor="luminositaManuale">Luminosità impostata</label>
@@ -57,13 +60,15 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   type="number"
                   min={0}
                   max={10}
-                  placeholder="Luminosità che il lampione produrrà quando è in modalità manuale"
+                  placeholder= "Luminosità che il lampione produrrà in modalità manuale"
+                  defaultValue= "1"
                 ></input>
 
   <label htmlFor="stato">Stato</label>
                 <select id="stato" name="stato" className="input">
                   <option value="0">Spento</option>
                   <option value="1">Acceso</option>
+                  <option defaultValue="0"></option>
                 </select>
                 
 

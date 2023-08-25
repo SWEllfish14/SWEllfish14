@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import axios from "axios";
 import { MobxQuery } from '../utils/mobxqueryts';
-import { GetSensoriJTO, GetNumeroSensoriJT0, GetDettagliSensoriJTO } from '../utils/api-types';
+import { GetSensoriJTO, GetNumeroSensoriJT0, GetDettagliSensoriJTO , GetNumeroSensoriAreaJT0} from '../utils/api-types';
 import { QueryKey, QueryObserverResult } from '@tanstack/react-query';
 import { MobxMutation } from "../utils/mobx_mutation";
 const headers = {
@@ -10,6 +10,8 @@ const headers = {
 export default interface ISensoriStore{
   sensoriQueryResult: MobxQuery<GetNumeroSensoriJT0, unknown, GetNumeroSensoriJT0, GetNumeroSensoriJT0, QueryKey>
   get numeroSensori():QueryObserverResult<GetNumeroSensoriJT0, unknown>
+  get numeroSensoriArea():QueryObserverResult<GetNumeroSensoriAreaJT0, unknown>
+  numeroSensoriAreaQueryResult: MobxQuery<GetNumeroSensoriAreaJT0, unknown, GetNumeroSensoriAreaJT0, GetNumeroSensoriAreaJT0, QueryKey>
   getlistaSensori(areaId: string): QueryObserverResult<GetSensoriJTO, unknown>
   getdettagliSensori(sensore_id: string): QueryObserverResult<GetDettagliSensoriJTO, unknown>
   aggiungiSensoreMutation: MobxMutation<unknown,unknown,{data: FormData},unknown>;
@@ -39,12 +41,25 @@ export class SensoriStore implements ISensoriStore {
     },
   });
 
+  numeroSensoriAreaQueryResult = new MobxQuery<GetNumeroSensoriAreaJT0>({
+    queryKey:['numeroSensoriArea'],
+    queryFn: ({ queryKey }) => {
+      return axios
+      .get(`http://localhost:3002/numeroSensoriArea/${queryKey[1]}`)
+      .then((r) => r.data["numeroSensoriArea"]);
+  },
+});
+
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
   }
 
   get numeroSensori() {
     return this.sensoriQueryResult.query();
+  }
+
+  get numeroSensoriArea() {
+    return this.numeroSensoriAreaQueryResult.query();
   }
 
   getlistaSensori(areaId: string) {
@@ -67,7 +82,7 @@ export class SensoriStore implements ISensoriStore {
   )
   modificaSensoreMutation = new MobxMutation<unknown, unknown, {id: string, data: FormData }, unknown>({
     mutationFn: async (variables) => {
-      await axios.post(`http://127.0.0.1:3002/modificaSensore/${variables.id}/${variables.data.get('ip')}/${variables.data.get('polling_time')}/${variables.data.get('zona_geografica')}/${variables.data.get('tipo_interazione')}/${variables.data.get('raggio_azione')}}`, variables.data, {headers,})
+      await axios.post(`http://127.0.0.1:3002/modificaSensore/${variables.id}/${variables.data.get('ip')}/${variables.data.get('polling_time')}/${variables.data.get('zona_geografica')}/${variables.data.get('tipo_interazione')}/${variables.data.get('raggio_azione')}}`, variables.data)
     },
   }
 )

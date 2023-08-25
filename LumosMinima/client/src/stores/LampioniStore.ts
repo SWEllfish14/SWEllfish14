@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import axios from "axios";
 import { MobxQuery } from '../utils/mobxqueryts';
-import { GetLampioniJT0, GetNumeroLampioniJT0 , GetLampioneJT0} from '../utils/api-types';
+import { GetLampioniJT0, GetNumeroLampioniJT0 , GetLampioneJT0, GetNumeroLampioniAreaJTO} from '../utils/api-types';
 
 import { MutationObserverResult, QueryClient, QueryKey, QueryObserverResult } from '@tanstack/react-query';
 import { MobxMutation } from '../utils/mobx_mutation';
@@ -14,10 +14,12 @@ export default interface ILampioniStore{
   lampioniQueryResult: MobxQuery<GetNumeroLampioniJT0, unknown, GetNumeroLampioniJT0, GetNumeroLampioniJT0, QueryKey>
   lampioniListaQueryResult: MobxQuery<GetLampioniJT0, unknown, GetLampioniJT0, GetLampioniJT0, QueryKey>
   lampioniDettagliQueryResult: MobxQuery<GetLampioneJT0, unknown, GetLampioneJT0, GetLampioneJT0, QueryKey>
+  numeroLampioniAreaQueryResult: MobxQuery<GetNumeroLampioniAreaJTO, unknown, GetNumeroLampioniAreaJTO, GetNumeroLampioniAreaJTO, QueryKey>
   getlistaLampioni(areaId: string): QueryObserverResult<GetLampioniJT0, unknown>
   getdettagliLampioni(lampId: string): QueryObserverResult<GetLampioneJT0, unknown>
   aggiungiLampioneMutation: MobxMutation<unknown,unknown,{ data2: FormData},unknown>;
   get numeroLampioni():QueryObserverResult<GetNumeroLampioniJT0, unknown>
+  getnumeroLampioniArea(areaId:string):QueryObserverResult<GetNumeroLampioniAreaJTO, unknown>
   deleteLampioneMutation :MobxMutation<unknown,unknown,{id: string;},unknown>;
   modificaLampioneMutation :MobxMutation<unknown,unknown,{data:FormData},unknown>;
   dispose: ()=>void
@@ -46,6 +48,15 @@ export class LampioniStore implements ILampioniStore {
         .then((r) => r.data);
     },
   });
+
+  numeroLampioniAreaQueryResult = new MobxQuery<GetNumeroLampioniAreaJTO>({
+    queryKey:['numeroLampioniArea'],
+    queryFn: ({ queryKey }) => {
+      return axios
+      .get(`http://localhost:3002/numeroLampioniArea/${queryKey[1]}`)
+      .then((r) => r.data);
+  },
+});
 
   /*addLampioneQueryResult = new MobxQuery<GetLampioneJT0>({
     queryKey: ['aggiungiLampione'],
@@ -95,6 +106,11 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
 
   get numeroLampioni() {
     return this.lampioniQueryResult.query();
+  }
+  getnumeroLampioniArea(areaId: string) {
+    return this.numeroLampioniAreaQueryResult.query({
+      queryKey: ['numeroLampioniArea', areaId],
+    });
   }
 
   getlistaLampioni(areaId: string) {

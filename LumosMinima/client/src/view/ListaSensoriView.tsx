@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
                     <p>
                     ID: {sensori.ID}, IP: {sensori.IP}
                     </p>
-                    <p>Tipo interazione: {sensori.tipo_iterazione}, Polling time: {sensori.polling_time} ms, Raggio Azione : {sensori.raggio_azione} metri
+                    <p>Tipo interazione: {sensori.tipo_interazione}, Polling time: {sensori.polling_time} ms, Raggio Azione : {sensori.raggio_azione} metri
                     </p>
                     <p>
 
