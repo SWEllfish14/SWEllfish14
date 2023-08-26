@@ -20,6 +20,7 @@ export type GetModificaAreaJTO = AreaJTO;
 
 export type GetNumeroGuastiJTO = number;
 export type GetGuastoJTO = Array<GuastoJTO>;
+export type GetGuastoDetailsJTO = GuastoJTO;
 
 export type GetNumeroSensoriJT0 = number;
 export type GetNumeroSensoriAreaJT0 = number;
