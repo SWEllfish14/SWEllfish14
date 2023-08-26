@@ -127,23 +127,31 @@ const cambiaModalitaArea = async(id) =>{
 }
 
 const accendiArea = async(id) => {
+  console.log("accendo area da service")
   const area= await Area.findByPk(id);
-  if(area.stato){
-    result = await Area.update({ stato: 0}, {
-      where: {
-        ID: id,
-      },
-    });
-    return("Area spenta")
-  }else{
+  if(area.stato === 0){
     result = await Area.update({ stato: 1}, {
       where: {
         ID: id,
       },
     });
     return("Area accesa")
+}
+}
+
+const spegniArea = async(id) => {
+  console.log("accendo area da service")
+  const area= await Area.findByPk(id);
+  if(area.stato === 1){
+    result = await Area.update({ stato: 0}, {
+      where: {
+        ID: id,
+      },
+    });
+    return("Area spenta")
   }
 }
+
 
 
 
@@ -158,5 +166,6 @@ module.exports = {
   modificaArea,
   eliminaArea,
   cambiaModalitaArea,
-  accendiArea
+  accendiArea,
+  spegniArea
 };

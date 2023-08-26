@@ -12,6 +12,8 @@ const getAllLampsFromArea = async (id) => {
     return lampioni;
 }
 
+
+
 const getLampIDtoPowerOn = async (id) => {
   const lampioni = await Lampione.findAll({
     attributes: ['ID'],
@@ -28,6 +30,7 @@ const getLampIDtoPowerOn = async (id) => {
   return res;
 }
 
+
 const getBrightnessofArea = async (id) => {
   const brightness = await Area.findAll({
     attributes: ['luminosità_manuale'],
@@ -38,6 +41,21 @@ const getBrightnessofArea = async (id) => {
 
   return brightness[0].luminosità_manuale;
 }
+
+
+
+
+const getBrightnessofLamp = async (id) => {
+  const brightness = await Lampione.findAll({
+    attributes: ['luminosità_manuale'],
+      where: {
+          ID: id
+      }
+  });
+
+  return brightness[0].luminosità_manuale;
+}
+
 
 const getAllLampsFromAreaCount = async (id) => {
   const lampioni = await Lampione.count({
@@ -84,6 +102,15 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
     const newLampione = await Lampione.create({ ID: id, IP:ip,tipo_interazione:tipo_interazione,luminosità_default:luminositaDefault,luminosità_impostata:luminositaManuale,stato:stato,id_area_illuminata:area})
     return("Lampione aggiunto");
   }
+  const setStatoSingoloLampione = async (id,stato) =>{
+    const lampione = findByPk(id);
+    if(stato){
+      lampione.update({
+        stato:stato
+      },{ where: {
+        ID: id,
+      }})  }
+  }
 
   const modificaLampione = async(id,ip,tipo_interazione,luminositaDefault,luminositaManuale,stato) =>{
     console.log("chiamo funzione modifica da service")
@@ -128,31 +155,67 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
         }})  }
 
       //await area.save()
-      return ("Area modificata")
+      return ("Lampione modificato")
   }
 
   const accendiLampioniArea = async(id) => {
     console.log("accendo lampioni da service")
     const lampioni = await getLampIDtoPowerOn(id)
-
     const bright = await getBrightnessofArea(id);
 
     //console.log(bright);
+    console.log(lampioni.length)
 
     for(let i = 0; i < lampioni.length; i++){
-      const port = 3 + lampioni[i].toPrecision();
-      console.log(port)
-      await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:bright,lamp_status:true,lamp_id:" " +lampioni[i]},{
+      console.log(lampioni[i])
+        let port = 3000 + (lampioni[i]);
+       console.log(port)
+       await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:bright,lamp_status:true,lamp_id:" " +lampioni[i]},{
     headers: {
           'Content-Type': 'application/json'
-      }
-  }).then(
-      res.sendStatus(200)
-    )
-    
+      } })
+         
+     
+      
     }
+
+    console.log("ok ora scrivo nel db per accendere")
+    for(let i = 0; i < lampioni.length; i++){
+      console.log(lampioni[i])
+      const result = await modificaLampione(lampioni[i],null,null,null,null,1)
+      console.log(result)
+    }
+
+  }
+
+    const spegniLampioniArea = async(id) => {
+      console.log("spengo lampioni da service")
+      const lampioni = await getLampIDtoPowerOn(id)
   
-    //console.log(ID)
+      //console.log(bright);
+      console.log(lampioni.length)
+  
+      for(let i = 0; i < lampioni.length; i++){
+        //const bright = await getBrightnessofLamp(lampioni[i]);
+        console.log(lampioni[i])
+          let port = 3000 + (lampioni[i]);
+         console.log(port)
+         await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:0,lamp_status:false,lamp_id:" " +lampioni[i]},{
+      headers: {
+            'Content-Type': 'application/json'
+        } })
+           
+       
+        //await modificaLampione(lampioni[i],null,null,null,null,0)
+      }
+      
+      console.log("ok ora scrivo nel db per spegnere")
+      for(let i = 0; i < lampioni.length; i++){
+        console.log(lampioni[i])
+        const result = await modificaLampione(lampioni[i],null,null,null,null,0)
+        //console.log(result)
+      }
+
 }
 
 
@@ -165,5 +228,8 @@ module.exports = {
     getOneLampione,
     modificaLampione,
     getAllLampsFromAreaCount,
-    accendiLampioniArea
+    accendiLampioniArea,
+    spegniLampioniArea,
+    getBrightnessofLamp,
+    spegniLampioniArea
 }
