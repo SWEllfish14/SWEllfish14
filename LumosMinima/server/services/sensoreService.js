@@ -1,6 +1,7 @@
 
 const db = require("../models/index");
 const { raw } = require("express");
+const sensoriModel = require("../models/sensoriModel");
 Sensore = db.sensori;
 Area = db.aree;
 const getAllSensoriFromArea = async (id) => {
@@ -11,6 +12,21 @@ const getAllSensoriFromArea = async (id) => {
   });
   return sensori;
 }
+
+const getAllAreeFromSensorID = async (id) => {
+  const result = await Area.findAll({
+    attributes: ['ID', ['sensore.ID', 'SensoreID']],
+    include: {
+      model: sensoriModel,
+      as: 'sensore',
+      attributes: [],
+    },
+  });
+
+  console.log(result);
+  return result;
+}
+
 
 
 const getNumeroSensori = async () => {
@@ -115,5 +131,6 @@ module.exports = {
     modificaSensore,
     getOneSensore,
     eliminaSensore,
-    getNumeroSensoriAreaCount
+    getNumeroSensoriAreaCount,
+    getAllAreeFromSensorID
 }
