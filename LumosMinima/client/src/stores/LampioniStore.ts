@@ -24,7 +24,11 @@ export default interface ILampioniStore{
   modificaLampioneMutation :MobxMutation<unknown,unknown,{data:FormData},unknown>;
   accendiLampioniAreaMutation : MobxMutation<unknown, unknown, {
     id: string;
-  }, unknown>
+  }, unknown>;
+
+  spegniLampioniAreaMutation : MobxMutation<unknown, unknown, {
+    id: string;
+  }, unknown>;
   dispose: ()=>void
 }
 export class LampioniStore implements ILampioniStore {
@@ -113,6 +117,18 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
     }
   );
 
+  spegniLampioniAreaMutation = new MobxMutation<unknown,unknown,{id:string}>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/spegniLampioniArea/${variables.id}`)
+      },
+      //onSuccess: (data, variables) => {
+       // this.queryClient.invalidateQueries(["area",variables.id]);
+      //},
+    }
+  );
+
+
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
@@ -160,5 +176,6 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
     this.lampioniDettagliQueryResult.dispose();
     this.deleteLampioneMutation.dispose();    
     this.aggiungiLampioneMutation.dispose();
+    this.spegniLampioniAreaMutation.dispose();
   }
 }
