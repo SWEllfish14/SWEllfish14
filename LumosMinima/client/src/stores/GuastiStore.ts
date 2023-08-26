@@ -27,7 +27,7 @@ export class GuastiStore implements IGuastiStore {
       guastoDetailsQueryResult = new MobxQuery<GetGuastoDetailsJTO>({
         queryFn: ({ queryKey }) => {
           return axios
-            .get(`http://localhost:3002/guasti/5`)
+            .get(`http://localhost:3002/guasti/${queryKey[1]}`)
             .then((r) => r.data);
         },
       });

@@ -14,7 +14,12 @@ const GuastoDetailsView = ({ viewModel }: Props) => (
         {viewModel.isLoading() && <p>Loading...</p>}
         {viewModel.isError() && <p>Error: {viewModel.error()?.message}</p>}
         {viewModel.guastoDetails() && (
-          <div className="box"> Hello World </div>
+          <div className="box">
+            <h1>Data rilevamento: {viewModel.guastoDetails().data?.data_rilevamento.toString()}</h1> 
+            <p>Id area: {viewModel.guastoDetails().data?.id_area_illuminata}</p>
+            <p>Stato: {viewModel.guastoDetails().data?.stato}</p>
+            {/* <p>data risoluzione: {viewModel.guastoDetails().data?}</p> */}
+          </div>
         )}
         </div>
     </div>
