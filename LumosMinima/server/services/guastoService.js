@@ -32,9 +32,20 @@ const getOneGuasto = async (id) => {
   return guasto;
 };
 
+const eliminaGuasto = async(id) =>{
+  guasto = await Guasto.findOne({
+    where: {
+      id: id,
+    },
+ });
+ count = await guasto.destroy();
+  return(`deleted row(s): ${count}`);
+}
+
 
 module.exports = {
     getAllGuasti,
     getNumeroGuasti,
-    getOneGuasto
+    getOneGuasto,
+    eliminaGuasto
 }

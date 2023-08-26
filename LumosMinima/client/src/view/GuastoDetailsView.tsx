@@ -23,6 +23,26 @@ const GuastoDetailsView = ({ viewModel }: Props) => (
         )}
         </div>
     </div>
+
+    <div className="column is-half">
+      <div className="box">
+        <p>Impostazioni Area</p>
+
+        <Link
+          to={{ pathname: `/modificaGuasto/${viewModel.guastoDetails().data?.ID}` }}
+        >
+          <button className="button is-outlined">Modifica dettagli guasto</button>
+        </Link>
+
+        <button
+          className="button is-danger is-small"
+           onClick={() => viewModel.eliminaGuasto()} 
+        >
+          Elimina area
+        </button>
+
+      </div>
+    </div>
 </div>
 );
 

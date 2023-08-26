@@ -25,13 +25,13 @@ export const GuastoDetailsViewModel = () => {
         }
       },
 
-/*         eliminaGuasto: async () => {
+        eliminaGuasto: async () => {
             if (id !== undefined) {
-              const result = await areaStore.eliminaAreaMutation.mutateAsync({ id });
+              const result = await guastoStore.eliminaGuastoMutation.mutateAsync({ id });
               if (result.isSuccess) {
                 navigate("/guasti");
               }
             }
-          }, */
+          },
     }
 }

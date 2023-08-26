@@ -107,6 +107,7 @@ const eliminaArea = async(id) =>{
  count = await area.destroy();
   return(`deleted row(s): ${count}`);
 }
+
 const cambiaModalitaArea = async(id) =>{
   const  area=await Area.findByPk(id);
   if(area.modalità_funzionamento === "M"){

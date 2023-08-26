@@ -2,7 +2,9 @@ import { makeAutoObservable } from 'mobx';
 import axios from "axios";
 import { MobxQuery } from '../utils/mobxqueryts';
 import {  GetNumeroGuastiJTO, GetGuastoJTO, GetGuastoDetailsJTO } from '../utils/api-types';
-import { QueryKey, QueryObserverResult } from '@tanstack/react-query';
+import { QueryKey,QueryClient, QueryObserverResult } from '@tanstack/react-query';
+import { MobxMutation } from '../utils/mobx_mutation';
+import { inject } from 'react-ioc';
 
 
 export default interface IGuastiStore{
@@ -12,6 +14,8 @@ export default interface IGuastiStore{
   dispose: ()=>void
 }
 export class GuastiStore implements IGuastiStore {
+    queryClient = inject(this, QueryClient);
+
     guastiNumberQueryResult = new MobxQuery<GetNumeroGuastiJTO>({
         queryKey: ['numeroGuasti'],
         queryFn: () => axios.get('http://localhost:3002/numeroGuasti').then((r) => r.data["numeroGuasti"]),
@@ -21,8 +25,6 @@ export class GuastiStore implements IGuastiStore {
         queryKey: ['guasti'],
         queryFn: () => axios.get('http://localhost:3002/guasti').then((r) => r.data),
       });
-
-      // Work in progress ---------
 
       guastoDetailsQueryResult = new MobxQuery<GetGuastoDetailsJTO>({
         queryFn: ({ queryKey }) => {
@@ -39,7 +41,16 @@ export class GuastiStore implements IGuastiStore {
       }
 
 
-      // -------------
+    eliminaGuastoMutation = new MobxMutation<unknown,unknown,{id:string}>(
+      {
+        mutationFn: async (variables) => {
+          await axios.post(`http://127.0.0.1:3002/eliminaGuasto/${variables.id}`)
+        },
+        onSuccess: (data, variables) => {
+          this.queryClient.invalidateQueries(["aree"]);
+        },
+      }
+    )
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
@@ -51,16 +62,11 @@ export class GuastiStore implements IGuastiStore {
   get guasti(){
     return this.guastiQueryResult.query();
   }
-  
-/*   getGuastiDetails(guastoId: string) {
-    return this.guastoDetailsQueryResult.query({
-      queryKey: ["area", areaId],
-    });
-  } */
 
   dispose() {
     this.guastiNumberQueryResult.dispose();
     this.guastiQueryResult.dispose();
+    this.eliminaGuastoMutation.dispose();
 
   }
 }
