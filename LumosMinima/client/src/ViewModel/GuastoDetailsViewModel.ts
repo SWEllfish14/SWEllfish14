@@ -8,11 +8,23 @@ export type IGuastoDetailsViewModel = ReturnType<typeof GuastoDetailsViewModel>;
 
 export const GuastoDetailsViewModel = () => {
     const { id } = useParams();
-    const areaStore = useInstance(GuastiStore);
-    //const error = areaStore.getAreaDetails(id!).error;
+    console.log( id );
+    const guastoStore = useInstance(GuastiStore);
+    const error = guastoStore.getGuastoDetails(id!).error;
     const navigate = useNavigate();
+
+
     return {
 
+      guastoDetails: () => guastoStore.getGuastoDetails(id!),
+      isLoading: () => guastoStore.getGuastoDetails(id!).isLoading,
+      isError: () => guastoStore.getGuastoDetails(id!).isError,
+
+      error: () => {
+        if (error instanceof Error) {
+          return error;
+        }
+      },
 
 
         //guastoDetails: () => areaStore.getGuastoDetails(id!),

@@ -22,13 +22,24 @@ export class GuastiStore implements IGuastiStore {
         queryFn: () => axios.get('http://localhost:3002/guasti').then((r) => r.data),
       });
 
+      // Work in progress ---------
+
       guastoDetailsQueryResult = new MobxQuery<GetGuastoDetailsJTO>({
         queryFn: ({ queryKey }) => {
           return axios
-            .get(`http://localhost:3002/guasto/${queryKey[1]}`)
+            .get(`http://localhost:3002/guasti/5`)
             .then((r) => r.data);
         },
       });
+      
+      getGuastoDetails(guastoId: string) {
+        return this.guastoDetailsQueryResult.query({
+          queryKey: ["guasti", guastoId],
+        });
+      }
+
+
+      // -------------
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });

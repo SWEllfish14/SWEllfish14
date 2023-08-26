@@ -9,9 +9,16 @@ interface Props {
 
 const GuastoDetailsView = ({ viewModel }: Props) => (
 <div>
-    <p>Hello world</p>
+    <div className="columns">
+      <div className="column is-half">
+        {viewModel.isLoading() && <p>Loading...</p>}
+        {viewModel.isError() && <p>Error: {viewModel.error()?.message}</p>}
+        {viewModel.guastoDetails() && (
+          <div className="box"> Hello World </div>
+        )}
+        </div>
+    </div>
 </div>
-
 );
 
 export default observer(GuastoDetailsView);

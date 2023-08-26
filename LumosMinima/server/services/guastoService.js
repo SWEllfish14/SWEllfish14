@@ -27,7 +27,14 @@ const getNumeroGuasti = async () => {
   return numeroGuasti.toString();
 };
 
+const getOneGuasto = async (id) => {
+  const guasto = await Guasto.findByPk(id);
+  return guasto;
+};
+
+
 module.exports = {
     getAllGuasti,
-    getNumeroGuasti
+    getNumeroGuasti,
+    getOneGuasto
 }
