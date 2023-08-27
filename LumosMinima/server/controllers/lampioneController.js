@@ -188,6 +188,51 @@ areaService = require("../services/areaService")
       const resul2 = await areaService.spegniArea(id)
     }
   
+    const accendiLampione = async  (req,res) => {
+      const {
+        params: { lampId },
+      } = req;
+      console.log(lampId)
+      if (!lampId) {
+        res
+          .status(400)
+          .send({
+            status: "FAILED",
+            data: { error: "Parameter 'lampId' can not be empty" },
+          });
+      }
+      try{
+        const result = await lampioneService.accendiLampione(lampId)
+        res.status(200).send({result:result})
+      }catch (error){
+        res.status(error?.status || 500)
+        .send({ status: "FAILED", data: { error: error?.message || error } })
+      }
+
+    }
+
+    const spegniLampione = async  (req,res) => {
+      const {
+        params: { lampId },
+      } = req;
+      console.log(lampId)
+      if (!lampId) {
+        res
+          .status(400)
+          .send({
+            status: "FAILED",
+            data: { error: "Parameter 'lampId' can not be empty" },
+          });
+      }
+      try{
+        const result = await lampioneService.spegniLampione(lampId)
+        res.status(200).send({result:result})
+      }catch (error){
+        res.status(error?.status || 500)
+        .send({ status: "FAILED", data: { error: error?.message || error } })
+      }
+
+    }
     module.exports = {
         getAllLampsFromArea,
         eliminaLampione,
@@ -197,5 +242,7 @@ areaService = require("../services/areaService")
         getOneLampione,
         getAllLampsFromAreaCount,
         accendiLampioniArea,
-        spegniLampioniArea
+        spegniLampioniArea, 
+        accendiLampione,
+        spegniLampione
     }

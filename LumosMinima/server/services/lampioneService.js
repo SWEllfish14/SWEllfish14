@@ -9,7 +9,22 @@ const getAllLampsFromArea = async (id) => {
             id_area_illuminata: id
         }
     });
-    return lampioni;
+    temp = lampioni
+    result = await Promise.all(temp.map(async (lamp) => {
+      try {
+        port = 3000 + lamp.ID
+        const response = await axios.get('http://127.0.0.1:'+port+"/lamp")
+        //response.data.ip = lamp.IP
+        lamp.luminosità_impostata = parseInt(response.data.brightness)
+        lamp.stato = response.data.lamp_status
+        console.log(lamp.stato)
+        //result.push(response.data)
+      }
+      catch (e) {
+       console.log(e)
+      }
+      }))
+    return temp;
 }
 
 
@@ -218,8 +233,37 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
 
 }
 
-
-
+const accendiLampione = async(lampID) =>{
+  let port = 3000 +parseInt(lampID);
+  const  lampione=await Lampione.findByPk(lampID);
+  const bright = await getBrightnessofArea(lampione.id_area_illuminata);
+  try {
+    await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:bright,lamp_status:true,lamp_id:" " +lampID},{
+      headers: {
+            'Content-Type': 'application/json'
+        } })
+        lampione.update({luminosità_impostata:5,stato:1})
+        return ("Lampione Acceso")
+  } catch (error) {
+    console.log(error)
+    return("Lampione non raggiungibile")
+  }
+}
+const spegniLampione = async(lampID) =>{
+  let port = 3000 +parseInt(lampID) ;
+  try {
+    await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:0,lamp_status:false,lamp_id:" " +lampID},{
+      headers: {
+            'Content-Type': 'application/json'
+        } })
+        const  lampione=await Lampione.findByPk(lampID);
+        lampione.update({luminosità_impostata:5,stato:0})
+        return ("Lampione spento")
+  } catch (error) {
+    console.log(error)
+    return("Lampione non raggiungibile")
+  }
+}
 module.exports = {
     getAllLampsFromArea,
     getNumeroLampioni,
@@ -231,5 +275,7 @@ module.exports = {
     accendiLampioniArea,
     spegniLampioniArea,
     getBrightnessofLamp,
-    spegniLampioniArea
+    spegniLampioniArea,
+    accendiLampione,
+    spegniLampione
 }

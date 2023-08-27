@@ -8,7 +8,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 const sensoriService = require("./services/sensoreService")
 
-const updateUrl = 'http://127.0.0.1:4001/sensor'; // Replace with your update API URL
+const updateUrl = 'http://127.0.0.1:4205/sensor'; // Replace with your update API URL
 const interval = 0.5; // Interval in minutes
 
 function checkForUpdate() {

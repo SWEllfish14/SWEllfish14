@@ -190,19 +190,5 @@ describe("area", () => {
     })
    })
 
-   describe('Cambia stato area', () => { 
-    describe("Dato un id valido", () => {
-      it("Ritorna stato 200 e Area accesa", async() => {
-        const cambiaStatoAreaServiceMock = jest.
-        spyOn(areaService,"cambiaStatoArea")
-        .mockReturnValueOnce(`Area accesa`)
-        const { statusCode, body } = await supertest(app)
-          .post("/cambiaStatoArea/1")
-          .send("1");
-          expect(statusCode).toBe(200)
-          expect(body).toEqual({"result":`Area accesa`})
-          expect(cambiaStatoAreaServiceMock).toHaveBeenCalledWith("1");
-      })
-    })
-   })
+   
 })

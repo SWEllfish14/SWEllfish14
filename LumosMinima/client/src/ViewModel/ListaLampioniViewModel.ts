@@ -1,4 +1,4 @@
-import { observer } from "mobx-react-lite"
+
 import { LampioniStore } from "../stores/LampioniStore"
 
 import { AreeStore } from "../stores/AreeStore"
@@ -11,12 +11,15 @@ export type IListaLampioniViewModel = ReturnType<typeof ListaLampioniViewModel>;
 export const ListaLampioniViewModel = () => {
     const { id } = useParams();
     const lampioniStore =useInstance(LampioniStore);
+    const areaStore = useInstance(AreeStore)
     const error = lampioniStore.getlistaLampioni(id!).error
     const navigate = useNavigate();
     return {
       dettagliLampione: ()=> lampioniStore.getdettagliLampioni(id!),
        listaLampioni: ()=> lampioniStore.getlistaLampioni(id!).data,
        isLoading: ()=> lampioniStore.getlistaLampioni(id!).isLoading,
+       accendiLampione: (lampID:string)=> lampioniStore.accendiLampioneMutation.mutateAsync({lampID}),
+       spegniLampione: (lampID:string)=> lampioniStore.spegniLampioneMutation.mutateAsync({lampID}),
        //eliminaLampione: (lampID:string) => store.geteliminaLampione(lampID!),
     };
   };
