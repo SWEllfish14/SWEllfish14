@@ -71,7 +71,6 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
             <button type="submit" className="button is-success" >
               Conferma e Inserisci
             </button>
-            <button className="button is-outlined">Cancella campi</button>
           </article>
         </div>
       </div>

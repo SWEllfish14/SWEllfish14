@@ -17,7 +17,7 @@ const GuastoDetailsView = ({ viewModel }: Props) => (
           <div className="box">
             <h1>Data rilevamento: {viewModel.guastoDetails().data?.data_rilevamento.toString()}</h1> 
             <p>Id area: {viewModel.guastoDetails().data?.id_area_illuminata}</p>
-            <p>Stato: {viewModel.guastoDetails().data?.stato}</p>
+            <p>Stato: {viewModel.guastoDetails().data?.stato == "0"? "Non risolto" : "Risolto"}</p>
             <p>Note: {viewModel.guastoDetails().data?.note}</p>
           </div>
         )}
