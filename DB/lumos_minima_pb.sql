@@ -104,13 +104,14 @@ CREATE TABLE IF NOT EXISTS `guasto` (
 
 -- Dump dei dati della tabella lumosminima_pb.guasto: ~8 rows (circa)
 INSERT INTO `guasto` (`ID`, `data_rilevamento`, `stato`, `note`, `id_area_illuminata`, `data_risoluzione`) VALUES
-	(1, '2023-04-13', 1, NULL , 11, NULL),
+
+	(1, '2023-04-13', 1, "Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso." , 11, NULL),
 	(2, '2023-05-02', 1, NULL , 11, NULL),
-	(3, '2023-04-11', 1, NULL , 7, NULL),
-	(4, '2023-05-17', 1, NULL , 5, NULL),
+	(3, '2023-04-11', 1, "Lampioni via strada principale non si accendono. Causa probabile interruzione cavo sotterraneo. Scavi necessari per ispezione e riparazione." , 7, NULL),
+	(4, '2023-05-17', 1, "Lampioni intermittenti area parco. Analisi connessioni rileva connettore ossidato. Pulizia e ricostruzione connessione risolvono l'instabilità." , 5, NULL),
 	(5, '2023-04-13', 1, NULL , 10, NULL),
-	(6, '2023-05-16', 1, NULL , 7, NULL),
-	(7, '2023-04-03', 1, NULL , 6, NULL),
+	(6, '2023-05-16', 1, "Lampioni lampeggiano continuamente. Rilevato problema relè temporizzazione. Sostituzione in corso per ripristinare il normale ciclo di illuminazione." , 7, NULL),
+	(7, '2023-04-03', 1, "Zona lampioni buia dopo black-out. Test batterie di emergenza evidenziano batteria scarica in centralina. Nuova batteria installata, sistema ora operativo." , 6, NULL),
 	(8, '2023-01-06', 1, NULL , 10, NULL);
 
 -- Dump della struttura di tabella lumosminima_pb.lampione

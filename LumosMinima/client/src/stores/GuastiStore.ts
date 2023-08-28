@@ -55,6 +55,8 @@ export class GuastiStore implements IGuastiStore {
             .then((r) => r.data);
         },
       });
+
+      
       
       getGuastoDetails(guastoId: string) {
         return this.guastoDetailsQueryResult.query({
@@ -77,8 +79,8 @@ export class GuastiStore implements IGuastiStore {
     modificaGuastoMutation = new MobxMutation<unknown,unknown,{id:string,data:FormData}>(
       {
         mutationFn: async (variables) => {
-          await axios.post(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_data_rilevamento')}/${variables.data.get('new_stato')}/${variables.data.get('new_id_area_illuminata')}`, variables.data)
-
+          await axios.post(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_stato')}/${variables.data.get('new_note')}/${variables.data.get('new_id_area_illuminata')}`, variables.data)
+          
         },
       }
     )

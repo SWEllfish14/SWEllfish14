@@ -15,8 +15,13 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: ''
         },
         stato: {
-            type: Sequelize.CHAR(1),
+            type: Sequelize.INTEGER(1),
             allowNull: false,
+            defaultValue: null
+        },
+        note: {
+            type: Sequelize.STRING(200),
+            allowNull: true,
             defaultValue: null
         },
         id_area_illuminata: {
@@ -26,7 +31,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         data_risoluzione: {
             type: Sequelize.DATEONLY,
-            allowNull: false,
+            allowNull: true,
             defaultValue: null
         }
     },{

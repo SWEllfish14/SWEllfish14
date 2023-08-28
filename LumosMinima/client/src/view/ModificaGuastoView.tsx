@@ -30,16 +30,24 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
                 type="text"
                 placeholder={viewModel.guastoDetails().data?.data_rilevamento.toString()}
                 defaultValue={viewModel.guastoDetails().data?.data_rilevamento.toString()}
+                disabled
               ></input>
 
               <label htmlFor="new_stato">stato</label>
+              <select id="new_stato" name="new_stato" className="input" value={viewModel.guastoDetails().data?.stato}>
+                <option value="0" >Risolto</option>
+                <option value="1">Non risolto</option>
+              </select>
+
+
+              <label htmlFor="new_note">note</label>
               <input
-                id="new_stato"
-                name="new_stato"
+                id="new_note"
+                name="new_note"
                 className="input"
                 type="text"
-                placeholder={viewModel.guastoDetails().data?.stato}
-                defaultValue={viewModel.guastoDetails().data?.stato}
+                placeholder={viewModel.guastoDetails().data?.note}
+                defaultValue={viewModel.guastoDetails().data?.note}
               ></input>
 
               <label htmlFor="new_id_area_illuminata">id area illuminata</label>
@@ -51,18 +59,6 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
                 placeholder={viewModel.guastoDetails().data?.id_area_illuminata.toString()}
                 defaultValue={viewModel.guastoDetails().data?.id_area_illuminata.toString()}
               ></input>
-              
-{/*               <label htmlFor="data_risoluzione">Data risoluzione guasto</label>
-              <input
-                id="luminositaDefault"
-                name="luminositaDefault"
-                className="input"
-                type="number"
-                min={0}
-                max={10}
-                placeholder={viewModel.guastoDetails().data?.data_risoluzione.toString()}
-                defaultValue={viewModel.guastoDetails().data?.data_risoluzione.toString()}
-              ></input> */}
 
             </p>
           </article>
