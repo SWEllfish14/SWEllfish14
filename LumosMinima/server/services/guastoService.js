@@ -43,6 +43,42 @@ const eliminaGuasto = async(id) =>{
 }
 
 
+const modificaGuasto = async(id, new_data_rilevamento, new_stato, new_id_area_illuminata, new_data_risoluzione) =>{
+  
+  const  guasto  = await Guasto.findByPk(id);
+
+  if(new_data_rilevamento){
+    guasto.update({
+      data_rilevamento:new_data_rilevamento
+    },{ where: {
+      ID: id,
+    }})
+  }
+
+if(new_stato){
+  guasto.update({
+    stato:new_stato
+  },{ where: {
+    ID: id,
+  }})  }
+
+  if(new_id_area_illuminata){
+    guasto.update({
+      id_area_illuminata:new_id_area_illuminata
+    },{ where: {
+      ID: id,
+    }})  }
+
+  if(new_data_risoluzione){
+    guasto.update({
+      data_risoluzione:new_data_risoluzione
+    },{ where: {
+      ID: id,
+    }})  }
+    
+    return ("Guasto modificato")
+}
+
 module.exports = {
     getAllGuasti,
     getNumeroGuasti,

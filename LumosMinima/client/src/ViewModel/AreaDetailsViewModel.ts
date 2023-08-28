@@ -74,7 +74,8 @@ export const AreaDetailsViewModel = () => {
           id,
         });
       }
-    }
+    },
+
   };
 };
 

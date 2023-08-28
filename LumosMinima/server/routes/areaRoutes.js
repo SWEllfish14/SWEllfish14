@@ -1,6 +1,6 @@
 const express = require("express");
 const areaController = require('../controllers/areaController')
-
+const lampioneController = require('../controllers/lampioneController')
 const router = express.Router();
 
 router.get('/aree',areaController.getAllAree)
@@ -14,4 +14,5 @@ router.post('/modificaArea/:id/:citta/:zonaGeografica/:stato/:modalita/:luminosi
 router.post('/eliminaArea/:id', areaController.eliminaArea)
 router.post('/cambiaModalitaArea/:id',areaController.cambiaModalitaArea)
 router.post('/accendiArea/:id',areaController.accendiArea)
+router.post('/spegniArea/:id',areaController.spegniArea)
 module.exports = router;

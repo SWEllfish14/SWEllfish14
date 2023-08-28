@@ -64,9 +64,33 @@ const getAllGuasti= async (req, res) => {
         }
       }
 
+      const modificaGuasto = async (req,res) => {
+        const {
+          params: {id, new_data_rilevamento, new_stato, new_id_area_illuminata, new_data_risoluzione },
+        } = req;
+        if (!id) {
+          res
+            .status(400)
+            .send({
+              status: "FAILED",
+              data: { error: "Parameter 'id' can not be empty" },
+            });
+        }
+        try{
+          
+          const result = await guastoService.modificaGuasto( id, new_data_rilevamento, new_stato, new_id_area_illuminata, new_data_risoluzione);
+          res.status(200).send({result:result})
+        }catch (error){
+          res.status(error?.status || 500)
+          .send({ status: "FAILED", data: { error: error?.message || error } })
+        }
+        
+      }
+
     module.exports = {
         getAllGuasti,
         getNumeroGuasti,
         getOneGuasto,
-        eliminaGuasto
+        eliminaGuasto,
+        modificaGuasto
     }

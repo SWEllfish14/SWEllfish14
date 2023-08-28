@@ -105,8 +105,6 @@ export default interface IAreeStore {
   get areeLimit() : QueryObserverResult<GetLimitAreeJTO, unknown>
   dispose: () => void;
 }
-
-
 export class AreeStore implements IAreeStore {
   queryClient = inject(this, QueryClient);
   areeQueryResult = new MobxQuery<GetAreeJTO>({

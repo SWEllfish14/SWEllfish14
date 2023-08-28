@@ -52,6 +52,16 @@ export class GuastiStore implements IGuastiStore {
       }
     )
 
+    modificaGuastoMutation = new MobxMutation<unknown,unknown,{id:string,data:FormData}>(
+      {
+        mutationFn: async (variables) => {
+          await axios.post(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_data_rilevamento')}/${variables.data.get('new_stato')}/${variables.data.get('new_id_area_illuminata')}/${variables.data.get('new_data_risoluzione')}`, variables.data)
+        },
+      }
+    )
+
+
+
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
   }
@@ -67,6 +77,7 @@ export class GuastiStore implements IGuastiStore {
     this.guastiNumberQueryResult.dispose();
     this.guastiQueryResult.dispose();
     this.eliminaGuastoMutation.dispose();
+    this.modificaGuastoMutation.dispose();
 
   }
 }
