@@ -76,6 +76,13 @@ export const AreaDetailsViewModel = () => {
       }
     },
 
+    spegniLampioniArea:async () => {
+      if (id !== undefined) {
+        const result = await lampioniStore.spegniLampioniAreaMutation.mutateAsync({
+          id,
+        });
+      }
+    }
   };
 };
 

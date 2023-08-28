@@ -1,4 +1,5 @@
 lampioneService = require("../services/lampioneService")
+areaService = require("../services/areaService")
     const getAllLampsFromArea = async (req,res) => {
         const {
             params: { id },
@@ -59,7 +60,7 @@ lampioneService = require("../services/lampioneService")
           }
           try {
             const result = await lampioneService.eliminaLampione(id)
-            res.status(200).send({data:"Lampione eliminato"})
+            res.status(200).send({result:result})
           } catch (error) {
             res
               .status(error?.status || 500)
@@ -151,13 +152,87 @@ lampioneService = require("../services/lampioneService")
       }
       try{
         const result = await lampioneService.accendiLampioniArea(id)
+        
         res.status(200).send({result:result})
       }catch (error){
         res.status(error?.status || 500)
         .send({ status: "FAILED", data: { error: error?.message || error } })
       }
+      const resul2 = await areaService.accendiArea(id)
+    }
+
+    
+    const spegniLampioniArea = async (req,res) => {
+      console.log("spengo lampioni da controller")
+      
+      const {
+        params: { id },
+      } = req;
+      console.log(id)
+      if (!id) {
+        res
+          .status(400)
+          .send({
+            status: "FAILED",
+            data: { error: "Parameter 'id' can not be empty" },
+          });
+      }
+      try{
+        const result = await lampioneService.spegniLampioniArea(id)
+        res.status(200).send({result:result})
+      }catch (error){
+        res.status(error?.status || 500)
+        .send({ status: "FAILED", data: { error: error?.message || error } })
+      }
+
+      const resul2 = await areaService.spegniArea(id)
     }
   
+    const accendiLampione = async  (req,res) => {
+      const {
+        params: { lampId },
+      } = req;
+      console.log(lampId)
+      if (!lampId) {
+        res
+          .status(400)
+          .send({
+            status: "FAILED",
+            data: { error: "Parameter 'lampId' can not be empty" },
+          });
+      }
+      try{
+        const result = await lampioneService.accendiLampione(lampId)
+        res.status(200).send({result:result})
+      }catch (error){
+        res.status(error?.status || 500)
+        .send({ status: "FAILED", data: { error: error?.message || error } })
+      }
+
+    }
+
+    const spegniLampione = async  (req,res) => {
+      const {
+        params: { lampId },
+      } = req;
+      console.log(lampId)
+      if (!lampId) {
+        res
+          .status(400)
+          .send({
+            status: "FAILED",
+            data: { error: "Parameter 'lampId' can not be empty" },
+          });
+      }
+      try{
+        const result = await lampioneService.spegniLampione(lampId)
+        res.status(200).send({result:result})
+      }catch (error){
+        res.status(error?.status || 500)
+        .send({ status: "FAILED", data: { error: error?.message || error } })
+      }
+
+    }
     module.exports = {
         getAllLampsFromArea,
         eliminaLampione,
@@ -166,5 +241,8 @@ lampioneService = require("../services/lampioneService")
         modificaLampione,
         getOneLampione,
         getAllLampsFromAreaCount,
-        accendiLampioniArea
+        accendiLampioniArea,
+        spegniLampioniArea, 
+        accendiLampione,
+        spegniLampione
     }

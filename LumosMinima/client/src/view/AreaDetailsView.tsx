@@ -20,24 +20,19 @@ const AreaDetailsView = ({ viewModel }: Props) => (
             <p>
             {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
               <>
-              Stato:{" "}
-              
-              {viewModel.areaDetails().data?.stato === 1 ? (
-                <>Acceso <button
-                className="button is-danger is-small"
-                onClick={() => viewModel.accendiArea()}
-              >
-                Spegni area
-              </button></>
-              ) : (
-                <>Spento <button
-                className="button is-success is-small"
-                onClick={() => viewModel.accendiArea()}
-              >
-                Accendi area
-              </button></>
-            
-              )}
+              {viewModel.areaDetails().data?.stato === 0 ? (
+                <>
+                <p>Stato: Spento
+                  </p>
+                  </>
+              ) :(
+                <>
+                <p>
+                  Stato : Acceso
+                </p>
+                </>
+              )
+              }
               </>
             ):(viewModel.areaDetails().data?.modalità_funzionamento === "A")
               }
@@ -66,7 +61,26 @@ const AreaDetailsView = ({ viewModel }: Props) => (
       <div className="column is-half">
         <div className="box">
           <h2>Impostazioni Luminosità</h2>
-          <button className="button is-danger is-small" onClick={() => {viewModel.accendiLampioniArea()}}>Accendi Lampioni</button>
+          {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
+            <>
+          {viewModel.areaDetails().data?.stato === 1 ? (
+                <><button
+                className="button is-danger is-small"
+                onClick={() => viewModel.spegniLampioniArea()}
+              >
+                Spegni lampioni
+              </button></>
+              ) : (
+                <><button
+                className="button is-success is-small"
+                onClick={() => viewModel.accendiLampioniArea()}
+              >
+                Accendi Lampioni
+              </button></>
+            
+              )}
+              </>):(<></>)
+              }
           <h3>
             <div className="field">
               <input
@@ -115,7 +129,6 @@ const AreaDetailsView = ({ viewModel }: Props) => (
             )}
           </h3>
         </div>
-        <div className="box">{/* <Sensori /> */}</div>
       </div>
     </div>
 

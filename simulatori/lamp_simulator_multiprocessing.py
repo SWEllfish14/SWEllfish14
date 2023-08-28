@@ -17,7 +17,7 @@ f = open('lamps.json')
 data = json.load(f)
 active = (len(data['lampione']))
 
-numbero_of_subprocesses = 25
+numbero_of_subprocesses = 82
 def run_script(i):
     if i < active:
         print(data['lampione'][i]["ID"])

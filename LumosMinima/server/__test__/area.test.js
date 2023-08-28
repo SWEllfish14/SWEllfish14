@@ -1,5 +1,7 @@
 const supertest = require('supertest')
 const areaService = require("../services/areaService");
+const areaController = require("../controllers/areaController");
+const areaRoutes = require("../routes/areaRoutes");
 const createServer = require("../server");
 const app = createServer()
 const areaPayload = {
@@ -14,6 +16,28 @@ const areaPayload = {
 };
 
 const areaPayloadAggiuntaArea = {
+  città: "Marostica",
+  zona_geografica_città: "Angelis",
+  modalità_funzionamento: "A",
+  luminosità_standard:2,
+  luminosità_rilevamento:3,
+  luminosità_manuale:0,
+  stato:0
+};
+
+const areaPayloadAggiuntaAreaConId = {
+  ID: 17,
+  città: "Marostica",
+  zona_geografica_città: "Angelis",
+  modalità_funzionamento: "A",
+  luminosità_standard:2,
+  luminosità_rilevamento:3,
+  luminosità_manuale:0,
+  stato:0
+};
+
+const areaPayloadModificaArea = {
+  ID:1,
   città: "Marostica",
   zona_geografica_città: "Angelis",
   modalità_funzionamento: "A",
@@ -135,8 +159,7 @@ describe("area", () => {
         spyOn(areaService,"aggiungiArea")
         .mockReturnValueOnce(areaPayloadAggiuntaArea)
         const { statusCode, body } = await supertest(app)
-          .post("/aggiungiArea")
-          .send(areaPayloadAggiuntaArea);
+          .post("/aggiungiArea/"+areaPayloadAggiuntaArea.città+"/"+ areaPayloadAggiuntaArea.zona_geografica_città+"/"+areaPayloadAggiuntaArea.stato+"/"+areaPayloadAggiuntaArea.modalità_funzionamento+"/"+areaPayloadAggiuntaArea.luminosità_standard+"/"+areaPayloadAggiuntaArea.luminosità_manuale)
           expect(statusCode).toBe(200)
           expect(body).toEqual(areaPayloadAggiuntaArea)
           expect(aggiungiAreaServiceMock).toHaveBeenCalled();
@@ -151,7 +174,7 @@ describe("area", () => {
         spyOn(areaService,"modificaArea")
         .mockReturnValueOnce("Area modificata")
         const { statusCode, body } = await supertest(app)
-          .post("/modificaArea/1")
+          .post("/modificaArea/"+areaPayloadModificaArea.ID+"/"+areaPayloadModificaArea.città+"/"+ areaPayloadModificaArea.zona_geografica_città+"/"+areaPayloadModificaArea.stato+"/"+areaPayloadModificaArea.modalità_funzionamento+"/"+areaPayloadModificaArea.luminosità_standard+"/"+areaPayloadModificaArea.luminosità_manuale)
           .send({luminosità_rilevamento:2},1);
           expect(statusCode).toBe(200)
           expect(body).toEqual({result:"Area modificata"})
@@ -174,6 +197,8 @@ describe("area", () => {
       })
     })
    })
+  
+
    describe('Cambia modalità area', () => { 
     describe("Dato un id valido", () => {
       it("Ritorna stato 200 e Modalità funzionamento cambiata", async() => {
@@ -190,19 +215,35 @@ describe("area", () => {
     })
    })
 
-   describe('Cambia stato area', () => { 
+   describe('Accendi Area', () => { 
     describe("Dato un id valido", () => {
-      it("Ritorna stato 200 e Area accesa", async() => {
-        const cambiaStatoAreaServiceMock = jest.
-        spyOn(areaService,"cambiaStatoArea")
+      it("Ritorna stato 200 e Area spenta", async() => {
+        const accendiAreaServiceMock = jest.
+        spyOn(areaService,"accendiArea")
         .mockReturnValueOnce(`Area accesa`)
         const { statusCode, body } = await supertest(app)
-          .post("/cambiaStatoArea/1")
+          .post("/accendiArea/1")
           .send("1");
           expect(statusCode).toBe(200)
           expect(body).toEqual({"result":`Area accesa`})
-          expect(cambiaStatoAreaServiceMock).toHaveBeenCalledWith("1");
+          expect(accendiAreaServiceMock).toHaveBeenCalledWith("1");
       })
     })
    })
-})
+
+   describe('Spegni Area', () => { 
+    describe("Dato un id valido", () => {
+      it("Ritorna stato 200 e Area accesa", async() => {
+        const spegniAreaServiceMock = jest.
+        spyOn(areaService,"spegniArea")
+        .mockReturnValueOnce(`Area spenta`)
+        const { statusCode, body } = await supertest(app)
+          .post("/spegniArea/1")
+          .send("1");
+          expect(statusCode).toBe(200)
+          expect(body).toEqual({"result":`Area spenta`})
+          expect(spegniAreaServiceMock).toHaveBeenCalledWith("1");
+      })
+    })
+   })
+  })

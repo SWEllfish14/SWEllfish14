@@ -24,10 +24,24 @@ export default interface ILampioniStore{
   modificaLampioneMutation :MobxMutation<unknown,unknown,{data:FormData},unknown>;
   accendiLampioniAreaMutation : MobxMutation<unknown, unknown, {
     id: string;
-  }, unknown>
+  }, unknown>;
+
+  spegniLampioniAreaMutation : MobxMutation<unknown, unknown, {
+    id: string;
+  }, unknown>;
+  
+  accendiLampioneMutation :  MobxMutation<unknown, unknown, {
+    lampID: string;
+  }, unknown>;
+
+  spegniLampioneMutation :  MobxMutation<unknown, unknown, {
+    lampID: string;
+  }, unknown>;
   dispose: ()=>void
+ 
 }
 export class LampioniStore implements ILampioniStore {
+  
   queryClient = inject(this, QueryClient);
     lampioniQueryResult = new MobxQuery<GetNumeroLampioniJT0>({
         queryKey: ['numeroLampioni'],
@@ -113,6 +127,38 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
     }
   );
 
+  spegniLampioniAreaMutation = new MobxMutation<unknown,unknown,{id:string}>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/spegniLampioniArea/${variables.id}`)
+      },
+      //onSuccess: (data, variables) => {
+       // this.queryClient.invalidateQueries(["area",variables.id]);
+      //},
+    }
+  );
+
+  accendiLampioneMutation = new MobxMutation<unknown,unknown,{lampID:string}>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/accendiLampione/${variables.lampID}`)
+      },
+      onSuccess: (data, variables) => {
+        this.queryClient.invalidateQueries(["lamps",variables.lampID]);
+      },
+    }
+  );
+  
+  spegniLampioneMutation  = new MobxMutation<unknown,unknown,{lampID:string}>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/spegniLampione/${variables.lampID}`)
+      },
+      onSuccess: (data, variables) => {
+        this.queryClient.invalidateQueries(["lamps",variables.lampID]);
+      },
+    }
+  );
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
@@ -153,12 +199,13 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
   }
 */
  
-
+  
   dispose() {
     this.lampioniQueryResult.dispose();
     this.lampioniListaQueryResult.dispose();
     this.lampioniDettagliQueryResult.dispose();
     this.deleteLampioneMutation.dispose();    
     this.aggiungiLampioneMutation.dispose();
+    this.spegniLampioniAreaMutation.dispose();
   }
 }

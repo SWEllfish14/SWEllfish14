@@ -1,53 +1,72 @@
-import { observer } from "mobx-react-lite"
-import {IListaLampioniViewModel } from "../ViewModel/ListaLampioniViewModel";
+import { observer } from "mobx-react-lite";
+import { IListaLampioniViewModel } from "../ViewModel/ListaLampioniViewModel";
 import { Link } from "react-router-dom";
 
- interface Props {
-   viewModel:IListaLampioniViewModel;
- }
- const ListaLampioniView = ({viewModel}: Props) => (
+interface Props {
+  viewModel: IListaLampioniViewModel;
+}
+const ListaLampioniView = ({ viewModel }: Props) => (
   <div>
-<div className ="tile is-ancestor">
-<div className="tile is-parent">
-<article className="tile is-child box">
-<h1>Lista Lampioni</h1>
-<p className="menu-label">
-    
-    {viewModel.isLoading() ? <p>Loading...</p> :
-        <ul>
-            {viewModel.listaLampioni()?.map(lampioni => (
-                <li key={lampioni.ID}>
+    <div className="tile is-ancestor">
+      <div className="tile is-parent">
+        <article className="tile is-child box">
+          <h1>Lista Lampioni</h1>
+          <p className="menu-label">
+            {viewModel.isLoading() ? (
+              <p>Loading...</p>
+            ) : (
+              <ul>
+                {viewModel.listaLampioni()?.map((lampioni) => (
+                  <li key={lampioni.ID}>
                     <p>
-                    ID: {lampioni.ID}, IP: {lampioni.IP}
+                      ID: {lampioni.ID}, IP: {lampioni.IP}
                     </p>
                     <p>
-                    Tipo interazione: {lampioni.tipo_interazione}
+                      Stato:{" "}
+                      {lampioni.stato ? (
+                        <>Acceso <>
+                        <button
+                          className="button is-danger is-small"
+                          onClick={() =>
+                            viewModel.spegniLampione(lampioni.ID)
+                          }
+                        >
+                          Spegni Lampione
+                        </button>
+                      </></>
+                      ) : (
+                        <>
+                          Spento
+                          <>
+                            <button
+                              className="button is-success is-small"
+                              onClick={() =>
+                                viewModel.accendiLampione(lampioni.ID)
+                              }
+                            >
+                              Accendi Lampione
+                            </button>
+                          </>
+                        </>
+                      )}
                     </p>
+                    <p>Tipo interazione: {lampioni.tipo_interazione}</p>
 
-<Link to={{pathname: `/modificaLampione/${lampioni.ID}`}}>
-<button
-              className="button is-outlined"
-            > Modifica dettagli Lampione </button>
-            </Link>
-                    
-                </li>
-            ))}
-           
-            
-    
-              
-        </ul>
-        }
-        </p>
-            
-</article>
-</div>
-</div>
-</div>
+                    <Link to={{ pathname: `/modificaLampione/${lampioni.ID}` }}>
+                      <button className="button is-outlined">
+                        {" "}
+                        Modifica dettagli Lampione{" "}
+                      </button>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
+);
 
-   );
- 
-
-
-export default observer(ListaLampioniView)
-
+export default observer(ListaLampioniView);
