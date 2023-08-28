@@ -95,12 +95,13 @@ const getNumeroLampioni = async () => {
 };
 
 const eliminaLampione = async (id) => {
-    const result = await Lampione.destroy({
+     lampione = await Lampione.findOne({
         where: {
             ID: id
         }
     })
-    return result;
+    count = await lampione.destroy();
+    return(`deleted row(s): ${count}`);
 }
 
 const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,luminositaManuale,stato) =>{

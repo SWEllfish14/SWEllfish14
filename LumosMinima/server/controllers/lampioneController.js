@@ -60,7 +60,7 @@ areaService = require("../services/areaService")
           }
           try {
             const result = await lampioneService.eliminaLampione(id)
-            res.status(200).send({data:"Lampione eliminato"})
+            res.status(200).send({result:result})
           } catch (error) {
             res
               .status(error?.status || 500)

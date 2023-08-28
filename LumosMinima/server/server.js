@@ -13,12 +13,12 @@ const interval = 0.5; // Interval in minutes
 
 function checkForUpdate() {
   console.log('Checking for updates...');
-  /*axios.post(updateUrl,{
+  axios.post(updateUrl,{
       "sensor_id": " 1",
       "range_detection": "25",
       "sensor_detection": false
   })
-  */
+  
  axios.get(updateUrl)
   
     .then(response => {
@@ -43,10 +43,11 @@ function checkForUpdate() {
    
 }
 
-// Set up a cron job to run every N minutes
-cron.schedule("*/10 * * * * *", checkForUpdate);
 
-console.log(`Update worker scheduled to run every ${interval} minutes.`);
+// Set up a cron job to run every N minutes
+//cron.schedule("*/10 * * * * *", checkForUpdate);
+
+//console.log(`Update worker scheduled to run every ${interval} minutes.`);
 
 function createServer() {
     

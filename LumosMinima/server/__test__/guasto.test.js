@@ -37,8 +37,8 @@ describe("guasti",()=>{
               expect(getNumeroGuastiServiceMock).toHaveBeenCalled();
               expect(getNumeroGuastiServiceMock).toThrowError()
             })
-          })
-      })
+          }),
+      
 
       describe("get tutti guasti", () => {
         describe("Il database risponde correttamente", () => {
@@ -53,7 +53,27 @@ describe("guasti",()=>{
             expect(body).toEqual(Array(guastiPayload,guastiPayload,guastiPayload,guastiPayload))
             expect(getAllGuastiServiceMock).toHaveBeenCalled();
           })
+        })
+      }),
+
+      
+
+        describe("get numero dei guasti a sistema", () => {
+          describe("Il database risponde correttamente", () => {
+            it("Ritorna stato 200 e il numero dei guasti",async() => {
+              const getNumeroGuastiServiceMock = jest.
+              spyOn(guastoService,"getNumeroGuasti")
+              .mockReturnValueOnce(9)
+      
+              const {statusCode, body} = await supertest(app)
+                .get("/numeroGuasti")
+              expect(statusCode).toBe(200)
+              expect(body).toEqual({numeroGuasti:9})
+              expect(getNumeroGuastiServiceMock).toHaveBeenCalled();
+            })
+          })
         }),
+
         describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
               const getAllGuastiServiceMock = jest.
@@ -69,4 +89,5 @@ describe("guasti",()=>{
             })
           })
       })
+
 })
