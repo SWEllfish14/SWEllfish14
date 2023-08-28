@@ -3,8 +3,8 @@ import { IModificaGuastoViewModel } from "../ViewModel/ModificaGuastoViewModel";
 interface Props {
   viewModel: IModificaGuastoViewModel;
 }
-const ModificaGuastoView = ({ viewModel }: Props) => (
 
+const ModificaGuastoView = ({ viewModel }: Props) => (
   <div>
     <form action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
       <div className="tile is-ancestor">
@@ -12,7 +12,7 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
           <article className="tile is-child box">
             <h1>Modifica guasto</h1>
             <p className="menu-label">
-              <label htmlFor="id">ID città</label>
+              <label htmlFor="id">ID guasto</label>
               <input
                 id="id"
                 name="id"
@@ -22,39 +22,37 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
                 readOnly
               ></input>
               
-              {/* <label htmlFor="citta">Nome città</label>
+              <label htmlFor="new_data_rilevamento">data rilevamento guasto</label>
               <input
-                id="citta"
-                name="citta"
+                id="new_data_rilevamento"
+                name="new_data_rilevamento"
                 className="input"
                 type="text"
-                placeholder={viewModel.guastoDetails().data?.città}
-                defaultValue={viewModel.guastoDetails().data?.città}
+                placeholder={viewModel.guastoDetails().data?.data_rilevamento.toString()}
+                defaultValue={viewModel.guastoDetails().data?.data_rilevamento.toString()}
               ></input>
-              <label htmlFor="zonaGeografica">Zona geografica città</label>
+
+              <label htmlFor="new_stato">stato</label>
               <input
-                id="zonaGeografica"
-                name="zonaGeografica"
+                id="new_stato"
+                name="new_stato"
                 className="input"
                 type="text"
-                placeholder={viewModel.guastoDetails().data?.zona_geografica_città}
-                defaultValue={viewModel.guastoDetails().data?.zona_geografica_città}
+                placeholder={viewModel.guastoDetails().data?.stato}
+                defaultValue={viewModel.guastoDetails().data?.stato}
               ></input>
-              <label htmlFor="modalita">Modalità funzionamento</label>
-              <select id="modalita"
-                name="modalita" className="input">
-                <option value="A">Automatico</option>
-                <option value="M">Manuale</option>
-                <option defaultValue = {viewModel.guastoDetails().data?.modalità_funzionamento.toString()}></option>
-              </select>
-              <label htmlFor="stato">Stato</label>
-              <select id="stato" name="stato" className="input">
-                <option value="0">Spento</option>
-                <option value="1">Acceso</option>
-                <option defaultValue={viewModel.guastoDetails().data?.stato}></option>
-              </select>
+
+              <label htmlFor="new_id_area_illuminata">id area illuminata</label>
+              <input
+                id="new_id_area_illuminata"
+                name="new_id_area_illuminata"
+                className="input"
+                type="text"
+                placeholder={viewModel.guastoDetails().data?.id_area_illuminata.toString()}
+                defaultValue={viewModel.guastoDetails().data?.id_area_illuminata.toString()}
+              ></input>
               
-              <label htmlFor="luminositaDefault">Luminosità default</label>
+{/*               <label htmlFor="data_risoluzione">Data risoluzione guasto</label>
               <input
                 id="luminositaDefault"
                 name="luminositaDefault"
@@ -62,22 +60,10 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
                 type="number"
                 min={0}
                 max={10}
-                placeholder={viewModel.guastoDetails().data?.luminosità_standard.toString()}
-                defaultValue={viewModel.guastoDetails().data?.luminosità_standard.toString()}
-              ></input>
-              <label htmlFor="luminositaRilevamento">
-                Luminosità rilevamento{" "}
-              </label>
-              <input
-                id="luminositaRilevamento"
-                name="luminositaRilevamento"
-                className="input"
-                type="number"
-                min={0}
-                max={10}
-                placeholder={viewModel.guastoDetails().data?.luminosità_rilevamento.toString()}
-                defaultValue={viewModel.guastoDetails().data?.luminosità_rilevamento.toString()}
+                placeholder={viewModel.guastoDetails().data?.data_risoluzione.toString()}
+                defaultValue={viewModel.guastoDetails().data?.data_risoluzione.toString()}
               ></input> */}
+
             </p>
           </article>
         </div>

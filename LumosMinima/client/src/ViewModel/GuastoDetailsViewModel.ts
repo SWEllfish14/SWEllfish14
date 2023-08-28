@@ -1,5 +1,5 @@
 import { useInstance } from "react-ioc";
-import {GuastiStore} from "../stores/GuastiStore"
+import { GuastiStore} from "../stores/GuastiStore"
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { LampioniStore } from "../stores/LampioniStore";

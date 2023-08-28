@@ -66,7 +66,7 @@ const getAllGuasti= async (req, res) => {
 
       const modificaGuasto = async (req,res) => {
         const {
-          params: {id, new_data_rilevamento, new_stato, new_id_area_illuminata, new_data_risoluzione },
+          params: {id, new_data_rilevamento, new_stato, new_id_area_illuminata },
         } = req;
         if (!id) {
           res
@@ -77,8 +77,7 @@ const getAllGuasti= async (req, res) => {
             });
         }
         try{
-          
-          const result = await guastoService.modificaGuasto( id, new_data_rilevamento, new_stato, new_id_area_illuminata, new_data_risoluzione);
+          const result = await guastoService.modificaGuasto( id, new_data_rilevamento, new_stato, new_id_area_illuminata);
           res.status(200).send({result:result})
         }catch (error){
           res.status(error?.status || 500)

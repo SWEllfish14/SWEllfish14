@@ -8,11 +8,33 @@ import { inject } from 'react-ioc';
 
 
 export default interface IGuastiStore{
-  guastiNumberQueryResult: MobxQuery<GetNumeroGuastiJTO, unknown, GetNumeroGuastiJTO, GetNumeroGuastiJTO, QueryKey>
-  guastiQueryResult: MobxQuery<GetGuastoJTO, unknown, GetGuastoJTO, GetGuastoJTO, QueryKey>
-  get guasti():QueryObserverResult<GetGuastoJTO, unknown>
-  dispose: ()=>void
+
+  modificaGuastoMutation: MobxMutation<
+  unknown,
+  unknown,
+  {
+    id: string,
+    data: FormData
+  },
+  unknown
+  >;
+
+  eliminaGuastoMutation :MobxMutation<
+  unknown,
+  unknown,
+  {
+    id: string;
+  },
+  unknown
+  >;
+  
+    guastiNumberQueryResult: MobxQuery<GetNumeroGuastiJTO, unknown, GetNumeroGuastiJTO, GetNumeroGuastiJTO, QueryKey>
+    guastiQueryResult: MobxQuery<GetGuastoJTO, unknown, GetGuastoJTO, GetGuastoJTO, QueryKey>
+    get guasti():QueryObserverResult<GetGuastoJTO, unknown>
+    dispose: ()=>void;
+
 }
+
 export class GuastiStore implements IGuastiStore {
     queryClient = inject(this, QueryClient);
 
@@ -55,7 +77,8 @@ export class GuastiStore implements IGuastiStore {
     modificaGuastoMutation = new MobxMutation<unknown,unknown,{id:string,data:FormData}>(
       {
         mutationFn: async (variables) => {
-          await axios.post(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_data_rilevamento')}/${variables.data.get('new_stato')}/${variables.data.get('new_id_area_illuminata')}/${variables.data.get('new_data_risoluzione')}`, variables.data)
+          await axios.post(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_data_rilevamento')}/${variables.data.get('new_stato')}/${variables.data.get('new_id_area_illuminata')}`, variables.data)
+
         },
       }
     )
@@ -65,6 +88,7 @@ export class GuastiStore implements IGuastiStore {
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
   }
+
 
   get guastiNumber() {
     return this.guastiNumberQueryResult.query();
@@ -78,6 +102,7 @@ export class GuastiStore implements IGuastiStore {
     this.guastiQueryResult.dispose();
     this.eliminaGuastoMutation.dispose();
     this.modificaGuastoMutation.dispose();
-
+    this.guastoDetailsQueryResult.dispose();
+    
   }
 }

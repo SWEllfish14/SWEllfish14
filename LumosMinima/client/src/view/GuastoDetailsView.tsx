@@ -18,7 +18,7 @@ const GuastoDetailsView = ({ viewModel }: Props) => (
             <h1>Data rilevamento: {viewModel.guastoDetails().data?.data_rilevamento.toString()}</h1> 
             <p>Id area: {viewModel.guastoDetails().data?.id_area_illuminata}</p>
             <p>Stato: {viewModel.guastoDetails().data?.stato}</p>
-            {/* <p>data risoluzione: {viewModel.guastoDetails().data?}</p> */}
+            {/* <p>Data risoluzione: {viewModel.guastoDetails().data?.data_risoluzione}</p> */}
           </div>
         )}
         </div>
@@ -38,7 +38,7 @@ const GuastoDetailsView = ({ viewModel }: Props) => (
           className="button is-danger is-small"
            onClick={() => viewModel.eliminaGuasto()} 
         >
-          Elimina area
+          Elimina guasto
         </button>
 
       </div>

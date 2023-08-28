@@ -42,12 +42,11 @@ const eliminaGuasto = async(id) =>{
   return(`deleted row(s): ${count}`);
 }
 
-
-const modificaGuasto = async(id, new_data_rilevamento, new_stato, new_id_area_illuminata, new_data_risoluzione) =>{
+const modificaGuasto = async(id, new_data_rilevamento, new_stato, new_id_area_illuminata) =>{
   
-  const  guasto  = await Guasto.findByPk(id);
+ const  guasto  = await Guasto.findByPk(id);
 
-  if(new_data_rilevamento){
+   if(new_data_rilevamento){
     guasto.update({
       data_rilevamento:new_data_rilevamento
     },{ where: {
@@ -68,13 +67,6 @@ if(new_stato){
     },{ where: {
       ID: id,
     }})  }
-
-  if(new_data_risoluzione){
-    guasto.update({
-      data_risoluzione:new_data_risoluzione
-    },{ where: {
-      ID: id,
-    }})  }
     
     return ("Guasto modificato")
 }
@@ -83,5 +75,6 @@ module.exports = {
     getAllGuasti,
     getNumeroGuasti,
     getOneGuasto,
-    eliminaGuasto
+    eliminaGuasto,
+    modificaGuasto
 }

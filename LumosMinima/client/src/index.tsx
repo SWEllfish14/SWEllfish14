@@ -13,6 +13,7 @@ import { AggiungiLampione } from './pages/AggiungiLampione';
 import { AggiungiSensore } from './pages/AggiungiSensore';
 import { ListaGuasti } from './pages/ListaGuasti';
 import { GuastoDetails } from './pages/GuastoDetails';
+import { ModificaGuasto } from './pages/ModificaGuasto';
 import { ListaLampioni } from './pages/ListaLampioni';
 import { ModificaArea } from './pages/ModificaArea';
 import { ListaSensori } from './pages/ListaSensori';
@@ -35,6 +36,7 @@ root.render(
       <Route path='/aggiungiSensore/:id' element={<AggiungiSensore/>}></Route>
       <Route path='/guasti' element={<ListaGuasti/>}></Route>      
       <Route path='/guasti/:id' element={<GuastoDetails/>}></Route>
+      <Route path='/modificaGuasto/:id' element={<ModificaGuasto/>}></Route>
       <Route path='/lampioni/:id' element={<ListaLampioni/>}></Route>
       <Route path='/sensori/:id' element={<ListaSensori/>}></Route>
       <Route path='/modificaArea/:id' element={<ModificaArea/>}></Route>

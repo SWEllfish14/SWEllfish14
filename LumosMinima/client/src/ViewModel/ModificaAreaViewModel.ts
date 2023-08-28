@@ -19,9 +19,10 @@ export const ModificaAreaViewModel = () => {
         submitIsError:()=>submitHasError,
         submit:async (e:any) => {
 
-            console.log("okkk")
+            
             e.preventDefault()
             var data = new FormData(e.target)
+            console.log(data)
             if(typeof id === "string"){
                 
                 const result = await store.modificaAreaMutation.mutateAsync({id,data})
