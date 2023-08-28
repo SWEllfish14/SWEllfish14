@@ -93,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `gestione_guasto_manutentore` (
 CREATE TABLE IF NOT EXISTS `guasto` (
   `ID` int(10) NOT NULL AUTO_INCREMENT,
   `data_rilevamento` date NOT NULL,
-  `stato` char(1) DEFAULT NULL,
+  `stato` int(1) DEFAULT NULL,
+  `note` varchar(200) DEFAULT NULL,
   `id_area_illuminata` int(11) NOT NULL,
   `data_risoluzione` date DEFAULT NULL,
   PRIMARY KEY (`ID`),
@@ -102,15 +103,15 @@ CREATE TABLE IF NOT EXISTS `guasto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Dump dei dati della tabella lumosminima_pb.guasto: ~8 rows (circa)
-INSERT INTO `guasto` (`ID`, `data_rilevamento`, `stato`, `id_area_illuminata`, `data_risoluzione`) VALUES
-	(1, '2023-04-13', NULL, 11, NULL),
-	(2, '2023-05-02', NULL, 11, NULL),
-	(3, '2023-04-11', NULL, 7, NULL),
-	(4, '2023-05-17', NULL, 5, NULL),
-	(5, '2023-04-13', NULL, 10, NULL),
-	(6, '2023-05-16', NULL, 7, NULL),
-	(7, '2023-04-03', NULL, 6, NULL),
-	(8, '2023-01-06', NULL, 10, NULL);
+INSERT INTO `guasto` (`ID`, `data_rilevamento`, `stato`, `note`, `id_area_illuminata`, `data_risoluzione`) VALUES
+	(1, '2023-04-13', 1, NULL , 11, NULL),
+	(2, '2023-05-02', 1, NULL , 11, NULL),
+	(3, '2023-04-11', 1, NULL , 7, NULL),
+	(4, '2023-05-17', 1, NULL , 5, NULL),
+	(5, '2023-04-13', 1, NULL , 10, NULL),
+	(6, '2023-05-16', 1, NULL , 7, NULL),
+	(7, '2023-04-03', 1, NULL , 6, NULL),
+	(8, '2023-01-06', 1, NULL , 10, NULL);
 
 -- Dump della struttura di tabella lumosminima_pb.lampione
 CREATE TABLE IF NOT EXISTS `lampione` (

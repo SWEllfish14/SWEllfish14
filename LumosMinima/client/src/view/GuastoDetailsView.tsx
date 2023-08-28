@@ -26,7 +26,7 @@ const GuastoDetailsView = ({ viewModel }: Props) => (
 
     <div className="column is-half">
       <div className="box">
-        <p>Impostazioni Area</p>
+        <p>Impostazioni Guasto</p>
 
         <Link
           to={{ pathname: `/modificaGuasto/${viewModel.guastoDetails().data?.ID}` }}
