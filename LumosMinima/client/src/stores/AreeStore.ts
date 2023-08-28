@@ -197,14 +197,15 @@ export class AreeStore implements IAreeStore {
     },
   });
 
-  aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
+aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
     mutationFn: async (variables) => {
-      await axios.post(`http://127.0.0.1:3002/aggiungiArea`, variables.data, {
+      await axios.post(`http://127.0.0.1:3002/aggiungiArea/${variables.data.get('citta')}/${variables.data.get('zonaGeografica')}/${variables.data.get('modalita')}/${variables.data.get('stato')}/${variables.data.get('luminositaDefault')}/${variables.data.get('luminositaRilevamento')}`, variables.data, {
           headers,
         })
     },
   }
 );
+  
   
   modificaAreaMutation = new MobxMutation<unknown,unknown,{id:string,data:FormData}>(
     {
