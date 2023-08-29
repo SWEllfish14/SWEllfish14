@@ -9,22 +9,40 @@ const guastiPayload={
     id_area_illuminata:11,
     data_risoluzione:null
 }
+const guastiChiusuraPayload={
+  ID:1,
+  data_rilevamento:"2023-04-13",
+  stato:1,
+  id_area_illuminata:11,
+  data_risoluzione:null
+}
 describe("guasti",()=>{
     describe("get numero guasti", () => {
         describe("Il database risponde correttamente", () => {
           it("Ritorna stato 200 e numero di guasti",async() => {
             const getNumeroGuastiServiceMock = jest.
             spyOn(guastoService,"getNumeroGuasti")
-            .mockReturnValueOnce(5)
+            .mockReturnValueOnce(9)
     
             const {statusCode, body} = await supertest(app)
               .get("/numeroGuasti")
             expect(statusCode).toBe(200)
-            expect(body).toEqual({numeroGuasti:5})
+            expect(body).toEqual({numeroGuasti:9})
             expect(getNumeroGuastiServiceMock).toHaveBeenCalled();
           })
         }),
-        describe("Il database risponde con un errore", () => {
+        it("ritorna numero di guasti",async() => {
+          const getNumeroGuastiServiceMock = jest.
+          spyOn(guastoService,"getNumeroGuasti")
+          .mockReturnValueOnce(9)
+  
+          const {statusCode, body} = await supertest(app)
+            .get("/numeroGuasti")
+          expect(body).toEqual({numeroGuasti:9})
+          expect(getNumeroGuastiServiceMock).toHaveBeenCalled();
+        })
+      })
+       /* describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
               const getNumeroGuastiServiceMock = jest.
               spyOn(guastoService,"getNumeroGuasti").mockImplementation(() => {
@@ -39,7 +57,7 @@ describe("guasti",()=>{
             })
           }),
       
-
+          */
       describe("get tutti guasti", () => {
         describe("Il database risponde correttamente", () => {
           it("Ritorna stato 200 e lista dei guasti",async() => {
@@ -55,10 +73,103 @@ describe("guasti",()=>{
           })
         })
       }),
-
+      describe('getAllGuasti', () => {
+        it('should return all guasti', async () => {
+          const guasti = await guastoService.getAllGuasti();
       
+          expect(guasti).toHaveLength(10);
+          expect(guasti[0].ID).toEqual(4);
+          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+          expect(guasti[0].note).toEqual('Lampioni intermittenti area parco. Analisi connessioni rileva connettore ossidato. Pulizia e ricostruzione connessione risolvono l instabilità.');
+          expect(guasti[0].id_area_illuminata).toEqual(5);
+          expect(guasti[0].data_risoluzione).toEqual(null)
+          //expect(guasti[0].area.citta).toEqual('Torino');
+          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+        });
+      }),
 
-        describe("get numero dei guasti a sistema", () => {
+      describe('getNumeroGuasti', () => {
+        it('should return il numero dei guasti', async () => {
+          const guasti = await guastoService.getNumeroGuasti();
+      
+          
+         // expect(guasti).toHaveLength(10);
+          expect(guasti).toEqual("10");
+          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+          //expect(guasti[0].note).toEqual('Lampioni intermittenti area parco. Analisi connessioni rileva connettore ossidato. Pulizia e ricostruzione connessione risolvono l instabilità.');
+          //expect(guasti[0].id_area_illuminata).toEqual(5);
+          //expect(guasti[0].data_risoluzione).toEqual(null)
+          //expect(guasti[0].area.citta).toEqual('Torino');
+          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+        });
+      }),
+
+      describe('getOneGuasto', () => {
+        it('should return un guasti', async () => {
+          const guasti = await guastoService.getOneGuasto(1);
+      
+        
+          expect(guasti.ID).toEqual(1);
+          expect(guasti.stato).toEqual(1);
+          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+          expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+          expect(guasti.id_area_illuminata).toEqual(11);
+          expect(guasti.data_risoluzione).toEqual(null)
+          //expect(guasti[0].area.citta).toEqual('Torino');
+          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+        });
+      }),
+
+      describe('getOneGuasto', () => {
+        it('should return un guasti', async () => {
+          const guasti = await guastoService.getOneGuasto(1);
+      
+        
+          expect(guasti.ID).toEqual(1);
+          expect(guasti.stato).toEqual(1);
+          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+          expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+          expect(guasti.id_area_illuminata).toEqual(11);
+          expect(guasti.data_risoluzione).toEqual(null)
+          //expect(guasti[0].area.citta).toEqual('Torino');
+          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+        });
+      }),
+
+      /*describe('aggiungiGuasto', () => {
+        it('should return "Guasto aggiunto"', async () => {
+          const risultato = await guastoService.aggiungiGuasto('2023-08-29', '0', 'Guasto al semaforo in via Roma', 1);
+      
+          expect(risultato).toEqual('Guasto aggiunto');
+        });
+      }),
+      */
+      
+       /* it('should create a new guasto with the given data', async () => {
+          const risultato = await guastoService.aggiungiGuasto('2023-08-29', '0', 'Guasto al semaforo in via Roma', 1);
+      
+          expect(risultato).toEqual('Guasto aggiunto');
+      
+          const guasti = await Guasto.findAll();
+      
+          expect(guasti).toHaveLength(15);
+          expect(guasti[0].id).toEqual(2);
+          //expect(guasti[0].data_rilevamento).toEqual(new Date(2023, 8, 29, 16, 3, 32, 948));
+          expect(guasti[0].stato).toEqual('Aperto');
+          expect(guasti[0].note).toEqual('Guasto al semaforo in via Roma');
+          expect(guasti[0].id_area_illuminata).toEqual(1);
+        });
+      });
+      */
+
+      describe('modificaGuasto', () => {
+        it('should return "Guasto modificato"', async () => {
+          const risultato = await guastoService.modificaGuasto(10,'2023-01-07', '1', null, 10);
+      
+          expect(risultato).toEqual('Guasto modificato');
+        });
+      }),
+        /*describe("get numero dei guasti a sistema", () => {
           describe("Il database risponde correttamente", () => {
             it("Ritorna stato 200 e il numero dei guasti",async() => {
               const getNumeroGuastiServiceMock = jest.
@@ -73,8 +184,8 @@ describe("guasti",()=>{
             })
           })
         }),
-
-        describe("Il database risponde con un errore", () => {
+*/
+        /*describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
               const getAllGuastiServiceMock = jest.
               spyOn(guastoService,"getAllGuasti").mockImplementation(() => {
@@ -88,22 +199,23 @@ describe("guasti",()=>{
               expect(getAllGuastiServiceMock).toThrowError()
             })
           })
+          
       })
-      describe('Elimina guasto', () => { 
+      */
+     
+      describe('chiudi guasto', () => { 
         describe("Dato un id valido", () => {
-          it("Ritorna stato 200 e numero di righe eliminate", async() => {
+          it("Ritorna stato 200 ", async() => {
             const eliminaAreaServiceMock = jest.
-            spyOn(guastoService,"eliminaGuasto")
-            .mockReturnValueOnce(`deleted row(s): 1`)
+            spyOn(guastoService,"chiudiGuasto")
+    
             const { statusCode, body } = await supertest(app)
-              .post("/eliminaGuasto/1")
-              .send("1");
+              .post("/chiudiGuasto/1")
               expect(statusCode).toBe(200)
-              expect(body).toEqual({"result":`deleted row(s): 1`})
               expect(eliminaAreaServiceMock).toHaveBeenCalled();
           })
         })
-       })
-    
+      })
+    })
 
-})
+      

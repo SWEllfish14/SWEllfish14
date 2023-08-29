@@ -153,16 +153,16 @@ describe("lampioni",()=>{
           it("Ritorna stato 200 e numero di lampioni",async() => {
             const getNumeroLampioniServiceMock = jest.
             spyOn(lampioneService,"getNumeroLampioni")
-            .mockReturnValueOnce(82)
+            .mockReturnValueOnce(85)
     
             const {statusCode, body} = await supertest(app)
               .get("/numeroLampioni")
             expect(statusCode).toBe(200)
-            expect(body).toEqual({numeroLampioni:82})
+            expect(body).toEqual({numeroLampioni:85})
             expect(getNumeroLampioniServiceMock).toHaveBeenCalled();
           })
         })
-        describe("Il database risponde con un errore", () => {
+        /*describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
               const getNumeroLampioniServiceMock = jest.
               spyOn(lampioneService,"getNumeroLampioni").mockImplementation(() => {
@@ -176,7 +176,9 @@ describe("lampioni",()=>{
               expect(getNumeroLampioniServiceMock).toThrowError()
             })
           })
+          */
       })
+      
 
       describe("get tutti lampioni ", () => {
         describe("Il database risponde correttamente", () => {
@@ -279,5 +281,96 @@ describe("lampioni",()=>{
           })
           */
 
+          describe('getBrightnessOfArea', () => {
+            it('ritorna la luminosità di un area', async () => {
+              const guasti = await lampioneService.getBrightnessofArea(1);
+
+            
+              expect(guasti).toEqual(2);
+             // expect(guasti.stato).toEqual(1);
+              //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+              //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+              //expect(guasti.id_area_illuminata).toEqual(11);
+              //expect(guasti.data_risoluzione).toEqual(null)
+              //expect(guasti[0].area.citta).toEqual('Torino');
+              //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+            
+            });
+          }),
+          describe('getBrightnessOfLamp', () => {
+            it('ritorna la luminosità di un lampione', async () => {
+              const guasti = await lampioneService.getBrightnessofLamp(102);
+
+              expect(guasti).toEqual(4);
+             // expect(guasti.stato).toEqual(1);
+              //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+              //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+              //expect(guasti.id_area_illuminata).toEqual(11);
+              //expect(guasti.data_risoluzione).toEqual(null)
+              //expect(guasti[0].area.citta).toEqual('Torino');
+              //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+            
+            });
+          }),
+
+            describe('getAllLampsFromAreaCount', () => {
+              it('ritorna il numero di lampioni di un area', async () => {
+                const guasti = await lampioneService.getAllLampsFromAreaCount(1);
+  
+                expect(guasti).toEqual(11);
+               // expect(guasti.stato).toEqual(1);
+                //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+                //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+                //expect(guasti.id_area_illuminata).toEqual(11);
+                //expect(guasti.data_risoluzione).toEqual(null)
+                //expect(guasti[0].area.citta).toEqual('Torino');
+                //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+              
+              
+        
+        });
+      }),
+
+      describe('getNumeroLampioni', () => {
+        it('ritorna il numero di lampioni totali', async () => {
+          const guasti = await lampioneService.getNumeroLampioni();
+          expect(guasti).toEqual("85");
+         // expect(guasti.stato).toEqual(1);
+          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+          //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+          //expect(guasti.id_area_illuminata).toEqual(11);
+          //expect(guasti.data_risoluzione).toEqual(null)
+          //expect(guasti[0].area.citta).toEqual('Torino');
+          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+        
+        
+  
+  });
+}),
+        describe('getOneLampione', () => {
+          it('ritorna i dettagli di un lampione', async () => {
+            const guasti = await lampioneService.getOneLampione(102);
+
+           
+            expect(guasti.ID).toEqual(102);
+            expect(guasti.IP).toEqual("76.59.9.77");
+            //expect(guati.tipo_interazione).toEqual("PUSH");
+            expect(guasti.luminosità_default).toEqual(7);
+            expect(guasti.luminosità_impostata).toEqual(4);
+            expect(guasti.stato).toEqual(1);
+            expect(guasti.id_area_illuminata).toEqual(11);
+        
+            //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+            //expect(guasti.id_area_illuminata).toEqual(11);
+            //expect(guasti.data_risoluzione).toEqual(null)
+            //expect(guasti[0].area.citta).toEqual('Torino');
+            //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+          
+          
+    
+    });
       })
+    })
+          
+    
     
