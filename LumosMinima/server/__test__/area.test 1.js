@@ -139,7 +139,7 @@ describe("area", () => {
         const getOneAreaServiceMock = jest
          const result = await areaService.getOneArea(1)
   
-        console.log(result)
+        expect(result).toBe
   
         //expect(getOneAreaServiceMock).toHaveBeenCalled();
       });

@@ -89,5 +89,21 @@ describe("guasti",()=>{
             })
           })
       })
+      describe('Elimina guasto', () => { 
+        describe("Dato un id valido", () => {
+          it("Ritorna stato 200 e numero di righe eliminate", async() => {
+            const eliminaAreaServiceMock = jest.
+            spyOn(guastoService,"eliminaGuasto")
+            .mockReturnValueOnce(`deleted row(s): 1`)
+            const { statusCode, body } = await supertest(app)
+              .post("/eliminaGuasto/1")
+              .send("1");
+              expect(statusCode).toBe(200)
+              expect(body).toEqual({"result":`deleted row(s): 1`})
+              expect(eliminaAreaServiceMock).toHaveBeenCalled();
+          })
+        })
+       })
+    
 
 })

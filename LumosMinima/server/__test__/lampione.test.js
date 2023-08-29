@@ -1,6 +1,7 @@
 const supertest = require('supertest')
 const lampioneService = require("../services/lampioneService");
 const lampioneController = require("../controllers/lampioneController");
+const lampioneRoutes = require("../routes/lampioneRoutes");
 const createServer = require("../server");
 const app = createServer()
 const lampionePayload={
@@ -142,6 +143,10 @@ const modificalampionePayload={
   luminosità_impostata:2,
   stato: 0
 }
+
+const modificalampionePayloadVuoto={
+  ID:397
+}
 describe("lampioni",()=>{
     describe("get numero lampioni", () => {
         describe("Il database risponde correttamente", () => {
@@ -186,8 +191,8 @@ describe("lampioni",()=>{
             expect(body).toEqual(Array(lampionePayload,lampionePayload,lampionePayload,lampionePayload))
             expect(getAllLampioniServiceMock).toHaveBeenCalled();
           })
-        })
     })
+  })
 
     describe('Modifica lampione', () => { 
       describe("Dato un payload e un id valido", () => {

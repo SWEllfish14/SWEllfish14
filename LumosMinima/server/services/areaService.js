@@ -29,6 +29,15 @@ const diminuisciLuminositaArea = async (id) => {
   return ("Luminosità diminuita");
 };
 
+const getIDAreeMax = async() => {
+  const IDAreeMax = await Area.findAll({
+    attributes: [Sequelize.fn('max', Sequelize.col('ID'))]
+  });
+
+  console.log(IDAreeMax)
+  return IDAreeMax;
+}
+
 
 
 const aggiungiArea = async(citta,zonaGeografica,stato,modalita,luminositaDefault,luminositaRilevamento) =>{
@@ -167,5 +176,6 @@ module.exports = {
   eliminaArea,
   cambiaModalitaArea,
   accendiArea,
-  spegniArea
+  spegniArea,
+  getIDAreeMax
 };

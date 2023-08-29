@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/aree',areaController.getAllAree)
 router.get('/numeroAree',areaController.getNumeroAree)
+router.get('/idAreeMax',areaController.getIDAreeMax)
 router.get('/areelimit',areaController.getFiveAree)
 router.get('/area/:id',areaController.getOneArea)
 router.post('/area/:id/aumentaluminosita',areaController.aumentaLuminositaArea)

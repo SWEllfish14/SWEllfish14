@@ -86,10 +86,26 @@ const getAllGuasti= async (req, res) => {
         
       }
 
+      const aggiungiGuasto = async (req, res) => {
+        console.log("chiamo funzione aggiunta da controller")
+        try{
+          console.log(req.body.dataRilevamento)
+          console.log(req.body.stato)
+          console.log(req.body.note)
+          console.log(req.body.id_area_illuminata)
+          const result = await guastoService.aggiungiGuasto(req.body.dataRilevamento, req.body.stato, req.body.note, req.body.id_area_illuminata);
+          res.status(200).send(result)
+        }catch (error){
+          res.status(error?.status || 500)
+          .send({ status: "FAILED", data: { error: error?.message || error } })
+        }
+      };
+
     module.exports = {
         getAllGuasti,
         getNumeroGuasti,
         getOneGuasto,
         eliminaGuasto,
-        modificaGuasto
+        modificaGuasto,
+        aggiungiGuasto
     }

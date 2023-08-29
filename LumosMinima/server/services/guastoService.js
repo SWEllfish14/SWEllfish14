@@ -80,10 +80,26 @@ const modificaGuasto = async(id, new_stato, new_note, new_id_area_illuminata, ne
   return ("Guasto modificato")
 }
 
+const aggiungiGuasto = async(dataRilevamento,stato,note,id_area_illuminata) =>{
+  console.log("chiamo funzione aggiunta da service")
+  var id = await Guasto.count() +1;
+  console.log(id)
+  console.log(dataRilevamento)
+  console.log(stato)
+  console.log(note)
+  console.log(id_area_illuminata)
+  
+  //const {citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
+  const newGuasto = await Guasto.create({ID:id,data_rilevamento:dataRilevamento,stato:stato,note:note,id_area_illuminata:id_area_illuminata,data_risoluzione:NULL})
+ await newGuasto.save()
+  return("Guasto aggiunto");
+}
+
 module.exports = {
     getAllGuasti,
     getNumeroGuasti,
     getOneGuasto,
     eliminaGuasto,
-    modificaGuasto
+    modificaGuasto,
+    aggiungiGuasto
 }

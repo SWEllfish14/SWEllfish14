@@ -19,6 +19,16 @@ const getNumeroAree= async (req, res) => {
   }
     
   };
+
+  const getIDAreeMax= async (req, res) => {
+    try{
+      const IDAree = await areaService.getIDAreeMax();
+      res.status(200).send(IDAree)
+    }catch(error) {
+      res.status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } })
+    }
+    };
 const getFiveAree= async (req, res) => {
     try{
       const fiveAree = await areaService.getFiveAree();
@@ -242,5 +252,6 @@ const diminuisciLuminositaArea= (req, res) => {
     eliminaArea,
     cambiaModalitaArea,
     accendiArea,
-    spegniArea
+    spegniArea,
+    getIDAreeMax
   }
