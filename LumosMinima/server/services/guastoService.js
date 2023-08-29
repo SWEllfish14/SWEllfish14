@@ -13,7 +13,7 @@ const getAllGuasti = async () => {
                 as: 'area',
                 attributes: ['città','zona_geografica_città']
       }  ],
-          raw:true
+          raw:true,
          
         }
     
@@ -21,6 +21,7 @@ const getAllGuasti = async () => {
   );
   return guasti;
 };
+
 
 const getNumeroGuasti = async () => {
   const numeroGuasti = await Guasto.count();
@@ -32,14 +33,24 @@ const getOneGuasto = async (id) => {
   return guasto;
 };
 
-const eliminaGuasto = async(id) =>{
+const chiudiGuasto = async(id) =>{
   guasto = await Guasto.findOne({
     where: {
       id: id,
     },
  });
- count = await guasto.destroy();
-  return(`deleted row(s): ${count}`);
+
+ /*const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
+*/
+  
+
+ guasto.update({
+  stato:1
+ })
+ 
+ //count = await guasto.destroy();
+ // return(`deleted row(s): ${count}`);
 }
 
 const modificaGuasto = async(id, new_stato, new_note, new_id_area_illuminata, new_data_risoluzione) =>{
@@ -80,17 +91,17 @@ const modificaGuasto = async(id, new_stato, new_note, new_id_area_illuminata, ne
   return ("Guasto modificato")
 }
 
-const aggiungiGuasto = async(dataRilevamento,stato,note,id_area_illuminata) =>{
+const aggiungiGuasto = async(dataRilevamento,stato,note,id_area) =>{
   console.log("chiamo funzione aggiunta da service")
   var id = await Guasto.count() +1;
   console.log(id)
   console.log(dataRilevamento)
   console.log(stato)
   console.log(note)
-  console.log(id_area_illuminata)
+  console.log(id_area)
   
   //const {citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
-  const newGuasto = await Guasto.create({ID:id,data_rilevamento:dataRilevamento,stato:stato,note:note,id_area_illuminata:id_area_illuminata,data_risoluzione:NULL})
+  const newGuasto = await Guasto.create({ID:id,data_rilevamento:dataRilevamento,stato:stato,note:note,id_area_illuminata:id_area})
  await newGuasto.save()
   return("Guasto aggiunto");
 }
@@ -99,7 +110,7 @@ module.exports = {
     getAllGuasti,
     getNumeroGuasti,
     getOneGuasto,
-    eliminaGuasto,
+    chiudiGuasto,
     modificaGuasto,
     aggiungiGuasto
 }

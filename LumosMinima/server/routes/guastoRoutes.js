@@ -6,8 +6,8 @@ const router = express.Router();
 router.get('/guasti',guastoController.getAllGuasti)
 router.get('/numeroGuasti',guastoController.getNumeroGuasti)
 router.get('/guasti/:id',guastoController.getOneGuasto)
-router.post('/eliminaGuasto/:id', guastoController.eliminaGuasto)
+router.post('/chiudiGuasto/:id', guastoController.chiudiGuasto)
 router.post('/modificaGuasto/:id/:new_stato/:new_note/:new_id_area_illuminata',guastoController.modificaGuasto)
-router.post('/aggiungiGuasto/:dataRilevamento/:stato/:note/:id_area_illuminata',guastoController.aggiungiGuasto)
+router.post('/aggiungiGuasto/:dataRilevamento/:stato/:note/:id_area',guastoController.aggiungiGuasto)
 
 module.exports = router;

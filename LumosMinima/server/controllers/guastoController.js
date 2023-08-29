@@ -9,6 +9,7 @@ const getAllGuasti= async (req, res) => {
       .send({ status: "FAILED", data: { error: error?.message || error } })
     }
     };
+
   const getNumeroGuasti= async (req, res) => {
     try{
       const numeroGuasti = await guastoService.getNumeroGuasti();
@@ -43,7 +44,7 @@ const getAllGuasti= async (req, res) => {
       };
       
 
-      const eliminaGuasto = async  (req,res) => {
+      const chiudiGuasto = async  (req,res) => {
         const {
           params: { id },
         } = req;
@@ -56,7 +57,7 @@ const getAllGuasti= async (req, res) => {
             });
         }
         try{
-          const result = await guastoService.eliminaGuasto(id)
+          const result = await guastoService.chiudiGuasto(id)
           res.status(200).send({result:result})
         }catch (error){
           res.status(error?.status || 500)
@@ -92,8 +93,8 @@ const getAllGuasti= async (req, res) => {
           console.log(req.body.dataRilevamento)
           console.log(req.body.stato)
           console.log(req.body.note)
-          console.log(req.body.id_area_illuminata)
-          const result = await guastoService.aggiungiGuasto(req.body.dataRilevamento, req.body.stato, req.body.note, req.body.id_area_illuminata);
+          console.log(req.body.id_area)
+          const result = await guastoService.aggiungiGuasto(req.body.dataRilevamento, req.body.stato, req.body.note, req.body.id_area);
           res.status(200).send(result)
         }catch (error){
           res.status(error?.status || 500)
@@ -105,7 +106,7 @@ const getAllGuasti= async (req, res) => {
         getAllGuasti,
         getNumeroGuasti,
         getOneGuasto,
-        eliminaGuasto,
+        chiudiGuasto,
         modificaGuasto,
         aggiungiGuasto
     }
