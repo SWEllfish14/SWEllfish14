@@ -48,7 +48,7 @@ export default interface IAreeStore {
     GetModificaAreaJTO,
     QueryKey
   >;
-  idAreeListaQueryResult:  MobxQuery<
+  idAreeListaQueryResultMax:  MobxQuery<
   GetAreeJTO,
   unknown,
   GetAreeJTO,
@@ -124,11 +124,11 @@ export class AreeStore implements IAreeStore {
     },
   });
 
-  idAreeListaQueryResult = new MobxQuery<GetAreeJTO>({
-    queryKey:['idAree'],
+  idAreeListaQueryResultMax = new MobxQuery<GetAreeJTO>({
+    queryKey:['idAreeMax'],
     queryFn:() => {
       return axios
-      .get(`http://localhost:3002/idAree`)
+      .get(`http://localhost:3002/idAreeMax`)
       .then((r) => r.data);
   },
   })
@@ -167,8 +167,8 @@ export class AreeStore implements IAreeStore {
     return this.areeLimitQueryResult.query();
   }
 
-  get AreeId(){
-    return this.idAreeListaQueryResult.query();
+  get AreeIdMax(){
+    return this.idAreeListaQueryResultMax.query();
   }
 
   aumentaLuminositàMutation = new MobxMutation<
@@ -264,7 +264,7 @@ aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
     this.aggiungiAreaMutation.dispose();
     this.modificaAreaMutation.dispose();
     this.eliminaAreaMutation.dispose();
-    this.idAreeListaQueryResult.dispose();
+    this.idAreeListaQueryResultMax.dispose();
     this.cambiaModalitaMutation.dispose();
   }
 }

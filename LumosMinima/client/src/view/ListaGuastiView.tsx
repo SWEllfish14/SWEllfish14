@@ -30,6 +30,13 @@ import { Link } from "react-router-dom";
 </article>
 </div>
 </div>
+<div className =" tile is-anchestor">
+<div className="tile is-parent">
+<article className="tile is-child box">
+    <a href="/aggiungiGuasto"><button className = "button is-outlined">Aggiungi nuova guasto</button></a>
+</article>
+</div>
+</div>
 </div>
 
    )

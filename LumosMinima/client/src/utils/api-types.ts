@@ -2,7 +2,7 @@ type AreaJTO = { ID: number; città: string; zona_geografica_città: string ;mod
 
 
 type GuastoJTO = {ID: number; data_rilevamento: Date; stato: string, note:string, id_area_illuminata: number , "area.città": string, "area.zona_geografica_città": string, data_risoluzione: Date};
-type LampioniJTO = {IP: number; ID: string;tipo_interazione:string;luminosita_default: string; luminosita_impostata: string;id_area_illuminata: number };
+type LampioniJTO = {IP: number; ID: string;tipo_interazione:string;luminosita_default: string; luminosita_impostata: string;id_area_illuminata: number, stato:boolean };
 
 
 type SensoriJTO = {ID: string; IP: string; polling_time: number; zona_geografica_posizionamento: string;tipo_interazione:string;raggio_azione: number; id_area_illuminata: number};

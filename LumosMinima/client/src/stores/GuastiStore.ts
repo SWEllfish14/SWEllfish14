@@ -6,7 +6,9 @@ import { QueryKey,QueryClient, QueryObserverResult } from '@tanstack/react-query
 import { MobxMutation } from '../utils/mobx_mutation';
 import { inject } from 'react-ioc';
 
-
+const headers = {
+  "Content-Type": "application/json",
+};
 export default interface IGuastiStore{
 
   modificaGuastoMutation: MobxMutation<
@@ -14,6 +16,14 @@ export default interface IGuastiStore{
   unknown,
   {
     id: string,
+    data: FormData
+  },
+  unknown
+  >;
+  aggiungiGuastoMutation: MobxMutation<
+  unknown,
+  unknown,
+  {
     data: FormData
   },
   unknown
@@ -81,6 +91,18 @@ export class GuastiStore implements IGuastiStore {
         mutationFn: async (variables) => {
           console.log(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_stato')}/${variables.data.get('new_note') ? variables.data.get('new_note') : "null" }/${variables.data.get('new_id_area_illuminata')}`);
           await axios.post(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_stato')}/${variables.data.get('new_note') ? variables.data.get('new_note') : "null" }/${variables.data.get('new_id_area_illuminata')}`, variables.data)
+          
+        },
+      }
+    )
+
+    aggiungiGuastoMutation = new MobxMutation<unknown,unknown,{data:FormData}>(
+      {
+        mutationFn: async (variables) => {
+          console.log(`http://127.0.0.1:3002/aggiungiGuasto/${variables.data.get('dataRilevamento')}/${variables.data.get('stato')}/${variables.data.get('note')}/${variables.data.get('id_area')}`);
+          await axios.post(`http://127.0.0.1:3002/aggiungiGuasto/${variables.data.get('dataRilevamento')}/${variables.data.get('stato')}/${variables.data.get('note')}/${variables.data.get('id_area')}`, variables.data, {
+            headers,
+          })
           
         },
       }
