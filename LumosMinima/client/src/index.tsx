@@ -42,7 +42,7 @@ root.render(
       <Route path='/modificaArea/:id' element={<ModificaArea/>}></Route>
       <Route path='/modificaSensore/:id' element={<ModificaSensore/>}></Route>
       <Route path='/modificaLampione/:id' element={<ModificaLampione/>}></Route>
-      <Route path='/aggiungiGuasto' element={<AggiungiGuasto/>}></Route>
+      <Route path='/aggiungiGuasto/:id' element={<AggiungiGuasto/>}></Route>
     </Routes>
     </Router>
     

@@ -38,15 +38,13 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
 
               ></input>
 
-<label htmlFor="id_area">Id area illuminata afferenza</label>
-<input
+              <label htmlFor="id_area">Id area illuminata afferenza</label>
+              <input
                   id="id_area"
                   name="id_area"
                   className="input"
-                  type="number"
-                  min={1}
-                  max= {viewModel.IDAreeMax.toString()}
-                  placeholder="ID area illuminata afferenza"
+                  type="text"
+                  value = {viewModel.areaDetails().data?.ID.toString()}
                 ></input>
                   
             </p>

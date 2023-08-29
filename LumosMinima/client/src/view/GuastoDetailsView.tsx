@@ -1,6 +1,7 @@
 import { IGuastoDetailsViewModel } from "../ViewModel/GuastoDetailsViewModel";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
+import { GuastoDetails } from "../pages/GuastoDetails";
 
 
 interface Props {
@@ -14,7 +15,9 @@ const GuastoDetailsView = ({ viewModel }: Props) => (
         {viewModel.isLoading() && <p>Loading...</p>}
         {viewModel.isError() && <p>Error: {viewModel.error()?.message}</p>}
         {viewModel.guastoDetails() && (
+          
           <div className="box">
+            <h1> ID: {viewModel.guastoDetails().data?.ID.toString()}</h1>
             <h1>Data rilevamento: {viewModel.guastoDetails().data?.data_rilevamento.toString()}</h1> 
             <p>Id area: {viewModel.guastoDetails().data?.id_area_illuminata}</p>
             <p>Stato: {viewModel.guastoDetails().data?.stato == "0"? "Non risolto" : "Risolto"}</p>
@@ -33,13 +36,21 @@ const GuastoDetailsView = ({ viewModel }: Props) => (
         >
           <button className="button is-outlined">Modifica dettagli guasto</button>
         </Link>
-
-        <button
+        <p>
+        {viewModel.guastoDetails().data?.stato.toString() === "0" ? (
+                <>
+                 <button
           className="button is-danger is-small"
-           onClick={() => viewModel.eliminaGuasto()} 
-        >
-          Elimina guasto
+           onClick={() => viewModel.chiudiGuasto()} >
+          Chiudi Guasto
         </button>
+                </>
+              ) : (
+                <>
+                  
+                </>
+              )}
+        </p>
 
       </div>
     </div>

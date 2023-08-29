@@ -50,6 +50,13 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                   {viewModel.areaDetails().data?.luminosità_standard}
                 </>
               )}
+              <p>
+              <Link
+          to={{ pathname: `/aggiungiGuasto/${viewModel.areaDetails().data?.ID}` }}
+        >
+          <button className="button is-outlined">Aggiungi guasto</button>
+        </Link>
+              </p>
             </p>
 
           </div>

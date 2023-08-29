@@ -29,7 +29,7 @@ export default interface IGuastiStore{
   unknown
   >;
 
-  eliminaGuastoMutation :MobxMutation<
+  chiudiGuastoMutation :MobxMutation<
   unknown,
   unknown,
   {
@@ -75,10 +75,10 @@ export class GuastiStore implements IGuastiStore {
       }
 
 
-    eliminaGuastoMutation = new MobxMutation<unknown,unknown,{id:string}>(
+    chiudiGuastoMutation = new MobxMutation<unknown,unknown,{id:string}>(
       {
         mutationFn: async (variables) => {
-          await axios.post(`http://127.0.0.1:3002/eliminaGuasto/${variables.id}`)
+          await axios.post(`http://127.0.0.1:3002/chiudiGuasto/${variables.id}`)
         },
         onSuccess: (data, variables) => {
           this.queryClient.invalidateQueries(["aree"]);
@@ -99,7 +99,7 @@ export class GuastiStore implements IGuastiStore {
     aggiungiGuastoMutation = new MobxMutation<unknown,unknown,{data:FormData}>(
       {
         mutationFn: async (variables) => {
-          console.log(`http://127.0.0.1:3002/aggiungiGuasto/${variables.data.get('dataRilevamento')}/${variables.data.get('stato')}/${variables.data.get('note')}/${variables.data.get('id_area')}`);
+          //console.log(`http://127.0.0.1:3002/aggiungiGuasto/${variables.data.get('dataRilevamento')}/${variables.data.get('stato')}/${variables.data.get('note')}/${variables.data.get('id_area')}`);
           await axios.post(`http://127.0.0.1:3002/aggiungiGuasto/${variables.data.get('dataRilevamento')}/${variables.data.get('stato')}/${variables.data.get('note')}/${variables.data.get('id_area')}`, variables.data, {
             headers,
           })
@@ -122,10 +122,11 @@ export class GuastiStore implements IGuastiStore {
     return this.guastiQueryResult.query();
   }
 
+
   dispose() {
     this.guastiNumberQueryResult.dispose();
     this.guastiQueryResult.dispose();
-    this.eliminaGuastoMutation.dispose();
+    this.chiudiGuastoMutation.dispose();
     this.modificaGuastoMutation.dispose();
     this.guastoDetailsQueryResult.dispose();
     

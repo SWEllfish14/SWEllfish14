@@ -5,11 +5,11 @@ import { provider, useInstance } from "react-ioc"
 
 export type IListaGuastiViewModel = ReturnType<typeof ListaGuastiViewModel>;
 
-export const ListaGuastiViewModel = (guastiStore?:GuastiStore ) => {
-    const {guasti} =useInstance(GuastiStore);
+export const ListaGuastiViewModel = () => {
+    const guasti_store =useInstance(GuastiStore);
     return {
-       guasti: ()=> guasti.data,
-      isLoading: ()=> guasti.isLoading
+       guasti: ()=> guasti_store.guasti.data,
+      isLoading: ()=> guasti_store.guasti.isLoading,
     };
   };
 

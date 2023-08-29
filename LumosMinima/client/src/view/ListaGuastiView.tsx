@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 <div className ="tile is-ancestor">
 <div className="tile is-parent">
 <article className="tile is-child box">
-<h1>Lista Guasti</h1>
+<h1>Lista Guasti a Sistema</h1>
 <p className="menu-label">
     
     {viewModel.isLoading() ? <p>Loading...</p> :
@@ -18,7 +18,9 @@ import { Link } from "react-router-dom";
             {viewModel.guasti()?.map(guasto => (
                 <li key={guasto.ID}>
                     <Link to={{pathname: `/guasti/${guasto.ID}`}}>
-                    ID: {guasto.ID}: Guasto a {guasto["area.città"]}, zona {guasto["area.zona_geografica_città"]}
+                    {guasto.data_rilevamento.toString()} 
+                    <p>ID: {guasto.ID}: Guasto a {guasto["area.città"]}, zona {guasto["area.zona_geografica_città"]}
+                    </p>
                     </Link>
                 </li>
             ))}
@@ -27,13 +29,6 @@ import { Link } from "react-router-dom";
         }
         </p>
             
-</article>
-</div>
-</div>
-<div className =" tile is-anchestor">
-<div className="tile is-parent">
-<article className="tile is-child box">
-    <a href="/aggiungiGuasto"><button className = "button is-outlined">Aggiungi nuova guasto</button></a>
 </article>
 </div>
 </div>
