@@ -20,6 +20,8 @@ import { ListaSensori } from './pages/ListaSensori';
 import { ModificaSensore } from './pages/ModificaSensore';
 import { ModificaLampione} from './pages/ModificaLampione';
 import { AggiungiGuasto} from './pages/AggiungiGuasto';
+import ProtectedRoute from './utils/ProtectedRoutes';
+import { Login } from './pages/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -29,7 +31,13 @@ root.render(
     <Router>
     <Routes>
       <Route path='/' element={<Home/>}></Route>
-      <Route path='/aree' element={<GestioneAree/>}></Route>
+      {/* <Route path='/aree' element={
+                <ProtectedRoute>
+                    <GestioneAree/>
+                </ProtectedRoute>
+            } /> */}
+            <Route path='/aree' element={<GestioneAree/>}></Route>
+      <Route path='/login' element={<Login/>}></Route> 
       <Route path='/area/:id' element={<AreaDetails/>}></Route>
       <Route path='/aggiungiArea' element={<AggiungiArea/>}></Route>
       <Route path='/aggiungiLampione/:id' element={<AggiungiLampione/>}></Route>

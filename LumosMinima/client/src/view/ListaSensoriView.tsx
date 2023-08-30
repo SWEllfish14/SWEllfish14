@@ -50,5 +50,5 @@ import { Link } from "react-router-dom";
  
 
 
-export default observer(ListaSensoriView)
+   export default observer(ListaSensoriView)
 
