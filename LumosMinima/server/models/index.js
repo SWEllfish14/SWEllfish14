@@ -22,7 +22,7 @@ db.aree = require("./areeModel")(sequelize, Sequelize);
 db.guasti = require("./guastiModel")(sequelize,Sequelize);
 db.lampioni = require("./lampioniModel")(sequelize,Sequelize);
 db.sensori = require("./sensoriModel")(sequelize,Sequelize);
-
+db.amministratori = require("./amministratoreModel")(sequelize,Sequelize);
 db.aree.hasMany(db.guasti,{ as: 'guasti', foreignKey: 'id_area_illuminata', onDelete: 'cascade',
 hooks: true, });
 db.guasti.belongsTo(db.aree,{ as: 'area', foreignKey: 'id_area_illuminata'});
