@@ -30,7 +30,7 @@ export default interface ILampioniStore{
     id: string;
   }, unknown>;
   
-  accendiLampioneMutation :  MobxMutation<unknown, unknown, {
+  /*accendiLampioneMutation :  MobxMutation<unknown, unknown, {
     lampID: string;
   }, unknown>;
 
@@ -38,7 +38,7 @@ export default interface ILampioniStore{
     lampID: string;
   }, unknown>;
   dispose: ()=>void
- 
+ */
 }
 export class LampioniStore implements ILampioniStore {
   
@@ -137,7 +137,7 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
       //},
     }
   );
-
+/*
   accendiLampioneMutation = new MobxMutation<unknown,unknown,{lampID:string}>(
     {
       mutationFn: async (variables) => {
@@ -159,7 +159,7 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
       },
     }
   );
-
+*/
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
   }
@@ -205,7 +205,7 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
     this.lampioniListaQueryResult.dispose();
     this.lampioniDettagliQueryResult.dispose();
     this.deleteLampioneMutation.dispose();    
-    this.aggiungiLampioneMutation.dispose();
+    //this.aggiungiLampioneMutation.dispose();
     this.spegniLampioniAreaMutation.dispose();
   }
 }

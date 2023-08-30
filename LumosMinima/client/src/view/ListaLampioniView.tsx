@@ -27,9 +27,10 @@ const ListaLampioniView = ({ viewModel }: Props) => (
                         <>Acceso <>
                         <button
                           className="button is-danger is-small"
-                          onClick={() =>
-                            viewModel.spegniLampione(lampioni.ID)
+                         /* onClick={() =>
+                           // viewModel.spegniLampione(lampioni.ID)
                           }
+                          */
                         >
                           Spegni Lampione
                         </button>
@@ -40,9 +41,10 @@ const ListaLampioniView = ({ viewModel }: Props) => (
                           <>
                             <button
                               className="button is-success is-small"
-                              onClick={() =>
-                                viewModel.accendiLampione(lampioni.ID)
+                              /*onClick={() =>
+                                //viewModel.accendiLampione(lampioni.ID)
                               }
+                              */
                             >
                               Accendi Lampione
                             </button>
