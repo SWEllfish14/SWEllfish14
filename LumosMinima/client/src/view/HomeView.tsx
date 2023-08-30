@@ -10,7 +10,7 @@ const HomeView = ({ viewModel }: Props) => (
     <div className="tile is-ancestor">
       <div className="tile is-parent">
         <article className="tile is-child box">
-          <h1>Stato sistema</h1>
+          <button className="button is-info">Stato sistema</button>
           <p className="menu-label">
             <li>
               Numero Guasti a sistema:
@@ -49,7 +49,7 @@ const HomeView = ({ viewModel }: Props) => (
       </div>
       <div className="tile is-parent">
         <article className="tile is-child box">
-          <h1>Lista aree</h1>
+          <button className="button is-warning">Lista aree</button>
 
           <p className="menu-label">
             {viewModel.areeLimitisLoading() ? (
@@ -63,8 +63,13 @@ const HomeView = ({ viewModel }: Props) => (
                         pathname: `/area/${area.ID}`,
                       }}
                     >
-                      {area.città}, Località: {area.zona_geografica_città}
-                      {" "}Stato: {area.stato === 1 ? "On" : "Off"}
+                      <p>
+                      {area.città}, Località: {area.zona_geografica_città}{area.stato === 1 ? (
+                        <button className="button is-success is-small is-responsive is-rounded">ON</button>
+                      ):
+                      (<button className="button is-danger is-small is-responsive is-rounded">OFF</button>)
+                      }
+                      </p>
                     </Link>
                   </li>
                 ))}
@@ -78,7 +83,7 @@ const HomeView = ({ viewModel }: Props) => (
       <div className="tile is-anchestor">
       <div className="tile is-parent">
         <article className="tile is-child box">
-          <h1>Ultimi guasti inseriti a sistema </h1>
+          <button className="button is-danger">Ultimi guasti inseriti a sistema </button>
 
           <p className="menu-label">
             {viewModel.guastiisLoading() ? (
@@ -97,9 +102,10 @@ const HomeView = ({ viewModel }: Props) => (
       </div>
       <div className="tile is-parent">
         <article className="tile is-child box">
-          <h1>Utility</h1>
-
+          <button className="button">Utility</button>
+          <p>
           <a href="/">Manuale Utente</a>
+          </p>
         </article>
       </div>
     </div>

@@ -14,7 +14,8 @@ const AreaDetailsView = ({ viewModel }: Props) => (
         {viewModel.isError() && <p>Error: {viewModel.error()?.message}</p>}
         {viewModel.areaDetails() && (
           <div className="box">
-            <h1>Città: {viewModel.areaDetails().data?.città}</h1>
+            <p>ID: {viewModel.areaDetails().data?.ID}</p>
+            <p>Città: {viewModel.areaDetails().data?.città}</p>
             <p>Zona: {viewModel.areaDetails().data?.zona_geografica_città}</p>
             
             <p>
