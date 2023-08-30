@@ -2,8 +2,53 @@
 const db = require("../models/index");
 const { raw } = require("express");
 const sensoriModel = require("../models/sensoriModel");
+const cron = require('node-cron');
+const axios = require('axios');
+const lampioneService = require("../services/lampioneService");
+const areaService = require("../services/areaService");
 Sensore = db.sensori;
 Area = db.aree;
+
+
+/*const updateUrl = 'http://127.0.0.1:4205/sensor'; // Replace with your update API URL
+const interval = 0.5; // Interval in minutes
+const  checkForUpdate = async () =>{
+  console.log('Checking for updates...');
+ axios.get(updateUrl)
+    .then(async response => {
+      //console.log('Update response:', response.data);
+      console.log(response.data.sensor_id)
+      console.log(response.data.sensor_detection)
+      console.log(response.data.id_area)
+      const modalità = await areaService.getModalitaArea(response.data.id_area)
+     if(modalità[0].modalità_funzionamento === "A"){
+      if(response.data.sensor_detection === true){
+        console.log("ok ho un rilevamento")
+        const result = await lampioneService.accendiLampioniArea(response.data.id_area)
+      }
+      else{
+        console.log("ok, niente rilevamenti")
+        const result = await lampioneService.spegniLampioniArea(response.data.id_area)
+      }
+    
+    }
+  else{
+      console.log("area in modalità manuale")
+  }
+    })
+    .catch(error => {
+      console.error('Error checking for updates:', error.message);
+    });
+
+   
+}
+*/
+
+// Set up a cron job to run every N minutes
+//cron.schedule("*/10 * * * * *", checkForUpdate);
+
+//console.log(`Update worker scheduled to run every ${interval} minutes.`);
+
 const getAllSensoriFromArea = async (id) => {
   const sensori = await db.sensori.findAll({
       where: {
@@ -132,5 +177,6 @@ module.exports = {
     getOneSensore,
     eliminaSensore,
     getNumeroSensoriAreaCount,
-    getAllAreeFromSensorID
+    getAllAreeFromSensorID,
+    //checkForUpdate
 }

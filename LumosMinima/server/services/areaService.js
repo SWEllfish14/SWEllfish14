@@ -14,6 +14,16 @@ const getFiveAree = async () => {
   const fiveAree = await Area.findAll({ order: [["ID", "ASC"]], limit: 5 });
   return fiveAree;
 };
+
+const getModalitaArea = async (id) => {
+  const area = await Area.findAll({
+    attributes: ['modalità_funzionamento'],
+      where: {
+          ID: id
+      }
+    })
+  return area;
+};
 const getOneArea = async (id) => {
   const area = await Area.findByPk(id);
   return area;
@@ -177,5 +187,6 @@ module.exports = {
   cambiaModalitaArea,
   accendiArea,
   spegniArea,
-  getIDAreeMax
+  getIDAreeMax,
+  getModalitaArea
 };

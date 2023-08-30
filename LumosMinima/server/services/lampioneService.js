@@ -21,7 +21,7 @@ const getAllLampsFromArea = async (id) => {
         //result.push(response.data)
       }
       catch (e) {
-       console.log(e)
+      // console.log(e)
       }
       }))
     return temp;
@@ -62,13 +62,13 @@ const getBrightnessofArea = async (id) => {
 
 const getBrightnessofLamp = async (id) => {
   const brightness = await Lampione.findAll({
-    attributes: ['luminosità_manuale'],
+    attributes: ['luminosità_impostata'],
       where: {
           ID: id
       }
   });
 
-  return brightness[0].luminosità_manuale;
+  return brightness[0].luminosità_impostata;
 }
 
 
@@ -163,7 +163,7 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
       },{ where: {
         ID: id,
       }})  }
-      if(stato){
+      if(stato.toString() != 'null'){
         lampione.update({
           stato:stato
         },{ where: {
@@ -186,12 +186,12 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
       console.log(lampioni[i])
         let port = 3000 + (lampioni[i]);
        console.log(port)
-       await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:bright,lamp_status:true,lamp_id:" " +lampioni[i]},{
+      /* await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:bright,lamp_status:true,lamp_id:" " +lampioni[i]},{
     headers: {
           'Content-Type': 'application/json'
       } })
          
-     
+     */
       
     }
 
@@ -216,12 +216,12 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
         console.log(lampioni[i])
           let port = 3000 + (lampioni[i]);
          console.log(port)
-         await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:0,lamp_status:false,lamp_id:" " +lampioni[i]},{
+        /* await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:0,lamp_status:false,lamp_id:" " +lampioni[i]},{
       headers: {
             'Content-Type': 'application/json'
         } })
            
-       
+       */
         //await modificaLampione(lampioni[i],null,null,null,null,0)
       }
       
@@ -229,7 +229,7 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
       for(let i = 0; i < lampioni.length; i++){
         console.log(lampioni[i])
         const result = await modificaLampione(lampioni[i],null,null,null,null,0)
-        //console.log(result)
+        console.log(result)
       }
 
 }
@@ -268,6 +268,7 @@ const spegniLampione = async(lampID) =>{
 module.exports = {
     getAllLampsFromArea,
     getNumeroLampioni,
+    getBrightnessofArea,
     eliminaLampione,
     aggiungiLampione,
     getOneLampione,
