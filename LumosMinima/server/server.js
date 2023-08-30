@@ -41,7 +41,7 @@ function checkForUpdate() {
       console.error('Error checking for updates:', error.message);
     });
 
-
+  }
 function createServer() {
     
 const app = express(); 
