@@ -24,6 +24,7 @@ parser.add_argument("-s", "--status",type=str2bool, nargs='?',
 
 parser.add_argument("-r", "--range", type=str)
 parser.add_argument("-p", "--port", type=str)
+parser.add_argument("-a", "--area_id", type=str)
 
 
 args = parser.parse_args()
@@ -31,6 +32,7 @@ sensor_id = args.id
 sensor_detection = []
 range_detection = args.range
 sensor_port = args.port
+id_area = args.area_id
 
 
 if bool(args.status) is True:
@@ -43,7 +45,7 @@ if bool(args.status) is False:
 # API REST per ottenere lo stato del lampione e la luminosità impostata
 @app.route('/sensor', methods=['GET'])
 def get_sensor_status():
-    return jsonify({'sensor_id': sensor_id, 'sensor_detection': sensor_detection, 'range_detection': range_detection})
+    return jsonify({'sensor_id': sensor_id, 'sensor_detection': sensor_detection, 'range_detection': range_detection, 'id_area': id_area})
 
 
 # API REST per accendere o spegnere il lampione e impostare la luminosità
@@ -56,21 +58,8 @@ def set_sensor_status():
     
     sensor_detection = data.get('sensor_detection', sensor_detection)
     range_detection = data.get('range_detection', range_detection)
-    return jsonify({'sensor_id': sensor_id, 'sensor_detection': sensor_detection, 'range_detection': range_detection})
+    return jsonify({'sensor_id': sensor_id, 'sensor_detection': sensor_detection, 'range_detection': range_detection, 'id_area': id_area})
 
-def turn_on_lamps(lamp_id,lamp_port, brightness_value):
-    api_url = 'http://localhost:'+port+'/lamp'
-    todo = {"lamp_id": lamp_id, "lamp_status": "1", "brightness": brightness_value}
-    headers =  {'Content-Type':'application/json'}
-    response = requests.post(api_url, data=json.dumps(todo), headers=headers)
-    response.json()
-
-def turn_off_lamps(lamp_id,lamp_port, brightness_value):
-    api_url = 'http://localhost:'+port+'/lamp'
-    todo = {"lamp_id": lamp_id, "lamp_status": "0", "brightness": brightness_value}
-    headers =  {'Content-Type':'application/json'}
-    response = requests.post(api_url, data=json.dumps(todo), headers=headers)
-    response.json()
 # Pagina web che mostra il quadrato sincronizzato con lo stato del lampione e la luminosità impostata
 @app.route('/', methods=['GET'])
 def index():
