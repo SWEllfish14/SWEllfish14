@@ -10,13 +10,11 @@ Sensore = db.sensori;
 Area = db.aree;
 
 
-const updateUrl = 'http://127.0.0.1:5205/sensor'; // Replace with your update API URL
-const interval = 0.5; // Interval in minutes
+const updateUrl = 'http://127.0.0.1:5205/sensor';
 const  checkForUpdate = async () =>{
   console.log('Checking for updates...');
  axios.get(updateUrl)
     .then(async response => {
-      //console.log('Update response:', response.data);
       console.log(response.data.sensor_id)
       console.log(response.data.sensor_detection)
       console.log(response.data.id_area)
@@ -28,7 +26,7 @@ const  checkForUpdate = async () =>{
       }
       else{
         console.log("ok, niente rilevamenti")
-        const result = await lampioneService.spegniLampioniArea(response.data.id_area)
+        const result = await lampioneService.accendiLampioniArea(response.data.id_area)
       }
     
     }
@@ -43,11 +41,9 @@ const  checkForUpdate = async () =>{
    
 }
 
-
 // Set up a cron job to run every N minutes
 cron.schedule("*/10 * * * * *", checkForUpdate);
 
-//console.log(`Update worker scheduled to run every ${interval} minutes.`);
 
 const getAllSensoriFromArea = async (id) => {
   const sensori = await db.sensori.findAll({

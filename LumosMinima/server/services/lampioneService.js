@@ -3,6 +3,7 @@ const db = require("../models/index");
 const cron = require('node-cron');
 Lampione = db.lampioni;
 Area = db.area;
+const schedule =  require('node-schedule');
 
 const getAllLampsFromArea = async (id) => {
     const lampioni = await Lampione.findAll({
@@ -10,7 +11,7 @@ const getAllLampsFromArea = async (id) => {
             id_area_illuminata: id
         }
     });
-    temp = lampioni
+    /*temp = lampioni
     result = await Promise.all(temp.map(async (lamp) => {
       try {
         port = 3000 + lamp.ID
@@ -26,6 +27,8 @@ const getAllLampsFromArea = async (id) => {
       }
       }))
     return temp;
+    */
+   return lampioni;
 }
 
 
@@ -49,13 +52,13 @@ const getLampIDtoPowerOn = async (id) => {
 
 const getBrightnessofArea = async (id) => {
   const brightness = await Area.findAll({
-    attributes: ['luminosità_manuale'],
+    attributes: ['luminosità_standard'],
       where: {
           ID: id
       }
   });
 
-  return brightness[0].luminosità_manuale;
+  return brightness[0].luminosità_standard;
 }
 
 
@@ -228,7 +231,9 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
         } })
            
        //const time_ril = 0.5;
-       cron.schedule("*/10 * * * * *", accendiLampioniArea);
+       //cron.schedule("*/10 * * * * *", accendiLampioniArea(id));
+       //schedule.scheduleJob(30000,accendiLampioniArea());
+       //setTimeout(accendiLampioniArea(id), 5000)
         
       }
 
