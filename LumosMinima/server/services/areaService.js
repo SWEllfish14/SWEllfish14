@@ -2,6 +2,11 @@ const axios = require('axios');
 axios.defaults.baseURL = 'http://localhost:142';
 const db = require("../models/index");
 Area = db.aree;
+
+const lampioniService = require("../services/lampioneService");
+//const sensoriService = require("../services/sensoreService");
+const guastiService = require("../services/guastoService");
+
 const getAllAree = async () => {
   const aree = await Area.findAll();
   return aree;
@@ -13,6 +18,16 @@ const getNumeroAree = async () => {
 const getFiveAree = async () => {
   const fiveAree = await Area.findAll({ order: [["ID", "ASC"]], limit: 5 });
   return fiveAree;
+};
+
+const getModalitaArea = async (id) => {
+  const area = await Area.findAll({
+    attributes: ['modalità_funzionamento'],
+      where: {
+          ID: id
+      }
+    })
+  return area;
 };
 const getOneArea = async (id) => {
   const area = await Area.findByPk(id);
@@ -108,6 +123,25 @@ console.log(zonaGeografica)
 }
 
 const eliminaArea = async(id) =>{
+  console.log("elimino area")
+  const lampioni = await lampioniService.getAllLampsFromArea(id);
+  const sensori = await sensoriService.getAllSensoriFromArea(id)
+  const guasti = await guastiService.eliminaGuastiArea(id)
+  for(let i = 0; i < lampioni.length; i++){
+
+    const ris = await lampioniService.eliminaLampione(lampioni[i].ID);
+
+  }
+
+  for(let i = 0; i < sensori.length; i++){
+    const ris = await sensoriService.eliminaSensore(sensori[i].ID);
+
+  }
+  for(let i = 0; i < guasti.length; i++){
+    const ris = await guastiService.eliminaGuasto(guasti[i].ID);
+
+  }
+
   area = await Area.findOne({
     where: {
       id: id,
@@ -115,6 +149,7 @@ const eliminaArea = async(id) =>{
  });
  count = await area.destroy();
   return(`deleted row(s): ${count}`);
+  
 }
 const cambiaModalitaArea = async(id) =>{
   const  area=await Area.findByPk(id);
@@ -177,5 +212,6 @@ module.exports = {
   cambiaModalitaArea,
   accendiArea,
   spegniArea,
-  getIDAreeMax
+  getIDAreeMax,
+  getModalitaArea
 };

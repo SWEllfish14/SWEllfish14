@@ -18,8 +18,8 @@ export const ListaLampioniViewModel = () => {
       dettagliLampione: ()=> lampioniStore.getdettagliLampioni(id!),
        listaLampioni: ()=> lampioniStore.getlistaLampioni(id!).data,
        isLoading: ()=> lampioniStore.getlistaLampioni(id!).isLoading,
-       accendiLampione: (lampID:string)=> lampioniStore.accendiLampioneMutation.mutateAsync({lampID}),
-       spegniLampione: (lampID:string)=> lampioniStore.spegniLampioneMutation.mutateAsync({lampID}),
+     //  accendiLampione: (lampID:string)=> lampioniStore.accendiLampioneMutation.mutateAsync({lampID}),
+     //  spegniLampione: (lampID:string)=> lampioniStore.spegniLampioneMutation.mutateAsync({lampID}),
        //eliminaLampione: (lampID:string) => store.geteliminaLampione(lampID!),
     };
   };

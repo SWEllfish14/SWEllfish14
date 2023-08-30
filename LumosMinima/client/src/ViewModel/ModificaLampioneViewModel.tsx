@@ -1,5 +1,5 @@
 import { useInstance } from "react-ioc";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { LampioniStore } from "../stores/LampioniStore";
 import { AreeStore } from "../stores/AreeStore";
 import { useState } from "react";
@@ -12,6 +12,7 @@ export const ModificaLampioneViewModel = () => {
     const store = useInstance(LampioniStore);
     let [submitHasError,setSubmitHasError]= useState(false)
     let [submitError,setSubmitError] = useState()
+    const navigate = useNavigate()
     return {
         dettagliLampione: ()=> store.getdettagliLampioni(id!),
         isLoading: ()=> store.getdettagliLampioni(id!).isLoading,
@@ -25,7 +26,7 @@ export const ModificaLampioneViewModel = () => {
             console.log(data)
               const result = await store.modificaLampioneMutation.mutateAsync({data});
               if (result.isSuccess) {
-                //navigate("/lampioni/"+id);
+                navigate("/aree");
               }
                 if(result.isError){
                     
@@ -36,11 +37,11 @@ export const ModificaLampioneViewModel = () => {
                 }
             
     },
-    eliminaLampione: async (id:string) => {
+    eliminaLampione: async () => {
       if (id !== undefined) {
         const result = await store.deleteLampioneMutation.mutateAsync({ id });
         if (result.isSuccess) {
-          //navigate("/lampioni/"+id);
+          navigate("/aree");
         }
       }
     },
