@@ -33,7 +33,7 @@ export const AggiungiSensoreViewModel = () => {
         const data = new FormData(e.target)
         const result = await store.aggiungiSensoreMutation.mutateAsync({data})
             if(result.isSuccess){
-                //navigate("/sensori/"+data.get("id"))
+                navigate("/area/"+id)
             }
             if(result.isError){
                 

@@ -85,7 +85,7 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
       <button className="button is-outlined">Cancella campi</button>
       <button
               className="button is-danger"
-                 //onClick={() => viewModel.eliminaLampione(Id)}
+                 onClick={() => viewModel.eliminaLampione()}
             > Elimina Lampione </button>
       </article>
       </div>
