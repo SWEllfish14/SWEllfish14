@@ -53,6 +53,30 @@ const chiudiGuasto = async(id) =>{
  // return(`deleted row(s): ${count}`);
 }
 
+const eliminaGuastiArea = async(id) =>{
+  const guasti = await Guasto.findAll({
+    where: {
+      id: id,
+    },
+ });
+ return guasti;
+}
+const eliminaGuasto = async(id) =>{
+  guasto = await Guasto.findOne({
+    where: {
+      id: id,
+    },
+ });
+
+ /*const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
+*/
+  
+
+ count = await guasto.destroy();
+ return(`deleted row(s): ${count}`);
+}
+
 const modificaGuasto = async(id, new_stato, new_note, new_id_area_illuminata, new_data_risoluzione) =>{
   
  const  guasto  = await Guasto.findByPk(id);
@@ -112,5 +136,7 @@ module.exports = {
     getOneGuasto,
     chiudiGuasto,
     modificaGuasto,
-    aggiungiGuasto
+    aggiungiGuasto,
+    eliminaGuasto,
+    eliminaGuastiArea
 }

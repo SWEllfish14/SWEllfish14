@@ -10,7 +10,7 @@ Sensore = db.sensori;
 Area = db.aree;
 
 
-/*const updateUrl = 'http://127.0.0.1:4205/sensor'; // Replace with your update API URL
+const updateUrl = 'http://127.0.0.1:5205/sensor'; // Replace with your update API URL
 const interval = 0.5; // Interval in minutes
 const  checkForUpdate = async () =>{
   console.log('Checking for updates...');
@@ -24,7 +24,7 @@ const  checkForUpdate = async () =>{
      if(modalità[0].modalità_funzionamento === "A"){
       if(response.data.sensor_detection === true){
         console.log("ok ho un rilevamento")
-        const result = await lampioneService.accendiLampioniArea(response.data.id_area)
+        const result = await lampioneService.accendiLampioniAreaRilevamento(response.data.id_area)
       }
       else{
         console.log("ok, niente rilevamenti")
@@ -42,10 +42,10 @@ const  checkForUpdate = async () =>{
 
    
 }
-*/
+
 
 // Set up a cron job to run every N minutes
-//cron.schedule("*/10 * * * * *", checkForUpdate);
+cron.schedule("*/10 * * * * *", checkForUpdate);
 
 //console.log(`Update worker scheduled to run every ${interval} minutes.`);
 

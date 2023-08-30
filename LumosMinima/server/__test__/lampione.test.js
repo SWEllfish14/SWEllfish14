@@ -334,7 +334,7 @@ describe("lampioni",()=>{
       describe('getNumeroLampioni', () => {
         it('ritorna il numero di lampioni totali', async () => {
           const guasti = await lampioneService.getNumeroLampioni();
-          expect(guasti).toEqual("85");
+          expect(guasti).toEqual("87");
          // expect(guasti.stato).toEqual(1);
           //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
           //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
@@ -349,10 +349,10 @@ describe("lampioni",()=>{
 }),
         describe('getOneLampione', () => {
           it('ritorna i dettagli di un lampione', async () => {
-            const guasti = await lampioneService.getOneLampione(102);
+            const guasti = await lampioneService.getOneLampione(8);
 
            
-            expect(guasti.ID).toEqual(102);
+            expect(guasti.ID).toEqual(8);
             expect(guasti.IP).toEqual("76.59.9.77");
             //expect(guati.tipo_interazione).toEqual("PUSH");
             expect(guasti.luminosità_default).toEqual(7);
