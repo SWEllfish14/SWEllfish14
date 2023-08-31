@@ -28,7 +28,7 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
       <option value ="PULL">PULL</option>
       </select>
 
-      <label htmlFor="luminositaDefault">Luminosità default</label>
+      <label htmlFor="luminositaDefault">Luminosità standard</label>
                 <input
                   id="luminositaDefault"
                   name="luminositaDefault"
@@ -39,7 +39,7 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
                   placeholder="Luminosità che l'impianto produrrà quando non ci sono rilevamenti di utenti stradali"
                 ></input>
 
-  <label htmlFor="luminositaDefault">Luminosità impostata</label>
+  <label htmlFor="luminositaDefault">Luminosità Manuale</label>
                 <input
                   id="luminositaManuale"
                   name="luminositaManuale"

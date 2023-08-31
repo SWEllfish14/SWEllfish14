@@ -24,8 +24,7 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
               <label htmlFor="stato">Stato</label>
               <select id="stato"
                 name="stato" className="input">
-                <option value="0">0</option>
-                <option value="1">1</option>
+                <option value="0">Non Risolto</option>
               </select>
               
               <label htmlFor="note">Note aggiuntive</label>
