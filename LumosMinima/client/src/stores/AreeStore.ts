@@ -16,6 +16,7 @@ import {
 import { MobxMutation } from "../utils/mobx_mutation";
 import { inject } from "react-ioc";
 import { FormatCodeSettings } from "typescript";
+import { unstable_BlockerFunction } from "react-router-dom";
 const headers = {
   "Content-Type": "application/json",
 };
@@ -246,6 +247,27 @@ aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
     {
       mutationFn: async (variables) => {
         await axios.post(`http://127.0.0.1:3002/accendiArea/${variables.id}`)
+      },
+      //onSuccess: (data, variables) => {
+       // this.queryClient.invalidateQueries(["area",variables.id]);
+      //},
+    }
+  )
+
+  accendiAllAreeMutation = new MobxMutation<unknown,unknown,unknown>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/accendiAllAree`)
+      },
+      //onSuccess: (data, variables) => {
+       // this.queryClient.invalidateQueries(["area",variables.id]);
+      //},
+    }
+  )
+  spegniAllAreeMutation = new MobxMutation<unknown,unknown,unknown>(
+    {
+      mutationFn: async (variables) => {
+        await axios.post(`http://127.0.0.1:3002/spegniAllAree`)
       },
       //onSuccess: (data, variables) => {
        // this.queryClient.invalidateQueries(["area",variables.id]);

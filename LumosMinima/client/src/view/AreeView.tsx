@@ -64,6 +64,12 @@ import { Link } from "react-router-dom";
     <p>
     <a href="/aggiungiArea"><button className = "button is-outlined">Aggiungi nuova area</button></a>
     </p>
+    <p>
+    <button className = "button is-warning" onClick={() => viewModel.aumentaLuminositaCrepuscolo()}>Aumenta Luminosità di tutte la aree</button>
+    </p>
+    <p>
+    <button className = "button is-danger" onClick={() => viewModel.diminuisciLuminositaCrepuscolo()}>Diminuisci Luminosità di tutte la aree</button>
+    </p>
 </article>
 </div>
 </div>
