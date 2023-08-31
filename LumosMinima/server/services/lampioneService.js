@@ -360,5 +360,8 @@ module.exports = {
     getBrightnessRilevamento,
     accendiLampioniAreaRilevamento,
     getBrightnessManualeArea,
-    accendiLampioniManualeArea
+    accendiLampioniManualeArea,
+    getLampIDtoPowerOn,
+    getBrightnessManualeArea,
+    setStatoSingoloLampione
 }

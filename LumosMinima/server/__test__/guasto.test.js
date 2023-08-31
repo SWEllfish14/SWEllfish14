@@ -77,12 +77,12 @@ describe("guasti",()=>{
         it('should return all guasti', async () => {
           const guasti = await guastoService.getAllGuasti();
       
-          expect(guasti).toHaveLength(10);
-          expect(guasti[0].ID).toEqual(4);
+          expect(guasti).toHaveLength(11);
+          expect(guasti[0].ID).toEqual(11);
           //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
-          expect(guasti[0].note).toEqual('Lampioni intermittenti area parco. Analisi connessioni rileva connettore ossidato. Pulizia e ricostruzione connessione risolvono l instabilità.');
-          expect(guasti[0].id_area_illuminata).toEqual(5);
-          expect(guasti[0].data_risoluzione).toEqual(null)
+          expect(guasti[0].note).toEqual('sensore rotto');
+          expect(guasti[0].id_area_illuminata).toEqual(2);
+          expect(guasti[0].data_risoluzione).toEqual("2023-08-31")
           //expect(guasti[0].area.citta).toEqual('Torino');
           //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
         });
@@ -94,7 +94,7 @@ describe("guasti",()=>{
       
           
          // expect(guasti).toHaveLength(10);
-          expect(guasti).toEqual("10");
+          expect(guasti).toEqual("11");
           //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
           //expect(guasti[0].note).toEqual('Lampioni intermittenti area parco. Analisi connessioni rileva connettore ossidato. Pulizia e ricostruzione connessione risolvono l instabilità.');
           //expect(guasti[0].id_area_illuminata).toEqual(5);
@@ -114,7 +114,7 @@ describe("guasti",()=>{
           //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
           expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
           expect(guasti.id_area_illuminata).toEqual(11);
-          expect(guasti.data_risoluzione).toEqual(null)
+          expect(guasti.data_risoluzione).toEqual("2023-08-31")
           //expect(guasti[0].area.citta).toEqual('Torino');
           //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
         });
@@ -130,7 +130,7 @@ describe("guasti",()=>{
           //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
           expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
           expect(guasti.id_area_illuminata).toEqual(11);
-          expect(guasti.data_risoluzione).toEqual(null)
+          expect(guasti.data_risoluzione).toEqual("2023-08-31")
           //expect(guasti[0].area.citta).toEqual('Torino');
           //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
         });
@@ -164,11 +164,13 @@ describe("guasti",()=>{
 
       describe('modificaGuasto', () => {
         it('should return "Guasto modificato"', async () => {
-          const risultato = await guastoService.modificaGuasto(10,'2023-01-07', '1', null, 10);
+          const risultato = await guastoService.modificaGuasto(10,'2023-01-07', '1', 10, new Date());
       
           expect(risultato).toEqual('Guasto modificato');
         });
       }),
+
+      
         /*describe("get numero dei guasti a sistema", () => {
           describe("Il database risponde correttamente", () => {
             it("Ritorna stato 200 e il numero dei guasti",async() => {
@@ -210,11 +212,28 @@ describe("guasti",()=>{
             spyOn(guastoService,"chiudiGuasto")
     
             const { statusCode, body } = await supertest(app)
-              .post("/chiudiGuasto/1")
+              .post("/chiudiGuasto/10")
               expect(statusCode).toBe(200)
               expect(eliminaAreaServiceMock).toHaveBeenCalled();
           })
         })
+      })
+      describe('eliminaGuasto', () => {
+        it('should return il numero di righe eliminate', async () => {
+          const risultato = await guastoService.aggiungiGuasto('2023-01-07',0, '1111111', 10);
+      
+          const ris2 = await guastoService.eliminaGuasto(12)
+
+          const numero = await guastoService.getNumeroGuasti()
+          expect(numero).toEqual("11");
+        });
+      }),
+      describe('getGuastiForSensoreRotto', () => {
+        it('ritorna gli id dei guasti per sensore rotto"', async () => {
+          const risultato = await guastoService.getGuastiForSensoreRotto();
+      
+          expect(risultato[0].ID).toEqual(11);
+        });
       })
     })
 
