@@ -61,9 +61,6 @@ const AreaDetailsView = ({ viewModel }: Props) => (
 
           </div>
         )}
-        {/* { <div className="box">
-            <LampList viewModel={viewModel} />
-          </div> } */}
       </div>
       <div className="column is-half">
         <div className="box">
@@ -111,6 +108,8 @@ const AreaDetailsView = ({ viewModel }: Props) => (
               />
               <label htmlFor="switchAutomatico">Automatico</label>
             </div>
+            {viewModel.areaDetails().data?.stato === 0 ? (
+              <>
             {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
               <>
                 
@@ -134,6 +133,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
             ) : (
               <></>
             )}
+            </>):(<></>)}
           </h3>
         </div>
       </div>
