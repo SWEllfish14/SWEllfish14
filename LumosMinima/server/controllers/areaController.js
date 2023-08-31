@@ -215,6 +215,27 @@ const diminuisciLuminositaArea= (req, res) => {
     }
   }
 
+  
+  const accendiAllAree = async (req,res) => {
+    try{
+      const result = await areaService.accendiAllAree()
+      res.status(200).send({result:result})
+    }catch (error){
+      res.status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } })
+    }
+  }
+
+  const spegniAllAree = async (req,res) => {
+    try{
+      const result = await areaService.spegniAllAree()
+      res.status(200).send({result:result})
+    }catch (error){
+      res.status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } })
+    }
+  }
+
   const spegniArea = async (req,res) => {
     const {
       params: { id },
@@ -253,5 +274,7 @@ const diminuisciLuminositaArea= (req, res) => {
     cambiaModalitaArea,
     accendiArea,
     spegniArea,
-    getIDAreeMax
+    getIDAreeMax,
+    accendiAllAree,
+    spegniAllAree
   }

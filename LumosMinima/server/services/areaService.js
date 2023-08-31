@@ -215,6 +215,38 @@ const spegniArea = async(id) => {
 }
 
 
+const accendiAllAree = async() => {
+  console.log("accendo tutte aree da service per crepuscolo")
+  const aree= await Area.findAll({
+    where: {
+      modalità_funzionamento : "A"
+    }
+  })
+  for(let i = 0; i < aree.length; i++){
+    const id = aree[i].ID
+    const reslt = await lampioniService.accendiLampioniAreaRilevamento(id)
+}
+
+return("Tutte le aree accese")
+}
+
+const spegniAllAree = async() => {
+  console.log("accendo tutte aree da service per crepuscolo")
+  const aree= await Area.findAll({
+    where: {
+      modalità_funzionamento : "A"
+    }
+  });
+   
+  for(let i = 0; i < aree.length; i++){
+    
+    const id = aree[i].ID
+    const reslt = await lampioniService.accendiLampioniArea(id)
+}
+
+return("Tutte le aree accese e riportate a luminosità default")
+}
+
 
 
 module.exports = {
@@ -232,5 +264,7 @@ module.exports = {
   spegniArea,
   getIDAreeMax,
   getModalitaArea,
-  diminuisciLuminositaArea
+  diminuisciLuminositaArea,
+  accendiAllAree,
+  spegniAllAree
 };
