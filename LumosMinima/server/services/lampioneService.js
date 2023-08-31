@@ -277,7 +277,7 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
 }
 
 const accendiLampione = async(lampID) =>{
-  let port = 3000 +parseInt(lampID);
+  let port = 4000 +parseInt(lampID);
   const  lampione=await Lampione.findByPk(lampID);
   const bright = await getBrightnessofArea(lampione.id_area_illuminata);
   try {
@@ -285,7 +285,7 @@ const accendiLampione = async(lampID) =>{
       headers: {
             'Content-Type': 'application/json'
         } })
-        lampione.update({luminosità_impostata:5,stato:1})
+        lampione.update({luminosità_impostata:bright,stato:1})
         return ("Lampione Acceso")
   } catch (error) {
     console.log(error)
@@ -293,14 +293,14 @@ const accendiLampione = async(lampID) =>{
   }
 }
 const spegniLampione = async(lampID) =>{
-  let port = 3000 +parseInt(lampID) ;
+  let port = 4000 +parseInt(lampID) ;
   try {
     await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:0,lamp_status:false,lamp_id:" " +lampID},{
       headers: {
             'Content-Type': 'application/json'
         } })
         const  lampione=await Lampione.findByPk(lampID);
-        lampione.update({luminosità_impostata:5,stato:0})
+        lampione.update({luminosità_impostata:0,stato:0})
         return ("Lampione spento")
   } catch (error) {
     console.log(error)
