@@ -10,7 +10,7 @@ const headers = {
 export default interface ISensoriStore{
   sensoriQueryResult: MobxQuery<GetNumeroSensoriJT0, unknown, GetNumeroSensoriJT0, GetNumeroSensoriJT0, QueryKey>
   get numeroSensori():QueryObserverResult<GetNumeroSensoriJT0, unknown>
-  get numeroSensoriArea():QueryObserverResult<GetNumeroSensoriAreaJT0, unknown>
+  getnumeroSensoriArea(areaId:string):QueryObserverResult<GetNumeroSensoriAreaJT0, unknown>
   numeroSensoriAreaQueryResult: MobxQuery<GetNumeroSensoriAreaJT0, unknown, GetNumeroSensoriAreaJT0, GetNumeroSensoriAreaJT0, QueryKey>
   getlistaSensori(areaId: string): QueryObserverResult<GetSensoriJTO, unknown>
   getdettagliSensori(sensore_id: string): QueryObserverResult<GetDettagliSensoriJTO, unknown>
@@ -58,7 +58,7 @@ export class SensoriStore implements ISensoriStore {
     return this.sensoriQueryResult.query();
   }
 
-  get numeroSensoriArea() {
+  getnumeroSensoriArea(areaId: string) {
     return this.numeroSensoriAreaQueryResult.query();
   }
 

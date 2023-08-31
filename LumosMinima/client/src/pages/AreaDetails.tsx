@@ -5,8 +5,9 @@ import { queryClient } from "../utils/utils";
 import { AreaDetailsViewModel } from "../ViewModel/AreaDetailsViewModel";
 import AreaDetailsView from "../view/AreaDetailsView";
 import { LampioniStore } from "../stores/LampioniStore";
+import { SensoriStore } from "../stores/SensoriStore";
 
-export const AreaDetails = provider(AreeStore,LampioniStore, [QueryClient, toValue(queryClient)])(
+export const AreaDetails = provider(AreeStore,LampioniStore, SensoriStore, [QueryClient, toValue(queryClient)])(
     () => {
       const viewModel = AreaDetailsViewModel();
       return <AreaDetailsView viewModel={viewModel}></AreaDetailsView>;

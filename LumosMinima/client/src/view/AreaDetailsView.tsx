@@ -17,7 +17,6 @@ const AreaDetailsView = ({ viewModel }: Props) => (
             <p>ID: {viewModel.areaDetails().data?.ID}</p>
             <p>Città: {viewModel.areaDetails().data?.città}</p>
             <p>Zona: {viewModel.areaDetails().data?.zona_geografica_città}</p>
-            
             <p>
             {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
               <>
@@ -114,7 +113,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
             </div>
             {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
               <>
-                Manuale
+                
                 <p>
                   <button
                     className="button is-warning"
@@ -133,7 +132,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                 </p>
               </>
             ) : (
-              <>Automatico</>
+              <></>
             )}
           </h3>
         </div>

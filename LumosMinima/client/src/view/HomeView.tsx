@@ -109,6 +109,9 @@ const HomeView = ({ viewModel }: Props) => (
           <p>
           <a href="/">Manuale Utente</a>
           </p>
+          <p>
+          <button className="button is-danger is-small">Logout</button>
+          </p>
         </article>
       </div>
     </div>

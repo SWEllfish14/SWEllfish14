@@ -12,7 +12,7 @@ import AreaDetailsView from "./view/AreaDetailsView";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchInterval: 6000,
+      refetchInterval: 2000,
       refetchOnWindowFocus: true,
       retry: false,
       staleTime: Infinity,

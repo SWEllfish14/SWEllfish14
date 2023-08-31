@@ -3,6 +3,7 @@ import { AreeStore } from "../stores/AreeStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { LampioniStore } from "../stores/LampioniStore";
+import { SensoriStore } from "../stores/SensoriStore";
 
 export type IAreaDetailsViewModel = ReturnType<typeof AreaDetailsViewModel>;
 
@@ -12,6 +13,7 @@ export const AreaDetailsViewModel = () => {
   const error = areaStore.getAreaDetails(id!).error;
   const navigate = useNavigate();
   const lampioniStore = useInstance(LampioniStore)
+  const sensoriStore = useInstance(SensoriStore)
   let [modalita, setModalita] = useState(
     areaStore.getAreaDetails(id!).data?.modalità_funzionamento === "M"
       ? true
@@ -21,7 +23,6 @@ export const AreaDetailsViewModel = () => {
     areaDetails: () => areaStore.getAreaDetails(id!),
     isLoading: () => areaStore.getAreaDetails(id!).isLoading,
     isError: () => areaStore.getAreaDetails(id!).isError,
-    lampioniArea: () => lampioniStore.getnumeroLampioniArea(id!),
     error: () => {
       if (error instanceof Error) {
         return error;

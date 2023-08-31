@@ -16,13 +16,21 @@ import { Link } from "react-router-dom";
     {viewModel.isLoading() ? <p>Loading...</p> :
         <ul>
             {viewModel.guasti()?.map(guasto => (
+                 <div className ="tile is-ancestor">
+                 <div className="tile is-parent is-small">
+                 <article className="tile is-child box">
+                 
                 <li key={guasto.ID}>
-                    <Link to={{pathname: `/guasti/${guasto.ID}`}}>
+                    
                     {guasto.data_rilevamento.toString()} 
                     <p>ID: {guasto.ID}: Guasto a {guasto["area.città"]}, zona {guasto["area.zona_geografica_città"]}
                     </p>
-                    </Link>
+                    <Link to={{pathname: `/guasti/${guasto.ID}`}}><button className="button is-success">Vai ai dettagli</button></Link>
+                
                 </li>
+                </article>
+                </div>
+                </div>
             ))}
             
         </ul>

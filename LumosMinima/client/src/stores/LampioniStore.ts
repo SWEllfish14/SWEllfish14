@@ -30,7 +30,7 @@ export default interface ILampioniStore{
     id: string;
   }, unknown>;
   
-  /*accendiLampioneMutation :  MobxMutation<unknown, unknown, {
+  accendiLampioneMutation :  MobxMutation<unknown, unknown, {
     lampID: string;
   }, unknown>;
 
@@ -38,7 +38,7 @@ export default interface ILampioniStore{
     lampID: string;
   }, unknown>;
   dispose: ()=>void
- */
+ 
 }
 export class LampioniStore implements ILampioniStore {
   
@@ -71,7 +71,7 @@ export class LampioniStore implements ILampioniStore {
     queryFn: ({ queryKey }) => {
       return axios
       .get(`http://localhost:3002/numeroLampioniArea/${queryKey[1]}`)
-      .then((r) => r.data);
+      .then((r) => r.data["numeroLampioniArea"]);
   },
 });
 
@@ -137,14 +137,14 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
       //},
     }
   );
-/*
+
   accendiLampioneMutation = new MobxMutation<unknown,unknown,{lampID:string}>(
     {
       mutationFn: async (variables) => {
         await axios.post(`http://127.0.0.1:3002/accendiLampione/${variables.lampID}`)
       },
       onSuccess: (data, variables) => {
-        this.queryClient.invalidateQueries(["lamps",variables.lampID]);
+        //this.queryClient.invalidateQueries(["lamps",variables.lampID]);
       },
     }
   );
@@ -155,11 +155,11 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
         await axios.post(`http://127.0.0.1:3002/spegniLampione/${variables.lampID}`)
       },
       onSuccess: (data, variables) => {
-        this.queryClient.invalidateQueries(["lamps",variables.lampID]);
+       // this.queryClient.invalidateQueries(["lamps",variables.lampID]);
       },
     }
   );
-*/
+
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
   }

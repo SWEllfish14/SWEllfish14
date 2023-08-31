@@ -16,9 +16,15 @@ import { Link } from "react-router-dom";
     {viewModel.isLoading() ? <p>Loading...</p> :
         <ul>
             {viewModel.listaSensori()?.map(sensori => (
+              <div className ="tile is-ancestor">
+              <div className="tile is-parent is-small">
+              <article className="tile is-child box">
                 <li key={sensori.ID}>
                     <p>
-                    ID: {sensori.ID}, IP: {sensori.IP}
+                    <button className="button is-success is-small is-responsive">ID: {sensori.ID}</button> 
+                    </p>
+                    <p>
+                    <button className = "button is-info is-small is-responsive">IP: {sensori.IP}</button>
                     </p>
                     <p>Tipo interazione: {sensori.tipo_interazione}, Polling time: {sensori.polling_time} ms, Raggio Azione : {sensori.raggio_azione} metri
                     </p>
@@ -31,6 +37,9 @@ import { Link } from "react-router-dom";
             </Link>
                     </p>
                 </li>
+                </article>
+                </div>
+                </div>
             ))}
         <p>
         </p>            
