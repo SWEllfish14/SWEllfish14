@@ -6,6 +6,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 const lampioneService = require("../services/lampioneService");
 const areaService = require("../services/areaService");
+const guastoService = require("../services/guastoService")
 Sensore = db.sensori;
 Area = db.aree;
 
@@ -35,8 +36,16 @@ const  checkForUpdate = async () =>{
       console.log("area in modalità manuale")
   }
     })
-    .catch(error => {
+    .catch(async error => {
+      const res = await guastoService.getGuastiForSensoreRotto()
+      if(res[0] != null){
+        console.log("guasto già a sistema")
+      }else{
+        console.log("guasto non a sistema, aggiungos")
       console.error('Error checking for updates:', error.message);
+      const newGuato = await guastoService.aggiungiGuasto(new Date(), 0,"sensore rotto",2)
+      }
+      
     });
 
    

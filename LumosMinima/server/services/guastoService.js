@@ -22,6 +22,22 @@ const getAllGuasti = async () => {
   return guasti;
 };
 
+const getGuastiForSensoreRotto = async () => {
+  const guasti = await Guasto.findAll(
+    {
+      attributes : ["ID"],
+      where: {
+        note: "sensore rotto"
+      },
+          raw:true,
+         
+        }
+    
+    
+  );
+  return guasti;
+};
+
 
 const getNumeroGuasti = async () => {
   const numeroGuasti = await Guasto.count();
@@ -47,6 +63,11 @@ const chiudiGuasto = async(id) =>{
 
  guasto.update({
   stato:1
+ })
+ const dateOfToday = new Date()
+
+ guasto.update({
+  data_risoluzione : dateOfToday
  })
  
  //count = await guasto.destroy();
@@ -138,5 +159,6 @@ module.exports = {
     modificaGuasto,
     aggiungiGuasto,
     eliminaGuasto,
-    eliminaGuastiArea
+    eliminaGuastiArea,
+    getGuastiForSensoreRotto
 }
