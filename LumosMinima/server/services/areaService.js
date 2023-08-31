@@ -4,7 +4,6 @@ const db = require("../models/index");
 Area = db.aree;
 
 const lampioniService = require("../services/lampioneService");
-const sensoriService = require("../services/sensoreService");
 const guastiService = require("../services/guastoService");
 
 const getAllAree = async () => {
@@ -36,11 +35,13 @@ const getOneArea = async (id) => {
 const aumentaLuminositaArea = async (id) => {
   const area = await Area.findByPk(id);
   const result = await area.increment('luminosità_manuale',{by:1})
+
   return ("Luminosità aumentata");
 };
 const diminuisciLuminositaArea = async (id) => {
   const area = await Area.findByPk(id);
   const result = await area.decrement('luminosità_manuale',{by:1})
+
   return ("Luminosità diminuita");
 };
 
@@ -65,10 +66,9 @@ const aggiungiArea = async(citta,zonaGeografica,stato,modalita,luminositaDefault
   console.log(modalita)
   console.log(luminositaDefault)
   console.log(luminositaRilevamento)
-  const lum_manuale = 0;
   
   //const {citta,zonaGeografica,luminositaDefault,luminositaRilevamento,modalita,stato} =data
-  const newArea = await Area.create({ID:id,città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:0,stato:stato})
+  const newArea = await Area.create({ID:id,città:citta,zona_geografica_città:zonaGeografica,modalità_funzionamento:modalita,luminosità_standard:luminositaDefault,luminosità_rilevamento:luminositaRilevamento,luminosità_manuale:1,stato:stato})
  await newArea.save()
   return("Area aggiunta");
 }
@@ -192,6 +192,9 @@ const accendiArea = async(id) => {
         ID: id,
       },
     });
+   
+    
+      const reslt = await lampioniService.accendiLampioniManualeArea(id)
     return("Area accesa")
 }
 }
@@ -205,6 +208,8 @@ const spegniArea = async(id) => {
         ID: id,
       },
     });
+
+    const reslt = await lampioniService.spegniLampioniArea(id)
     return("Area spenta")
   }
 }
@@ -226,5 +231,6 @@ module.exports = {
   accendiArea,
   spegniArea,
   getIDAreeMax,
-  getModalitaArea
+  getModalitaArea,
+  diminuisciLuminositaArea
 };

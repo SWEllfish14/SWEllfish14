@@ -60,6 +60,17 @@ const getBrightnessofArea = async (id) => {
 
   return brightness[0].luminosità_standard;
 }
+const getBrightnessManualeArea = async (id) => {
+  const brightness = await Area.findAll({
+    attributes: ['luminosità_manuale'],
+      where: {
+          ID: id
+      }
+  });
+
+  return brightness[0].luminosità_manuale;
+}
+
 
 
 const getBrightnessRilevamento = async (id) => {
@@ -195,6 +206,29 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
     const lampioni = await getLampIDtoPowerOn(id)
     const bright = await getBrightnessofArea(id);
 
+    console.log(bright);
+    console.log(lampioni.length)
+
+    for(let i = 0; i < lampioni.length; i++){
+      console.log(lampioni[i])
+        let port = 4000 + (lampioni[i]);
+       console.log(port)
+       await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:bright,lamp_status:true,lamp_id:" " +lampioni[i]},{
+    headers: {
+          'Content-Type': 'application/json'
+      } })
+         
+     
+      
+    }
+  }
+
+  const accendiLampioniManualeArea = async(id) => {
+    console.log("accendo lampioni da service")
+    
+    const lampioni = await getLampIDtoPowerOn(id)
+    const bright = await getBrightnessManualeArea(id);
+
     //console.log(bright);
     console.log(lampioni.length)
 
@@ -211,6 +245,7 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
       
     }
   }
+  
 
     const accendiLampioniAreaRilevamento = async(id) => {
       console.log("accendo lampioni da service")
@@ -323,5 +358,7 @@ module.exports = {
     accendiLampione,
     spegniLampione,
     getBrightnessRilevamento,
-    accendiLampioniAreaRilevamento
+    accendiLampioniAreaRilevamento,
+    getBrightnessManualeArea,
+    accendiLampioniManualeArea
 }

@@ -19,6 +19,7 @@ const  checkForUpdate = async () =>{
       console.log(response.data.sensor_detection)
       console.log(response.data.id_area)
       const modalità = await areaService.getModalitaArea(response.data.id_area)
+      console.log(modalità)
      if(modalità[0].modalità_funzionamento === "A"){
       if(response.data.sensor_detection === true){
         console.log("ok ho un rilevamento")
