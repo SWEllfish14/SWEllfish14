@@ -1,6 +1,9 @@
 import { observer } from "mobx-react-lite";
 import { IHomeViewModel } from "../ViewModel/HomeViewModel";
 import { Link } from "react-router-dom";
+const rimuovi = ()=>(
+  localStorage.removeItem("user-token")
+)
 
 interface Props {
   viewModel: IHomeViewModel;

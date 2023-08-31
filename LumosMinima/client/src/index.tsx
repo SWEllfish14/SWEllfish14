@@ -29,28 +29,30 @@ root.render(
     <QueryClientProvider client={queryClient}>
     
     <Router>
+      
+      
     <Routes>
-      <Route path='/' element={<Home/>}></Route>
-      {/* <Route path='/aree' element={
+    <Route path='/login' element={<Login/>}></Route>
+      <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}></Route>
+       <Route path='/aree' element={
                 <ProtectedRoute>
                     <GestioneAree/>
                 </ProtectedRoute>
-            } /> */}
-            <Route path='/aree' element={<GestioneAree/>}></Route>
-      <Route path='/login' element={<Login/>}></Route> 
-      <Route path='/area/:id' element={<AreaDetails/>}></Route>
-      <Route path='/aggiungiArea' element={<AggiungiArea/>}></Route>
-      <Route path='/aggiungiLampione/:id' element={<AggiungiLampione/>}></Route>
-      <Route path='/aggiungiSensore/:id' element={<AggiungiSensore/>}></Route>
-      <Route path='/guasti' element={<ListaGuasti/>}></Route>      
-      <Route path='/guasti/:id' element={<GuastoDetails/>}></Route>
-      <Route path='/modificaGuasto/:id' element={<ModificaGuasto/>}></Route>
-      <Route path='/lampioni/:id' element={<ListaLampioni/>}></Route>
-      <Route path='/sensori/:id' element={<ListaSensori/>}></Route>
-      <Route path='/modificaArea/:id' element={<ModificaArea/>}></Route>
-      <Route path='/modificaSensore/:id' element={<ModificaSensore/>}></Route>
-      <Route path='/modificaLampione/:id' element={<ModificaLampione/>}></Route>
-      <Route path='/aggiungiGuasto/:id' element={<AggiungiGuasto/>}></Route>
+            } /> 
+       
+      <Route path='/area/:id' element={<ProtectedRoute><AreaDetails/></ProtectedRoute>}></Route>
+      <Route path='/aggiungiArea' element={<ProtectedRoute><AggiungiArea/></ProtectedRoute>}></Route>
+      <Route path='/aggiungiLampione/:id' element={<ProtectedRoute><AggiungiLampione/></ProtectedRoute>}></Route>
+      <Route path='/aggiungiSensore/:id' element={<ProtectedRoute><AggiungiSensore/></ProtectedRoute>}></Route>
+      <Route path='/guasti' element={<ProtectedRoute><ListaGuasti/></ProtectedRoute>}></Route>      
+      <Route path='/guasti/:id' element={<ProtectedRoute><GuastoDetails/></ProtectedRoute>}></Route>
+      <Route path='/modificaGuasto/:id' element={<ProtectedRoute><ModificaGuasto/></ProtectedRoute>}></Route>
+      <Route path='/lampioni/:id' element={<ProtectedRoute><ListaLampioni/></ProtectedRoute>}></Route>
+      <Route path='/sensori/:id' element={<ProtectedRoute><ListaSensori/></ProtectedRoute>}></Route>
+      <Route path='/modificaArea/:id' element={<ProtectedRoute><ModificaArea/></ProtectedRoute>}></Route>
+      <Route path='/modificaSensore/:id' element={<ProtectedRoute><ModificaSensore/></ProtectedRoute>}></Route>
+      <Route path='/modificaLampione/:id' element={<ProtectedRoute><ModificaLampione/></ProtectedRoute>}></Route>
+      <Route path='/aggiungiGuasto/:id' element={<ProtectedRoute><AggiungiGuasto/></ProtectedRoute>}></Route>
     </Routes>
     </Router>
     

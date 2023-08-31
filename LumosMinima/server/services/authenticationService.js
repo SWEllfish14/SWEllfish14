@@ -23,7 +23,7 @@ const login = async(username,password) => {
           }
           const token = jwt.encode({
             username: username,
-            expire:"1s"
+            expire:"1h"
            },"abracadabra");
            return token;
         }
