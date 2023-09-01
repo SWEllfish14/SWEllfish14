@@ -14,7 +14,7 @@ const sensorePayload={
 describe("sensori",()=>{
     describe("get numero sensori", () => {
         describe("Il database risponde correttamente", () => {
-          it("Ritorna stato 200 e numero di lampioni",async() => {
+          it("Ritorna stato 200 e numero di sensori",async() => {
             const getNumeroSensoriServiceMock = jest.
             spyOn(sensoreService,"getNumeroSensori")
             .mockReturnValueOnce(22)
@@ -25,7 +25,7 @@ describe("sensori",()=>{
             expect(body).toEqual({numeroSensori:22})
             expect(getNumeroSensoriServiceMock).toHaveBeenCalled();
           })
-        })
+        }),
         describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
               const getNumeroSensoriServiceMock = jest.
@@ -40,7 +40,7 @@ describe("sensori",()=>{
               expect(getNumeroSensoriServiceMock).toThrowError()
             })
           })
-      })
+      }),
 
       describe("get tutti sensori ", () => {
         describe("Il database risponde correttamente", () => {
@@ -56,8 +56,46 @@ describe("sensori",()=>{
             expect(getAllSensoriServiceMock).toHaveBeenCalled();
           })
         })
+    }),
+
+    
+    describe('checkForUpdates', () => {
+      it('controlla se ci sono rilevamenti', async () => {
+        const guasti = await sensoreService.checkForUpdate()
+    
+       
+       // expect(guasti.stato).toEqual(1);
+        //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+        //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+        //expect(guasti.id_area_illuminata).toEqual(11);
+        //expect(guasti.data_risoluzione).toEqual(null)
+        //expect(guasti[0].area.citta).toEqual('Torino');
+        //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+      
+      
+    
+    });
+    }),
+
+    describe('getNumeroSensori', () => {
+      it('ritorna il numero di sensori', async () => {
+        const guasti = await sensoreService.getNumeroSensori()
+        expect(guasti).toEqual(23)
+    
+       
+       // expect(guasti.stato).toEqual(1);
+        //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+        //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+        //expect(guasti.id_area_illuminata).toEqual(11);
+        //expect(guasti.data_risoluzione).toEqual(null)
+        //expect(guasti[0].area.citta).toEqual('Torino');
+        //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+      
+      
+    
+    });
     })
-        
+      
        /* describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
               const getAllLampioniServiceMock = jest.

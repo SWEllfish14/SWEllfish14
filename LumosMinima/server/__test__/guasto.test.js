@@ -73,36 +73,9 @@ describe("guasti",()=>{
           })
         })
       }),
-      describe('getAllGuasti', () => {
-        it('should return all guasti', async () => {
-          const guasti = await guastoService.getAllGuasti();
       
-          expect(guasti).toHaveLength(11);
-          expect(guasti[0].ID).toEqual(11);
-          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
-          expect(guasti[0].note).toEqual('sensore rotto');
-          expect(guasti[0].id_area_illuminata).toEqual(2);
-          expect(guasti[0].data_risoluzione).toEqual("2023-08-31")
-          //expect(guasti[0].area.citta).toEqual('Torino');
-          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
-        });
-      }),
 
-      describe('getNumeroGuasti', () => {
-        it('should return il numero dei guasti', async () => {
-          const guasti = await guastoService.getNumeroGuasti();
-      
-          
-         // expect(guasti).toHaveLength(10);
-          expect(guasti).toEqual("11");
-          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
-          //expect(guasti[0].note).toEqual('Lampioni intermittenti area parco. Analisi connessioni rileva connettore ossidato. Pulizia e ricostruzione connessione risolvono l instabilità.');
-          //expect(guasti[0].id_area_illuminata).toEqual(5);
-          //expect(guasti[0].data_risoluzione).toEqual(null)
-          //expect(guasti[0].area.citta).toEqual('Torino');
-          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
-        });
-      }),
+   
 
       describe('getOneGuasto', () => {
         it('should return un guasti', async () => {
@@ -205,22 +178,17 @@ describe("guasti",()=>{
       })
       */
      
-      describe('chiudi guasto', () => { 
-        describe("Dato un id valido", () => {
-          it("Ritorna stato 200 ", async() => {
-            const eliminaAreaServiceMock = jest.
-            spyOn(guastoService,"chiudiGuasto")
-    
-            const { statusCode, body } = await supertest(app)
-              .post("/chiudiGuasto/10")
-              expect(statusCode).toBe(200)
-              expect(eliminaAreaServiceMock).toHaveBeenCalled();
-          })
-        })
-      })
+      describe('chiudiGuasto', () => {
+        it('cambia lo stato di un guasto da 0 a 1', async () => {
+          const risultato = await guastoService.aggiungiGuasto('2023-01-07',0, '1111111', 10);
+          const modifica = await guastoService.chiudiGuasto(12);
+
+          const guastoModificato = await guastoService.getOneGuasto(12)
+          expect(guastoModificato.stato).toEqual(1);
+        });
+      }),
       describe('eliminaGuasto', () => {
         it('should return il numero di righe eliminate', async () => {
-          const risultato = await guastoService.aggiungiGuasto('2023-01-07',0, '1111111', 10);
       
           const ris2 = await guastoService.eliminaGuasto(12)
 
@@ -233,6 +201,36 @@ describe("guasti",()=>{
           const risultato = await guastoService.getGuastiForSensoreRotto();
       
           expect(risultato[0].ID).toEqual(11);
+        });
+      }),
+
+      describe('getNumeroGuasti', () => {
+        it('should return il numero dei guasti', async () => {
+          const guasti = await guastoService.getNumeroGuasti();
+      
+          
+         // expect(guasti).toHaveLength(10);
+          expect(guasti).toEqual("11");
+          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+          //expect(guasti[0].note).toEqual('Lampioni intermittenti area parco. Analisi connessioni rileva connettore ossidato. Pulizia e ricostruzione connessione risolvono l instabilità.');
+          //expect(guasti[0].id_area_illuminata).toEqual(5);
+          //expect(guasti[0].data_risoluzione).toEqual(null)
+          //expect(guasti[0].area.citta).toEqual('Torino');
+          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+        });
+      }),
+      describe('getAllGuasti', () => {
+        it('should return all guasti', async () => {
+          const guasti = await guastoService.getAllGuasti();
+      
+          expect(guasti).toHaveLength(11);
+          expect(guasti[0].ID).toEqual(11);
+          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+          expect(guasti[0].note).toEqual('sensore rotto');
+          expect(guasti[0].id_area_illuminata).toEqual(2);
+          expect(guasti[0].data_risoluzione).toEqual("2023-08-31")
+          //expect(guasti[0].area.citta).toEqual('Torino');
+          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
         });
       })
     })

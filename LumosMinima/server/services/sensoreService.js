@@ -64,21 +64,6 @@ const getAllSensoriFromArea = async (id) => {
   return sensori;
 }
 
-const getAllAreeFromSensorID = async (id) => {
-  const result = await Area.findAll({
-    attributes: ['ID', ['sensore.ID', 'SensoreID']],
-    include: {
-      model: sensoriModel,
-      as: 'sensore',
-      attributes: [],
-    },
-  });
-
-  console.log(result);
-  return result;
-}
-
-
 
 const getNumeroSensori = async () => {
   const numeroSensori = await Sensore.count();
@@ -183,6 +168,5 @@ module.exports = {
     getOneSensore,
     eliminaSensore,
     getNumeroSensoriAreaCount,
-    getAllAreeFromSensorID,
-    //checkForUpdate
+    checkForUpdate
 }

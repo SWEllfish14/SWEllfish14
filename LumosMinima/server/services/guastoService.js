@@ -83,7 +83,7 @@ const eliminaGuastiArea = async(id) =>{
  return guasti;
 }
 const eliminaGuasto = async(id) =>{
-  guasto = await Guasto.findOne({
+  const guasto = await Guasto.findOne({
     where: {
       id: id,
     },

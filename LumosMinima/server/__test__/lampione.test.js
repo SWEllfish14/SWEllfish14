@@ -177,7 +177,7 @@ describe("lampioni",()=>{
             })
           })
           */
-      })
+      }),
       
 
       describe("get tutti lampioni ", () => {
@@ -194,7 +194,7 @@ describe("lampioni",()=>{
             expect(getAllLampioniServiceMock).toHaveBeenCalled();
           })
     })
-  })
+  }),
 
     describe('Modifica lampione', () => { 
       describe("Dato un payload e un id valido", () => {
@@ -209,7 +209,7 @@ describe("lampioni",()=>{
             expect(modificaLampioneServiceMock).toHaveBeenCalled();
         })
       })
-     })
+     }),
 
      describe('Aggiungi lampione', () => { 
       describe("Dato un payload valido", () => {
@@ -224,7 +224,7 @@ describe("lampioni",()=>{
             expect(modificaLampioneServiceMock).toHaveBeenCalled();
         })
       })
-     })
+     }),
      describe('Elimina lampione', () => { 
       describe("Dato un id valido", () => {
         it("Ritorna stato 200 e numero di righe eliminate", async() => {
@@ -238,7 +238,7 @@ describe("lampioni",()=>{
             expect(eliminaLampioneServiceMock).toHaveBeenCalled();
         })
       })
-     })
+     }),
 
      
      describe("get tutti lampioni da controller ", () => {
@@ -254,7 +254,7 @@ describe("lampioni",()=>{
           expect(body).toEqual(controllerGetAllLampsFromAreaPayload)
         })
       })
-  })
+  }),
 
   describe('get numero lampioni da controller senza id', () => {
     it('should throw 500 error if id is empty string', async () => {
@@ -263,7 +263,7 @@ describe("lampioni",()=>{
       await lampioneController.getAllLampsFromArea(mReq, mRes);
       expect(mRes).toEqual({"data": {"error": {}}, "status": "FAILED"});
     });
-  })
+  }),
         
        /* describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
@@ -313,24 +313,6 @@ describe("lampioni",()=>{
             });
           }),
 
-            describe('getAllLampsFromAreaCount', () => {
-              it('ritorna il numero di lampioni di un area', async () => {
-                const guasti = await lampioneService.getAllLampsFromAreaCount(1);
-  
-                expect(guasti).toEqual(13);
-               // expect(guasti.stato).toEqual(1);
-                //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
-                //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
-                //expect(guasti.id_area_illuminata).toEqual(11);
-                //expect(guasti.data_risoluzione).toEqual(null)
-                //expect(guasti[0].area.citta).toEqual('Torino');
-                //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
-              
-              
-        
-        });
-      }),
-
 
         describe('getOneLampione', () => {
           it('ritorna i dettagli di un lampione', async () => {
@@ -354,7 +336,7 @@ describe("lampioni",()=>{
           
     
     });
-      })
+      }),
 
       describe('getLampIDToPowerOn', () => {
         it('ritorna gli id dei lampioni da accendere in un area', async () => {
@@ -365,7 +347,7 @@ describe("lampioni",()=>{
         
   
   });
-    })
+    }),
 
     describe('getBrightnessManualeArea', () => {
       it('ritorna la luminosità manuale di un area', async () => {
@@ -375,7 +357,7 @@ describe("lampioni",()=>{
       
 
 });
-  })
+  }),
 
   describe('getBrightnessRilevamento', () => {
     it('ritorna la luminosità_rilevamento di un area', async () => {
@@ -385,7 +367,7 @@ describe("lampioni",()=>{
     
 
 });
-})
+}),
 
 describe('getBrightnessofLamp', () => {
   it('ritorna la luminosità impostata di un lampione', async () => {
@@ -395,7 +377,7 @@ describe('getBrightnessofLamp', () => {
   
 
 });
-})
+}),
 //bisogno mock
 /*describe('aggiungiLampione', () => {
   it('ritorna la luminosità impostata di un lampione', async () => {
@@ -408,27 +390,7 @@ describe('getBrightnessofLamp', () => {
 });
 })
 */
-describe('setStatoSIngoloLampione', () => {
-  it('imposta lo stato di un lampione', async () => {
-    const guasti = await lampioneService.setStatoSingoloLampione(88,0);
-  
-    const numero = await lampioneService.getOneLampione(88);
-    expect(numero[0].stato).toEqual(0)    
-  
 
-});
-})
-
-describe('eliminaLampione', () => {
-  it('elimina un Lampione', async () => {
-    const guasti = await lampioneService.eliminaLampione(88);
-  
-    const numero = await lampioneService.getAllLampsFromAreaCount(16);
-    expect(numero).toEqual(0)    
-  
-
-});
-})
 
 describe('getNumeroLampioni', () => {
   it('ritorna il numero di lampioni totali', async () => {
@@ -445,7 +407,96 @@ describe('getNumeroLampioni', () => {
   
 
 });
+}),
+
+
+describe('AggiungiLampione', () => {
+  it('aggiunge un lampione', async () => {
+    const guasti = await lampioneService.aggiungiLampione(1,'1.1.1', 'PULL', 3,5,1);
+    const numero = await lampioneService.getNumeroLampioni()
+    expect(numero).toEqual("88");
+   // expect(guasti.stato).toEqual(1);
+    //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+    //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+    //expect(guasti.id_area_illuminata).toEqual(11);
+    //expect(guasti.data_risoluzione).toEqual(null)
+    //expect(guasti[0].area.citta).toEqual('Torino');
+    //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+  
+  
+
+});
+}),
+
+describe('setStatoSingoloLampione', () => {
+  it('setta lo stato di un lampione', async () => {
+    const guasti = await lampioneService.setStatoSingoloLampione(88,1);
+    const lamp_stato = await lampioneService.getOneLampione(88)
+    expect(lamp_stato.stato).toEqual(1)
+   // expect(guasti.stato).toEqual(1);
+    //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+    //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+    //expect(guasti.id_area_illuminata).toEqual(11);
+    //expect(guasti.data_risoluzione).toEqual(null)
+    //expect(guasti[0].area.citta).toEqual('Torino');
+    //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+  
+  
+
+});
+}),
+
+
+describe('modificaLampione', () => {
+  it('modifica un lampione', async () => {
+    const guasti = await lampioneService.modificaLampione(88,'1.1.1','PUSH',3,5,1);
+    const lamp_stato = await lampioneService.getOneLampione(88)
+    expect(lamp_stato.luminosità_default).toEqual(3)
+
+   
+   // expect(guasti.stato).toEqual(1);
+    //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+    //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+    //expect(guasti.id_area_illuminata).toEqual(11);
+    //expect(guasti.data_risoluzione).toEqual(null)
+    //expect(guasti[0].area.citta).toEqual('Torino');
+    //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+  
+  
+
+});
+}),
+
+describe('eliminaLampione', () => {
+  it('elimina un Lampione', async () => {
+    const guasti = await lampioneService.eliminaLampione(88);
+  
+    const numero = await lampioneService.getAllLampsFromAreaCount(16);
+    expect(numero).toEqual(0)    
+  
+
+});
+}),
+
+
+describe('getAllLampsFromAreaCount', () => {
+  it('ritorna il numero di lampioni di un area', async () => {
+    const guasti = await lampioneService.getAllLampsFromAreaCount(1);
+
+    expect(guasti).toEqual(13);
+   // expect(guasti.stato).toEqual(1);
+    //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
+    //expect(guasti.note).toEqual('Verificato corto circuito nel pannello di controllo lampioni sud. Isolamento guasto individuato e sostituito. Test funzionalità in corso.');
+    //expect(guasti.id_area_illuminata).toEqual(11);
+    //expect(guasti.data_risoluzione).toEqual(null)
+    //expect(guasti[0].area.citta).toEqual('Torino');
+    //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
+  
+  
+
+});
 })
+
 
     })
           
