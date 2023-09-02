@@ -11,15 +11,18 @@ import { Link } from "react-router-dom";
 <div className="tile is-parent">
 <article className="tile is-child box">
 <h1>Lista Guasti a Sistema</h1>
-<p className="menu-label">
+
+<div className="columns">
     
-    {viewModel.isLoading() ? <p>Loading...</p> :
+    <div className="menu-label column is-half">
+        <h2>Guasti aperti</h2>
+        {viewModel.isLoading() ? <p>Loading...</p> :
         <ul>
             {viewModel.guasti()?.map(guasto => (
-                 <div className ="tile is-ancestor">
-                 <div className="tile is-parent is-small">
-                 <article className="tile is-child box">
-                 
+                    <div className ="tile is-ancestor">
+                    <div className="tile is-parent is-small">
+                    <article className="tile is-child box">
+                    
                 <li key={guasto.ID}>
                     
                     {guasto.data_rilevamento.toString()} 
@@ -35,7 +38,12 @@ import { Link } from "react-router-dom";
             
         </ul>
         }
-        </p>
+    </div>
+
+    <div className=" menu-label  column is-half">
+    <h2>Guasti chiusi</h2>
+    </div>
+</div>
             
 </article>
 </div>
