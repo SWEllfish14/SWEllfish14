@@ -17,11 +17,11 @@ f = open('lamps.json')
 data = json.load(f)
 active = (len(data['lampione']))
 
-numbero_of_subprocesses = 16
+numbero_of_subprocesses = active
 def run_script(i):
     if i < active:
         print(data['lampione'][i]["ID"])
-        port = 3000 + int(data['lampione'][i]["ID"])
+        port = 4000 + int(data['lampione'][i]["ID"])
         if (data['lampione'][i]["stato"]) == "1":
             status = True
             subprocess.Popen(['python', './lamp_simulator.py', "-i " + str(data['lampione'][i]["ID"]) ,"-s" + str(status), "-b " + str(data['lampione'][i]["luminosita_default"]) , "-p " + str(port) ])

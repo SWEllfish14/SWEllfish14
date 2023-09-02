@@ -4,7 +4,7 @@ const db = require("../models/index");
 Area = db.aree;
 
 const lampioniService = require("../services/lampioneService");
-const guastiService = require("../services/guastoService");
+const guastiService = require("../services/guastoService")
 
 const getAllAree = async () => {
   const aree = await Area.findAll();
@@ -126,6 +126,7 @@ const eliminaArea = async(id) =>{
   console.log("elimino area")
   const lampioni = await lampioniService.getAllLampsFromArea(id);
   if(lampioni.length == 0){
+    console.log("no lampioni")
   }
   else{
     console.log("lamps")
@@ -138,6 +139,7 @@ const eliminaArea = async(id) =>{
   }
    const sensori = await sensoriService.getAllSensoriFromArea(id)
   if(sensori.length == 0) {
+    console.log("no sensori")
   }
   else{
   for(let i = 0; i < sensori.length; i++){
@@ -147,6 +149,7 @@ const eliminaArea = async(id) =>{
 }
 const guasti = await guastiService.eliminaGuastiArea(id)
 if(guasti.length == 0){
+  console.log("no guasti")
 }
 else{
   for(let i = 0; i < guasti.length; i++){
