@@ -55,7 +55,19 @@ export class GuastiStore implements IGuastiStore {
 
       guastiQueryResult = new MobxQuery<GetGuastoJTO>({
         queryKey: ['guasti'],
-        queryFn: () => axios.get('http://localhost:3002/guasti').then((r) => r.data),
+        queryFn: () => axios.get('http://localhost:3002/guastiAperti').then((r) => r.data),
+      });
+
+      //// --- cercare di capire se tenere quello sopra
+
+      guastiApertiQueryResult = new MobxQuery<GetGuastoJTO>({
+        queryKey: ['guastiAperti'],
+        queryFn: () => axios.get('http://localhost:3002/guastiAperti').then((r) => r.data),
+      });
+
+      guastiChiusiQueryResult = new MobxQuery<GetGuastoJTO>({
+        queryKey: ['guastiChiusi'],
+        queryFn: () => axios.get('http://localhost:3002/guastiChiusi').then((r) => r.data),
       });
 
       guastoDetailsQueryResult = new MobxQuery<GetGuastoDetailsJTO>({
@@ -67,8 +79,14 @@ export class GuastiStore implements IGuastiStore {
       });
 
       getGuastiAperti() {
-        return this.guastiQueryResult.query({
-          queryKey: ['guasti'],
+        return this.guastiApertiQueryResult.query({
+          queryKey: ['guastiAperti'],
+        });
+      }
+
+      getGuastiChiusi() {
+        return this.guastiChiusiQueryResult.query({
+          queryKey: ['guastiChiusi'],
         });
       }
       
@@ -129,6 +147,8 @@ export class GuastiStore implements IGuastiStore {
   dispose() {
     this.guastiNumberQueryResult.dispose();
     this.guastiQueryResult.dispose();
+    this.guastiApertiQueryResult.dispose();
+    this.guastiChiusiQueryResult.dispose();
     this.chiudiGuastoMutation.dispose();
     this.modificaGuastoMutation.dispose();
     this.guastoDetailsQueryResult.dispose();

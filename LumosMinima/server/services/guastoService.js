@@ -24,6 +24,30 @@ const getAllGuastiAperti = async () => {
   return guasti;
 };
 
+
+const getAllGuastiChiusi = async () => {
+  const guasti = await Guasto.findAll(
+    {
+      order : [["data_rilevamento", "DESC"]],
+      where: {
+        stato: 1
+      },
+      include: [
+        {
+                model: Area,
+                as: 'area',
+                attributes: ['città','zona_geografica_città']
+      }  ],
+          raw:true,
+         
+        }
+    
+    
+  );
+  return guasti;
+};
+
+
 const getGuastiForSensoreRotto = async () => {
   const guasti = await Guasto.findAll(
     {
@@ -155,6 +179,7 @@ const aggiungiGuasto = async(dataRilevamento,stato,note,id_area) =>{
 
 module.exports = {
     getAllGuastiAperti,
+    getAllGuastiChiusi,
     getNumeroGuasti,
     getOneGuasto,
     chiudiGuasto,

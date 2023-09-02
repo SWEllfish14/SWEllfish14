@@ -9,7 +9,10 @@ export const ListaGuastiViewModel = () => {
     const guasti_store =useInstance(GuastiStore);
     return {
        guastiAperti: ()=> guasti_store.getGuastiAperti().data,
-      isLoading: ()=> guasti_store.getGuastiAperti().isLoading,
+       guastiChiusi: ()=> guasti_store.getGuastiChiusi().data,
+      
+      
+       isLoading: ()=> guasti_store.guasti.isLoading,
     };
   };
 
