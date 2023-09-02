@@ -135,7 +135,12 @@ const AreaDetailsView = ({ viewModel }: Props) => (
               <></>
             )}
             </>):(<></>)}
-            {viewModel.submitHasError ? <> Errore, riprova</>:<></>}
+
+            {viewModel.submitHasError ? 
+            <div className="notification is-danger is-light">
+              {viewModel.errorMessage}
+            </div>
+            :<></>}
           </h3>
         </div>
       </div>

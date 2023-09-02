@@ -16,6 +16,7 @@ export const AreaDetailsViewModel = () => {
   const sensoriStore = useInstance(SensoriStore)
 
   let [submitHasError,setSubmitHasError]= useState(false)
+  let [errorMessage,setErrorMessage]= useState("");
   let [modalita, setModalita] = useState(
     areaStore.getAreaDetails(id!).data?.modalità_funzionamento === "M"
       ? true
@@ -26,6 +27,7 @@ export const AreaDetailsViewModel = () => {
     isLoading: () => areaStore.getAreaDetails(id!).isLoading,
     isError: () => areaStore.getAreaDetails(id!).isError,
     submitHasError,
+    errorMessage,
     error: () => {
       if (error instanceof Error) {
         return error;
@@ -36,20 +38,27 @@ export const AreaDetailsViewModel = () => {
       if (
         id !== undefined &&
         parseInt(areaStore.getAreaDetails(id!).data?.luminosità_manuale!) < 10
-      )
+      ){
         areaStore.aumentaLuminositàMutation.mutate({ id });
+        if(submitHasError) setSubmitHasError(false);
+      }
       else{
         setSubmitHasError(true);
+        setErrorMessage("Luminosità area già al massimo");
       }
     },
+
     diminuisciLuminosità: () => {
       if (
         id !== undefined &&
         parseInt(areaStore.getAreaDetails(id!).data?.luminosità_manuale!) > 0
-      )
+      ){
         areaStore.diminuisciLuminositàMutation.mutate({ id });
+        if(submitHasError) setSubmitHasError(false);
+      }
       else{
         setSubmitHasError(true);
+        setErrorMessage("Luminosità area già al minimo");
       }
     },
     eliminaArea: async () => {
