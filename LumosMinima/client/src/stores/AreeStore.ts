@@ -101,15 +101,13 @@ export default interface IAreeStore {
     id: string;
 }, unknown>
 
-  get aree(): GetAreeJTO | undefined;
-  get areeIsLoading() : boolean | undefined;
-  get numeroAree() : number | undefined;
-  get numeroAreeIsLoading() : boolean | undefined;
+  get aree(): QueryObserverResult<GetAreeJTO, unknown>;
+  get numeroAree() : QueryObserverResult<number, unknown>;
   get areeLimit() : QueryObserverResult<GetLimitAreeJTO, unknown>
   dispose: () => void;
 }
-export class AreeStore implements IAreeStore{
-  // queryClient = inject(this, QueryClient);
+export class AreeStore implements IAreeStore {
+  queryClient = inject(this, QueryClient);
   areeQueryResult = new MobxQuery<GetAreeJTO>({
     queryKey: ["aree"],
     queryFn: () => axios.get("http://localhost:3002/aree").then((r) => r.data),
@@ -150,13 +148,12 @@ export class AreeStore implements IAreeStore{
     },
   });
 
-
-  constructor(private queryClient: QueryClient) {
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true });
   }
 
   get aree() {
-    return this.areeQueryResult.query().data;
+    return this.areeQueryResult.query();
   }
 
   getAreaDetails(areaId: string) {
@@ -165,7 +162,7 @@ export class AreeStore implements IAreeStore{
     });
   }
   get numeroAree() {
-    return this.areeNumeroQueryResult.query().data;
+    return this.areeNumeroQueryResult.query();
   }
   get areeLimit() {
     return this.areeLimitQueryResult.query();
@@ -175,13 +172,6 @@ export class AreeStore implements IAreeStore{
     return this.idAreeListaQueryResultMax.query();
   }
 
-  get areeIsLoading(){
-    return this.areeQueryResult.query().isLoading
-  }
-
-  get numeroAreeIsLoading(){
-    return this.areeLimitQueryResult.query().isLoading
-  }
   aumentaLuminositàMutation = new MobxMutation<
     unknown,
     unknown,
@@ -267,27 +257,13 @@ aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
   accendiAllAreeMutation = new MobxMutation<unknown,unknown,unknown>(
     {
       mutationFn: async (variables) => {
-        try {
-          const response = await axios.post(`http://127.0.0.1:3002/accendiAllAree`);
-          // You can log the response data to verify if it's what you expect
-          console.log('Response:', response.data);
-        } catch (error) {
-          // Handle any errors that occur during the request
-          console.error('Error:', error);
-          throw error; // Rethrow the error to indicate a failed mutation
-        }
+        await axios.post(`http://127.0.0.1:3002/accendiAllAree`)
       },
       //onSuccess: (data, variables) => {
        // this.queryClient.invalidateQueries(["area",variables.id]);
       //},
     }
   )
-  
-  accendiAllAree(){
-    this.accendiAllAreeMutation.mutateAsync({})
-  }
-  
-
   spegniAllAreeMutation = new MobxMutation<unknown,unknown,unknown>(
     {
       mutationFn: async (variables) => {
@@ -313,5 +289,4 @@ aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
     this.idAreeListaQueryResultMax.dispose();
     this.cambiaModalitaMutation.dispose();
   }
-  
 }
