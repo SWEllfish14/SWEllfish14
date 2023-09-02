@@ -7,8 +7,7 @@ const axios = require('axios');
 const lampioneService = require("../services/lampioneService");
 const areaService = require("../services/areaService");
 const guastoService = require("../services/guastoService")
-Sensore = db.sensori;
-Area = db.aree;
+
 
 
 const updateUrl = 'http://127.0.0.1:5205/sensor';
