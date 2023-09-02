@@ -36,15 +36,17 @@ const config = {
   coverageProvider: "v8",
 
   preset: "ts-jest",
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
   globals: {
     "ts-jest": {
       tsconfig: "tsconfig.json",
     }
-  }
-
+  },
+ 
+  
+ 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
   //   "json",
@@ -100,7 +102,10 @@ const config = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+   moduleNameMapper: {"^.+\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js", // replaces .css imports with an empty object
+   "\\.(jpg|png|gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js", // replaces file imports with a useless string
+   "^react($|/.+)": "<rootDir>/node_modules/react$1", // makes sure all React imports are running off of the one in this package.
+ },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -144,7 +149,7 @@ const config = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
+    
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   // setupFilesAfterEnv: [],

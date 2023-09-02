@@ -5,11 +5,11 @@
   "dependencies": {
     "@tanstack/react-query": "^4.32.6",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bulma": "^0.9.4",
     "bulma-extensions": "^6.2.7",
+    "jest-environment-jsdom": "^29.6.4",
     "js-cookie": "^3.0.5",
     "mobx-react-lite": "^4.0.3",
     "react": "^18.2.0",
@@ -29,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "coverage": "jest --coverage"
   },
   "eslintConfig": {
     "extends": [
@@ -50,8 +51,11 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.3",
     "@types/js-cookie": "^3.0.3",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1"
   }

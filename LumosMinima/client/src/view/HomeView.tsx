@@ -13,9 +13,9 @@ const HomeView = ({ viewModel }: Props) => (
     <div className="tile is-ancestor">
       <div className="tile is-parent">
         <article className="tile is-child box">
-          <button className="button is-info">Stato sistema</button>
+          <button className="button is-info" name="Stato">Stato sistema</button>
           <p className="menu-label">
-            <li>
+            <li id="numeroGuasti">
               Numero Guasti a sistema:
               {viewModel.guastiNumberisLoading() ? (
                 <p>Loading...</p>
