@@ -15,10 +15,6 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 app = Flask(__name__)
 CORS(app)
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3020',
-    'http://127.0.0.1:3020/lamp',
-]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
