@@ -129,11 +129,30 @@ const modificaGuasto = async(id, new_stato, new_note, new_id_area_illuminata, ne
  const  guasto  = await Guasto.findByPk(id);
 
   if(new_stato){
-    guasto.update({
-    stato:new_stato
-  },{ where: {
-    ID: id,
-  }})  }
+    
+    // se lo stato viene impostato a 1 ovvero se il guasto è chiuso viene impostata la data di risoluzione del guasto
+    if(new_stato == 1){
+      const new_data_risoluzione = new Date();
+  
+      guasto.update({
+        data_risoluzione:new_data_risoluzione,
+        stato:new_stato
+      },{ where: {
+      ID: id,
+      }})  
+    }
+    else{
+      guasto.update({
+        stato:new_stato
+      },{ where: {
+        ID: id,
+      }})
+    }
+  }
+
+  
+
+
 
   if(new_note){
     guasto.update({
@@ -145,16 +164,6 @@ const modificaGuasto = async(id, new_stato, new_note, new_id_area_illuminata, ne
   if(new_id_area_illuminata){
     guasto.update({
     id_area_illuminata:new_id_area_illuminata
-  },{ where: {
-    ID: id,
-  }})  }
-
-  // se lo stato viene impostato a 0 ovvero se il guasto è chiuso viene impostata la data di risoluzione del guasto
-  if(new_stato == 0){
-    const new_data_risoluzione = new Date();
-
-    guasto.update({
-    data_risoluzione:new_data_risoluzione
   },{ where: {
     ID: id,
   }})  }

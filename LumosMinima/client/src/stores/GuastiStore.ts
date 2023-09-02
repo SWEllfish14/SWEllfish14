@@ -58,8 +58,6 @@ export class GuastiStore implements IGuastiStore {
         queryFn: () => axios.get('http://localhost:3002/guastiAperti').then((r) => r.data),
       });
 
-      //// --- cercare di capire se tenere quello sopra
-
       guastiApertiQueryResult = new MobxQuery<GetGuastoJTO>({
         queryKey: ['guastiAperti'],
         queryFn: () => axios.get('http://localhost:3002/guastiAperti').then((r) => r.data),
@@ -110,7 +108,7 @@ export class GuastiStore implements IGuastiStore {
     modificaGuastoMutation = new MobxMutation<unknown,unknown,{id:string,data:FormData}>(
       {
         mutationFn: async (variables) => {
-          console.log(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_stato')}/${variables.data.get('new_note') ? variables.data.get('new_note') : "null" }/${variables.data.get('new_id_area_illuminata')}`);
+          /* console.log(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_stato')}/${variables.data.get('new_note') ? variables.data.get('new_note') : "null" }/${variables.data.get('new_id_area_illuminata')}`); */
           await axios.post(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_stato')}/${variables.data.get('new_note') ? variables.data.get('new_note') : "null" }/${variables.data.get('new_id_area_illuminata')}`, variables.data)
           
         },
