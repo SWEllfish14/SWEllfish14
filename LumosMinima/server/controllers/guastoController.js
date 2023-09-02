@@ -1,8 +1,8 @@
 guastoService = require("../services/guastoService")
 
-const getAllGuasti= async (req, res) => {
+const getAllGuastiAperti= async (req, res) => {
     try{
-      const allAree = await guastoService.getAllGuasti();
+      const allAree = await guastoService.getAllGuastiAperti();
       res.status(200).send(allAree)
     }catch(error) {
       res.status(error?.status || 500)
@@ -103,7 +103,7 @@ const getAllGuasti= async (req, res) => {
       };
 
     module.exports = {
-        getAllGuasti,
+        getAllGuastiAperti,
         getNumeroGuasti,
         getOneGuasto,
         chiudiGuasto,

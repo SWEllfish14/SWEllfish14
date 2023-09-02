@@ -66,14 +66,17 @@ export class GuastiStore implements IGuastiStore {
         },
       });
 
-      
+      getGuastiAperti() {
+        return this.guastiQueryResult.query({
+          queryKey: ['guasti'],
+        });
+      }
       
       getGuastoDetails(guastoId: string) {
         return this.guastoDetailsQueryResult.query({
           queryKey: ["guasti", guastoId],
         });
       }
-
 
     chiudiGuastoMutation = new MobxMutation<unknown,unknown,{id:string}>(
       {

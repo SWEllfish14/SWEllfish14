@@ -2,13 +2,15 @@ const { raw } = require("express");
 const db = require("../models/index");
 Guasto = db.guasti;
 Area = db.aree;
-const getAllGuasti = async () => {
+const getAllGuastiAperti = async () => {
   const guasti = await Guasto.findAll(
     {
       order : [["data_rilevamento", "DESC"]],
+      where: {
+        stato: 0
+      },
       include: [
         {
-            
                 model: Area,
                 as: 'area',
                 attributes: ['città','zona_geografica_città']
@@ -152,7 +154,7 @@ const aggiungiGuasto = async(dataRilevamento,stato,note,id_area) =>{
 }
 
 module.exports = {
-    getAllGuasti,
+    getAllGuastiAperti,
     getNumeroGuasti,
     getOneGuasto,
     chiudiGuasto,

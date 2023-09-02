@@ -8,8 +8,8 @@ export type IListaGuastiViewModel = ReturnType<typeof ListaGuastiViewModel>;
 export const ListaGuastiViewModel = () => {
     const guasti_store =useInstance(GuastiStore);
     return {
-       guasti: ()=> guasti_store.guasti.data,
-      isLoading: ()=> guasti_store.guasti.isLoading,
+       guastiAperti: ()=> guasti_store.getGuastiAperti().data,
+      isLoading: ()=> guasti_store.getGuastiAperti().isLoading,
     };
   };
 

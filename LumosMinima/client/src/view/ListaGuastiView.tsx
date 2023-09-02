@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
         <h2>Guasti aperti</h2>
         {viewModel.isLoading() ? <p>Loading...</p> :
         <ul>
-            {viewModel.guasti()?.map(guasto => (
+            {viewModel.guastiAperti()?.map(guasto => (
                     <div className ="tile is-ancestor">
                     <div className="tile is-parent is-small">
                     <article className="tile is-child box">
@@ -40,7 +40,7 @@ import { Link } from "react-router-dom";
         }
     </div>
 
-    <div className=" menu-label  column is-half">
+    <div className=" menu-label column is-half">
     <h2>Guasti chiusi</h2>
     </div>
 </div>
