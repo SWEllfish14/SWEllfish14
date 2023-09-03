@@ -2,8 +2,8 @@
 import { LampioniStore } from "../stores/LampioniStore"
 
 import { AreeStore } from "../stores/AreeStore"
-import { provider, useInstance } from "react-ioc"
-import { useParams,useNavigate, useResolvedPath } from "react-router-dom";
+import { useInstance } from "react-ioc"
+import { useParams} from "react-router-dom";
 
 
 export type IListaLampioniViewModel = ReturnType<typeof ListaLampioniViewModel>;
@@ -13,7 +13,6 @@ export const ListaLampioniViewModel = () => {
     const lampioniStore =useInstance(LampioniStore);
     const areaStore = useInstance(AreeStore)
     const error = lampioniStore.getlistaLampioni(id!).error
-    const navigate = useNavigate();
     return {
       areaDetails: () => areaStore.getAreaDetails(id!),
       dettagliLampione: ()=> lampioniStore.getdettagliLampioni(id!),
