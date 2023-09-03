@@ -12,7 +12,7 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
           <article className="tile is-child box">
             <h1>Aggiunta guasto</h1>
             <p className="menu-label">
-              <label htmlFor="dataRilevamento">Data Rilevamento Guasto</label>
+              <label className="login-label" htmlFor="dataRilevamento">Data Rilevamento Guasto</label>
               <input
                 id="dataRilevamento"
                 name="dataRilevamento"
@@ -21,13 +21,13 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
                 placeholder="Data in cui è stato rilevato il guasto"
 
               ></input>
-              <label htmlFor="stato">Stato</label>
+              <label className="login-label" htmlFor="stato">Stato</label>
               <select id="stato"
                 name="stato" className="input">
                 <option value="0">Non Risolto</option>
               </select>
               
-              <label htmlFor="note">Note aggiuntive</label>
+              <label className="login-label" htmlFor="note">Note aggiuntive</label>
               <input
                 id="note"
                 name="note"
@@ -37,7 +37,7 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
 
               ></input>
 
-              <label htmlFor="id_area">Id area illuminata afferenza</label>
+              <label className="login-label" htmlFor="id_area">Id area illuminata afferenza</label>
               <input
                   id="id_area"
                   name="id_area"

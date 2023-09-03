@@ -7,13 +7,14 @@ interface Props {
 }
 
 const AreaDetailsView = ({ viewModel }: Props) => (
-  <div>
-    <div className="columns">
-      <div className="column is-half">
+  <div className="grid">
+    <div className="first-row">
+      <div className="column-is-half">
         {viewModel.isLoading() && <p>Loading...</p>}
         {viewModel.isError() && <p>Error: {viewModel.error()?.message}</p>}
         {viewModel.areaDetails() && (
-          <div className="box">
+          <div className="row">
+            <p className="area-title-info">Informazioni area</p>
             <p>ID: {viewModel.areaDetails().data?.ID}</p>
             <p>Città: {viewModel.areaDetails().data?.città}</p>
             <p>Zona: {viewModel.areaDetails().data?.zona_geografica_città}</p>
@@ -22,12 +23,12 @@ const AreaDetailsView = ({ viewModel }: Props) => (
               <>
               {viewModel.areaDetails().data?.stato === 0 ? (
                 <>
-                <p>Stato: Spento
+                <p className="width-area">Stato: Spento
                   </p>
                   </>
               ) :(
                 <>
-                <p>
+                <p className="width-area">
                   Stato : Acceso
                 </p>
                 </>
@@ -62,21 +63,21 @@ const AreaDetailsView = ({ viewModel }: Props) => (
           </div>
         )}
       </div>
-      <div className="column is-half">
-        <div className="box">
+      <div className="column-is-half">
+        <div className="row">
           <h2>Impostazioni Luminosità</h2>
           {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
             <>
           {viewModel.areaDetails().data?.stato === 1 ? (
                 <><button
-                className="button is-danger is-small"
+                className="spento"
                 onClick={() => viewModel.spegniLampioniArea()}
               >
                 Spegni lampioni
               </button></>
               ) : (
                 <><button
-                className="button is-success is-small"
+                className="acceso"
                 onClick={() => viewModel.accendiLampioniArea()}
               >
                 Accendi Lampioni
@@ -87,6 +88,8 @@ const AreaDetailsView = ({ viewModel }: Props) => (
               }
           <h3>
             <div className="field">
+              
+            <label className="login-label" htmlFor="switchManuale">Manuale</label>
               <input
                 id="switchManuale"
                 checked={viewModel.areaDetails().data?.modalità_funzionamento === "M" ? true:false}
@@ -95,9 +98,10 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                 className="switch"
                 onChange={viewModel.cambiaModalità}
               />
-              <label htmlFor="switchManuale">Manuale</label>
             </div>
             <div className="field">
+              
+            <label className="login-label"htmlFor="switchAutomatico">Automatico</label>
               <input
                 id="switchAutomatico"
                 checked={viewModel.areaDetails().data?.modalità_funzionamento === "A" ? true:false}
@@ -106,7 +110,6 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                 className="switch"
                 onChange={viewModel.cambiaModalità}
               />
-              <label htmlFor="switchAutomatico">Automatico</label>
             </div>
             {viewModel.areaDetails().data?.stato === 0 ? (
               <>
@@ -115,7 +118,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                 
                 <p>
                   <button
-                    className="button is-warning"
+                    className="acceso"
                     onClick={() => viewModel.aumentaLuminosità()}
                   >
                     Aumenta Luminosità
@@ -123,7 +126,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                 </p>
                 <p>
                   <button
-                    className="button is-warning is-light"
+                    className="spento"
                     onClick={() => viewModel.diminuisciLuminosità()}
                   >
                     Diminuisci Luminosità
@@ -138,50 +141,51 @@ const AreaDetailsView = ({ viewModel }: Props) => (
         </div>
       </div>
     </div>
+    <div className="second-row">
+      <div className="column-is-half">
+        <div className="box">
+          <p className="area-title-info">Impostazioni Area</p>
+          <button
+            className="danger"
+            onClick={() => viewModel.eliminaArea()}
+          >
+            Elimina area
+          </button>
 
-    <div className="column is-half">
-      <div className="box">
-        <p>Impostazioni Area</p>
-        <button
-          className="button is-danger is-small"
-          onClick={() => viewModel.eliminaArea()}
-        >
-          Elimina area
-        </button>
-
-        <Link
-          to={{ pathname: `/modificaArea/${viewModel.areaDetails().data?.ID}` }}
-        >
-          <button className="button is-outlined">Modifica dettagli area</button>
-        </Link>
+          <Link
+            to={{ pathname: `/modificaArea/${viewModel.areaDetails().data?.ID}` }}
+          >
+            <button className="button is-outlined">Modifica dettagli area</button>
+          </Link>
+        </div>
       </div>
-    </div>
 
-    <div className="column is-half">
-      <div className="box">
-        <p>Impostazioni Sensori</p>
-        <Link to={{ pathname: `/aggiungiSensore/${viewModel.areaDetails().data?.ID}` }}>
-          <button className="button is-outlined">Aggiungi sensore</button>
-        </Link>
+      <div className="column-is-half">
+        <div className="box">
+          <p className="area-title-info">Impostazioni Sensori</p>
+          <Link to={{ pathname: `/aggiungiSensore/${viewModel.areaDetails().data?.ID}` }}>
+            <button className="button is-outlined">Aggiungi sensore</button>
+          </Link>
 
-        <Link to={{ pathname: `/sensori/${viewModel.areaDetails().data?.ID}` }}>
-          <button className="button is-outlined">Lista Sensori</button>
-        </Link>
+          <Link to={{ pathname: `/sensori/${viewModel.areaDetails().data?.ID}` }}>
+            <button className="button is-outlined">Lista Sensori</button>
+          </Link>
+        </div>
       </div>
-    </div>
 
-    <div className="column is-half">
-      <div className="box">
-        <p>Impostazioni Lampioni</p>
-        <Link to={{ pathname: `/aggiungiLampione/${viewModel.areaDetails().data?.ID}`}}>
-          <button className="button is-outlined">Aggiungi lampione</button>
-        </Link>
+      <div className="column-is-half">
+        <div className="box">
+          <p className="area-title-info">Impostazioni Lampioni</p>
+          <Link to={{ pathname: `/aggiungiLampione/${viewModel.areaDetails().data?.ID}`}}>
+            <button className="button is-outlined">Aggiungi lampione</button>
+          </Link>
 
-        <Link
-          to={{ pathname: `/lampioni/${viewModel.areaDetails().data?.ID}` }}
-        >
-          <button className="button is-outlined">Lista Lampioni</button>
-        </Link>
+          <Link
+            to={{ pathname: `/lampioni/${viewModel.areaDetails().data?.ID}` }}
+          >
+            <button className="button is-outlined">Lista Lampioni</button>
+          </Link>
+        </div>
       </div>
     </div>
   </div>

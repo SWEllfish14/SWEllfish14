@@ -9,11 +9,10 @@ interface Props {
   viewModel: IHomeViewModel;
 }
 const HomeView = ({ viewModel }: Props) => (
-  <div>
-    <div className="tile is-ancestor">
-      <div className="tile is-parent">
-        <article className="tile is-child box">
-          <button className="button is-info">Stato sistema</button>
+  <div id = "home">
+    <div id="first-row" className="tile-is-ancestor">
+      <div className="tile-is-parent">
+        <article id="home-stato" className="tile-is-child box">
           <p className="menu-label">
             <li>
               Numero Guasti a sistema:
@@ -48,13 +47,13 @@ const HomeView = ({ viewModel }: Props) => (
               )}
             </li>
           </p>
+          <button className="button-is-info">Stato sistema</button>
         </article>
       </div>
-      <div className="tile is-parent">
-        <article className="tile is-child box">
-          <button className="button is-warning">Lista aree</button>
+      <div  className="tile-is-parent">
+        <article id="home-aree" className="tile is-child box">
 
-          <p className="menu-label">
+          <p id="home-area" className="menu-label">
             {viewModel.areeLimitisLoading() ? (
               <p>Loading...</p>
             ) : (
@@ -68,9 +67,9 @@ const HomeView = ({ viewModel }: Props) => (
                     >
                       <p>
                       {area.città}, Località: {area.zona_geografica_città}{area.stato === 1 ? (
-                        <button className="button is-success is-small is-responsive is-rounded">ON</button>
+                        <button className="button-is-success-is-small-is-responsive-is-rounded">ON</button>
                       ):
-                      (<button className="button is-danger is-small is-responsive is-rounded">OFF</button>)
+                      (<button className="button-is-danger-is-small-is-responsive-is-rounded">OFF</button>)
                       }
                       </p>
                     </Link>
@@ -79,16 +78,16 @@ const HomeView = ({ viewModel }: Props) => (
               </ul>
             )}
           </p>
+          <button className="button-is-warning">Lista aree</button>
+
         </article>
       </div>
       </div>
 
-      <div className="tile is-anchestor">
-      <div className="tile is-parent">
-        <article className="tile is-child box">
-          <button className="button is-danger">Ultimi guasti inseriti a sistema </button>
-
-          <p className="menu-label">
+      <div id="second-row" className="tile-is-ancestor">
+      <div  className="tile-is-parent">
+        <article id="home-guasti" className="tile is-child box">
+          <p id="home-guasto"className="menu-label">
             {viewModel.guastiisLoading() ? (
               <p>Loading...</p>
             ) : (
@@ -101,16 +100,17 @@ const HomeView = ({ viewModel }: Props) => (
               </ul>
             )}
           </p>
+          <button className="button-is-danger">Ultimi guasti inseriti a sistema </button>
         </article>
       </div>
-      <div className="tile is-parent">
-        <article className="tile is-child box">
-          <button className="button">Utility</button>
+      <div className="tile-is-parent">
+        <article id="home-info" className="tile is-child box">
           <p>
           <a href="/">Manuale Utente</a>
           </p>
           <p>
-          <button className="button is-danger is-small">Logout</button>
+          <button className="button">Utility</button>
+          <button className="button-is-danger-is-small">Logout</button>
           </p>
         </article>
       </div>
