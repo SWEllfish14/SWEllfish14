@@ -7,12 +7,12 @@ import { useParams } from "react-router-dom";
  const ModificaSensoreView = ({viewModel}: Props) => (
   <div>
   <form action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
-    <div className="tile is-ancestor">
-      <div className="tile is-parent">
-        <article className="tile is-child box">
-          <h1>Modifica sensore</h1>
-          <p className="menu-label">
-            <label htmlFor="id">ID Sensore</label>
+    <div id="msensore-margin"className="tile-is-ancestor">
+      <div className="tile-is-parent">
+        <article className="art">
+          <h1 className="width-area">Modifica sensore</h1>
+          <p className="width-area">
+            <label className="login-label" htmlFor="id">ID Sensore</label>
             <input
               id="id"
               name="id"
@@ -21,7 +21,7 @@ import { useParams } from "react-router-dom";
               value={viewModel.sensoreDetails().data?.ID.toString()}
               readOnly
             ></input>
-            <label htmlFor="ip">IP sensore</label>
+            <label className="login-label" htmlFor="ip">IP sensore</label>
             <input
               id="ip"
               name="ip"
@@ -30,7 +30,7 @@ import { useParams } from "react-router-dom";
               placeholder={viewModel.sensoreDetails().data?.IP.toString()}
               defaultValue ={viewModel.sensoreDetails().data?.IP.toString()}
             ></input>
-            <label htmlFor="polling_time">Polling Time</label>
+            <label className="login-label" htmlFor="polling_time">Polling Time</label>
             <input
               id="polling_time"
               name="polling_time"
@@ -39,7 +39,7 @@ import { useParams } from "react-router-dom";
               placeholder={viewModel.sensoreDetails().data?.polling_time.toString()}
               defaultValue={viewModel.sensoreDetails().data?.polling_time.toString()}
             ></input>
-            <label htmlFor="zona_geografica">Zona Geografica Posizionamento</label>
+            <label className="login-label" htmlFor="zona_geografica">Zona Geografica Posizionamento</label>
             <input
               id="zona_geografica"
               name="zona_geografica"
@@ -48,14 +48,14 @@ import { useParams } from "react-router-dom";
               placeholder={viewModel.sensoreDetails().data?.zona_geografica_posizionamento}
               defaultValue={viewModel.sensoreDetails().data?.zona_geografica_posizionamento}
             ></input>
-            <label htmlFor="tipo_interazione">Tipo Interazione</label>
+            <label className="login-label" htmlFor="tipo_interazione">Tipo Interazione</label>
             <select id="tipo_interazione" name="tipo_interazione" className="input">
               <option value="PUSH">PUSH</option>
               <option value="PULL">PULL</option>
               <option defaultValue={viewModel.sensoreDetails().data?.tipo_interazione.toString()}></option>
             </select>
             
-            <label htmlFor="raggio_azione">Raggio Azione</label>
+            <label className="login-label" htmlFor="raggio_azione">Raggio Azione</label>
             <input
               id="raggio_azione"
               name="raggio_azione"
@@ -71,15 +71,15 @@ import { useParams } from "react-router-dom";
       </div>
     </div>
 
-    <div className="tile is-ancestor">
-      <div className="tile is-parent">
-        <article className="tile is-child box">
+    <div className="tile-is-ancestor">
+      <div className="tile-is-parent">
+        <article id="conferma" className="art">
           <button type="submit" className="button is-success" >
             Conferma e Inserisci
           </button>
           <button className="button is-outlined">Cancella campi</button>
           <button
-              className="button is-danger"
+              className="danger"
                  onClick={() => viewModel.eliminaSensore()}
             > Elimina Sensore </button>
         </article>

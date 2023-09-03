@@ -162,9 +162,7 @@ LOGIN
   text-align: center;
 }
 
-#nomeUtente, #password, #login-submit, #citta,#dataRilevamento,#note,#id_area,
-#zonaGeografica,#modalita,#stato,#luminositaDefault,#luminositaRilevamento
-{
+input, select{
   border-radius: 30px;
   border-style: solid;
   padding: 0.5em;
@@ -278,4 +276,30 @@ AREA
 .danger{
   width: 50%;
   background-color: var(--error);
+}
+
+/* 
+=============
+GUASTI
+=============
+*/
+
+#guasti-margin,#lampione-margin, #sensore-margin,#area-margin,
+#guasto-margin,#mguasto-margin,#mlampione-margin,#msensore-margin{
+  margin-bottom: 1em;
+}
+
+#conferma{
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+#width-area{
+  width: 100%;
+}
+
+#bold{
+  font-weight: bold;
 }

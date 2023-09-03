@@ -8,12 +8,12 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
  const ModificaLampioneView = ({viewModel}: Props) => (
   <div>
   <form action="" method="post" onSubmit={viewModel.modificaLampione}>
-  <div className ="tile is-ancestor">
-  <div className="tile is-parent">
-  <article className="tile is-child box">
-  <h1>Modifica Lampione</h1>
+  <div id="mlampione-margin" className ="tile-is-ancestor">
+  <div className="tile-is-parent">
+  <article className="art">
+  <h1 className="width-area">Modifica Lampione</h1>
 
-                <label htmlFor="id">ID</label>
+                <label className="login-label" htmlFor="id">ID</label>
                 <input
                   id="id"
                   name="id"
@@ -22,8 +22,8 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   value = {viewModel.dettagliLampione().data?.ID.toString()}
                   readOnly
                 ></input> 
-  <p className="menu-label">
-                <label htmlFor="IP">IP</label>
+  <p className="width-area">
+                <label className="login-label" htmlFor="IP">IP</label>
                 <input
                   id="ip"
                   name="ip"
@@ -33,14 +33,14 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   defaultValue={viewModel.dettagliLampione().data?.IP.toString()}
                 ></input> 
 
-  <label htmlFor="tipo_interazione">Tipo interazione con il lampione</label>
+  <label className="login-label" htmlFor="tipo_interazione">Tipo interazione con il lampione</label>
       <select id="tipo_interazione" name="tipo_interazione" className="input">
       <option value="PUSH">PUSH</option>
       <option value ="PULL">PULL</option>
       <option defaultValue = {viewModel.dettagliLampione().data?.tipo_interazione.toString()}></option>
       </select>
 
-      <label htmlFor="luminositaDefault">Luminosità default</label>
+      <label className="login-label" htmlFor="luminositaDefault">Luminosità default</label>
                 <input
                   id="luminositaDefault"
                   name="luminositaDefault"
@@ -52,7 +52,7 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   defaultValue="1"
                 ></input>
 
-  <label htmlFor="luminositaManuale">Luminosità impostata</label>
+  <label className="login-label" htmlFor="luminositaManuale">Luminosità impostata</label>
                 <input
                   id="luminositaManuale"
                   name="luminositaManuale"
@@ -64,7 +64,7 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   defaultValue= "1"
                 ></input>
 
-  <label htmlFor="stato">Stato</label>
+  <label className="login-label" htmlFor="stato">Stato</label>
                 <select id="stato" name="stato" className="input">
                   <option value="0">Spento</option>
                   <option value="1">Acceso</option>
@@ -78,13 +78,12 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
       </div>
       </div>
 
-      <div className ="tile is-ancestor">
-      <div className="tile is-parent">
-      <article className="tile is-child box">
+      <div className ="tile-is-ancestor">
+      <div className="tile-is-parent">
+      <article id="conferma"className="art">
       <button type="submit" className="button is-success">Conferma e Inserisci</button>
       <button className="button is-outlined">Cancella campi</button>
-      <button
-              className="button is-danger"
+      <button className="danger"
                  onClick={() => viewModel.eliminaLampione()}
             > Elimina Lampione </button>
       </article>

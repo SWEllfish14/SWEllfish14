@@ -13,6 +13,8 @@ const HomeView = ({ viewModel }: Props) => (
     <div id="first-row" className="tile-is-ancestor">
       <div className="tile-is-parent">
         <article id="home-stato" className="tile-is-child box">
+          
+        <h1>Stato sistema</h1>
           <p className="menu-label">
             <li>
               Numero Guasti a sistema:
@@ -47,7 +49,6 @@ const HomeView = ({ viewModel }: Props) => (
               )}
             </li>
           </p>
-          <button className="button-is-info">Stato sistema</button>
         </article>
       </div>
       <div  className="tile-is-parent">

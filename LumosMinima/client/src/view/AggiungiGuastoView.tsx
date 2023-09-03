@@ -7,9 +7,9 @@ interface Props {
 const AggiungiGuastoView = ({ viewModel }: Props) => (
   <div>
     <form action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
-      <div className="tile is-ancestor">
-        <div className="tile is-parent">
-          <article className="tile is-child box">
+      <div id="guasti-margin" className="tile-is-ancestor">
+        <div className="tile-is-parent">
+          <article className="tile-is-child-box">
             <h1>Aggiunta guasto</h1>
             <p className="menu-label">
               <label className="login-label" htmlFor="dataRilevamento">Data Rilevamento Guasto</label>
@@ -51,13 +51,13 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
         </div>
       </div>
 
-      <div className="tile is-ancestor">
-        <div className="tile is-parent">
-          <article className="tile is-child box">
+      <div className="tile-is-ancestor">
+        <div className="tile-is-parent">
+          <article className="tile-is-child-box">
             <button type="submit" className="button is-success" >
               Conferma e Inserisci
             </button>
-            <button className="button is-outlined">Cancella campi</button>
+            <button className="button-is-outlined">Cancella campi</button>
           </article>
         </div>
       </div>

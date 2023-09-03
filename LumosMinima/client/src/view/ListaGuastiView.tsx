@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
     
     {viewModel.isLoading() ? <p>Loading...</p> :
         <ul className="width-area">
-            {viewModel.guasti()?.map(guasto => (
+            {viewModel.guastiAperti()?.map(guasto => (
                  <div className="width-area">
                  <div className="width-area">
                  <article className="width-area">
