@@ -55,7 +55,17 @@ export class GuastiStore implements IGuastiStore {
 
       guastiQueryResult = new MobxQuery<GetGuastoJTO>({
         queryKey: ['guasti'],
-        queryFn: () => axios.get('http://localhost:3002/guasti').then((r) => r.data),
+        queryFn: () => axios.get('http://localhost:3002/guastiAperti').then((r) => r.data),
+      });
+
+      guastiApertiQueryResult = new MobxQuery<GetGuastoJTO>({
+        queryKey: ['guastiAperti'],
+        queryFn: () => axios.get('http://localhost:3002/guastiAperti').then((r) => r.data),
+      });
+
+      guastiChiusiQueryResult = new MobxQuery<GetGuastoJTO>({
+        queryKey: ['guastiChiusi'],
+        queryFn: () => axios.get('http://localhost:3002/guastiChiusi').then((r) => r.data),
       });
 
       guastoDetailsQueryResult = new MobxQuery<GetGuastoDetailsJTO>({
@@ -66,14 +76,23 @@ export class GuastiStore implements IGuastiStore {
         },
       });
 
-      
+      getGuastiAperti() {
+        return this.guastiApertiQueryResult.query({
+          queryKey: ['guastiAperti'],
+        });
+      }
+
+      getGuastiChiusi() {
+        return this.guastiChiusiQueryResult.query({
+          queryKey: ['guastiChiusi'],
+        });
+      }
       
       getGuastoDetails(guastoId: string) {
         return this.guastoDetailsQueryResult.query({
           queryKey: ["guasti", guastoId],
         });
       }
-
 
     chiudiGuastoMutation = new MobxMutation<unknown,unknown,{id:string}>(
       {
@@ -89,7 +108,7 @@ export class GuastiStore implements IGuastiStore {
     modificaGuastoMutation = new MobxMutation<unknown,unknown,{id:string,data:FormData}>(
       {
         mutationFn: async (variables) => {
-          console.log(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_stato')}/${variables.data.get('new_note') ? variables.data.get('new_note') : "null" }/${variables.data.get('new_id_area_illuminata')}`);
+          /* console.log(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_stato')}/${variables.data.get('new_note') ? variables.data.get('new_note') : "null" }/${variables.data.get('new_id_area_illuminata')}`); */
           await axios.post(`http://127.0.0.1:3002/modificaGuasto/${variables.id}/${variables.data.get('new_stato')}/${variables.data.get('new_note') ? variables.data.get('new_note') : "null" }/${variables.data.get('new_id_area_illuminata')}`, variables.data)
           
         },
@@ -126,6 +145,8 @@ export class GuastiStore implements IGuastiStore {
   dispose() {
     this.guastiNumberQueryResult.dispose();
     this.guastiQueryResult.dispose();
+    this.guastiApertiQueryResult.dispose();
+    this.guastiChiusiQueryResult.dispose();
     this.chiudiGuastoMutation.dispose();
     this.modificaGuastoMutation.dispose();
     this.guastoDetailsQueryResult.dispose();

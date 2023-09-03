@@ -2,13 +2,15 @@ const { raw } = require("express");
 const db = require("../models/index");
 Guasto = db.guasti;
 Area = db.aree;
-const getAllGuasti = async () => {
+const getAllGuastiAperti = async () => {
   const guasti = await Guasto.findAll(
     {
       order : [["data_rilevamento", "DESC"]],
+      where: {
+        stato: 0
+      },
       include: [
         {
-            
                 model: Area,
                 as: 'area',
                 attributes: ['città','zona_geografica_città']
@@ -21,6 +23,30 @@ const getAllGuasti = async () => {
   );
   return guasti;
 };
+
+
+const getAllGuastiChiusi = async () => {
+  const guasti = await Guasto.findAll(
+    {
+      order : [["data_rilevamento", "DESC"]],
+      where: {
+        stato: 1
+      },
+      include: [
+        {
+                model: Area,
+                as: 'area',
+                attributes: ['città','zona_geografica_città']
+      }  ],
+          raw:true,
+         
+        }
+    
+    
+  );
+  return guasti;
+};
+
 
 const getGuastiForSensoreRotto = async () => {
   const guasti = await Guasto.findAll(
@@ -103,11 +129,30 @@ const modificaGuasto = async(id, new_stato, new_note, new_id_area_illuminata, ne
  const  guasto  = await Guasto.findByPk(id);
 
   if(new_stato){
-    guasto.update({
-    stato:new_stato
-  },{ where: {
-    ID: id,
-  }})  }
+    
+    // se lo stato viene impostato a 1 ovvero se il guasto è chiuso viene impostata la data di risoluzione del guasto
+    if(new_stato == 1){
+      const new_data_risoluzione = new Date();
+  
+      guasto.update({
+        data_risoluzione:new_data_risoluzione,
+        stato:new_stato
+      },{ where: {
+      ID: id,
+      }})  
+    }
+    else{
+      guasto.update({
+        stato:new_stato
+      },{ where: {
+        ID: id,
+      }})
+    }
+  }
+
+  
+
+
 
   if(new_note){
     guasto.update({
@@ -119,16 +164,6 @@ const modificaGuasto = async(id, new_stato, new_note, new_id_area_illuminata, ne
   if(new_id_area_illuminata){
     guasto.update({
     id_area_illuminata:new_id_area_illuminata
-  },{ where: {
-    ID: id,
-  }})  }
-
-  // se lo stato viene impostato a 0 ovvero se il guasto è chiuso viene impostata la data di risoluzione del guasto
-  if(new_stato == 0){
-    const new_data_risoluzione = new Date();
-
-    guasto.update({
-    data_risoluzione:new_data_risoluzione
   },{ where: {
     ID: id,
   }})  }
@@ -152,7 +187,8 @@ const aggiungiGuasto = async(dataRilevamento,stato,note,id_area) =>{
 }
 
 module.exports = {
-    getAllGuasti,
+    getAllGuastiAperti,
+    getAllGuastiChiusi,
     getNumeroGuasti,
     getOneGuasto,
     chiudiGuasto,

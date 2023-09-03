@@ -1,14 +1,25 @@
 guastoService = require("../services/guastoService")
 
-const getAllGuasti= async (req, res) => {
+  const getAllGuastiAperti= async (req, res) => {
     try{
-      const allAree = await guastoService.getAllGuasti();
+      const allAree = await guastoService.getAllGuastiAperti();
       res.status(200).send(allAree)
     }catch(error) {
       res.status(error?.status || 500)
       .send({ status: "FAILED", data: { error: error?.message || error } })
     }
-    };
+  };
+
+  const getAllGuastiChiusi= async (req, res) => {
+    try{
+      const allAree = await guastoService.getAllGuastiChiusi();
+      res.status(200).send(allAree)
+    }catch(error) {
+      res.status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } })
+    }
+  };
+
 
   const getNumeroGuasti= async (req, res) => {
     try{
@@ -103,7 +114,8 @@ const getAllGuasti= async (req, res) => {
       };
 
     module.exports = {
-        getAllGuasti,
+        getAllGuastiAperti,
+        getAllGuastiChiusi,
         getNumeroGuasti,
         getOneGuasto,
         chiudiGuasto,

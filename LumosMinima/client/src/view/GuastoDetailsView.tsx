@@ -27,33 +27,32 @@ const GuastoDetailsView = ({ viewModel }: Props) => (
         </div>
     </div>
 
-    <div className="column is-half">
-      <div className="box">
-        <p>Impostazioni Guasto</p>
-
-        <Link
-          to={{ pathname: `/modificaGuasto/${viewModel.guastoDetails().data?.ID}` }}
-        >
-          <button className="button is-outlined">Modifica dettagli guasto</button>
-        </Link>
-        <p>
         {viewModel.guastoDetails().data?.stato.toString() === "0" ? (
-                <>
-                 <button
-          className="button is-danger is-small"
-           onClick={() => viewModel.chiudiGuasto()} >
-          Chiudi Guasto
-        </button>
-                </>
-              ) : (
-                <>
-                  
-                </>
-              )}
-        </p>
-
-      </div>
-    </div>
+          <>
+          <div className="column is-half">
+            <div className="box">
+              <p>Impostazioni Guasto</p>
+                <p>
+                <Link
+                  to={{ pathname: `/modificaGuasto/${viewModel.guastoDetails().data?.ID}` }}
+                >
+                <button className="button is-outlined">Modifica dettagli guasto</button>
+                </Link>
+                <button
+                  className="button is-danger is-small"
+                  onClick={() => viewModel.chiudiGuasto()} >
+                  Chiudi Guasto
+                </button>
+                </p>
+                </div>
+          </div>
+          </>
+        ) : (
+          <>
+            
+          </>
+        )}
+      
 </div>
 );
 

@@ -124,6 +124,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                     Aumenta Luminosità
                   </button>
                 </p>
+                
                 <p>
                   <button
                     className="spento"
@@ -137,6 +138,12 @@ const AreaDetailsView = ({ viewModel }: Props) => (
               <></>
             )}
             </>):(<></>)}
+
+            {viewModel.submitHasError ? 
+            <div className="notification is-danger is-light">
+              {viewModel.errorMessage}
+            </div>
+            :<></>}
           </h3>
         </div>
       </div>

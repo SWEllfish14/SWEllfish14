@@ -34,9 +34,17 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
               ></input>
 
               <label htmlFor="new_stato">stato</label>
-              <select id="new_stato" name="new_stato" className="input" value={viewModel.guastoDetails().data?.stato}>
+
+              {viewModel.guastoDetails().data?.stato != "1" ? 
+              <select id="new_stato" name="new_stato" className="input" >
+                <option value="1" >Risolto</option>
                 <option value="0" >Non Risolto</option>
               </select>
+              :
+              <select id="new_stato" name="new_stato" className="input" value={viewModel.guastoDetails().data?.stato} disabled>
+                <option value="1" >Risolto</option>
+              </select>
+              }
 
 
               <label htmlFor="new_note">note</label>

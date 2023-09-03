@@ -3,7 +3,8 @@ const guastoController = require('../controllers/guastoController')
 
 const router = express.Router();
 
-router.get('/guasti',guastoController.getAllGuasti)
+router.get('/guastiAperti',guastoController.getAllGuastiAperti)
+router.get('/guastiChiusi',guastoController.getAllGuastiChiusi)
 router.get('/numeroGuasti',guastoController.getNumeroGuasti)
 router.get('/guasti/:id',guastoController.getOneGuasto)
 router.post('/chiudiGuasto/:id', guastoController.chiudiGuasto)
