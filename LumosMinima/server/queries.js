@@ -6,7 +6,6 @@ password:'SWEllfish14',
 connectionLimit: 100 });
 
 
-
 module.exports={
     getConnection: function(){
       return new Promise(function(resolve,reject){
@@ -16,5 +15,5 @@ module.exports={
           reject(error);
         });
       });
-    }
+    },
   }

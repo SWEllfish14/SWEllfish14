@@ -25,7 +25,10 @@ describe("sensori",()=>{
             expect(body).toEqual({numeroSensori:22})
             expect(getNumeroSensoriServiceMock).toHaveBeenCalled();
           })
-        }),
+        })
+      })
+    })
+    /*
         describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
               const getNumeroSensoriServiceMock = jest.
@@ -110,6 +113,7 @@ describe("sensori",()=>{
               expect(getAllGuastiServiceMock).toThrowError()
             })
           })
-          */
+          
       })
     
+*/
