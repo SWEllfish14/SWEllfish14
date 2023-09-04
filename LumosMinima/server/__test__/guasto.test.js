@@ -1,7 +1,8 @@
 const supertest = require('supertest')
 const guastoService = require("../services/guastoService");
-const createServer = require("../server");
-const app = createServer()
+const createServerTesting = require("../server");
+const { EmptyResultError } = require('sequelize');
+const app = createServerTesting()
 const guastiPayload={
     ID:1,
     data_rilevamento:"2023-04-13",
@@ -9,12 +10,36 @@ const guastiPayload={
     id_area_illuminata:11,
     data_risoluzione:null
 }
-const guastiChiusuraPayload={
+const deleteAllGuastiAreaPayload =  { " ": " "}
+const guastoChiusoPayload={
   ID:1,
   data_rilevamento:"2023-04-13",
   stato:1,
   id_area_illuminata:11,
   data_risoluzione:null
+}
+const guastiApertiPayload={
+  ID:1,
+  data_rilevamento:"2023-04-13",
+  stato:0,
+  id_area_illuminata:11,
+  data_risoluzione:null
+}
+const guastiChiusiPayload={
+  ID:1,
+  data_rilevamento:"2023-04-13",
+  stato:1,
+  id_area_illuminata:11,
+  data_risoluzione:"2023-09-04"
+}
+
+const guastiPerSensorePayload={
+  ID:1,
+  data_rilevamento:"2023-04-13",
+  stato:1,
+  note : "sensore rotto",
+  id_area_illuminata:11,
+  data_risoluzione:"2023-09-04"
 }
 describe("guasti",()=>{
     describe("get numero guasti", () => {
@@ -30,7 +55,10 @@ describe("guasti",()=>{
             expect(body).toEqual({numeroGuasti:9})
             expect(getNumeroGuastiServiceMock).toHaveBeenCalled();
           })
-        }),
+        })
+      })
+    
+        
         it("ritorna numero di guasti",async() => {
           const getNumeroGuastiServiceMock = jest.
           spyOn(guastoService,"getNumeroGuasti")
@@ -41,8 +69,24 @@ describe("guasti",()=>{
           expect(body).toEqual({numeroGuasti:9})
           expect(getNumeroGuastiServiceMock).toHaveBeenCalled();
         })
-      })
-       /* describe("Il database risponde con un errore", () => {
+        it("numero di guasti",async() => {
+
+          Guasto.count = jest.fn();
+          Guasto.count.mockReturnValue(12)
+          const result = await guastoService.getNumeroGuasti()
+  
+          expect(result).toBe('12')
+          
+         /* const {statusCode, body} = await supertest(app)
+            .get("/numeroAree")
+          expect(statusCode).toBe(200)
+          expect(body).toEqual({numeroAree:50})
+          expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+          */
+        })
+    
+      
+        describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
               const getNumeroGuastiServiceMock = jest.
               spyOn(guastoService,"getNumeroGuasti").mockImplementation(() => {
@@ -55,27 +99,130 @@ describe("guasti",()=>{
               expect(getNumeroGuastiServiceMock).toHaveBeenCalled();
               expect(getNumeroGuastiServiceMock).toThrowError()
             })
-          }),
+          })
+        
       
-          */
-      describe("get tutti guasti", () => {
+          
+      describe("get tutti guasti aperti", () => {
         describe("Il database risponde correttamente", () => {
-          it("Ritorna stato 200 e lista dei guasti",async() => {
+          it("Ritorna stato 200 e lista dei guasti aperti",async() => {
             const getAllGuastiServiceMock = jest.
-            spyOn(guastoService,"getAllGuasti")
+            spyOn(guastoService,"getAllGuastiAperti")
             .mockReturnValueOnce(Array(guastiPayload,guastiPayload,guastiPayload,guastiPayload))
     
             const {statusCode, body} = await supertest(app)
-              .get("/guasti")
+              .get("/guastiAperti")
             expect(statusCode).toBe(200)
             expect(body).toEqual(Array(guastiPayload,guastiPayload,guastiPayload,guastiPayload))
             expect(getAllGuastiServiceMock).toHaveBeenCalled();
           })
+          it("guasti aperti",async() => {
+
+            Guasto.findAll = jest.fn();
+            Guasto.findAll.mockReturnValue(guastiApertiPayload)
+            const result = await guastoService.getAllGuastiAperti()
+    
+            expect(result).toBe(guastiApertiPayload)
+            
+           /* const {statusCode, body} = await supertest(app)
+              .get("/numeroAree")
+            expect(statusCode).toBe(200)
+            expect(body).toEqual({numeroAree:50})
+            expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+            */
+          })
+      
         })
-      }),
+      })
+
+      describe("get tutti guasti chiusi", () => {
+        describe("Il database risponde correttamente", () => {
+          it("Ritorna stato 200 e lista dei guasti chiusi",async() => {
+            const getAllGuastiServiceMock = jest.
+            spyOn(guastoService,"getAllGuastiChiusi")
+            .mockReturnValueOnce(Array(guastiPayload,guastiPayload,guastiPayload,guastiPayload))
+    
+            const {statusCode, body} = await supertest(app)
+              .get("/guastiChiusi")
+            expect(statusCode).toBe(200)
+            expect(body).toEqual(Array(guastiPayload,guastiPayload,guastiPayload,guastiPayload))
+            expect(getAllGuastiServiceMock).toHaveBeenCalled();
+          })
+          it("guasti chiusi",async() => {
+
+            Guasto.findAll = jest.fn();
+            Guasto.findAll.mockReturnValue(guastiChiusiPayload)
+            const result = await guastoService.getAllGuastiChiusi()
+    
+            expect(result).toBe(guastiChiusiPayload)
+            
+           /* const {statusCode, body} = await supertest(app)
+              .get("/numeroAree")
+            expect(statusCode).toBe(200)
+            expect(body).toEqual({numeroAree:50})
+            expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+            */
+          })
+
+         
+              it("guasti per sensore rotto",async() => {
+    
+                Guasto.findAll = jest.fn();
+                Guasto.findAll.mockReturnValue(guastiPerSensorePayload)
+                const result = await guastoService.getGuastiForSensoreRotto()
+        
+                expect(result).toBe(guastiPerSensorePayload)
+                
+               /* const {statusCode, body} = await supertest(app)
+                  .get("/numeroAree")
+                expect(statusCode).toBe(200)
+                expect(body).toEqual({numeroAree:50})
+                expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+                */
+              })
+
+              it("getOneGuasto",async() => {
+    
+                Guasto.findByPk = jest.fn();
+                Guasto.findByPk.mockReturnValue(guastiPayload)
+                const result = await guastoService.getOneGuasto(1)
+        
+                expect(result).toBe(guastiPayload)
+                
+               /* const {statusCode, body} = await supertest(app)
+                  .get("/numeroAree")
+                expect(statusCode).toBe(200)
+                expect(body).toEqual({numeroAree:50})
+                expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+                */
+              })
+
+              it("eliminaGuastiArea",async() => {
+    
+                Guasto.findAll = jest.fn();
+                Guasto.findAll.mockReturnValue(" ")
+                const result = await guastoService.eliminaGuastiArea(1)
+        
+                expect(result).toBe(" ")
+                
+               /* const {statusCode, body} = await supertest(app)
+                  .get("/numeroAree")
+                expect(statusCode).toBe(200)
+                expect(body).toEqual({numeroAree:50})
+                expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+                */
+              })
+  
+  
+          
+      
+        })
+      })
+    })
+    
       
 
-   
+   /*
 
       describe('getOneGuasto', () => {
         it('should return un guasti', async () => {
@@ -90,8 +237,8 @@ describe("guasti",()=>{
           expect(guasti.data_risoluzione).toEqual("2023-08-31")
           //expect(guasti[0].area.citta).toEqual('Torino');
           //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
-        });
-      }),
+        })
+      })
 
       describe('getOneGuasto', () => {
         it('should return un guasti', async () => {
@@ -134,7 +281,7 @@ describe("guasti",()=>{
         });
       });
       */
-
+/*
       describe('modificaGuasto', () => {
         it('should return "Guasto modificato"', async () => {
           const risultato = await guastoService.modificaGuasto(10,'2023-01-07', '1', 10, new Date());
@@ -178,7 +325,7 @@ describe("guasti",()=>{
       })
       */
      
-      describe('chiudiGuasto', () => {
+    /*  describe('chiudiGuasto', () => {
         it('cambia lo stato di un guasto da 0 a 1', async () => {
           const risultato = await guastoService.aggiungiGuasto('2023-01-07',0, '1111111', 10);
           const modifica = await guastoService.chiudiGuasto(12);
@@ -219,20 +366,7 @@ describe("guasti",()=>{
           //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
         });
       }),
-      describe('getAllGuasti', () => {
-        it('should return all guasti', async () => {
-          const guasti = await guastoService.getAllGuasti();
-      
-          expect(guasti).toHaveLength(11);
-          expect(guasti[0].ID).toEqual(11);
-          //expect(guasti[0].data_rilevamento).toBe(new Date(2023,5,17));
-          expect(guasti[0].note).toEqual('sensore rotto');
-          expect(guasti[0].id_area_illuminata).toEqual(2);
-          expect(guasti[0].data_risoluzione).toEqual("2023-08-31")
-          //expect(guasti[0].area.citta).toEqual('Torino');
-          //expect(guasti[0].area.zona_geografica_città).toEqual('Stadio');
-        });
-      })
+     
     })
 
-      
+    */

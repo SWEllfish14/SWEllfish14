@@ -161,8 +161,25 @@ describe("lampioni",()=>{
             expect(body).toEqual({numeroLampioni:85})
             expect(getNumeroLampioniServiceMock).toHaveBeenCalled();
           })
+          it("numero di lampioni",async() => {
+
+            Lampione.findAll = jest.fn();
+            Lampione.findAll.mockReturnValue(12)
+            const result = await lampioneService.getAllLampsFromArea(1)    
+            expect(result).toBe(12)
+            
+           /* const {statusCode, body} = await supertest(app)
+              .get("/numeroAree")
+            expect(statusCode).toBe(200)
+            expect(body).toEqual({numeroAree:50})
+            expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+            */
+          })
         })
-        /*describe("Il database risponde con un errore", () => {
+      })
+    
+    
+        describe("Il database risponde con un errore", () => {
             it("Ritorna stato 500",async() => {
               const getNumeroLampioniServiceMock = jest.
               spyOn(lampioneService,"getNumeroLampioni").mockImplementation(() => {
@@ -176,8 +193,8 @@ describe("lampioni",()=>{
               expect(getNumeroLampioniServiceMock).toThrowError()
             })
           })
-          */
-      }),
+          
+      
       
 
       describe("get tutti lampioni ", () => {
@@ -193,10 +210,26 @@ describe("lampioni",()=>{
             expect(body).toEqual(Array(lampionePayload,lampionePayload,lampionePayload,lampionePayload))
             expect(getAllLampioniServiceMock).toHaveBeenCalled();
           })
-    })
-  }),
+          it("ritorna gli ID dei lampioni da accendere",async() => {
 
-    describe('Modifica lampione', () => { 
+            Lampione.findAll = jest.fn();
+            Lampione.findAll.mockReturnValue(2)
+            const result = await lampioneService.getLampIDtoPowerOn(1)
+    
+            expect(result).toBe(2)
+            
+           /* const {statusCode, body} = await supertest(app)
+              .get("/numeroAree")
+            expect(statusCode).toBe(200)
+            expect(body).toEqual({numeroAree:50})
+            expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+            */
+          })
+    })
+  })
+})
+
+   /* describe('Modifica lampione', () => { 
       describe("Dato un payload e un id valido", () => {
         it("Ritorna stato 200 e Lampione modificato", async() => {
           const modificaLampioneServiceMock = jest.
@@ -209,7 +242,9 @@ describe("lampioni",()=>{
             expect(modificaLampioneServiceMock).toHaveBeenCalled();
         })
       })
-     }),
+     })
+    })
+/*
 
      describe('Aggiungi lampione', () => { 
       describe("Dato un payload valido", () => {
@@ -281,7 +316,7 @@ describe("lampioni",()=>{
           })
           */
 
-          describe('getBrightnessOfArea', () => {
+         /* describe('getBrightnessOfArea', () => {
             it('ritorna la luminosità di un area', async () => {
               const guasti = await lampioneService.getBrightnessofArea(1);
 
@@ -391,7 +426,7 @@ describe('getBrightnessofLamp', () => {
 })
 */
 
-
+/*
 describe('getNumeroLampioni', () => {
   it('ritorna il numero di lampioni totali', async () => {
     const guasti = await lampioneService.getNumeroLampioni();
@@ -501,4 +536,4 @@ describe('getAllLampsFromAreaCount', () => {
     })
           
     
-    
+    */

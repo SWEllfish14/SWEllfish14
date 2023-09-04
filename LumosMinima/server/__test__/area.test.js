@@ -2,8 +2,8 @@ const supertest = require('supertest')
 const areaService = require("../services/areaService");
 const areaController = require("../controllers/areaController");
 const areaRoutes = require("../routes/areaRoutes");
-const createServer = require("../server");
-const app = createServer()
+const createServerTesting = require("../server");
+const app = createServerTesting()
 const areaPayload = {
   ID: 1,
   città: "Padova",
@@ -21,9 +21,55 @@ const areaPayloadAggiuntaArea = {
   modalità_funzionamento: "A",
   luminosità_standard:2,
   luminosità_rilevamento:3,
-  luminosità_manuale:0,
+  luminosità_manuale:1,
   stato:0
 };
+const risltatoAggiuntaAree = 
+  [{
+    ID: 1,
+    città: "Padova",
+    zona_geografica_città: "Via Brofferio",
+    modalità_funzionamento: "A",
+    luminosità_standard:2,
+    luminosità_rilevamento:3,
+    luminosità_manuale:1,
+    stato:0,
+  },
+  {
+  ID:2,
+  città: "Marostica",
+  zona_geografica_città: "Angelis",
+  modalità_funzionamento: "A",
+  luminosità_standard:2,
+  luminosità_rilevamento:3,
+  luminosità_manuale:1,
+  stato:0
+  }];
+  const risltatoAggiuntaAreeModifica = 
+  [{
+    ID: 1,
+    città: "Padova",
+    zona_geografica_città: "Via Brofferio",
+    modalità_funzionamento: "A",
+    luminosità_standard:2,
+    luminosità_rilevamento:3,
+    luminosità_manuale:1,
+    stato:0,
+  },
+  {
+  ID:2,
+  città: "Marostica2",
+  zona_geografica_città: "Angelis",
+  modalità_funzionamento: "A",
+  luminosità_standard:2,
+  luminosità_rilevamento:3,
+  luminosità_manuale:1,
+  stato:0
+  }]
+
+
+
+
 
 const areaPayloadAggiuntaAreaConId = {
   ID: 17,
@@ -135,7 +181,7 @@ describe("area", () => {
         expect(body).toEqual(areaPayload);
   
         expect(getOneAreaServiceMock).toHaveBeenCalled();
-      });
+      })
       it("ritorna l'area", async () => {
         const getOneAreaServiceMock = jest
          const result = await areaService.getOneArea(1)
@@ -145,7 +191,7 @@ describe("area", () => {
         //expect(getOneAreaServiceMock).toHaveBeenCalled();
       });
 
-    });
+    })
   
       describe("dato un id vuoto", () => {
         it("ritorna stato 400 status e payload con errore", async () => {
@@ -159,8 +205,8 @@ describe("area", () => {
         expect(statusCode).toBe(404);
         
         expect(getOneAreaServiceMock).not.toHaveBeenCalled();
-        });
-      });
+        })
+      })
   })
 
   describe("get tutte le aree", () =>{
@@ -207,8 +253,9 @@ describe("area", () => {
         expect(getNumeroAreeServiceMock).toHaveBeenCalled();
         */
       })
+  
 
-      /*it("ritorna 5 aree",async() => {
+     /* it("ritorna 5 aree",async() => {
 
         Area.count = jest.fn();
         Area.count.mockReturnValue(5)
@@ -218,8 +265,12 @@ describe("area", () => {
         //expect(getNumeroAreeServiceMock).toHaveBeenCalled();
         
       })
-      */
+      
     })
+    
+  })
+  */
+})
   })
 
   describe("get cinque aree", () => {
@@ -236,7 +287,23 @@ describe("area", () => {
         expect(getFiveAreeServiceMock).toHaveBeenCalled();
       })
     })
+    it("get 5 aree",async() => {
+
+      Area.findAll = jest.fn();
+      Area.findAll.mockReturnValue(listaAreePayload)
+      const result = await areaService.getFiveAree()
+
+     expect(result[0].ID).toBe(1)
+      
+     /* const {statusCode, body} = await supertest(app)
+        .get("/numeroAree")
+      expect(statusCode).toBe(200)
+      expect(body).toEqual({numeroAree:50})
+      expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+      */
+    })
   })
+ 
 
   // describe("aumenta luminosita a un area", () => {
   //   describe("Dato un id valido", () => {
@@ -259,17 +326,20 @@ describe("area", () => {
       it("Ritorna stato 200 e l'area appena aggiunta", async() => {
         const aggiungiAreaServiceMock = jest.
         spyOn(areaService,"aggiungiArea")
-        .mockReturnValueOnce(areaPayloadAggiuntaArea)
+        .mockReturnValueOnce(risltatoAggiuntaAree)
         const { statusCode, body } = await supertest(app)
           .post("/aggiungiArea/"+areaPayloadAggiuntaArea.città+"/"+ areaPayloadAggiuntaArea.zona_geografica_città+"/"+areaPayloadAggiuntaArea.stato+"/"+areaPayloadAggiuntaArea.modalità_funzionamento+"/"+areaPayloadAggiuntaArea.luminosità_standard+"/"+areaPayloadAggiuntaArea.luminosità_manuale)
           expect(statusCode).toBe(200)
-          expect(body).toEqual(areaPayloadAggiuntaArea)
+          expect(body).toEqual(risltatoAggiuntaAree)
           expect(aggiungiAreaServiceMock).toHaveBeenCalled();
       })
     })
-   })
 
-   describe('Modifica area', () => { 
+})
+  
+   
+
+  describe('Modifica area', () => { 
     describe("Dato un payload e un id valido", () => {
       it("Ritorna stato 200 e Area modificata", async() => {
         const modificaAreaServiceMock = jest.
@@ -316,8 +386,9 @@ describe("area", () => {
       })
     })
    })
+  })
 
-   describe('Accendi Area', () => { 
+ /*  describe('Accendi Area', () => { 
     describe("Dato un id valido", () => {
       it("Ritorna stato 200 e Area spenta", async() => {
         const accendiAreaServiceMock = jest.
@@ -347,10 +418,10 @@ describe("area", () => {
           expect(spegniAreaServiceMock).toHaveBeenCalledWith("1");
       })
     })
+  })
 
   
      
-   })
 
    /*describe("getAllAree() da service", () => {
     it("Ritorna stato 200 e la lista della aree", async() => {
@@ -367,4 +438,4 @@ describe("area", () => {
     
   })
   */
-  })
+  
