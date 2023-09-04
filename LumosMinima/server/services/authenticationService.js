@@ -14,12 +14,12 @@ const login = async(username,password) => {
             }
           })
           if(!amministratore){
-            return("Nome utente o password invalidi 1")
+            return("Nome utente o password invalidi")
           }
           console.log(amministratore)
         const match =     await bcrypt.compare(password,amministratore.password)
         if (!match) {
-            return("Nome utente o password invalidi 2")
+            return("Nome utente o password invalidi")
           }
           const token = jwt.encode({
             username: username,
