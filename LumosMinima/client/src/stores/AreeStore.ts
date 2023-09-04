@@ -182,9 +182,9 @@ export class AreeStore implements IAreeStore {
         `http://127.0.0.1:3002/area/${variables.id}/aumentaluminosita`
       );
     },
-    onSuccess: (data, variables) => {
-      this.queryClient.invalidateQueries(["area", variables.id]);
-    },
+   // onSuccess: (data, variables) => {
+    //  this.queryClient.invalidateQueries(["area", variables.id]);
+    //},
   });
 
   diminuisciLuminositàMutation = new MobxMutation<unknown,unknown,{ id: string }>({
@@ -193,9 +193,9 @@ export class AreeStore implements IAreeStore {
         `http://127.0.0.1:3002/area/${variables.id}/diminuisciluminosita`
       );
     },
-    onSuccess: (data, variables) => {
-      this.queryClient.invalidateQueries(["area", variables.id]);
-    },
+  //  onSuccess: (data, variables) => {
+   //   this.queryClient.invalidateQueries(["area", variables.id]);
+   // },
   });
 
 aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
@@ -225,9 +225,9 @@ aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
       mutationFn: async (variables) => {
         await axios.post(`http://127.0.0.1:3002/eliminaArea/${variables.id}`)
       },
-      onSuccess: (data, variables) => {
-        this.queryClient.invalidateQueries(["aree"]);
-      },
+     // onSuccess: (data, variables) => {
+      //  this.queryClient.invalidateQueries(["aree"]);
+      //},
     }
   )
 
@@ -237,9 +237,9 @@ aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
       mutationFn: async (variables) => {
         await axios.post(`http://127.0.0.1:3002/cambiaModalitaArea/${variables.id}`)
       },
-      onSuccess: (data, variables) => {
-        this.queryClient.invalidateQueries(["area",variables.id]);
-      },
+     // onSuccess: (data, variables) => {
+       // this.queryClient.invalidateQueries(["area",variables.id]);
+      //},
     }
   )
 

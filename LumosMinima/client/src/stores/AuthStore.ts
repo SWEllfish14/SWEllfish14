@@ -3,6 +3,7 @@ import axios from "axios";
 import { inject } from "react-ioc";
 import { MobxMutation } from "../utils/mobx_mutation";
 import Cookies from 'js-cookie';
+
 export default interface IAuthStore {}
 
 export class AuthStore implements IAuthStore {
@@ -47,4 +48,5 @@ export class AuthStore implements IAuthStore {
     },
     
   });
+  
 }

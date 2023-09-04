@@ -3,6 +3,7 @@ import { AreeStore } from "../stores/AreeStore";
 import { GuastiStore } from "../stores/GuastiStore";
 import { LampioniStore } from "../stores/LampioniStore";
 import { SensoriStore } from "../stores/SensoriStore";
+import { AuthStore } from "../stores/AuthStore";
 
 export type IHomeViewModel = ReturnType<typeof HomeViewModel>;
 
