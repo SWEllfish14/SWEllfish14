@@ -7,12 +7,12 @@ interface Props {
 const AggiungiGuastoView = ({ viewModel }: Props) => (
   <div>
     <form action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
-      <div id="guasti-margin" className="tile-is-ancestor">
-        <div className="tile-is-parent">
-          <article className="tile-is-child-box">
+      <div className="tile is-ancestor">
+        <div className="tile is-parent">
+          <article className="tile is-child box">
             <h1>Aggiunta guasto</h1>
             <p className="menu-label">
-              <label className="login-label" htmlFor="dataRilevamento">Data Rilevamento Guasto</label>
+              <label htmlFor="dataRilevamento">Data Rilevamento Guasto</label>
               <input
                 id="dataRilevamento"
                 name="dataRilevamento"
@@ -21,13 +21,13 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
                 placeholder="Data in cui è stato rilevato il guasto"
 
               ></input>
-              <label className="login-label" htmlFor="stato">Stato</label>
+              <label htmlFor="stato">Stato</label>
               <select id="stato"
                 name="stato" className="input">
                 <option value="0">Non Risolto</option>
               </select>
               
-              <label className="login-label" htmlFor="note">Note aggiuntive</label>
+              <label htmlFor="note">Note aggiuntive</label>
               <input
                 id="note"
                 name="note"
@@ -37,7 +37,7 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
 
               ></input>
 
-              <label className="login-label" htmlFor="id_area">Id area illuminata afferenza</label>
+              <label htmlFor="id_area">Id area illuminata afferenza</label>
               <input
                   id="id_area"
                   name="id_area"
@@ -51,13 +51,13 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
         </div>
       </div>
 
-      <div className="tile-is-ancestor">
-        <div className="tile-is-parent">
-          <article className="tile-is-child-box">
+      <div className="tile is-ancestor">
+        <div className="tile is-parent">
+          <article className="tile is-child box">
             <button type="submit" className="button is-success" >
               Conferma e Inserisci
             </button>
-            <button className="button-is-outlined">Cancella campi</button>
+            <button className="button is-outlined">Cancella campi</button>
           </article>
         </div>
       </div>

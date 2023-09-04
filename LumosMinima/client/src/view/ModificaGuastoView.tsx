@@ -7,12 +7,12 @@ interface Props {
 const ModificaGuastoView = ({ viewModel }: Props) => (
   <div>
     <form action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
-      <div id="guasto-margin" className="tile-is-ancestor">
-        <div className="tile-is-parent">
-          <article className="art">
+      <div className="tile is-ancestor">
+        <div className="tile is-parent">
+          <article className="tile is-child box">
             <h1>Modifica guasto</h1>
-            <p className="width-area">
-              <label className="login-label" htmlFor="id">ID guasto</label>
+            <p className="menu-label">
+              <label htmlFor="id">ID guasto</label>
               <input
                 id="id"
                 name="id"
@@ -22,7 +22,7 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
                 readOnly
               ></input>
               
-              <label className="login-label" htmlFor="new_data_rilevamento">data rilevamento guasto</label>
+              <label htmlFor="new_data_rilevamento">data rilevamento guasto</label>
               <input
                 id="new_data_rilevamento"
                 name="new_data_rilevamento"
@@ -33,7 +33,7 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
                 disabled
               ></input>
 
-              <label className="login-label" htmlFor="new_stato">stato</label>
+              <label htmlFor="new_stato">stato</label>
 
               {viewModel.guastoDetails().data?.stato != "1" ? 
               <select id="new_stato" name="new_stato" className="input" >
@@ -47,7 +47,7 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
               }
 
 
-              <label className="login-label" htmlFor="new_note">note</label>
+              <label htmlFor="new_note">note</label>
               <input
                 id="new_note"
                 name="new_note"
@@ -57,7 +57,7 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
                 defaultValue={viewModel.guastoDetails().data?.note}
               ></input>
 
-              <label className="login-label" htmlFor="new_id_area_illuminata">id area illuminata</label>
+              <label htmlFor="new_id_area_illuminata">id area illuminata</label>
               <input
                 id="new_id_area_illuminata"
                 name="new_id_area_illuminata"
@@ -72,10 +72,10 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
         </div>
       </div>
 
-      <div  id="conferma"  className="tile-is-ancestor">
-        <div className="tile-is-parent">
-          <article className="art">
-            <button type="submit" className="conferma" >
+      <div className="tile is-ancestor">
+        <div className="tile is-parent">
+          <article className="tile is-child box">
+            <button type="submit" className="button is-success" >
               Conferma e Inserisci
             </button>
           </article>

@@ -7,75 +7,74 @@ interface Props {
 }
 const ListaLampioniView = ({ viewModel }: Props) => (
   <div>
-    <div className="tile-is-ancestor">
-      <div className="tile-is-parent">
-        <article className="art">
+    <div className="tile is-ancestor">
+      <div className="tile is-parent">
+        <article className="tile is-child box">
           <h1>Lista Lampioni</h1>
-          <p className="login-label">
+          <p className="menu-label">
             {viewModel.isLoading() ? (
               <p>Loading...</p>
             ) : (
-              <ul className="width-area">
+              <ul>
                 {viewModel.listaLampioni()?.map((lampioni) => (
-                  <div className="width-area">
-                  <div  className="width-area">
-                  <article className="width-area">
-                  <li className="width-area" key={lampioni.ID}>
-                    <p  className="width-area">
-                     <p  className="width-area">
-                       ID: {lampioni.ID}</p> 
+                  <div className ="tile is-ancestor">
+                  <div className="tile is-parent is-small">
+                  <article className="tile is-child box">
+                  <li key={lampioni.ID}>
+                    <p>
+                     <button className="button is-warning is-small is-responsive">
+                       ID: {lampioni.ID}</button> 
                     </p>
-                    <p className="width-area">
-                    <p className="width-area">IP: {lampioni.IP}</p>
+                    <p>
+                    <button className = "button is-info is-small is-responsive">IP: {lampioni.IP}</button>
                     </p>
-                    <p className="width-area">Tipo interazione: {lampioni.tipo_interazione}</p>
-                      <p className="width-area">
-                        {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
-                          <>
-                        Stato:{" "}
-                        {lampioni.stato ? (
-                          <>Acceso <>
-                          <p className="width-area"> 
-                          <button
-                            className="spento"
-                            onClick={() =>
-                              viewModel.spegniLampione(lampioni.ID)
-                            }
-                            
-                          >
-                            Spegni Lampione
-                          </button>
-                          </p>
-                        </></>
-                        ) : (
-                          <>
-                            Spento
-                            <>
-                            <p className="width-area">
-                              <button
-                                className="acceso"
-                                onClick={() =>
-                                  viewModel.accendiLampione(lampioni.ID)
-                                }
-                                
-                              >
-                                Accendi Lampione
-                              </button>
-                              </p>
-                            </>
-                          </>
-                        )}
-                        </>):(<></>)}
-                      </p>
-                    
-                      <p className="width-area">
-                      <Link to={{ pathname: `/modificaLampione/${lampioni.ID}` }}>
-                        <button className="button is-outlined">
-                          {" "}
-                          Modifica dettagli Lampione{" "}
+                    <p>
+                      {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
+                        <>
+                      Stato:{" "}
+                      {lampioni.stato ? (
+                        <>Acceso <>
+                        <p>
+                        <button
+                          className="button is-danger is-small"
+                          onClick={() =>
+                            viewModel.spegniLampione(lampioni.ID)
+                          }
+                          
+                        >
+                          Spegni Lampione
                         </button>
-                      </Link>
-                      </p>
+                        </p>
+                      </></>
+                      ) : (
+                        <>
+                          Spento
+                          <>
+                          <p>
+                            <button
+                              className="button is-success is-small"
+                              onClick={() =>
+                                viewModel.accendiLampione(lampioni.ID)
+                              }
+                              
+                            >
+                              Accendi Lampione
+                            </button>
+                            </p>
+                          </>
+                        </>
+                      )}
+                      </>):(<></>)}
+                    </p>
+                    <p>Tipo interazione: {lampioni.tipo_interazione}</p>
+                    <p>
+                    <Link to={{ pathname: `/modificaLampione/${lampioni.ID}` }}>
+                      <button className="button is-outlined">
+                        {" "}
+                        Modifica dettagli Lampione{" "}
+                      </button>
+                    </Link>
+                    </p>
                   </li>
                   </article>
                   </div>

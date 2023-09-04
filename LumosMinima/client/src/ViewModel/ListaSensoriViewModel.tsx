@@ -1,5 +1,5 @@
-
-import {  useInstance } from "react-ioc"
+import { observer } from "mobx-react-lite"
+import { provider, useInstance } from "react-ioc"
 import { useParams } from "react-router-dom";
 import { SensoriStore } from "../stores/SensoriStore";
 

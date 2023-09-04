@@ -10,8 +10,7 @@ export type IAreaDetailsViewModel = ReturnType<typeof AreaDetailsViewModel>;
 export const AreaDetailsViewModel = () => {
   const { id } = useParams();
   const areaStore = useInstance(AreeStore);
-  const areaDetails = areaStore.getAreaDetails(id!) ?? {};
-  const error = areaDetails.error;
+  const error = areaStore.getAreaDetails(id!).error;
   const navigate = useNavigate();
   const lampioniStore = useInstance(LampioniStore)
   const sensoriStore = useInstance(SensoriStore)

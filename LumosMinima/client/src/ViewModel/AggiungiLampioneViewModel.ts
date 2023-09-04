@@ -2,6 +2,7 @@ import { useInstance } from "react-ioc";
 import{ LampioniStore } from "../stores/LampioniStore";
 import { useParams, useNavigate } from "react-router-dom";
 import { AreeStore } from "../stores/AreeStore";
+import { isIdentifierStart } from "typescript";
 import { useState } from "react";
 
 export type IAggiungiLampioneViewModel = ReturnType<typeof AggiungiLampioneViewModel>;

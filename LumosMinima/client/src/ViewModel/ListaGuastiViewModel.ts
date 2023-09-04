@@ -1,6 +1,6 @@
-
+import { observer } from "mobx-react-lite"
 import {GuastiStore} from "../stores/GuastiStore"
-import { useInstance } from "react-ioc"
+import { provider, useInstance } from "react-ioc"
 
 
 export type IListaGuastiViewModel = ReturnType<typeof ListaGuastiViewModel>;

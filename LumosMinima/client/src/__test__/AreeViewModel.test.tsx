@@ -41,7 +41,7 @@ describe('AreeViewModel', () => {
     spegniAllAreeMutationMock = new MobxMutation<unknown, unknown, unknown, unknown>({});
 
     areeStoreMock = {
-      aree: { data:[{
+      aree: [{
         ID: 1,
         città: 'Firenze',
         zona_geografica_città: 'Duomo',
@@ -59,8 +59,8 @@ describe('AreeViewModel', () => {
         luminosità_rilevamento: 4,
         luminosità_manuale: 3,
         stato: 0,
-      }], isLoading: false } ,
-      
+      }],
+      areeIsLoading: false,
       accendiAllAreeMutation: accendiAllAreeMutationMock,
       spegniAllAreeMutation: spegniAllAreeMutationMock,
     };
