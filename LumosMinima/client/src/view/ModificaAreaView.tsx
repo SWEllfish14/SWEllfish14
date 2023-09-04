@@ -92,7 +92,7 @@ const ModificaAreaView = ({ viewModel }: Props) => (
         </div>
       </div>
     </form>
-    {viewModel.submitIsError() ===true ? <>{viewModel.submitError()}</>:<></>}
+    {viewModel.submitIsError() ===true ? <><p className="notification is-danger is-light">La modifica non è andata a buon fine riprovare</p></>:<></>}
     <></>
   </div>
 

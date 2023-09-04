@@ -19,7 +19,7 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
                 className="input"
                 type="text"
                 value={viewModel.guastoDetails().data?.ID.toString()}
-                readOnly
+                disabled
               ></input>
               
               <label htmlFor="new_data_rilevamento">data rilevamento guasto</label>
@@ -37,8 +37,8 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
 
               {viewModel.guastoDetails().data?.stato != "1" ? 
               <select id="new_stato" name="new_stato" className="input" >
-                <option value="1" >Risolto</option>
                 <option value="0" >Non Risolto</option>
+                <option value="1" >Risolto</option> 
               </select>
               :
               <select id="new_stato" name="new_stato" className="input" value={viewModel.guastoDetails().data?.stato} disabled>
@@ -62,9 +62,10 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
                 id="new_id_area_illuminata"
                 name="new_id_area_illuminata"
                 className="input"
-                type="text"
+                type="number"
                 placeholder={viewModel.guastoDetails().data?.id_area_illuminata.toString()}
                 defaultValue={viewModel.guastoDetails().data?.id_area_illuminata.toString()}
+                required
               ></input>
 
             </p>
@@ -82,7 +83,7 @@ const ModificaGuastoView = ({ viewModel }: Props) => (
         </div>
       </div>
     </form>
-    {viewModel.submitIsError() ===true ? <>{viewModel.submitError()}</>:<></>}
+    {viewModel.submitIsError() ===true ? <><p className="notification is-danger is-light">La modifica non è andata a buon fine riprovare</p></>:<></>}
     <></>
   </div>
 

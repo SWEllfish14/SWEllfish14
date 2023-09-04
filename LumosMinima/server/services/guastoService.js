@@ -151,12 +151,9 @@ const modificaGuasto = async(id, new_stato, new_note, new_id_area_illuminata, ne
   }
 
   
-
-
-
   if(new_note){
     guasto.update({
-    note:new_note
+    note:new_note != "null" ? new_note : ""
   },{ where: {
     ID: id,
   }})  }

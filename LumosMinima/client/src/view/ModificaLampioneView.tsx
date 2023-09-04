@@ -90,7 +90,7 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
       </article>
       </div>
       </div>
-      {viewModel.submitIsError() ===true ? <>{viewModel.submitError()}</>:<></>}
+      {viewModel.submitIsError() ===true ? <><p className="notification is-danger is-light">La modifica non è andata a buon fine riprovare</p></>:<></>}
       <></>
       </form>
       </div>
