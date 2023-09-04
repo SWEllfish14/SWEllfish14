@@ -13,10 +13,18 @@ interface Props {
 }
 const HomeView = ({ viewModel }: Props) => (
   <div>
-    <div className="tile is-ancestor">
+{/*     <nav className="breadcrumb is-right" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="#">Bulma</a></li>
+        <li><a href="#">Documentation</a></li>
+        <li><a href="#">Components</a></li>
+        <li className="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
+      </ul>
+    </nav> */}
+    <div className="tile is-anchestor">
       <div className="tile is-parent">
-        <article className="tile is-child box">
-          <button className="button is-info">Stato sistema</button>
+      <article className="tile is-child box">
+          <h2 className="title is-4" >Stato sistema</h2>
           <p className="menu-label">
             <li>
               Numero Guasti a sistema:
@@ -54,9 +62,8 @@ const HomeView = ({ viewModel }: Props) => (
         </article>
       </div>
       <div className="tile is-parent">
-        <article className="tile is-child box">
-          <button className="button is-warning">Lista aree</button>
-
+      <article className="tile is-child box">
+        <h2 className="title is-4" >Lista aree</h2>
           <p className="menu-label">
             {viewModel.areeLimitisLoading() ? (
               <p>Loading...</p>
@@ -84,12 +91,12 @@ const HomeView = ({ viewModel }: Props) => (
           </p>
         </article>
       </div>
-      </div>
+    </div>
 
-      <div className="tile is-anchestor">
+    <div className="tile is-anchestor">
       <div className="tile is-parent">
         <article className="tile is-child box">
-          <button className="button is-danger">Ultimi guasti inseriti a sistema </button>
+        <h2 className="title is-4" >Ultimi guasti inseriti a sistema</h2>
 
           <p className="menu-label">
             {viewModel.guastiisLoading() ? (
@@ -108,7 +115,7 @@ const HomeView = ({ viewModel }: Props) => (
       </div>
       <div className="tile is-parent">
         <article className="tile is-child box">
-          <button className="button">Utility</button>
+          <h2 className="title is-4" >Utility</h2>
           <p>
           <a href="/">Manuale Utente</a>
           </p>
