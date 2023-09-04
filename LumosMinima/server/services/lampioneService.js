@@ -314,7 +314,7 @@ const aggiungiLampione = async(area,ip,tipo_interazione,luminositaDefault,lumino
 const accendiLampione = async(lampID) =>{
   let port = 4000 +parseInt(lampID);
   const  lampione=await Lampione.findByPk(lampID);
-  const bright = await getBrightnessofArea(lampione.id_area_illuminata);
+  const bright = await getBrightnessofLamp(lampID);
   try {
     await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:bright,lamp_status:true,lamp_id:" " +lampID},{
       headers: {

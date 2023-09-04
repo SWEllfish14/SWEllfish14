@@ -2,56 +2,11 @@
 const db = require("../models/index");
 const { raw } = require("express");
 const sensoriModel = require("../models/sensoriModel");
-const cron = require('node-cron');
-const axios = require('axios');
-const lampioneService = require("../services/lampioneService");
-const areaService = require("../services/areaService");
-const guastoService = require("../services/guastoService")
+
+const sensoriService = require("../services/sensoreService")
+Sensore = db.sensori;
 
 
-
-const updateUrl = 'http://127.0.0.1:5205/sensor';
-const  checkForUpdate = async () =>{
-  console.log('Checking for updates...');
- axios.get(updateUrl)
-    .then(async response => {
-      console.log(response.data.sensor_id)
-      console.log(response.data.sensor_detection)
-      console.log(response.data.id_area)
-      const modalità = await areaService.getModalitaArea(response.data.id_area)
-      console.log(modalità)
-     if(modalità[0].modalità_funzionamento === "A"){
-      if(response.data.sensor_detection === true){
-        console.log("ok ho un rilevamento")
-        const result = await lampioneService.accendiLampioniAreaRilevamento(response.data.id_area)
-      }
-      else{
-        console.log("ok, niente rilevamenti")
-        const result = await lampioneService.accendiLampioniArea(response.data.id_area)
-      }
-    
-    }
-  else{
-      console.log("area in modalità manuale")
-  }
-    })
-    .catch(async error => {
-      const res = await guastoService.getGuastiForSensoreRotto()
-      if(res[0] != null){
-        console.log("guasto già a sistema")
-      }else{
-        console.log("guasto non a sistema, aggiungos")
-      console.error('Error checking for updates:', error.message);
-      const newGuato = await guastoService.aggiungiGuasto(new Date(), 0,"sensore rotto",2)
-      }
-      
-    });
-
-   
-}
-
-// Set up a cron job to run every N minutes
-cron.schedule("*/10 * * * * *", checkForUpdate);
 
 
 const getAllSensoriFromArea = async (id) => {
@@ -166,6 +121,5 @@ module.exports = {
     modificaSensore,
     getOneSensore,
     eliminaSensore,
-    getNumeroSensoriAreaCount,
-    checkForUpdate
+    getNumeroSensoriAreaCount
 }
