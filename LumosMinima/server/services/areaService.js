@@ -225,7 +225,9 @@ const cambiaModalitaArea = async(id) =>{
         ID: id,
       },
     });
+    const reslt = await lampioniService.accendiLampioniManualeArea(id)
   }
+
   return("Modalità funzionamento cambiata");
 }
 
