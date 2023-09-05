@@ -1,8 +1,6 @@
 import { useInstance } from "react-ioc";
 import { GuastiStore} from "../stores/GuastiStore"
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
-import { LampioniStore } from "../stores/LampioniStore";
 
 export type IGuastoDetailsViewModel = ReturnType<typeof GuastoDetailsViewModel>;
 

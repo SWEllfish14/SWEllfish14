@@ -65,7 +65,7 @@ describe('AggiungiAreaViewModel', () => {
 
   it('viene chiamata getAreaDetails con isError', () => {
     const viewModel = AggiungiAreaViewModel();
-    
+      
     expect(viewModel.isError()).toBe(false);
     expect(areeStoreMock.getAreaDetails).toBeCalled()
   });

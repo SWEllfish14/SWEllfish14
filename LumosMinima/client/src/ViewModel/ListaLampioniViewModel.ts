@@ -13,7 +13,6 @@ export const ListaLampioniViewModel = () => {
     const lampioniStore =useInstance(LampioniStore);
     const areaStore = useInstance(AreeStore)
     const error = lampioniStore.getlistaLampioni(id!).error
-    const navigate = useNavigate();
     return {
       areaDetails: () => areaStore.getAreaDetails(id!),
       dettagliLampione: ()=> lampioniStore.getdettagliLampioni(id!),
