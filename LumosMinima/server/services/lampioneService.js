@@ -328,14 +328,16 @@ const accendiLampione = async(lampID) =>{
   }
 }
 const spegniLampione = async(lampID) =>{
+  const bright = await getBrightnessofLamp(lampID);
   let port = 4000 +parseInt(lampID) ;
   try {
     await axios.post("http://127.0.0.1:"+port+"/lamp",{brightness:0,lamp_status:false,lamp_id:" " +lampID},{
       headers: {
             'Content-Type': 'application/json'
         } })
-        const  lampione=await Lampione.findByPk(lampID);
-        lampione.update({luminosità_impostata:0,stato:0})
+      const  lampione=await Lampione.findByPk(lampID);
+      //  lampione.update({luminosità_impostata:bright,stato:0})
+      lampione.update({stato:0})
         return ("Lampione spento")
   } catch (error) {
     console.log(error)
