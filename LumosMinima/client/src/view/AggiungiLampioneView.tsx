@@ -76,8 +76,8 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
       <div className ="tile is-ancestor">
       <div className="tile is-parent">
       <article className="tile is-child box">
-      <button type="submit" className="button is-success">Conferma e Inserisci</button>
-      <button className="button is-outlined">Cancella campi</button>
+      <button type="submit" className="button is-success m-1">Conferma e Inserisci</button>
+      {/* <button className="button is-outlined">Cancella campi</button> */}
       </article>
       </div>
       </div>

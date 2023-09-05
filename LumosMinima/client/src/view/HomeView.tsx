@@ -71,9 +71,9 @@ const HomeView = ({ viewModel }: Props) => (
                     >
                       <p>
                       {area.città}, Località: {area.zona_geografica_città} - {area.stato === 1 ? (
-                        <span className="button is-success is-small is-responsive  ">ACCESA</span>
+                        <span className="button is-success is-small is-responsive is-light ">ACCESA</span>
                       ):
-                      (<span className="button is-danger is-small is-responsive">SPENTA</span>)
+                      (<span className="button is-danger is-small is-responsive is-light">SPENTA</span>)
                       }
                       </p>
                     </Link>
@@ -97,7 +97,7 @@ const HomeView = ({ viewModel }: Props) => (
             ) : (
               <ul>
                 {viewModel.guasti()?.map((guasto) => (
-                  <li key={guasto.ID} className="m-2">
+                  <li key={guasto.ID} >
                     <Link
                       to={{
                         pathname: `/guasti/${guasto.ID}`,

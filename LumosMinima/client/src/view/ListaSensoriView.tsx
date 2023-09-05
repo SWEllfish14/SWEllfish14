@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 <div className ="tile is-ancestor">
 <div className="tile is-parent">
 <article className="tile is-child box">
-<h1>Lista Sensori</h1>
+<h1 className="title is-4" >Lista Sensori</h1>
 <p className="menu-label">
     
     {viewModel.isLoading() ? <p>Loading...</p> :
@@ -21,18 +21,18 @@ import { Link } from "react-router-dom";
               <article className="tile is-child box">
                 <li key={sensori.ID}>
                     <p>
-                    <button className="button is-success is-small is-responsive">ID: {sensori.ID}</button> 
+                    <button className="button is-success is-small is-responsive m-1">ID: {sensori.ID}</button> 
                     </p>
                     <p>
-                    <button className = "button is-info is-small is-responsive">IP: {sensori.IP}</button>
+                    <button className = "button is-info is-small is-responsive m-1">IP: {sensori.IP}</button>
                     </p>
-                    <p>Tipo interazione: {sensori.tipo_interazione}, Polling time: {sensori.polling_time} ms, Raggio Azione : {sensori.raggio_azione} metri
+                    <p className = "m-1">Tipo interazione: {sensori.tipo_interazione}, Polling time: {sensori.polling_time} ms, Raggio Azione : {sensori.raggio_azione} metri
                     </p>
                     <p>
 
       <Link to={{pathname: `/modificaSensore/${sensori.ID}`}}>
             <button
-              className="button is-outlined"
+              className="button is-outlined m-1"
             > Modifica dettagli Sensore </button>
             </Link>
                     </p>

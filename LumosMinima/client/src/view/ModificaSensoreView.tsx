@@ -74,12 +74,12 @@ import { useParams } from "react-router-dom";
     <div className="tile is-ancestor">
       <div className="tile is-parent">
         <article className="tile is-child box">
-          <button type="submit" className="button is-success" >
+          <button type="submit" className="button is-success m-1" >
             Conferma e Inserisci
           </button>
-          <button className="button is-outlined">Cancella campi</button>
+          {/* <button className="button is-outlined m-1">Cancella campi</button> */}
           <button
-              className="button is-danger"
+              className="button is-danger m-1"
                  onClick={() => viewModel.eliminaSensore()}
             > Elimina Sensore </button>
         </article>

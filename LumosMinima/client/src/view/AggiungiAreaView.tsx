@@ -74,10 +74,10 @@ const AggiungiAreaView = ({ viewModel }: Props) => (
       <div className="tile is-ancestor">
         <div className="tile is-parent">
           <article className="tile is-child box">
-            <button type="submit" className="button is-success" >
+            <button type="submit" className="button is-success m-1" >
               Conferma e Inserisci
             </button>
-            <button className="button is-outlined">Cancella campi</button>
+            <button className="button is-outlined m-1">Cancella campi</button>
           </article>
         </div>
       </div>
