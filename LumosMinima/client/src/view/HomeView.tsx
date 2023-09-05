@@ -13,14 +13,16 @@ interface Props {
 }
 const HomeView = ({ viewModel }: Props) => (
   <div>
-{/*     <nav className="breadcrumb is-right" aria-label="breadcrumbs">
-      <ul>
-        <li><a href="#">Bulma</a></li>
-        <li><a href="#">Documentation</a></li>
-        <li><a href="#">Components</a></li>
-        <li className="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
-      </ul>
-    </nav> */}
+{/*     <div className ="box">
+      <nav className="breadcrumb is-left" aria-label="breadcrumbs">
+        <ul>
+          <li><a href="#">Bulma</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Components</a></li>
+          <li className="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
+        </ul>
+      </nav>
+    </div> */}
     <div className="tile is-anchestor">
       <div className="tile is-parent">
       <article className="tile is-child box">
