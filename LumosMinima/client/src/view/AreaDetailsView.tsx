@@ -149,22 +149,28 @@ const AreaDetailsView = ({ viewModel }: Props) => (
     </div>
 
     
-    <div className="column is-half">
+    <div className="column is-half" >
       <div className="box" >
-      <h2 className="title is-5">Impostazioni Area</h2>
+      <div className="is-flex is-flex-direction-row">
+        <h2 className="title is-flex is-5" >Impostazioni Area</h2>
+        <div className="is-flex is-flex-direction-column is-flex-grow-1">
+          <button
+          className="button is-danger is-small is-flex is-align-self-flex-end"
+          onClick={() => viewModel.eliminaArea()}
+        >
+          Elimina area
+        </button>
+        </div>
+      </div>
 
+        
+        
+        
         <Link
           to={{ pathname: `/modificaArea/${viewModel.areaDetails().data?.ID}` }}
         >
           <button className="button is-outlined">Modifica dettagli area</button>
         </Link>
-
-        <button
-          className="button is-danger is-small "
-          onClick={() => viewModel.eliminaArea()}
-        >
-          Elimina area
-        </button>
       </div>
     </div>
 
@@ -172,7 +178,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
       <div className="box">
       <h2 className="title is-5">Impostazioni Sensori</h2>
         <Link to={{ pathname: `/aggiungiSensore/${viewModel.areaDetails().data?.ID}` }}>
-          <button className="button is-outlined">Aggiungi sensore</button>
+          <button className="button is-outlined mr-2">Aggiungi sensore</button>
         </Link>
 
         <Link to={{ pathname: `/sensori/${viewModel.areaDetails().data?.ID}` }}>
@@ -185,7 +191,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
       <div className="box">
       <h2 className="title is-5">Impostazioni Lampioni</h2>
         <Link to={{ pathname: `/aggiungiLampione/${viewModel.areaDetails().data?.ID}`}}>
-          <button className="button is-outlined">Aggiungi lampione</button>
+          <button className="button is-outlined mr-2">Aggiungi lampione</button>
         </Link>
 
         <Link
@@ -198,4 +204,11 @@ const AreaDetailsView = ({ viewModel }: Props) => (
   </div>
   </div>
 );
+
+const styles = {
+  titleLimit: {
+       width: '30%',
+  }
+};   
+
 export default observer(AreaDetailsView);
