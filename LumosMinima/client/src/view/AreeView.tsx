@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
  const AreeView = ({viewModel}: Props) => (
   <div>
+
     <div className="box">
 
     <div className="box">

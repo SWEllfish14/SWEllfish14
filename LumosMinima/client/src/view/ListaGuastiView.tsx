@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
  const ListaGuastiView = ({viewModel}: Props) => (
 
 <div>
+
     <div className ="box">
         <h1 className="title is-4">Lista Guasti a Sistema</h1>
             <div className="columns">

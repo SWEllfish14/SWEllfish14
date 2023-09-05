@@ -13,16 +13,7 @@ interface Props {
 }
 const HomeView = ({ viewModel }: Props) => (
   <div>
-{/*     <div className ="box">
-      <nav className="breadcrumb is-left" aria-label="breadcrumbs">
-        <ul>
-          <li><a href="#">Bulma</a></li>
-          <li><a href="#">Documentation</a></li>
-          <li><a href="#">Components</a></li>
-          <li className="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
-        </ul>
-      </nav>
-    </div> */}
+    
     <div className="tile is-anchestor">
       <div className="tile is-parent">
       <article className="tile is-child box">
@@ -72,17 +63,17 @@ const HomeView = ({ viewModel }: Props) => (
             ) : (
               <ul>
                 {viewModel.areeLimit()?.map((area) => (
-                  <li key={area.ID}>
+                  <li key={area.ID} className="m-2">
                     <Link
                       to={{
                         pathname: `/area/${area.ID}`,
                       }}
                     >
                       <p>
-                      {area.città}, Località: {area.zona_geografica_città}{area.stato === 1 ? (
-                        <button className="button is-success is-small is-responsive is-rounded">ON</button>
+                      {area.città}, Località: {area.zona_geografica_città} - {area.stato === 1 ? (
+                        <span className="button is-success is-small is-responsive  ">ACCESA</span>
                       ):
-                      (<button className="button is-danger is-small is-responsive is-rounded">OFF</button>)
+                      (<span className="button is-danger is-small is-responsive">SPENTA</span>)
                       }
                       </p>
                     </Link>
@@ -106,8 +97,14 @@ const HomeView = ({ viewModel }: Props) => (
             ) : (
               <ul>
                 {viewModel.guasti()?.map((guasto) => (
-                  <li key={guasto.ID}>
-                      {guasto.data_rilevamento.toString()} : Guasto a {guasto["area.città"]},{guasto["area.zona_geografica_città"]}.
+                  <li key={guasto.ID} className="m-2">
+                    <Link
+                      to={{
+                        pathname: `/guasti/${guasto.ID}`,
+                      }}
+                    >
+                     <p>{guasto.data_rilevamento.toString()} : Guasto a {guasto["area.città"]},{guasto["area.zona_geografica_città"]}.</p> 
+                    </Link>
                   </li>
                 ))}
               </ul>

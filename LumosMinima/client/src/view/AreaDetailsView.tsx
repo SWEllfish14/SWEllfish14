@@ -8,12 +8,14 @@ interface Props {
 
 const AreaDetailsView = ({ viewModel }: Props) => (
   <div>
+    <div className="box">
     <div className="columns">
       <div className="column is-half">
         {viewModel.isLoading() && <p>Loading...</p>}
         {viewModel.isError() && <p>Error: {viewModel.error()?.message}</p>}
         {viewModel.areaDetails() && (
           <div className="box">
+            <h2 className="title is-5">Dettagli area</h2>
             <p>ID: {viewModel.areaDetails().data?.ID}</p>
             <p>Città: {viewModel.areaDetails().data?.città}</p>
             <p>Zona: {viewModel.areaDetails().data?.zona_geografica_città}</p>
@@ -62,9 +64,10 @@ const AreaDetailsView = ({ viewModel }: Props) => (
           </div>
         )}
       </div>
+
       <div className="column is-half">
         <div className="box">
-          <h2>Impostazioni Luminosità</h2>
+        <h2 className="title is-5">Impostazioni Luminosità</h2>
           {viewModel.areaDetails().data?.modalità_funzionamento === "M" ? (
             <>
           {viewModel.areaDetails().data?.stato === 1 ? (
@@ -81,7 +84,6 @@ const AreaDetailsView = ({ viewModel }: Props) => (
               >
                 Accendi Lampioni
               </button></>
-            
               )}
               </>):(<></>)
               }
@@ -115,7 +117,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                 
                 <p>
                   <button
-                    className="button is-warning"
+                    className="button is-warning  mt-2"
                     onClick={() => viewModel.aumentaLuminosità()}
                   >
                     Aumenta Luminosità
@@ -124,7 +126,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
                 
                 <p>
                   <button
-                    className="button is-warning is-light"
+                    className="button is-warning is-light  mt-3"
                     onClick={() => viewModel.diminuisciLuminosità()}
                   >
                     Diminuisci Luminosità
@@ -146,27 +148,29 @@ const AreaDetailsView = ({ viewModel }: Props) => (
       </div>
     </div>
 
+    
     <div className="column is-half">
-      <div className="box">
-        <p>Impostazioni Area</p>
-        <button
-          className="button is-danger is-small"
-          onClick={() => viewModel.eliminaArea()}
-        >
-          Elimina area
-        </button>
+      <div className="box" >
+      <h2 className="title is-5">Impostazioni Area</h2>
 
         <Link
           to={{ pathname: `/modificaArea/${viewModel.areaDetails().data?.ID}` }}
         >
           <button className="button is-outlined">Modifica dettagli area</button>
         </Link>
+
+        <button
+          className="button is-danger is-small "
+          onClick={() => viewModel.eliminaArea()}
+        >
+          Elimina area
+        </button>
       </div>
     </div>
 
     <div className="column is-half">
       <div className="box">
-        <p>Impostazioni Sensori</p>
+      <h2 className="title is-5">Impostazioni Sensori</h2>
         <Link to={{ pathname: `/aggiungiSensore/${viewModel.areaDetails().data?.ID}` }}>
           <button className="button is-outlined">Aggiungi sensore</button>
         </Link>
@@ -179,7 +183,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
 
     <div className="column is-half">
       <div className="box">
-        <p>Impostazioni Lampioni</p>
+      <h2 className="title is-5">Impostazioni Lampioni</h2>
         <Link to={{ pathname: `/aggiungiLampione/${viewModel.areaDetails().data?.ID}`}}>
           <button className="button is-outlined">Aggiungi lampione</button>
         </Link>
@@ -191,6 +195,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
         </Link>
       </div>
     </div>
+  </div>
   </div>
 );
 export default observer(AreaDetailsView);
