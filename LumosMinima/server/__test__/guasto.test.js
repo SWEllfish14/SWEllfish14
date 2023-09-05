@@ -1,8 +1,8 @@
 const supertest = require('supertest')
 const guastoService = require("../services/guastoService");
-const createServerTesting = require("../server");
+const createServer = require("../server");
 const { EmptyResultError } = require('sequelize');
-const app = createServerTesting()
+const app = createServer()
 const guastiPayload={
     ID:1,
     data_rilevamento:"2023-04-13",
@@ -212,7 +212,6 @@ describe("guasti",()=>{
                 expect(getNumeroAreeServiceMock).toHaveBeenCalled();
                 */
               })
-  
   
           
       
