@@ -3,7 +3,7 @@ import { AreeStore } from "../stores/AreeStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { LampioniStore } from "../stores/LampioniStore";
-import { SensoriStore } from "../stores/SensoriStore";
+import { render, fireEvent } from '@testing-library/react';
 
 export type IAreaDetailsViewModel = ReturnType<typeof AreaDetailsViewModel>;
 
@@ -14,7 +14,6 @@ export const AreaDetailsViewModel = () => {
   const error = areaDetails.error;
   const navigate = useNavigate();
   const lampioniStore = useInstance(LampioniStore)
-  const sensoriStore = useInstance(SensoriStore)
 
   let [submitHasError,setSubmitHasError]= useState(false)
   let [errorMessage,setErrorMessage]= useState("");
