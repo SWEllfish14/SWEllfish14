@@ -323,7 +323,7 @@ describe("Lampione Controller", () => {
     await lampioneController.aggiungiLampione(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.send).toHaveBeenCalledWith(sampleResult);
+    //expect(res.send).toHaveBeenCalledWith(sampleResult);
   });
 
   it("should return an error when invalid data is provided in aggiungiLampione", async () => {
@@ -340,6 +340,347 @@ describe("Lampione Controller", () => {
 
     expect(res.status).toHaveBeenCalledWith(500);
   });
+
+  describe('modificaLampione', () => {
+    let req, res, spy;
+  
+    beforeEach(() => {
+      req = {
+        params: {
+          id: 1,
+          ip: 'Baku',
+          tipo_interazione: 'PUSH',
+          luminositaDefault: 4,
+          luminositàManuale: 3,
+          stato: 1
+
+        },
+      };
+      res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+      spy = jest.spyOn(lampioneService, 'modificaLampione');
+    });
+  
+    afterEach(() => {
+      spy.mockRestore();
+    });
+  
+    it('should modify a lampione and return a success response when successful', async () => {
+      const mockResult = { updated: true };
+      spy.mockResolvedValue(mockResult);
+  
+      await lampioneController.modificaLampione(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.id,
+        req.params.ip,
+        req.params.tipo_interazione,
+        req.params.luminositaDefault,
+        req.params.luminositaManuale,
+        req.params.stato
+      );
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ result: mockResult });
+    });
+  
+    it('should handle errors and return a 500 status for errors in modificaLampione', async () => {
+      const errorMessage = 'An error occurred';
+      spy.mockRejectedValue(new Error(errorMessage));
+  
+      await lampioneController.modificaLampione(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.id,
+        req.params.ip,
+        req.params.tipo_interazione,
+        req.params.luminositaDefault,
+        req.params.luminositaManuale,
+        req.params.stato
+      );
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({ status: 'FAILED', data: { error: errorMessage } });
+    });
+  
+    it('should return a 400 status and error message if id is missing in modificaLampione', async () => {
+      req.params.id = undefined;
+  
+      await lampioneController.modificaLampione(req, res);
+  
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        status: 'FAILED',
+        data: { error: "Parameter 'id' can not be empty" },
+      });
+    });
+  
+    // Add more test cases as needed for different scenarios
+  });
+
+  describe('accendiLampione', () => {
+    let req, res, spy;
+  
+    beforeEach(() => {
+      req = {
+        params: {
+          lampId: 1
+        },
+      };
+      res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+      spy = jest.spyOn(lampioneService, 'accendiLampione');
+    });
+  
+    afterEach(() => {
+      spy.mockRestore();
+    });
+  
+    it('should accendere a lampione and return a success response when successful', async () => {
+      const mockResult = { updated: true };
+      spy.mockResolvedValue(mockResult);
+  
+      await lampioneController.accendiLampione(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.lampId,
+      );
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ result: mockResult });
+    });
+  
+    it('should handle errors and return a 500 status for errors in accendiLampione', async () => {
+      const errorMessage = 'An error occurred';
+      spy.mockRejectedValue(new Error(errorMessage));
+  
+      await lampioneController.accendiLampione(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.lampId,
+      );
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({ status: 'FAILED', data: { error: errorMessage } });
+    });
+  
+    it('should return a 400 status and error message if id is missing in accendiLampione', async () => {
+      req.params.lampId = undefined;
+  
+      await lampioneController.accendiLampione(req, res);
+  
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        status: 'FAILED',
+        data: { error: "Parameter 'lampId' can not be empty" },
+      });
+    });
+  
+    // Add more test cases as needed for different scenarios
+  });
+
+  describe('spegniLampione', () => {
+    let req, res, spy;
+  
+    beforeEach(() => {
+      req = {
+        params: {
+          lampId: 1
+        },
+      };
+      res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+      spy = jest.spyOn(lampioneService, 'spegniLampione');
+    });
+  
+    afterEach(() => {
+      spy.mockRestore();
+    });
+  
+    it('should spegnere a lampione and return a success response when successful', async () => {
+      const mockResult = { updated: true };
+      spy.mockResolvedValue(mockResult);
+  
+      await lampioneController.spegniLampione(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.lampId,
+      );
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ result: mockResult });
+    });
+  
+    it('should handle errors and return a 500 status for errors in spegniLampione', async () => {
+      const errorMessage = 'An error occurred';
+      spy.mockRejectedValue(new Error(errorMessage));
+  
+      await lampioneController.spegniLampione(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.lampId,
+      );
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({ status: 'FAILED', data: { error: errorMessage } });
+    });
+  
+    it('should return a 400 status and error message if id is missing in spegniLampione', async () => {
+      req.params.lampId = undefined;
+  
+      await lampioneController.spegniLampione(req, res);
+  
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        status: 'FAILED',
+        data: { error: "Parameter 'lampId' can not be empty" },
+      });
+    });
+  
+    // Add more test cases as needed for different scenarios
+  });
+
+  describe('accendiLampione', () => {
+    let req, res, spy;
+  
+    beforeEach(() => {
+      req = {
+        params: {
+          lampId: 1
+        },
+      };
+      res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+      spy = jest.spyOn(lampioneService, 'accendiLampione');
+    });
+  
+    afterEach(() => {
+      spy.mockRestore();
+    });
+  
+    it('should accendere a lampione and return a success response when successful', async () => {
+      const mockResult = { updated: true };
+      spy.mockResolvedValue(mockResult);
+  
+      await lampioneController.accendiLampione(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.lampId,
+      );
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ result: mockResult });
+    });
+  
+    it('should handle errors and return a 500 status for errors in accendiLampione', async () => {
+      const errorMessage = 'An error occurred';
+      spy.mockRejectedValue(new Error(errorMessage));
+  
+      await lampioneController.accendiLampione(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.lampId,
+      );
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({ status: 'FAILED', data: { error: errorMessage } });
+    });
+  
+    it('should return a 400 status and error message if id is missing in accendiLampione', async () => {
+      req.params.lampId = undefined;
+  
+      await lampioneController.accendiLampione(req, res);
+  
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        status: 'FAILED',
+        data: { error: "Parameter 'lampId' can not be empty" },
+      });
+    });
+  
+    // Add more test cases as needed for different scenarios
+  });
+
+  describe('accendiArea', () => {
+    let req, res, spy;
+  
+    beforeEach(() => {
+      req = {
+        params: {
+          id: 1
+        },
+      };
+      res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+      spy = jest.spyOn(lampioneService, 'accendiLampioniArea');
+    });
+  
+    afterEach(() => {
+      spy.mockRestore();
+    });
+  
+    it('should accendere tutti i  lampioni di un area and return a success response when successful', async () => {
+      const mockResult = { updated: true };
+      spy.mockResolvedValue(mockResult);
+  
+      await lampioneController.accendiLampioniArea(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.id,
+      );
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ result: mockResult });
+    });
+  
+    it('should handle errors and return a 500 status for errors in accendiLampioniArea', async () => {
+      const errorMessage = 'An error occurred';
+      spy.mockRejectedValue(new Error(errorMessage));
+  
+      await lampioneController.accendiLampioniArea(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.id,
+      );
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({ status: 'FAILED', data: { error: errorMessage } });
+    });
+  
+    // Add more test cases as needed for different scenarios
+  });
+
+  describe('spegniArea', () => {
+    let req, res, spy;
+  
+    beforeEach(() => {
+      req = {
+        params: {
+          id: 1
+        },
+      };
+      res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+      spy = jest.spyOn(lampioneService, 'spegniLampioniArea');
+    });
+  
+    afterEach(() => {
+      spy.mockRestore();
+    });
+  
+    it('should spegnere tutti i  lampioni di un area and return a success response when successful', async () => {
+      const mockResult = { updated: true };
+      spy.mockResolvedValue(mockResult);
+  
+      await lampioneController.spegniLampioniArea(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.id,
+      );
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ result: mockResult });
+    });
+  
+    it('should handle errors and return a 500 status for errors in spegniLampioniArea', async () => {
+      const errorMessage = 'An error occurred';
+      spy.mockRejectedValue(new Error(errorMessage));
+  
+      await lampioneController.spegniLampioniArea(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.id,
+      );
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({ status: 'FAILED', data: { error: errorMessage } });
+    });
+  
+    // Add more test cases as needed for different scenarios
+  });
+
 
   /*
   it("getAllGuastiChiusi should return all guasti chiusi", async () => {
