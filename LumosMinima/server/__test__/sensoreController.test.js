@@ -340,7 +340,7 @@ describe("sensore Controller", () => {
     // Add more test cases as needed for different scenarios
   });
 
-  /*describe('modificaSensore', () => {
+  describe('modificaSensore', () => {
     let req, res, spy;
   
     beforeEach(() => {
@@ -405,5 +405,69 @@ describe("sensore Controller", () => {
   
     // Add more test cases as needed for different scenarios
   });
-*/
+
+  describe('aggiungiSensore', () => {
+    let req, res, spy;
+  
+    beforeEach(() => {
+      req = {
+        params: {
+          ip: 'Baku',
+          polling: 10,
+          zona_geografica: "panchina",
+          tipo_interazione: "PUSH",
+          raggio_azione: 4,
+          id_area: 2
+        },
+      };
+      res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+      spy = jest.spyOn(sensoreService, 'aggiungiSensore');
+    });
+  
+    afterEach(() => {
+      spy.mockRestore();
+    });
+  
+    it('should aggiungere a sensore and return a success response when successful', async () => {
+      const mockResult = { updated: true };
+      spy.mockResolvedValue(mockResult);
+  
+      await sensoreController.aggiungiSensore(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.id_area,
+        req.params.ip,
+        req.params.polling,
+        req.params.raggio_azione,
+        req.params.zona_geografica,
+        req.params.tipo_interazione
+        
+      );
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ result: mockResult });
+    });
+  
+    it('should handle errors and return a 500 status for errors in aggiungiSensore', async () => {
+      const errorMessage = 'An error occurred';
+      spy.mockRejectedValue(new Error(errorMessage));
+  
+      await sensoreController.aggiungiSensore(req, res);
+  
+      expect(spy).toHaveBeenCalledWith(
+        req.params.id_area,
+        req.params.ip,
+        req.params.polling,
+        req.params.raggio_azione,
+        req.params.zona_geografica,
+        req.params.tipo_interazione
+        
+      );
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({ status: 'FAILED', data: { error: errorMessage } });
+    });
+  
+  
+    // Add more test cases as needed for different scenarios
+  });
+
 })
