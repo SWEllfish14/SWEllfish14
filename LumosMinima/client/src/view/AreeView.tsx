@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
  const AreeView = ({viewModel}: Props) => (
   <div>
 
-    <div className="box">
+    <div>
 
-    <div className="box">
+    <div className="box has-text-centered">
         
         <h2 className="title is-5" >Impostazioni Aree</h2>
         <div className="columns">
