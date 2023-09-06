@@ -59,7 +59,11 @@ export class SensoriStore implements ISensoriStore {
   }
 
   getnumeroSensoriArea(areaId: string) {
-    return this.numeroSensoriAreaQueryResult.query();
+    return this.numeroSensoriAreaQueryResult.query(
+      {
+        queryKey: ['area', areaId],
+      }
+    );
   }
 
   getlistaSensori(areaId: string) {
@@ -89,7 +93,7 @@ export class SensoriStore implements ISensoriStore {
 
 eliminaSensoreMutation = new MobxMutation<unknown, unknown, {id: string}, unknown>({
   mutationFn: async (variables) => {
-    await axios.post(`http://127.0.0.1:3002/eliminaSensore/${variables.id})`)
+    await axios.post(`http://127.0.0.1:3002/eliminaSensore/${variables.id}`)
   },
   
 }
