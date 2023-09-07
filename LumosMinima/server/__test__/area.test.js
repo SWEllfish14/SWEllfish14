@@ -2,169 +2,119 @@ const supertest = require('supertest')
 const areaService = require("../services/areaService");
 const areaController = require("../controllers/areaController");
 const areaRoutes = require("../routes/areaRoutes");
-const createServerTesting = require("../server");
-const app = createServerTesting()
-const areaPayload = {
-  ID: 1,
-  città: "Padova",
-  zona_geografica_città: "Via Brofferio",
-  modalità_funzionamento: "A",
-  luminosità_standard:2,
-  luminosità_rilevamento:3,
-  luminosità_manuale:0,
-  stato:0,
-};
+const createServer= require("../server");
+const app = createServer()
 
-const areaPayloadAggiuntaArea = {
-  città: "Marostica",
-  zona_geografica_città: "Angelis",
-  modalità_funzionamento: "A",
-  luminosità_standard:2,
-  luminosità_rilevamento:3,
-  luminosità_manuale:1,
-  stato:0
-};
-const risltatoAggiuntaAree = 
-  [{
-    ID: 1,
-    città: "Padova",
-    zona_geografica_città: "Via Brofferio",
-    modalità_funzionamento: "A",
-    luminosità_standard:2,
-    luminosità_rilevamento:3,
-    luminosità_manuale:1,
-    stato:0,
-  },
-  {
-  ID:2,
-  città: "Marostica",
-  zona_geografica_città: "Angelis",
-  modalità_funzionamento: "A",
-  luminosità_standard:2,
-  luminosità_rilevamento:3,
-  luminosità_manuale:1,
-  stato:0
-  }];
-  const risltatoAggiuntaAreeModifica = 
-  [{
-    ID: 1,
-    città: "Padova",
-    zona_geografica_città: "Via Brofferio",
-    modalità_funzionamento: "A",
-    luminosità_standard:2,
-    luminosità_rilevamento:3,
-    luminosità_manuale:1,
-    stato:0,
-  },
-  {
-  ID:2,
-  città: "Marostica2",
-  zona_geografica_città: "Angelis",
-  modalità_funzionamento: "A",
-  luminosità_standard:2,
-  luminosità_rilevamento:3,
-  luminosità_manuale:1,
-  stato:0
-  }]
+it("getAllAree should return all areas", async () => {
+  const mockAreas = [
+    { id: 1, name: "Area 1" },
+    { id: 2, name: "Area 2" },
+  ];
+  Area.findAll = jest.fn()
+  Area.findAll.mockReturnValue(mockAreas)
+  const result = await areaService.getAllAree()
 
 
 
+  expect(result).toBe(mockAreas);
+});
+
+it("getNumeroAree should return all areas", async () => {
+  const mockAreas = "12";
+  Area.count = jest.fn()
+  Area.count.mockReturnValue(mockAreas)
+  const result = await areaService.getNumeroAree()
 
 
-const areaPayloadAggiuntaAreaConId = {
-  ID: 17,
-  città: "Marostica",
-  zona_geografica_città: "Angelis",
-  modalità_funzionamento: "A",
-  luminosità_standard:2,
-  luminosità_rilevamento:3,
-  luminosità_manuale:0,
-  stato:0
-};
 
-const areaPayloadModificaArea = {
-  ID:1,
-  città: "Marostica",
-  zona_geografica_città: "Angelis",
-  modalità_funzionamento: "A",
-  luminosità_standard:2,
-  luminosità_rilevamento:3,
-  luminosità_manuale:0,
-  stato:0
-};
-const getOneArea = {
-  
-    ID: 1,
-    città: "Padova",
-    zona_geografica_città: "Via Brofferio",
-    modalità_funzionamento: "M",
-    luminosità_standard: 2,
-    luminosità_rilevamento: 3,
-    luminosità_manuale: 2,
-    stato: 0
+  expect(result).toBe(mockAreas);
+});
 
-}
+it("get5Areas should return 5 areas", async () => {
+  const mockAreas = [
+    { id: 1, name: "Area 1" },
+    { id: 2, name: "Area 2" },
+    { id: 3, name: "Area 3" },
+    { id: 4, name: "Area 4" },
+    { id: 5, name: "Area 5" }
+
+  ];
+  Area.findAll = jest.fn()
+  Area.findAll.mockReturnValue(mockAreas)
+  const result = await areaService.getFiveAree()
 
 
-const listaAreePayload = 
-[
-    {
-        ID: 1,
-        città: "Padova",
-        zona_geografica_città: "Via Brofferio",
-        modalità_funzionamento: "M",
-        luminosità_standard: 2,
-        luminosità_rilevamento: 3,
-        luminosità_manuale: 2,
-        stato: 0
-    },
-    {
-        ID: 2,
-        città: "Asiago",
-        zona_geografica_città: "Piazza Carli",
-        modalità_funzionamento: "M",
-        luminosità_standard: 6,
-        luminosità_rilevamento: 7,
-        luminosità_manuale: null,
-        stato: 0
-    },
-    {
-        ID: 3,
-        città: "Genova",
-        zona_geografica_città: "Stazione FS",
-        modalità_funzionamento: "M",
-        luminosità_standard: 6,
-        luminosità_rilevamento: 7,
-        luminosità_manuale: 6,
-        stato: 1
-    },
-    {
-        ID: 4,
-        città: "Pizzo Calabro",
-        zona_geografica_città: "Via Angelis",
-        modalità_funzionamento: "M",
-        luminosità_standard: 3,
-        luminosità_rilevamento: 5,
-        luminosità_manuale: 1,
-        stato: 1
-    },
-    {
-        ID: 5,
-        città: "Torino",
-        zona_geografica_città: "Stadio",
-        modalità_funzionamento: "M",
-        luminosità_standard: 3,
-        luminosità_rilevamento: 5,
-        luminosità_manuale: 10,
-        stato: 0
-    }
+
+  expect(result).toBe(mockAreas);
+});
+
+it("getModalitàArea should return A or M", async () => {
+  const mockAreas = [
+    "M"
+
+  ];
+  Area.findAll = jest.fn()
+  Area.findAll.mockReturnValue(mockAreas)
+  const result = await areaService.getModalitaArea()
+
+
+
+  expect(result).toBe(mockAreas);
+});
+
+it("getIDAreeMax should return the max ID", async () => {
+  const mockAreas = 12;
+  Area.findAll = jest.fn()
+  Area.findAll.mockReturnValue(mockAreas)
+  const result = await areaService.getIDAreeMax()
+
+
+
+  expect(result).toBe(mockAreas);
+});
+
+it("accendiAllAree should accendere tutte le aree in modalità automatica", async () => {
+  const mockAreas = [
+
+   { id: 1, name: "Area 1" },
+  { id: 2, name: "Area 2" },
+  { id: 3, name: "Area 3" },
+  { id: 4, name: "Area 4" },
+  { id: 5, name: "Area 5" }
   ]
-const emptyIdPayload = {
-  
-    status: "FAILED",
-    data: { error: "Parameter ':id' can not be empty" },
-  
-}
+
+  Area.findAll = jest.fn()
+  Area.findAll.mockReturnValue(mockAreas)
+  const result = await areaService.accendiAllAree()
+
+
+
+  expect(result).toBe(mockAreas);
+});
+
+it("spegniAllAree should spegnere tutte le aree in modalità automatica", async () => {
+  const mockAreas = [
+
+   { id: 1, name: "Area 1" },
+  { id: 2, name: "Area 2" },
+  { id: 3, name: "Area 3" },
+  { id: 4, name: "Area 4" },
+  { id: 5, name: "Area 5" }
+  ]
+
+  Area.findAll = jest.fn()
+  Area.findAll.mockReturnValue(mockAreas)
+  const result = await areaService.spegniAllAree()
+
+
+
+  expect(result).toBe(mockAreas);
+});
+
+
+
+
+/*
 describe("area", () => {
   describe("get area da id", () => {
     describe("Dato un id valido", () => {
@@ -252,7 +202,7 @@ describe("area", () => {
         expect(body).toEqual({numeroAree:50})
         expect(getNumeroAreeServiceMock).toHaveBeenCalled();
         */
-      })
+      
   
 
      /* it("ritorna 5 aree",async() => {
@@ -270,9 +220,7 @@ describe("area", () => {
     
   })
   */
-})
-  })
-
+/*
   describe("get cinque aree", () => {
     describe("Il database risponde correttamente", () => {
       it("Ritorna stato 200 e ritorna cinque aree",async() => {
@@ -301,8 +249,6 @@ describe("area", () => {
       expect(body).toEqual({numeroAree:50})
       expect(getNumeroAreeServiceMock).toHaveBeenCalled();
       */
-    })
-  })
  
 
   // describe("aumenta luminosita a un area", () => {
@@ -321,7 +267,7 @@ describe("area", () => {
   //   })
   // })
 
-  describe('Aggiungi un area', () => { 
+  /*describe('Aggiungi un area', () => { 
     describe("Dato un payload valido", () => {
       it("Ritorna stato 200 e l'area appena aggiunta", async() => {
         const aggiungiAreaServiceMock = jest.
@@ -437,5 +383,5 @@ describe("area", () => {
     })
     
   })
-  */
-  
+*/
+

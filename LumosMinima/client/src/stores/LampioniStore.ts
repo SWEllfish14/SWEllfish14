@@ -88,7 +88,7 @@ export class LampioniStore implements ILampioniStore {
 
 aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }>({
     mutationFn: async (variables) => {
-      await axios.post(`http://127.0.0.1:3002/aggiungiLampione/${variables.data2.get('area')}/${variables.data2.get('ip')}/${variables.data2.get('tipo_interazione')}/${variables.data2.get('luminositaDefault')}/${variables.data2.get('luminositaManuale')}/${variables.data2.get('stato')}}`, variables.data2, {headers})
+      await axios.post(`http://127.0.0.1:3002/aggiungiLampione/${variables.data2.get('area')}/${variables.data2.get('ip')}/${variables.data2.get('tipo_interazione')}/${variables.data2.get('luminositaDefault')}/${variables.data2.get('luminositaManuale')}/${variables.data2.get('stato')}`, variables.data2, {headers})
     },
   }
 );
@@ -109,9 +109,6 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
     {
       mutationFn: async (variables) => {
         await axios.post(`http://127.0.0.1:3002/modificaLampione/${variables.data.get('id')}/${variables.data.get('ip')}/${variables.data.get('tipo_interazione')}/${variables.data.get('luminositaDefault')}/${variables.data.get('luminositaManuale')}/${variables.data.get('stato')}`)
-      },
-      onSuccess: (data, variables) => {
-        //this.queryClient.invalidateQueries(["eliminaLampione",variables.lampID]);
       },
     }
   );

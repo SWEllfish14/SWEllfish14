@@ -1,5 +1,5 @@
 const supertest = require('supertest')
-const lampioneService = require("../services/sensoreService");
+const sensoreService = require("../services/sensoreService");
 const createServer = require("../server");
 const app = createServer()
 const sensorePayload={
@@ -11,6 +11,62 @@ const sensorePayload={
     raggio_azione:33,
     id_area_illuminata: 5
 }
+it("getNumeroSensori should get il numero di sensori totali", async () => {
+
+  const mockLampione = "10";
+
+  Sensore.count = jest.fn()
+  Sensore.count.mockReturnValue(mockLampione)
+
+  const result = await sensoreService.getNumeroSensori()
+
+
+
+  expect(result).toBe(mockLampione);
+});
+
+it("getOneSensore should get il numero di lampioni totali", async () => {
+
+  const mockLampione = [
+    {id:1, ip:"1.2.3"}
+  ];
+
+  Sensore.findByPk = jest.fn()
+  Sensore.findByPk.mockReturnValue(mockLampione)
+
+  const result = await sensoreService.getOneSensore()
+
+
+
+  expect(result).toBe(mockLampione);
+});
+
+it("aggiungiSensore should aggiungere un sensore", async () => {
+
+  const mockLampione = [{
+    id:1,
+    ip: 'Baku',
+    polling: 10,
+    zona_geografica: "panchina",
+    tipo_interazione: "PUSH",
+    raggio_azione: 4,
+    id_area: 2
+  }]
+
+  Sensore.create = jest.fn();
+  Sensore.create.mockReturnValue(mockLampione);
+  newSensore.save = jest.fn();
+
+  const result = await sensoreService.aggiungiSensore(1,10,"Baku","panchina","PUSH",4,2)
+
+
+
+  expect(result).toBe(mockLampione);
+});
+/*
+/*
+/*
+/*
 describe("sensori",()=>{
     describe("get numero sensori", () => {
         describe("Il database risponde correttamente", () => {

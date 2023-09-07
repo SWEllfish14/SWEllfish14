@@ -212,6 +212,23 @@ describe("guasti",()=>{
                 expect(getNumeroAreeServiceMock).toHaveBeenCalled();
                 */
               })
+              
+
+              it("eliminaGuasto",async() => {
+                
+                Guasto.findOne = jest.fn();
+                Guasto.findOne.mockReturnValue(" ")
+                const result = await guastoService.eliminaGuasto(1)
+        
+                expect(result).toBe(" ")
+                
+               /* const {statusCode, body} = await supertest(app)
+                  .get("/numeroAree")
+                expect(statusCode).toBe(200)
+                expect(body).toEqual({numeroAree:50})
+                expect(getNumeroAreeServiceMock).toHaveBeenCalled();
+                */
+              })
   
           
       

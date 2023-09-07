@@ -11,7 +11,7 @@ describe("Lampione Controller", () => {
       params: {
         id: 1,
       },
-    }; 
+    };
 
     const res = {
       status: jest.fn().mockReturnThis(),
