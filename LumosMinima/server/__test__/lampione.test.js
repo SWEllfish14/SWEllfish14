@@ -15,7 +15,7 @@ const lampionePayload={
     stato: 0
 }
 
-it("getBrightnessofArea should get la luminosità di un'area", async () => {
+/*it("getBrightnessofArea should get la luminosità di un'area", async () => {
   const mockAreas = [
 
    { id: 1, name: "Area 1" }
@@ -26,12 +26,82 @@ it("getBrightnessofArea should get la luminosità di un'area", async () => {
   Area.findAll = jest.fn()
   Area.findAll.mockReturnValue(mockAreas)
 
-  const result = await lampioneService.getBrightnessofArea()
+  const result = await lampioneService.getBrightnessofArea(mockAreas)
 
 
 
   expect(result).toBe(mockLuminosità);
 });
+*/
+it('should return the standard brightness of the area', async () => {
+  const id = 1;
+  const expectedBrightness = 10;
+
+  // Create a mock function for the Area.findAll() method.
+    Area.findAll =  jest.fn().mockReturnValue([
+      {
+        luminosità_standard: expectedBrightness,
+      }]);
+
+  // Replace the real Area module with the mock function.
+
+  const brightness = await lampioneService.getBrightnessofArea(id);
+
+  expect(brightness).toBe(expectedBrightness);
+});
+
+it('should return the manual brightness of the area', async () => {
+  const id = 1;
+  const expectedManualBrightness = 10;
+
+  // Create a mock function for the Area.findAll() method.
+    Area.findAll =  jest.fn().mockReturnValue([
+      {
+        luminosità_manuale: expectedManualBrightness,
+      }]);
+
+  // Replace the real Area module with the mock function.
+
+  const brightness = await lampioneService.getBrightnessManualeArea(id);
+
+  expect(brightness).toBe(expectedManualBrightness);
+});
+
+
+it('should return the rilevamento brightness of the area', async () => {
+  const id = 1;
+  const expectedRilevamentoBrightness = 9;
+
+  // Create a mock function for the Area.findAll() method.
+    Area.findAll =  jest.fn().mockReturnValue([
+      {
+        luminosità_rilevamento: expectedRilevamentoBrightness,
+      }]);
+
+  // Replace the real Area module with the mock function.
+
+  const brightness = await lampioneService.getBrightnessRilevamento(id);
+
+  expect(brightness).toBe(expectedRilevamentoBrightness);
+});
+
+it('should return the brightness of a lamp', async () => {
+  const id = 1;
+  const expectedLampBrightness = 9;
+
+  // Create a mock function for the Area.findAll() method.
+    Lampione.findAll =  jest.fn().mockReturnValue([
+      {
+        luminosità_impostata: expectedLampBrightness,
+      }]);
+
+  // Replace the real Area module with the mock function.
+
+  const brightness = await lampioneService.getBrightnessofLamp(id);
+
+  expect(brightness).toBe(expectedLampBrightness);
+});
+
 
 
 it("getAllLampsFromAreaCount should get il numero di lampioni di un'area", async () => {
@@ -60,6 +130,46 @@ it("getNumeroLampioni should get il numero di lampioni totali", async () => {
 
   expect(result).toBe(mockLampione);
 });
+
+describe('modificaLampione', () => {
+  it('should update an Area and return "Area modificata"', async () => {
+    // Arrange
+    const mockId = 1; // Replace with your desired mock ID
+    const mockData = {
+      id:1,
+      ip: '1.2.3',
+      tipo_interazione: 'PUSH',
+      luminositaDefault: 4,
+      luminositaManuale: 5,
+      stato: 1,
+    };
+
+    // Mock the Sequelize findByPk method to return a mock 'area' instance
+    const lampioneInstance = {
+      update: jest.fn().mockResolvedValue({}),
+    };
+    Lampione.findByPk = jest.fn();
+    Lampione.findByPk.mockResolvedValue(lampioneInstance);
+
+    // Act
+    const result = await lampioneService.modificaLampione(
+      mockId,
+      mockData.id,
+      mockData.ip,
+      mockData.tipo_interazione,
+      mockData.luminositaDefault,
+      mockData.luminositaManuale,
+      mockData.stato
+    );
+
+    // Assert
+    expect(result).toBe('Lampione modificato');
+    expect(Lampione.findByPk).toHaveBeenCalledWith(mockId);
+
+  });
+});
+
+
 /*
 const controllerGetAllLampsFromAreaPayload = [
   {

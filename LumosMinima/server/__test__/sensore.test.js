@@ -45,7 +45,7 @@ it("aggiungiSensore should aggiungere un sensore", async () => {
 
   const mockLampione = [{
     id:1,
-    ip: 'Baku',
+    ip: "Baku",
     polling: 10,
     zona_geografica: "panchina",
     tipo_interazione: "PUSH",
@@ -55,13 +55,114 @@ it("aggiungiSensore should aggiungere un sensore", async () => {
 
   Sensore.create = jest.fn();
   Sensore.create.mockReturnValue(mockLampione);
-  newSensore.save = jest.fn();
 
   const result = await sensoreService.aggiungiSensore(1,10,"Baku","panchina","PUSH",4,2)
 
+  //newSensore.save = result;
 
 
-  expect(result).toBe(mockLampione);
+  expect(result).toBe("sensore aggiunto");
+});
+describe('eliminaSensore', () => {
+  it('should delete a sensore and return the deleted row count', async () => {
+    // Arrange
+    const mockId = 1; // Replace with your desired mock ID
+
+    // Mock the Sensore.findOne method to return a mock sensore
+    const mockSensore = {
+      // Mock the sensore properties as needed
+      id: mockId,
+      // ...
+    };
+    Sensore.findOne = jest.fn();
+    Sensore.findOne.mockResolvedValue(mockSensore);
+
+    // Mock the sensore.destroy method to return the deleted row count
+    const mockDeletedRowCount = 1; // Assuming 1 row is deleted
+    mockSensore.destroy = jest.fn().mockResolvedValue(mockDeletedRowCount);
+
+    // Act
+    const result = await sensoreService.eliminaSensore(mockId);
+
+    // Assert
+    expect(Sensore.findOne).toHaveBeenCalledWith({
+      where: {
+        id: mockId,
+      },
+    });
+
+    // Check if sensore.destroy method is called
+    expect(mockSensore.destroy).toHaveBeenCalled();
+
+    // Ensure the function returns the expected result
+    expect(result).toBe(`deleted row(s): ${mockDeletedRowCount}`);
+  });
+
+  // Add more test cases as needed
+});
+
+describe('getNumeroSensoriAreaCount', () => {
+  it('should return the count of sensori in a specific area', async () => {
+    // Arrange
+    const mockAreaId = 1; // Replace with your desired mock area ID
+    const mockSensorCount = 5; // Replace with your desired mock sensor count
+
+    // Mock the Sensore.count method to return the mock sensor count
+    Sensore.count = jest.fn();
+    Sensore.count.mockResolvedValue(mockSensorCount);
+
+    // Act
+    const result = await sensoreService.getNumeroSensoriAreaCount(mockAreaId);
+
+    // Assert
+    expect(Sensore.count).toHaveBeenCalledWith({
+      where: {
+        id_area_illuminata: mockAreaId,
+      },
+    });
+
+    // Ensure the function returns the expected result
+    expect(result).toBe(mockSensorCount);
+  });
+
+  // Add more test cases as needed
+});
+
+describe('modificaSensore', () => {
+  it('should update an Area and return "Area modificata"', async () => {
+    // Arrange
+    const mockId = 1; // Replace with your desired mock ID
+    const mockData = {
+      id:1,
+      ip: '1.2.3',
+      polling_time: 4,
+      zona_geografica: 'Mock State',
+      tipo_interazione: 'PUSH',
+      raggio_azione: 100,
+    };
+
+    // Mock the Sequelize findByPk method to return a mock 'area' instance
+    const sensoreInstamce = {
+      update: jest.fn().mockResolvedValue({}),
+    };
+    Sensore.findByPk.mockResolvedValue(sensoreInstamce);
+
+    // Act
+    const result = await sensoreService.modificaSensore(
+      mockId,
+      mockData.id,
+      mockData.ip,
+      mockData.polling_time,
+      mockData.zona_geografica,
+      mockData.tipo_interazione,
+      mockData.raggio_azione
+    );
+
+    // Assert
+    expect(result).toBe('Sensore modificato');
+    expect(Sensore.findByPk).toHaveBeenCalledWith(mockId);
+
+  });
 });
 /*
 /*
