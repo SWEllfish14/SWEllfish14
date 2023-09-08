@@ -10,8 +10,8 @@ export const ModificaLampioneViewModel = () => {
     const { id } = useParams();
     //const {AreeId} = useInstance(AreeStore);
     const store = useInstance(LampioniStore);
-    let [submitHasError,setSubmitHasError]= useState(false)
-    let [submitError,setSubmitError] = useState()
+    // let [submitHasError,setSubmitHasError]= useState(false)
+    // let [submitError,setSubmitError] = useState()
     const navigate = useNavigate()
     return {
         dettagliLampione: ()=> store.getdettagliLampioni(id!),
@@ -31,8 +31,8 @@ export const ModificaLampioneViewModel = () => {
                 if(result.isError){
                     
                     e=result.error
-                    setSubmitError(e.message)
-                    setSubmitHasError(true)
+                    store.setSubmitError(e.message)
+                  
                     
                 }
             
@@ -46,12 +46,12 @@ export const ModificaLampioneViewModel = () => {
       }
     },
     
-    submitIsError:()=>submitHasError,
+    submitIsError:()=>store.submitError!=='',
 
     clearError:() =>{
-        setSubmitHasError(false)
+        store.clearSubmitError()
     },
-    submitError:() => submitError
+    submitError:() => store.submitError
     
   
 }

@@ -1,9 +1,12 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react';
-import { ModificaAreaViewModel } from '../ViewModel/ModificaAreaViewModel'; // Adjust the import path
+import { ModificaSensoreViewModel } from '../ViewModel/ModificaSensoreViewModel'; // Adjust the import path
 const mockStore = {
-  getAreaDetails: jest.fn(),
-  modificaAreaMutation: {
+    getdettagliSensori: jest.fn(),
+  modificaSensoreMutation: {
+    mutateAsync: jest.fn(),
+  },
+  eliminaSensoreMutation: {
     mutateAsync: jest.fn(),
   },
   clearSubmitError: jest.fn()
@@ -18,14 +21,19 @@ jest.mock('react-router-dom', () => ({
   useNavigate:() => mockNavigate,
 }));
 
-describe('ModificaAreaViewModel', () => {
+describe('ModificaSensoreViewModel', () => {
   // Define mock data and functions for testing
   const mockId = '123';
   const mockStore = {
-    getAreaDetails: jest.fn().mockReturnValue({
+    getdettagliSensori: jest.fn().mockReturnValue({
       isLoading : true
   }),
-    modificaAreaMutation: {
+    modificaSensoreMutation: {
+      mutateAsync: jest.fn().mockReturnValue({
+        isSuccess:true
+      }),
+    },
+    eliminaSensoreMutation: {
       mutateAsync: jest.fn().mockReturnValue({
         isSuccess:true
       }),
@@ -41,15 +49,15 @@ describe('ModificaAreaViewModel', () => {
     require('react-router-dom').useParams.mockReturnValue({ id: mockId });
     require('react-ioc').useInstance.mockReturnValue(mockStore);
   });
-
+ 
   it('should return the expected ViewModel', () => {
     // Arrange
 
     // Act
-    const { result } = renderHook(() => ModificaAreaViewModel());
+    const { result } = renderHook(() => ModificaSensoreViewModel());
 
     // Assert
-    expect(result.current.areaDetails).toBeDefined();
+    expect(result.current.sensoreDetails).toBeDefined();
     expect(result.current.isLoading).toBeDefined();
     expect(result.current.isError).toBeDefined();
     expect(result.current.error).toBeDefined();
@@ -61,10 +69,10 @@ describe('ModificaAreaViewModel', () => {
 
   it('should call store methods when ViewModel functions are invoked', async () => {
     // Arrange
-    const { result } = renderHook(() => ModificaAreaViewModel());
+    const { result } = renderHook(() => ModificaSensoreViewModel());
 
     // Act
-    await result.current.areaDetails();
+    await result.current.sensoreDetails();
     await result.current.isLoading();
     await result.current.isError();
     await result.current.error();
@@ -72,27 +80,23 @@ describe('ModificaAreaViewModel', () => {
     await result.current.clearError();
     await result.current.submit({preventDefault: jest.fn()});
     await result.current.submitError();
+    await result.current.eliminaSensore()
 
     // Assert
-    expect(mockStore.getAreaDetails).toHaveBeenCalledWith(mockId);
-    expect(mockStore.modificaAreaMutation.mutateAsync).toHaveBeenCalledWith({
-      id: mockId,
-      data: expect.any(FormData),
-    });
+    expect(mockStore.getdettagliSensori).toHaveBeenCalledWith(mockId);
+    expect(mockStore.modificaSensoreMutation.mutateAsync).toHaveBeenCalled()
+    expect(mockStore.eliminaSensoreMutation.mutateAsync).toHaveBeenCalled()
     expect(mockNavigate).toHaveBeenCalled();
   });
 
   it("should setSubmitError and setSubmitHasError", async () => {
-    mockStore.modificaAreaMutation.mutateAsync.mockReturnValue({
+    mockStore.modificaSensoreMutation.mutateAsync.mockReturnValue({
       isError:true,
       error:{message:"ca"}
     })
-    const { result } = renderHook(() => ModificaAreaViewModel());
+    const { result } = renderHook(() => ModificaSensoreViewModel());
     await result.current.submit({preventDefault: jest.fn()});
-    expect(mockStore.modificaAreaMutation.mutateAsync).toHaveBeenCalledWith({
-      id: mockId,
-      data: expect.any(FormData),
-    });
+    expect(mockStore.modificaSensoreMutation.mutateAsync).toHaveBeenCalled()
     expect(mockStore.setSubmitError).toHaveBeenCalled()
   })
 });

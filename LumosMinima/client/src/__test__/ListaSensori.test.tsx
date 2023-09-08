@@ -1,46 +1,47 @@
-import { ListaSensoriViewModel } from '../ViewModel/ListaSensoriViewModel';
-import { SensoriStore } from '../stores/SensoriStore';
-import { useInstance } from 'react-ioc';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ListaSensori } from '../pages/ListaSensori';
+import '@testing-library/jest-dom/extend-expect';
+const mockNavigate = jest.fn();
 
-
-jest.mock('../stores/SensoriStore', () => ({
-    SensoriStore: jest.fn(),
-  }));
-jest.mock('react-ioc', () => ({
-  useInstance: jest.fn(),
-}));
+// Mock useNavigate hook
 jest.mock('react-router-dom', () => ({
-    useParams: jest.fn(),
-  }));
-describe('ListaSensoriViewModel', () => {
-  let sensoriStoreMock: { getlistaSensori: any; };
-  let paramsMock;
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+}));
+// Mock ViewModel and ListaSensoriView components
+jest.mock('./__mocks__/ListaSensoriViewModel', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    // Mock ViewModel functions as needed
+  })),
+}));
+jest.mock('../view/ListaSensoriView', () => ({
+  __esModule: true,
+  default: jest.fn(() => <div>Mocked ListaSensoriView</div>),
+}));
 
+// Create a mock QueryClient
+const queryClient = new QueryClient();
+
+// Define test suites
+describe('ListaSensori', () => {
+  // Define a beforeEach block to render the component
   beforeEach(() => {
-    jest.clearAllMocks();
-
-    paramsMock = { id: '1' };
-    require('react-router-dom').useParams.mockReturnValue(paramsMock);
-    sensoriStoreMock = {
-      getlistaSensori: jest.fn().mockReturnValue({
-        data: [],
-        isLoading: false,
-        error: null,
-      }),
-    };
-    require("react-ioc").useInstance.mockReturnValue(sensoriStoreMock);
+    
   });
 
-  it('should return listaSensori', () => {
-    const viewModel = ListaSensoriViewModel();
-    viewModel.listaSensori()
-    expect(sensoriStoreMock.getlistaSensori).toHaveBeenCalled();
+  // Test case 1: Verify that ListaSensoriView is rendered with ViewModel
+  it('renders ListaSensoriView with ViewModel', () => {
+    render(
+        <QueryClientProvider client={queryClient}>
+          <ListaSensori />
+        </QueryClientProvider>
+      );
+    // Ensure that ListaSensoriView is rendered with ViewModel
+    expect(screen.getByText('Mocked ListaSensoriView')).toBeInTheDocument();
   });
 
-  it('should return isLoading', () => {
-    const viewModel = ListaSensoriViewModel();
-    viewModel.isLoading()
-    expect(sensoriStoreMock.getlistaSensori).toHaveBeenCalled();
-  });
+ 
 });

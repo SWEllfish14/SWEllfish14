@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ListaGuasti } from '../pages/ListaGuasti';
+import { ModificaLampione } from '../pages/ModificaLampione';
 import '@testing-library/jest-dom/extend-expect';
 const mockNavigate = jest.fn();
 
@@ -10,37 +10,37 @@ jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockNavigate,
 }));
-// Mock ViewModel and ListaGuastiView components
-jest.mock('./__mocks__/ListaGuastiViewModel', () => ({
+// Mock ViewModel and ModificaLampioneView components
+jest.mock('./__mocks__/ModificaLampioneViewModel', () => ({
   __esModule: true,
   default: jest.fn(() => ({
     // Mock ViewModel functions as needed
   })),
 }));
-jest.mock('../view/ListaGuastiView', () => ({
+jest.mock('../view/ModificaLampioneView', () => ({
   __esModule: true,
-  default: jest.fn(() => <div>Mocked ListaGuastiView</div>),
+  default: jest.fn(() => <div>Mocked ModificaLampioneView</div>),
 }));
 
 // Create a mock QueryClient
 const queryClient = new QueryClient();
 
 // Define test suites
-describe('ListaGuasti', () => {
+describe('ModificaLampione', () => {
   // Define a beforeEach block to render the component
   beforeEach(() => {
     
   });
 
-  // Test case 1: Verify that ListaGuastiView is rendered with ViewModel
-  it('renders ListaGuastiView with ViewModel', () => {
+  // Test case 1: Verify that ModificaLampioneView is rendered with ViewModel
+  it('renders ModificaLampioneView with ViewModel', () => {
     render(
         <QueryClientProvider client={queryClient}>
-          <ListaGuasti />
+          <ModificaLampione />
         </QueryClientProvider>
       );
-    // Ensure that ListaGuastiView is rendered with ViewModel
-    expect(screen.getByText('Mocked ListaGuastiView')).toBeInTheDocument();
+    // Ensure that ModificaLampioneView is rendered with ViewModel
+    expect(screen.getByText('Mocked ModificaLampioneView')).toBeInTheDocument();
   });
 
  

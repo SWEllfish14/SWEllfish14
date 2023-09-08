@@ -1,0 +1,1 @@
+export const AreeViewModel = jest.fn(() => ({}));

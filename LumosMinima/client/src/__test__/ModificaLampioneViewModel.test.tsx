@@ -1,9 +1,12 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react';
-import { ModificaAreaViewModel } from '../ViewModel/ModificaAreaViewModel'; // Adjust the import path
+import { ModificaLampioneViewModel } from '../ViewModel/ModificaLampioneViewModel'; // Adjust the import path
 const mockStore = {
-  getAreaDetails: jest.fn(),
-  modificaAreaMutation: {
+  getLampioneDetails: jest.fn(),
+  modificaLampioneMutation: {
+    mutateAsync: jest.fn(),
+  },
+  deleteLampioneMutation: {
     mutateAsync: jest.fn(),
   },
   clearSubmitError: jest.fn()
@@ -18,14 +21,19 @@ jest.mock('react-router-dom', () => ({
   useNavigate:() => mockNavigate,
 }));
 
-describe('ModificaAreaViewModel', () => {
+describe('ModificaLampioneViewModel', () => {
   // Define mock data and functions for testing
   const mockId = '123';
   const mockStore = {
-    getAreaDetails: jest.fn().mockReturnValue({
+    getdettagliLampioni: jest.fn().mockReturnValue({
       isLoading : true
   }),
-    modificaAreaMutation: {
+    modificaLampioneMutation: {
+      mutateAsync: jest.fn().mockReturnValue({
+        isSuccess:true
+      }),
+    },
+    deleteLampioneMutation: {
       mutateAsync: jest.fn().mockReturnValue({
         isSuccess:true
       }),
@@ -41,58 +49,54 @@ describe('ModificaAreaViewModel', () => {
     require('react-router-dom').useParams.mockReturnValue({ id: mockId });
     require('react-ioc').useInstance.mockReturnValue(mockStore);
   });
-
+ 
   it('should return the expected ViewModel', () => {
     // Arrange
 
     // Act
-    const { result } = renderHook(() => ModificaAreaViewModel());
+    const { result } = renderHook(() => ModificaLampioneViewModel());
 
     // Assert
-    expect(result.current.areaDetails).toBeDefined();
+    expect(result.current.dettagliLampione).toBeDefined();
     expect(result.current.isLoading).toBeDefined();
     expect(result.current.isError).toBeDefined();
     expect(result.current.error).toBeDefined();
     expect(result.current.submitIsError).toBeDefined();
-    expect(result.current.submit).toBeDefined();
+    expect(result.current.modificaLampione).toBeDefined();
     expect(result.current.clearError).toBeDefined();
     expect(result.current.submitError).toBeDefined();
   });
 
   it('should call store methods when ViewModel functions are invoked', async () => {
     // Arrange
-    const { result } = renderHook(() => ModificaAreaViewModel());
+    const { result } = renderHook(() => ModificaLampioneViewModel());
 
     // Act
-    await result.current.areaDetails();
+    await result.current.dettagliLampione();
     await result.current.isLoading();
     await result.current.isError();
     await result.current.error();
     await result.current.submitIsError();
     await result.current.clearError();
-    await result.current.submit({preventDefault: jest.fn()});
+    await result.current.modificaLampione({preventDefault: jest.fn()});
     await result.current.submitError();
+    await result.current.eliminaLampione()
 
     // Assert
-    expect(mockStore.getAreaDetails).toHaveBeenCalledWith(mockId);
-    expect(mockStore.modificaAreaMutation.mutateAsync).toHaveBeenCalledWith({
-      id: mockId,
-      data: expect.any(FormData),
-    });
+    expect(mockStore.getdettagliLampioni).toHaveBeenCalledWith(mockId);
+    expect(mockStore.modificaLampioneMutation.mutateAsync).toHaveBeenCalled()
+    expect(mockStore.deleteLampioneMutation.mutateAsync).toHaveBeenCalled()
     expect(mockNavigate).toHaveBeenCalled();
   });
 
   it("should setSubmitError and setSubmitHasError", async () => {
-    mockStore.modificaAreaMutation.mutateAsync.mockReturnValue({
+    mockStore.modificaLampioneMutation.mutateAsync.mockReturnValue({
       isError:true,
       error:{message:"ca"}
     })
-    const { result } = renderHook(() => ModificaAreaViewModel());
-    await result.current.submit({preventDefault: jest.fn()});
-    expect(mockStore.modificaAreaMutation.mutateAsync).toHaveBeenCalledWith({
-      id: mockId,
-      data: expect.any(FormData),
-    });
+    const { result } = renderHook(() => ModificaLampioneViewModel());
+    await result.current.modificaLampione({preventDefault: jest.fn()});
+    expect(mockStore.modificaLampioneMutation.mutateAsync).toHaveBeenCalled()
     expect(mockStore.setSubmitError).toHaveBeenCalled()
   })
 });

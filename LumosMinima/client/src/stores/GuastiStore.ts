@@ -141,6 +141,15 @@ export class GuastiStore implements IGuastiStore {
     return this.guastiQueryResult.query();
   }
 
+  submitError = '';
+  setSubmitError(error: string) {
+    this.submitError = error;
+  }
+
+  clearSubmitError() {
+    this.submitError = '';
+  }
+ 
 
   dispose() {
     this.guastiNumberQueryResult.dispose();

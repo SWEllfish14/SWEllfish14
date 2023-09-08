@@ -274,7 +274,15 @@ aggiungiAreaMutation = new MobxMutation<unknown, unknown, { data: FormData }>({
       //},
     }
   )
+  
+  submitError = '';
+  setSubmitError(error: string) {
+    this.submitError = error;
+  }
 
+  clearSubmitError() {
+    this.submitError = '';
+  }
  
   dispose() {
     this.areeQueryResult.dispose();

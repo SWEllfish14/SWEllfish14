@@ -1,6 +1,4 @@
 import { AggiungiAreaViewModel } from '../ViewModel/AggiungiAreaViewModel';
-import { AreeStore } from '../stores/AreeStore';
-import { useInstance } from 'react-ioc';
 
 // Mock the dependencies (AreeStore)
 jest.mock('../stores/AreeStore', () => ({
@@ -28,7 +26,7 @@ describe('AggiungiAreaViewModel', () => {
   
   beforeEach(() => {
     // Reset the mocks and create a new instance for each test
-    jest.clearAllMocks();
+      jest.clearAllMocks();
     const mockMutateAsync = jest.fn();
     areeStoreMock = {
       getAreaDetails: jest.fn().mockReturnValue({
@@ -135,12 +133,13 @@ require('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
   // Mock mutateAsync to resolve with an error
   areeStoreMock.aggiungiAreaMutation.mutateAsync.mockResolvedValue({
     isSuccess: false, // Indicate that it's not a success
-    error: new Error(errorMessage), // Simulate an error with an error message
+    error: new Error(errorMessage),
+    isError:true // Simulate an error with an error message
   });
   
   // Trigger the submit function
   await viewModel.submit({ preventDefault: jest.fn() });
 
-  expect(viewModel.submitError()).toBe(errorMessage);
+  expect(viewModel.submitError).toBe(errorMessage);
 });
 });

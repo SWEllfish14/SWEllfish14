@@ -196,7 +196,14 @@ aggiungiLampioneMutation = new MobxMutation<unknown, unknown, {data2: FormData }
   }
 */
  
-  
+submitError = '';
+setSubmitError(error: string) {
+  this.submitError = error;
+}
+
+clearSubmitError() {
+  this.submitError = '';
+}
   dispose() {
     this.lampioniQueryResult.dispose();
     this.lampioniListaQueryResult.dispose();

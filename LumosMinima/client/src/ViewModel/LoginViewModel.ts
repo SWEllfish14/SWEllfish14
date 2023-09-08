@@ -10,6 +10,7 @@ export const LoginViewModel = () => {
     const navigate = useNavigate()
     return {
        submit:async (e:any) => {
+        console.log("sadasdasdsa")
         e.preventDefault()
         var data = new FormData(e.target)
         const username = data.get("nomeUtente")

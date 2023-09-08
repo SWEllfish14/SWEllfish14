@@ -287,5 +287,4 @@ describe("HomeViewModel", () => {
   });
   
 
-  // Add more test cases for other functions
 });

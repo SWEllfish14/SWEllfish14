@@ -25,6 +25,7 @@ export const AggiungiAreaViewModel = () => {
                     navigate("/aree")
                 }
                 if(result.isError){
+                    
                     e=result.error
                     setSubmitError(e.message)
                     setSubmitHasError(true)
@@ -34,7 +35,8 @@ export const AggiungiAreaViewModel = () => {
         clearError:() =>{
             setSubmitHasError(false)
         },
-        submitError:() => submitError
+        submitError
+        // submitError:() => 
     };
   };
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react';
-import { ModificaAreaViewModel } from '../ViewModel/ModificaAreaViewModel'; // Adjust the import path
+import { ModificaGuastoViewModel } from '../ViewModel/ModificaGuastoViewModel'; // Adjust the import path
 const mockStore = {
-  getAreaDetails: jest.fn(),
-  modificaAreaMutation: {
+  getGuastoDetails: jest.fn(),
+  modificaGuastoMutation: {
     mutateAsync: jest.fn(),
   },
   clearSubmitError: jest.fn()
@@ -18,14 +18,14 @@ jest.mock('react-router-dom', () => ({
   useNavigate:() => mockNavigate,
 }));
 
-describe('ModificaAreaViewModel', () => {
+describe('ModificaGuastoViewModel', () => {
   // Define mock data and functions for testing
   const mockId = '123';
   const mockStore = {
-    getAreaDetails: jest.fn().mockReturnValue({
-      isLoading : true
-  }),
-    modificaAreaMutation: {
+    getGuastoDetails: jest.fn().mockReturnValue({
+        isLoading : true
+    }),
+    modificaGuastoMutation: {
       mutateAsync: jest.fn().mockReturnValue({
         isSuccess:true
       }),
@@ -46,10 +46,10 @@ describe('ModificaAreaViewModel', () => {
     // Arrange
 
     // Act
-    const { result } = renderHook(() => ModificaAreaViewModel());
+    const { result } = renderHook(() => ModificaGuastoViewModel());
 
     // Assert
-    expect(result.current.areaDetails).toBeDefined();
+    expect(result.current.guastoDetails).toBeDefined();
     expect(result.current.isLoading).toBeDefined();
     expect(result.current.isError).toBeDefined();
     expect(result.current.error).toBeDefined();
@@ -61,10 +61,10 @@ describe('ModificaAreaViewModel', () => {
 
   it('should call store methods when ViewModel functions are invoked', async () => {
     // Arrange
-    const { result } = renderHook(() => ModificaAreaViewModel());
+    const { result } = renderHook(() => ModificaGuastoViewModel());
 
     // Act
-    await result.current.areaDetails();
+    await result.current.guastoDetails();
     await result.current.isLoading();
     await result.current.isError();
     await result.current.error();
@@ -74,8 +74,8 @@ describe('ModificaAreaViewModel', () => {
     await result.current.submitError();
 
     // Assert
-    expect(mockStore.getAreaDetails).toHaveBeenCalledWith(mockId);
-    expect(mockStore.modificaAreaMutation.mutateAsync).toHaveBeenCalledWith({
+    expect(mockStore.getGuastoDetails).toHaveBeenCalledWith(mockId);
+    expect(mockStore.modificaGuastoMutation.mutateAsync).toHaveBeenCalledWith({
       id: mockId,
       data: expect.any(FormData),
     });
@@ -83,13 +83,13 @@ describe('ModificaAreaViewModel', () => {
   });
 
   it("should setSubmitError and setSubmitHasError", async () => {
-    mockStore.modificaAreaMutation.mutateAsync.mockReturnValue({
+    mockStore.modificaGuastoMutation.mutateAsync.mockReturnValue({
       isError:true,
       error:{message:"ca"}
     })
-    const { result } = renderHook(() => ModificaAreaViewModel());
+    const { result } = renderHook(() => ModificaGuastoViewModel());
     await result.current.submit({preventDefault: jest.fn()});
-    expect(mockStore.modificaAreaMutation.mutateAsync).toHaveBeenCalledWith({
+    expect(mockStore.modificaGuastoMutation.mutateAsync).toHaveBeenCalledWith({
       id: mockId,
       data: expect.any(FormData),
     });

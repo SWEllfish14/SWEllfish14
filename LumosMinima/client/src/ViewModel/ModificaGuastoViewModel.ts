@@ -7,8 +7,8 @@ export type IModificaGuastoViewModel = ReturnType<typeof ModificaGuastoViewModel
 export const ModificaGuastoViewModel = () => {
     const { id } = useParams();
     const store = useInstance(GuastiStore);
-    let [submitHasError,setSubmitHasError]= useState(false)
-    let [submitError,setSubmitError] = useState()
+    // let [submitHasError,setSubmitHasError]= useState(false)
+    // let [submitError,setSubmitError] = useState()
     
     const navigate = useNavigate()
     return {
@@ -16,7 +16,7 @@ export const ModificaGuastoViewModel = () => {
         isLoading: ()=> store.getGuastoDetails(id!).isLoading,
         isError: () => store.getGuastoDetails(id!).isError,
         error:() => store.getGuastoDetails(id!).error,
-        submitIsError:()=>submitHasError,
+        submitIsError:()=>store.submitError!=='',
         submit:async (e:any) => {
             
             e.preventDefault()
@@ -33,17 +33,16 @@ export const ModificaGuastoViewModel = () => {
                 if(result.isError){
                     
                     e=result.error
-                    setSubmitError(e.message)
-                    setSubmitHasError(true)
+                    store.setSubmitError(e.message);
                     
                 }
             }
                    
         },
         clearError:() =>{
-            setSubmitHasError(false)
+            store.clearSubmitError()
         },
-        submitError:() => submitError
+        submitError:() => store.submitError,
         
     };
   };

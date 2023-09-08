@@ -82,7 +82,7 @@ const AggiungiAreaView = ({ viewModel }: Props) => (
         </div>
       </div>
     </form>
-    {viewModel.submitIsError() ===true ? <>{viewModel.submitError()}</>:<></>}
+    {viewModel.submitIsError() ===true ? <>{viewModel.submitError}</>:<></>}
     <></>
   </div>
 

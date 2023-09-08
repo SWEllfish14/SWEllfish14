@@ -98,7 +98,14 @@ eliminaSensoreMutation = new MobxMutation<unknown, unknown, {id: string}, unknow
   
 }
 )
-   
+submitError = '';
+setSubmitError(error: string) {
+  this.submitError = error;
+}
+
+clearSubmitError() {
+  this.submitError = '';
+}
   dispose() {
     this.sensoriQueryResult.dispose();
     this.sensoriListaQueryResult.dispose();

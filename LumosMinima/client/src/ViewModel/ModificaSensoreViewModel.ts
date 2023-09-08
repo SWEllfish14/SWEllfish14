@@ -8,8 +8,8 @@ export type IModificaSensoreViewModel = ReturnType<typeof ModificaSensoreViewMod
 export const ModificaSensoreViewModel = () => {
     const { id } = useParams();
     const store =useInstance(SensoriStore);
-    let [submitHasError,setSubmitHasError]= useState(false)
-    let [submitError,setSubmitError] = useState()
+    // let [submitHasError,setSubmitHasError]= useState(false)
+    // let [submitError,setSubmitError] = useState()
     const navigate = useNavigate();
     
     return {
@@ -17,7 +17,7 @@ export const ModificaSensoreViewModel = () => {
         isLoading: ()=> store.getdettagliSensori(id!).isLoading,
         isError: () => store.getdettagliSensori(id!).isError,
         error:() => store.getdettagliSensori(id!).error,
-        submitIsError:()=>submitHasError,
+        submitIsError:()=>store.submitError !== '',
         submit:async (e:any) => {
             console.log(id)
             console.log("okkk")
@@ -33,8 +33,8 @@ export const ModificaSensoreViewModel = () => {
                 if(result.isError){
                     
                     e=result.error
-                    setSubmitError(e.message)
-                    setSubmitHasError(true)
+                    store.setSubmitError(e.message)
+                    
                     
                 }
             }
@@ -51,9 +51,9 @@ export const ModificaSensoreViewModel = () => {
             }
           },
         clearError:() =>{
-            setSubmitHasError(false)
+            store.clearSubmitError()
         },
-        submitError:() => submitError
+        submitError:() => store.submitError
     };
   };
 
