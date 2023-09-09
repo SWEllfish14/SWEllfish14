@@ -1,11 +1,11 @@
-import { HomeViewModel } from "../ViewModel/HomeViewModel"; // Import the HomeViewModel
-import { AreeStore } from "../stores/AreeStore";
-import { GuastiStore } from "../stores/GuastiStore";
-import { LampioniStore } from "../stores/LampioniStore";
-import { SensoriStore } from "../stores/SensoriStore";
+import { HomeViewModel } from "../../ViewModel/HomeViewModel"; // Import the HomeViewModel
+import { AreeStore } from "../../stores/AreeStore";
+import { GuastiStore } from "../../stores/GuastiStore";
+import { LampioniStore } from "../../stores/LampioniStore";
+import { SensoriStore } from "../../stores/SensoriStore";
 import React from "react";
 import { useInstance } from "react-ioc";
-jest.mock("../utils/mobx_mutation", () => {
+jest.mock("../../utils/mobx_mutation", () => {
   return {
     MobxMutation: jest.fn().mockImplementation(() => ({
       // Mock the properties and methods you need for your tests
@@ -21,19 +21,19 @@ jest.mock("../utils/mobx_mutation", () => {
   };
 });
 // Mock the dependencies (AreeStore, GuastiStore, LampioniStore, SensoriStore)
-jest.mock("../stores/AreeStore", () => ({
+jest.mock("../../stores/AreeStore", () => ({
   AreeStore: jest.fn(),
 }));
 
-jest.mock("../stores/GuastiStore", () => ({
+jest.mock("../../stores/GuastiStore", () => ({
   GuastiStore: jest.fn(),
 }));
 
-jest.mock("../stores/LampioniStore", () => ({
+jest.mock("../../stores/LampioniStore", () => ({
   LampioniStore: jest.fn(),
 }));
 
-jest.mock("../stores/SensoriStore", () => ({
+jest.mock("../../stores/SensoriStore", () => ({
   SensoriStore: jest.fn(),
 }));
 jest.mock("react-ioc", () => ({
@@ -130,14 +130,14 @@ describe("HomeViewModel", () => {
 
     // Mock the dependencies
     require("react-ioc").useInstance.mockReturnValue(areeStoreMock);
-    require("../stores/AreeStore").AreeStore.mockReturnValue(areeStoreMock);
-    require("../stores/GuastiStore").GuastiStore.mockReturnValue(
+    require("../../stores/AreeStore").AreeStore.mockReturnValue(areeStoreMock);
+    require("../../stores/GuastiStore").GuastiStore.mockReturnValue(
       guastiStoreMock
     );
-    require("../stores/LampioniStore").LampioniStore.mockReturnValue(
+    require("../../stores/LampioniStore").LampioniStore.mockReturnValue(
       lampioniStoreMock
     );
-    require("../stores/SensoriStore").SensoriStore.mockReturnValue(
+    require("../../stores/SensoriStore").SensoriStore.mockReturnValue(
       sensoriStoreMock
     );
   });

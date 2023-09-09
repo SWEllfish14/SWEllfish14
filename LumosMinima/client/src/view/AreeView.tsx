@@ -56,7 +56,7 @@ import { Link } from "react-router-dom";
                                         </p>
                                         <Link to={{
                                         pathname: `/area/${area.ID}`
-                                    }}><button className = "button is-success">Dettagli Area</button></Link>
+                                    }}><button className = "button is-success">Dettagli Area {area.ID}</button></Link>
                                     
                                     </div>
                         </li>

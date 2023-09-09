@@ -1,18 +1,18 @@
-import { AreeViewModel } from '../ViewModel/AreeViewModel';
-import { AreeStore } from '../stores/AreeStore';
-import { MobxMutation } from '../utils/mobx_mutation'; // Import the correct MobxMutation type
-import { queryClient } from '../utils/utils';
+import { AreeViewModel } from '../../ViewModel/AreeViewModel';
+import { AreeStore } from '../../stores/AreeStore';
+import { MobxMutation } from '../../utils/mobx_mutation'; // Import the correct MobxMutation type
+import { queryClient } from '../../utils/utils';
 
 // Mock the AreeStore and its dependencies
 jest.mock('react-ioc', () => ({
   useInstance: jest.fn(),
 }));
 
-jest.mock('../stores/AreeStore', () => ({
+jest.mock('../../stores/AreeStore', () => ({
   AreeStore: jest.fn(),
 }));
 
-jest.mock('../utils/mobx_mutation', () => {
+jest.mock('../../utils/mobx_mutation', () => {
   return {
     MobxMutation: jest.fn().mockImplementation(() => ({
       // Mock the properties and methods you need for your tests
@@ -67,7 +67,7 @@ describe('AreeViewModel', () => {
 
     // Mock the dependencies
     require('react-ioc').useInstance.mockReturnValue(areeStoreMock);
-    require('../stores/AreeStore').AreeStore.mockReturnValue(areeStoreMock);
+    require('../../stores/AreeStore').AreeStore.mockReturnValue(areeStoreMock);
   });
 
   it('should return aree', () => {

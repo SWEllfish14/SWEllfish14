@@ -21,13 +21,13 @@ export const AggiungiSensoreViewModel = () => {
     */
     const store = useInstance(SensoriStore);
     const area_store = useInstance(AreeStore);
-    let [submitHasError,setSubmitHasError]= useState(false)
-    let [submitError,setSubmitError] = useState()
+    // let [submitHasError,setSubmitHasError]= useState(false)
+    // let [submitError,setSubmitError] = useState()
     let navigate = useNavigate()
    return {
    
     areaDetails: ()=> area_store.getAreaDetails(id!),
-    submitIsError:()=>submitHasError,
+    submitIsError:()=>area_store.submitError !=='',
     submit:async (e:any) => {
         e.preventDefault()
         const data = new FormData(e.target)
@@ -38,15 +38,15 @@ export const AggiungiSensoreViewModel = () => {
             if(result.isError){
                 
                 e=result.error
-                setSubmitError(e.message)
-                setSubmitHasError(true)
+                area_store.setSubmitError(e.message)
+                
                 
             }
         },
             clearError:() =>{
-                setSubmitHasError(false)
+                area_store.clearSubmitError()
             },
-            submitError:() => submitError
+            submitError:() => area_store.submitError
             
                   
             

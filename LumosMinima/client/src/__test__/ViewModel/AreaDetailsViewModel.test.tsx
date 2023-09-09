@@ -1,22 +1,22 @@
 import { useState } from 'react';
-import { AreaDetailsViewModel } from '../ViewModel/AreaDetailsViewModel';
-import { AreeStore } from '../stores/AreeStore';
-import { LampioniStore } from '../stores/LampioniStore';
-import { SensoriStore } from '../stores/SensoriStore';
+import { AreaDetailsViewModel } from '../../ViewModel/AreaDetailsViewModel';
+import { AreeStore } from '../../stores/AreeStore';
+import { LampioniStore } from '../../stores/LampioniStore';
+import { SensoriStore } from '../../stores/SensoriStore';
 import { useInstance } from 'react-ioc';
 import { useNavigate, useParams } from "react-router-dom";
-import { MobxMutation } from '../utils/mobx_mutation';
+import { MobxMutation } from '../../utils/mobx_mutation';
 
 // Mock the dependencies (AreeStore, LampioniStore, SensoriStore)
-jest.mock('../stores/AreeStore', () => ({
+jest.mock('../../stores/AreeStore', () => ({
   AreeStore: jest.fn(),
 }));
 
-jest.mock('../stores/LampioniStore', () => ({
+jest.mock('../../stores/LampioniStore', () => ({
   LampioniStore: jest.fn(),
 }));
 
-jest.mock('../stores/SensoriStore', () => ({
+jest.mock('../../stores/SensoriStore', () => ({
   SensoriStore: jest.fn(),
 }));
 
@@ -34,7 +34,7 @@ jest.mock('react', () => ({
   useState: jest.fn((initialState) => [initialState, jest.fn()]), // Mock useState
 }));
 
-jest.mock('../utils/mobx_mutation', () => {
+jest.mock('../../utils/mobx_mutation', () => {
   return {
     MobxMutation: jest.fn().mockImplementation(() => ({
       // Mock the properties and methods you need for your tests

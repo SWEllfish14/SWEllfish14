@@ -1,7 +1,7 @@
-import { AggiungiAreaViewModel } from '../ViewModel/AggiungiAreaViewModel';
+import { AggiungiAreaViewModel } from '../../ViewModel/AggiungiAreaViewModel';
 
 // Mock the dependencies (AreeStore)
-jest.mock('../stores/AreeStore', () => ({
+jest.mock('../../stores/AreeStore', () => ({
   AreeStore: jest.fn(),
 }));
   jest.mock('react-router-dom', () => ({
@@ -29,6 +29,7 @@ describe('AggiungiAreaViewModel', () => {
       jest.clearAllMocks();
     const mockMutateAsync = jest.fn();
     areeStoreMock = {
+      submitError:'',
       getAreaDetails: jest.fn().mockReturnValue({
         isLoading: true, 
         isError:false
@@ -36,6 +37,16 @@ describe('AggiungiAreaViewModel', () => {
       aggiungiAreaMutation: {
         mutateAsync: mockMutateAsync,
       },
+      clearSubmitError: jest.fn().mockImplementation(
+        () => {
+          areeStoreMock.submitError = ''
+        }
+      ),
+      setSubmitError: jest.fn().mockImplementation(
+        (error:string) =>{
+          areeStoreMock.submitError = error
+        }
+      )
     };
     mockMutateAsync.mockResolvedValue({
       isSuccess: false,
@@ -43,37 +54,13 @@ describe('AggiungiAreaViewModel', () => {
     });
     // Mock the dependencies
     require('react-ioc').useInstance.mockReturnValue(areeStoreMock);
-    require('../stores/AreeStore').AreeStore.mockReturnValue(areeStoreMock);
+    require('../../stores/AreeStore').AreeStore.mockReturnValue(areeStoreMock);
     require('react-router-dom').useParams.mockReturnValue({ id: '1' })
   });
 
-  it('should call getAreaDetails with the correct ID', () => {
-    const viewModel = AggiungiAreaViewModel();
-    
-    viewModel.areaDetails();
-    expect(areeStoreMock.getAreaDetails).toHaveBeenCalled();
-  });
-
-  it('viene chiamata getAreaDetails con isLoading', () => {
-    const viewModel = AggiungiAreaViewModel();
-    
-    expect(viewModel.isLoading()).toBe(true);
-    expect(areeStoreMock.getAreaDetails).toBeCalled()
-  });
-
-  it('viene chiamata getAreaDetails con isError', () => {
-    const viewModel = AggiungiAreaViewModel();
-      
-    expect(viewModel.isError()).toBe(false);
-    expect(areeStoreMock.getAreaDetails).toBeCalled()
-  });
-
-  it('viene chiamata getAreaDetails con error', () => {
-    const viewModel = AggiungiAreaViewModel();
-    
-    viewModel.error();
-    expect(areeStoreMock.getAreaDetails).toBeCalled()
-  });
+  
+ 
+ 
 
   it('should call mutateAsync when submitting', async () => {
     const viewModel = AggiungiAreaViewModel();
@@ -122,7 +109,8 @@ require('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
   it('should set submitHasError to true when there is an error', () => {
     const viewModel = AggiungiAreaViewModel();
     viewModel.clearError(); // Make sure submitHasError is initially false
-    expect(viewModel.submitIsError()).toBe(false);
+    areeStoreMock.submitError="error"
+    expect(viewModel.submitIsError()).toBe(true);
   });
 
   it('should set submitError when there is an error', async () => {
@@ -140,6 +128,6 @@ require('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
   // Trigger the submit function
   await viewModel.submit({ preventDefault: jest.fn() });
 
-  expect(viewModel.submitError).toBe(errorMessage);
+  expect(areeStoreMock.setSubmitError).toHaveBeenCalled();
 });
 });

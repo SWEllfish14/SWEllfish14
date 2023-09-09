@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react';
-import { ModificaGuastoViewModel } from '../ViewModel/ModificaGuastoViewModel'; // Adjust the import path
+import { ModificaGuastoViewModel } from '../../ViewModel/ModificaGuastoViewModel'; // Adjust the import path
 const mockStore = {
   getGuastoDetails: jest.fn(),
   modificaGuastoMutation: {

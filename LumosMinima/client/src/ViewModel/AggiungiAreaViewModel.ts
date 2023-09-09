@@ -7,16 +7,16 @@ export type IAggiungiAreaViewModel = ReturnType<typeof AggiungiAreaViewModel>;
 export const AggiungiAreaViewModel = () => {
     const { id } = useParams();
     const store =useInstance(AreeStore);
-    let [submitHasError,setSubmitHasError]= useState(false)
-    let [submitError,setSubmitError] = useState()
+    // let [submitHasError,setSubmitHasError]= useState(false)
+    // let [submitError,setSubmitError] = useState()
     
     const navigate = useNavigate()
     return {
-        areaDetails: ()=> store.getAreaDetails(id!),
-        isLoading: ()=> store.getAreaDetails(id!).isLoading,
-        isError: () => store.getAreaDetails(id!).isError,
-        error:() => store.getAreaDetails(id!).error,
-        submitIsError:()=>submitHasError,
+        // areaDetails: ()=> store.getAreaDetails(id!),
+        // isLoading: ()=> store.getAreaDetails(id!).isLoading,
+        // isError: () => store.getAreaDetails(id!).isError,
+        // error:() => store.getAreaDetails(id!).error,
+        submitIsError:()=>store.submitError !== '',
         submit:async (e:any) => {
             e.preventDefault()
             var data = new FormData(e.target)
@@ -27,16 +27,16 @@ export const AggiungiAreaViewModel = () => {
                 if(result.isError){
                     
                     e=result.error
-                    setSubmitError(e.message)
-                    setSubmitHasError(true)
+                    store.setSubmitError(e.message)
+                    
                     
                 }     
         },
         clearError:() =>{
-            setSubmitHasError(false)
+           store.clearSubmitError()
         },
-        submitError
-        // submitError:() => 
+        
+         submitError:() => store.submitError
     };
   };
 

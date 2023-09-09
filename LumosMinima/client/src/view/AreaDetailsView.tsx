@@ -12,7 +12,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
     <div className="columns">
       <div className="column is-half">
         {viewModel.isLoading() && <p>Loading...</p>}
-        {viewModel.isError() && <p>Error: {viewModel.error()?.message}</p>}
+        {viewModel.isError() && <p id="error">Error: {viewModel.error()?.message}</p>}
         {viewModel.areaDetails() && (
           <div className="box">
             <h2 className="title is-5">Dettagli area</h2>
@@ -36,7 +36,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
               )
               }
               </>
-            ):(viewModel.areaDetails().data?.modalità_funzionamento === "A")
+            ):<></>
               }
             </p>
             <p>

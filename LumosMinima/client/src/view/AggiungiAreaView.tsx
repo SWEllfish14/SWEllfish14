@@ -6,7 +6,7 @@ interface Props {
 }
 const AggiungiAreaView = ({ viewModel }: Props) => (
   <div>
-    <form action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
+    <form role="form" action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
       <div className="tile is-ancestor">
         <div className="tile is-parent">
           <article className="tile is-child box">

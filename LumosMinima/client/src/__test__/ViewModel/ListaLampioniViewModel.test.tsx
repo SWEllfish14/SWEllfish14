@@ -1,15 +1,15 @@
-import { ListaLampioniViewModel } from '../ViewModel/ListaLampioniViewModel';
-import { LampioniStore } from '../stores/LampioniStore';
-import { AreeStore } from '../stores/AreeStore';
-import { MobxMutation } from '../utils/mobx_mutation';
+import { ListaLampioniViewModel } from '../../ViewModel/ListaLampioniViewModel';
+import { LampioniStore } from '../../stores/LampioniStore';
+import { AreeStore } from '../../stores/AreeStore';
+import { MobxMutation } from '../../utils/mobx_mutation';
 import { useInstance } from 'react-ioc';
 import { useParams } from 'react-router-dom';
 
 // Mock the LampioniStore and its dependencies
-jest.mock('../stores/LampioniStore', () => ({
+jest.mock('../../stores/LampioniStore', () => ({
     LampioniStore: jest.fn(),
   }));
-jest.mock('../stores/AreeStore', () => ({
+jest.mock('../../stores/AreeStore', () => ({
     AreeStore: jest.fn(),
   }));
 jest.mock('react-ioc', () => ({
@@ -18,7 +18,7 @@ jest.mock('react-ioc', () => ({
 jest.mock('react-router-dom', () => ({
     useParams: jest.fn(),
   }));
-jest.mock('../utils/mobx_mutation', () => ({
+jest.mock('../../utils/mobx_mutation', () => ({
   MobxMutation: jest.fn().mockImplementation(() => ({
     data: 'mockedData',
     isError: false,

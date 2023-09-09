@@ -1,10 +1,10 @@
-import { GuastoDetailsViewModel } from '../ViewModel/GuastoDetailsViewModel';
-import { GuastiStore } from '../stores/GuastiStore';
+import { GuastoDetailsViewModel } from '../../ViewModel/GuastoDetailsViewModel';
+import { GuastiStore } from '../../stores/GuastiStore';
 import { useInstance } from 'react-ioc';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // Mock the dependencies (GuastiStore)
-jest.mock('../stores/GuastiStore', () => ({
+jest.mock('../../stores/GuastiStore', () => ({
   GuastiStore: jest.fn(),
 }));
 

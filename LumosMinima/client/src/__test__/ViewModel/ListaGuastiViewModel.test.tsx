@@ -1,8 +1,8 @@
-import { ListaGuastiViewModel } from '../ViewModel/ListaGuastiViewModel';
-import { GuastiStore } from '../stores/GuastiStore';
+import { ListaGuastiViewModel } from '../../ViewModel/ListaGuastiViewModel';
+import { GuastiStore } from '../../stores/GuastiStore';
 import { useInstance } from 'react-ioc';
 
-jest.mock('../stores/GuastiStore', () => ({
+jest.mock('../../stores/GuastiStore', () => ({
     GuastiStore: jest.fn(),
   }));
 jest.mock('react-ioc', () => ({

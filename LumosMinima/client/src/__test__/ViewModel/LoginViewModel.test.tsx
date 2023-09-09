@@ -1,7 +1,7 @@
-import { LoginViewModel } from "../ViewModel/LoginViewModel";
+import { LoginViewModel } from "../../ViewModel/LoginViewModel";
 import { useNavigate } from "react-router-dom";
 import { useInstance } from "react-ioc";
-import { AuthStore } from "../stores/AuthStore";
+import { AuthStore } from "../../stores/AuthStore";
 // Mock the required dependencies first
 jest.mock("react-ioc", () => ({
   useInstance: jest.fn(),

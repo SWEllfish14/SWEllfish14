@@ -1,10 +1,10 @@
-import { ListaSensoriViewModel } from '../ViewModel/ListaSensoriViewModel';
-import { SensoriStore } from '../stores/SensoriStore';
+import { ListaSensoriViewModel } from '../../ViewModel/ListaSensoriViewModel';
+import { SensoriStore } from '../../stores/SensoriStore';
 import { useInstance } from 'react-ioc';
 import { useParams } from 'react-router-dom';
 
 
-jest.mock('../stores/SensoriStore', () => ({
+jest.mock('../../stores/SensoriStore', () => ({
     SensoriStore: jest.fn(),
   }));
 jest.mock('react-ioc', () => ({

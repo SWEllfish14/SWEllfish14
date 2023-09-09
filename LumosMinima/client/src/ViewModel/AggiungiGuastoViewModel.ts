@@ -11,8 +11,8 @@ export const AggiungiGuastoViewModel = () => {
     const { id } = useParams();
     const areeStore =useInstance(AreeStore);
     const guastiStore = useInstance(GuastiStore)
-    let [submitHasError,setSubmitHasError]= useState(false)
-    let [submitError,setSubmitError] = useState()
+    // let [submitHasError,setSubmitHasError]= useState(false)
+    // let [submitError,setSubmitError] = useState()
     
     const navigate = useNavigate()
     return {
@@ -20,7 +20,7 @@ export const AggiungiGuastoViewModel = () => {
         isLoading: ()=> areeStore.getAreaDetails(id!).isLoading,
         isError: () => areeStore.getAreaDetails(id!).isError,
         error:() => areeStore.getAreaDetails(id!).error,
-        submitIsError:()=>submitHasError,
+        submitIsError:()=>areeStore.submitError !== '',
         IDAreeMax: () => areeStore.AreeIdMax.data,
         submit:async (e:any) => {
             e.preventDefault()
@@ -31,16 +31,16 @@ export const AggiungiGuastoViewModel = () => {
                 }
                 if(result.isError){
                     e=result.error
-                    setSubmitError(e.message)
-                    setSubmitHasError(true)
+                    areeStore.setSubmitError(e.message)
+                    
                     
                 }     
                 
         },
         clearError:() =>{
-            setSubmitHasError(false)
+            areeStore.clearSubmitError()
         },
-        submitError:() => submitError
+        submitError:() => areeStore.submitError
     };
   };
 
