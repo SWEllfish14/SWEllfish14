@@ -58,4 +58,18 @@ describe('ListaGuastiView', () => {
           );
         expect(screen.getByText("Loading...")).toBeInTheDocument();
         });
+
+        it('renders correctly guastiAperti undefined and guastiChiusi undefined', () => {
+          // Mock listaLampioni to return an array of lampioni
+          mockViewModel.isLoading = jest.fn().mockReturnValue(false)
+          mockViewModel.guastiAperti = jest.fn().mockReturnValue(undefined);
+          mockViewModel.guastiChiusi = jest.fn().mockReturnValue(undefined);
+          // Re-render the component
+          render(
+            <BrowserRouter>
+              <ListaGuastiView viewModel={mockViewModel} />
+            </BrowserRouter>
+          );
+      
+        });
 })

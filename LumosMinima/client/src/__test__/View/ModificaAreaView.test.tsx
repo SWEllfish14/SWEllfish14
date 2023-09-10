@@ -61,5 +61,17 @@ describe('ModificaAreaView component', () => {
     // Assert that the submit function from the ViewModel is called with the expected values
     expect(mockViewModel.submit).toHaveBeenCalled();
   });
-
+  it("no data in areaDetails", () => {
+    mockViewModel.areaDetails = jest.fn().mockReturnValue({
+        data: undefined,
+      })
+    render(<ModificaAreaView viewModel={mockViewModel} />);
+    expect(screen.getByLabelText('ID città')).toHaveValue('');
+    expect(screen.getByLabelText('Nome città')).toHaveValue('');
+    expect(screen.getByLabelText('Zona geografica città')).toHaveValue('');
+    expect(screen.getByTestId('modalita-select')).toHaveValue('A');
+    expect(screen.getByTestId('stato-select')).toHaveValue('0');
+    expect(screen.getByLabelText('Luminosità default')).toHaveValue(null);
+    expect(screen.getByLabelText('Luminosità rilevamento')).toHaveValue(null);
+  });
 });

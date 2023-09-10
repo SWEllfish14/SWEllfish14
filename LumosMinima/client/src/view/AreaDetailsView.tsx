@@ -91,6 +91,7 @@ const AreaDetailsView = ({ viewModel }: Props) => (
             <div className="field">
               <input
                 id="switchManuale"
+                
                 checked={viewModel.areaDetails().data?.modalità_funzionamento === "M" ? true:false}
                 type="checkbox"
                 name="switchManuale"

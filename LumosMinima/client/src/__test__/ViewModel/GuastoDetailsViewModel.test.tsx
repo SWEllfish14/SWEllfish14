@@ -31,7 +31,11 @@ describe('GuastoDetailsViewModel', () => {
     jest.clearAllMocks();
 
     guastiStoreMock = {
-      getGuastoDetails: jest.fn(),
+      getGuastoDetails: jest.fn().mockReturnValue({
+        error:jest.fn()
+      }
+        
+      ),
       chiudiGuastoMutation: {
         mutateAsync: jest.fn(),
       },

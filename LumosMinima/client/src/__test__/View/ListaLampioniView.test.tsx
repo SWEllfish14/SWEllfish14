@@ -151,4 +151,17 @@ describe('ListaLampioniView Component', () => {
     // Check if the accendiLampione function was called with the correct lampione ID
     expect(mockViewModel.accendiLampione).toHaveBeenCalledWith(lampioni[1].ID);
   });
+  it('renders correctly listaLampioni undefined and Areadetails data undefined', () => {
+    // Mock listaLampioni to return an array of lampioni
+   
+    mockViewModel.listaLampioni = jest.fn().mockReturnValue(undefined);
+    mockViewModel.areaDetails = jest.fn().mockReturnValue({data:undefined});
+    // Re-render the component
+    render(
+      <BrowserRouter>
+        <ListaLampioniView viewModel={mockViewModel} />
+      </BrowserRouter>
+    );
+
+  });
 });

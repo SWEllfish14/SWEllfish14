@@ -85,3 +85,15 @@ test('renders nothing when stato 1', () => {
     expect(screen.getByText('Impostazioni Guasto')).toBeInTheDocument();
     // Add more assertions based on your component's behavior when stato is not 1
   });
+
+  test('guastoDetails data undefined', () => {
+    mockViewModel.guastoDetails= jest.fn().mockReturnValue({data:undefined}) ; // Set stato to a value other than 1
+    render(<BrowserRouter><GuastoDetailsView viewModel={mockViewModel} /></BrowserRouter>);
+  
+    // Check if the component renders correctly
+    expect(screen.getByText('ID:')).toBeInTheDocument();
+    expect(screen.getByText('Data rilevamento:')).toBeInTheDocument();
+    expect(screen.getByText('Id area:')).toBeInTheDocument();
+    expect(screen.getByText('Note:')).toBeInTheDocument();
+   
+  });

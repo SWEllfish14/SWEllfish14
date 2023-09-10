@@ -81,4 +81,16 @@ describe('ModificaLampioneView component', () => {
     // Assert that the eliminaLampione function from the ViewModel is called
     expect(mockViewModel.eliminaLampione).toHaveBeenCalled();
   });
+  it("no data in lampioneDetails", () => {
+    mockViewModel.dettagliLampione = jest.fn().mockReturnValue({
+        data: undefined,
+      })
+    render(<ModificaLampioneView viewModel={mockViewModel} />);
+    expect(screen.getByLabelText('ID')).toHaveValue('');
+    expect(screen.getByLabelText('IP')).toHaveValue('');
+    expect(screen.getByLabelText('Tipo interazione con il lampione')).toHaveValue('PUSH');
+    expect(screen.getByLabelText('Luminosità default')).toHaveValue(1);
+    expect(screen.getByLabelText('Luminosità impostata')).toHaveValue(1);
+    expect(screen.getByLabelText('Stato')).toHaveValue('0');
+  });
 });

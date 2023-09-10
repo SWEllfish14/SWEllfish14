@@ -72,4 +72,15 @@ describe('ModificaGuastoView component', () => {
     render(<ModificaGuastoView viewModel={mockViewModel} />);
     
   });
+  it("no data in guastoDetails", () => {
+    mockViewModel.guastoDetails = jest.fn().mockReturnValue({
+        data: undefined,
+      })
+    render(<ModificaGuastoView viewModel={mockViewModel} />);
+    expect(screen.getByLabelText('ID guasto')).toHaveValue("");
+    expect(screen.getByLabelText('data rilevamento guasto')).toHaveValue("");
+    expect(screen.getByLabelText('stato')).toHaveValue("0");
+    expect(screen.getByLabelText('note')).toHaveValue("");
+    expect(screen.getByLabelText('id area illuminata')).toHaveValue(null);
+  });
 });

@@ -14,9 +14,9 @@ export const ModificaSensoreViewModel = () => {
     
     return {
         sensoreDetails: ()=> store.getdettagliSensori(id!),
-        isLoading: ()=> store.getdettagliSensori(id!).isLoading,
-        isError: () => store.getdettagliSensori(id!).isError,
-        error:() => store.getdettagliSensori(id!).error,
+        // isLoading: ()=> store.getdettagliSensori(id!).isLoading,
+        // isError: () => store.getdettagliSensori(id!).isError,
+        // error:() => store.getdettagliSensori(id!).error,
         submitIsError:()=>store.submitError !== '',
         submit:async (e:any) => {
             console.log(id)
@@ -53,7 +53,7 @@ export const ModificaSensoreViewModel = () => {
         clearError:() =>{
             store.clearSubmitError()
         },
-        submitError:() => store.submitError
+        // submitError:() => store.submitError
     };
   };
 

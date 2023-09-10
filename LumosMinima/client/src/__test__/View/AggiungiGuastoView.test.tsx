@@ -63,3 +63,15 @@ test('renders error message when submitIsError is true', () => {
   // Check if the error message is rendered when submitIsError is true
   expect(screen.getByText('Errore durante il submit.')).toBeInTheDocument();
 });
+test('renders correctly if areaDetails data is undefined', () => {
+  // Set submitIsError to true in the mock ViewModel
+  mockViewModel.areaDetails = jest.fn().mockReturnValue({data:undefined})
+
+  render(
+    <BrowserRouter>
+      <AggiungiGuastoView viewModel={mockViewModel} />
+    </BrowserRouter>
+  );
+
+  expect(screen.getByLabelText('Id area illuminata afferenza')).toBeInTheDocument();
+});

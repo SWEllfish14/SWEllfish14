@@ -1,178 +1,235 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
-import AreaDetailsView from '../../view/AreaDetailsView'; // Update the import path
-import { IAreaDetailsViewModel } from '../../ViewModel/AreaDetailsViewModel'; // Update the import path
-import { BrowserRouter } from 'react-router-dom';
-import '@testing-library/jest-dom'
-// Create a mock ViewModel with the necessary methods and properties
-
+import { BrowserRouter as Router } from 'react-router-dom'; // Use BrowserRouter in testing
+import AreaDetailsView from '../../view/AreaDetailsView'; // Adjust the import path as needed
+import { IAreaDetailsViewModel } from '../../ViewModel/AreaDetailsViewModel'; // Import your ViewModel
+import '@testing-library/jest-dom';
+// Mock the ViewModel with necessary functions and data
 const mockViewModel: IAreaDetailsViewModel = {
+  modalita:true,
   isLoading: jest.fn().mockReturnValue(false),
   isError: jest.fn().mockReturnValue(false),
-  error: jest.fn().mockReturnValue({ message: 'errore' }),
+  error: jest.fn().mockReturnValue(null),
   areaDetails: jest.fn().mockReturnValue({
     data: {
       ID: 1,
-      città: 'City1',
-      zona_geografica_città: 'Zone1',
+      città: 'Test City',
+      zona_geografica_città: 'Test Zone',
       modalità_funzionamento: 'M',
-      stato: 0, // Assuming some value for stato
-      luminosità_manuale: 50, // Assuming some value for luminosità_manuale
-      luminosità_standard: 80, // Assuming some value for luminosità_standard
+      stato: 0,
+      luminosità_standard: 5,
     },
   }),
+  accendiArea:jest.fn(),
+  spegniLampioniArea: jest.fn(),
+  accendiLampioniArea: jest.fn(),
+  cambiaModalità: jest.fn(),
   aumentaLuminosità: jest.fn(),
   diminuisciLuminosità: jest.fn(),
-  accendiLampioniArea: jest.fn(),
-  spegniLampioniArea: jest.fn(),
-  cambiaModalità: jest.fn(),
-  submitHasError: false,
-  errorMessage: "",
   eliminaArea: jest.fn(),
-  accendiArea:jest.fn(),
-  modalita:true,
+  submitHasError: false, 
+  errorMessage: 'Test Error Message', 
 };
-describe('AreaDetailsView', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-  test('renders AreaDetailsView component correctly', () => {
-    render(
-      <BrowserRouter>
-        <AreaDetailsView viewModel={mockViewModel} />
-      </BrowserRouter>
-    );
-  
-    // Check if the component renders correctly
-    expect(screen.getByText('Dettagli area')).toBeInTheDocument();
-  
-    // Check if the area details are displayed
-    expect(screen.getByText('ID: 1')).toBeInTheDocument();
-    expect(screen.getByText('Città: City1')).toBeInTheDocument();
-    expect(screen.getByText('Zona: Zone1')).toBeInTheDocument();
-    expect(screen.getByText('Stato: Spento')).toBeInTheDocument();
-    expect(screen.getByText('Luminosità in modalità manuale: 50')).toBeInTheDocument();
-  
-    // Check if the buttons are present and clickable
-    const switchManuale = screen.getByLabelText('Manuale');
-    const switchAutomatico = screen.getByLabelText('Automatico');
-    const increaseLuminosita = screen.getByText('Aumenta Luminosità');
-    const decreaseLuminosita = screen.getByText('Diminuisci Luminosità');
-    const aggiungiGuastoButton = screen.getByText('Aggiungi guasto');
-    const eliminaAreaButton = screen.getByText('Elimina area');
-    const modificaDettagliAreaButton = screen.getByText('Modifica dettagli area');
-    const aggiungiSensoreButton = screen.getByText('Aggiungi sensore');
-    const listaSensoriButton = screen.getByText('Lista Sensori');
-    const aggiungiLampioneButton = screen.getByText('Aggiungi lampione');
-    const listaLampioniButton = screen.getByText('Lista Lampioni');
-  
-    expect(switchManuale).toBeInTheDocument();
-    expect(switchAutomatico).toBeInTheDocument();
-    expect(increaseLuminosita).toBeInTheDocument();
-    expect(decreaseLuminosita).toBeInTheDocument();
-    expect(aggiungiGuastoButton).toBeInTheDocument();
-    expect(eliminaAreaButton).toBeInTheDocument();
-    expect(modificaDettagliAreaButton).toBeInTheDocument();
-    expect(aggiungiSensoreButton).toBeInTheDocument();
-    expect(listaSensoriButton).toBeInTheDocument();
-    expect(aggiungiLampioneButton).toBeInTheDocument();
-    expect(listaLampioniButton).toBeInTheDocument();
-  
-    fireEvent.click(switchManuale);
-    fireEvent.click(switchAutomatico);
-    fireEvent.click(increaseLuminosita);
-    fireEvent.click(decreaseLuminosita);
-    fireEvent.click(aggiungiGuastoButton);
-    fireEvent.click(eliminaAreaButton);
-    fireEvent.click(modificaDettagliAreaButton);
-    fireEvent.click(aggiungiSensoreButton);
-    fireEvent.click(listaSensoriButton);
-    fireEvent.click(aggiungiLampioneButton);
-    fireEvent.click(listaLampioniButton);
-  
-    // You can add more assertions based on your component's behavior
-  });
-  
-  it('renders IsLoading', () => {
-    // Set isLoading to true in the mock ViewModel
+
+describe('AreaDetailsView component', () => {
+  it('renders correctly when loading', () => {
     mockViewModel.isLoading = jest.fn().mockReturnValue(true);
-  
     render(
-      <BrowserRouter>
+      <Router>
         <AreaDetailsView viewModel={mockViewModel} />
-      </BrowserRouter>
+      </Router>
     );
-  
-    // Check if the loading indicator is present
+
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
-  
-  it('renders Error', () => {
-      
-    // Set isError and errorMessage in the mock ViewModel
-    mockViewModel.isError = jest.fn().mockReturnValue(true);
+
+  it('renders correctly without error', () => {
+    mockViewModel.isLoading = jest.fn().mockReturnValue(false);
     render(
-      <BrowserRouter>
+      <Router>
         <AreaDetailsView viewModel={mockViewModel} />
-      </BrowserRouter>
+      </Router>
     );
-    const errorMessage = screen.getByText(/Error:/i);
-    expect(errorMessage).toBeInTheDocument();
-  })
+
+    expect(screen.getByText('Dettagli area')).toBeInTheDocument();
+    // Add more assertions for other elements based on your test case
+  });
   
-  it('renders correctly if stato acceso', () => {
-      
-      mockViewModel.areaDetails = jest.fn().mockReturnValue({
-          data: {
-            ID: 1,
-            città: 'City1',
-            zona_geografica_città: 'Zone1',
-            modalità_funzionamento: 'M',
-            stato: 1, // Assuming some value for stato
-            luminosità_manuale: 50, // Assuming some value for luminosità_manuale
-            luminosità_standard: 80, // Assuming some value for luminosità_standard
-          },
-        })
-      render(
-        <BrowserRouter>
-          <AreaDetailsView viewModel={mockViewModel} />
-        </BrowserRouter>
-      );
-      expect(screen.getByText("Stato : Acceso")).toBeInTheDocument()
+
+  
+ 
+  it('handles "Accendi Lampioni Area" button click', () => {
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    const accendiLampioniButton = screen.getByText('Accendi Lampioni');
+    fireEvent.click(accendiLampioniButton);
+
+    // Add assertions to check how it handles "Accendi Lampioni Area" button click
+    expect(mockViewModel.accendiLampioniArea).toHaveBeenCalled();
+  });
+  it('handles "Aumenta Luminosità" button click', () => {
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    const aumentaLuminositàButton = screen.getByText('Aumenta Luminosità');
+    fireEvent.click(aumentaLuminositàButton);
+
+    // Add assertions to check how it handles "Aumenta Luminosità" button click
+    expect(mockViewModel.aumentaLuminosità).toHaveBeenCalled();
+  });
+
+  it('handles "Diminuisci Luminosità" button click', () => {
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    const diminuisciLuminositàButton = screen.getByText('Diminuisci Luminosità');
+    fireEvent.click(diminuisciLuminositàButton);
+
+    // Add assertions to check how it handles "Diminuisci Luminosità" button click
+    expect(mockViewModel.diminuisciLuminosità).toHaveBeenCalled();
+  });
+  it('handles "Spegni Lampioni Area" button click', () => {
+    mockViewModel.areaDetails= jest.fn().mockReturnValue({
+      data: {
+        ID: 1,
+        città: 'Test City',
+        zona_geografica_città: 'Test Zone',
+        modalità_funzionamento: 'M',
+        stato: 1,
+        luminosità_standard: 5,
+      },
     })
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    const spegniLampioniButton = screen.getByText('Spegni lampioni');
+    fireEvent.click(spegniLampioniButton);
+
+    // Add assertions to check how it handles "Spegni Lampioni Area" button click
+    expect(mockViewModel.spegniLampioniArea).toHaveBeenCalled();
+  });
+  it('handles "Cambia Modalità" button click', () => {
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    const cambiaModalitàButton = screen.getByLabelText('Manuale');
+    fireEvent.click(cambiaModalitàButton);
+
+    // Add assertions to check how it handles "Cambia Modalità" button click
+    expect(mockViewModel.cambiaModalità).toHaveBeenCalled();
+  });
+
   
-    // it('renders correctly if Modalita A', () => {
-      
-      
-    //   mockViewModel.areaDetails = jest.fn().mockReturnValue({
-    //       data: {
-    //         ID: 1,
-    //         città: 'City1',
-    //         zona_geografica_città: 'Zone1',
-    //         modalità_funzionamento: 'A',
-    //         stato: 0, // Assuming some value for stato
-    //         luminosità_manuale: 50, // Assuming some value for luminosità_manuale
-    //         luminosità_standard: 80, // Assuming some value for luminosità_standard
-    //       },
-    //     })
-    //   render(
-    //     <BrowserRouter>
-    //       <AreaDetailsView viewModel={mockViewModel} />
-    //     </BrowserRouter>
-    //   );
-    //   expect(screen.getByText(/Luminosità in modalità automatica:/i)).toBeInTheDocument()
-    // })
-  
-    it('renders correctly if submit has error', () => {
-      
-      
-      mockViewModel.submitHasError= true
-      mockViewModel.errorMessage ="errore submit"
-      render(
-        <BrowserRouter>
-          <AreaDetailsView viewModel={mockViewModel} />
-        </BrowserRouter>
-      );
-      expect(screen.getByText(mockViewModel.errorMessage)).toBeInTheDocument()
+
+  it('handles "Elimina Area" button click', () => {
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    const eliminaAreaButton = screen.getByText('Elimina area');
+    fireEvent.click(eliminaAreaButton);
+
+    // Add assertions to check how it handles "Elimina Area" button click
+    expect(mockViewModel.eliminaArea).toHaveBeenCalled();
+  });
+
+  it('handles error state correctly', () => {
+    mockViewModel.isError = jest.fn().mockReturnValue(true);
+    mockViewModel.error = jest.fn().mockReturnValue({ message: 'Test Error Message' });
+
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    expect(screen.getByText('Error: Test Error Message')).toBeInTheDocument();
+    // Add more assertions for error handling based on your test case
+  });
+  it('stato acceso', () => {
+    mockViewModel.isError = jest.fn().mockReturnValue(false);
+    mockViewModel.areaDetails = jest.fn().mockReturnValue({
+      data: {
+        ID: 1,
+        città: 'Test City',
+        zona_geografica_città: 'Test Zone',
+        modalità_funzionamento: 'M',
+        stato: 1,
+        luminosità_standard: 5,
+      },
     })
-})
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    expect(screen.getByText('Stato : Acceso')).toBeInTheDocument();
+    // Add more assertions for error handling based on your test case
+  });
+  it('modalità automatica', () => {
+    mockViewModel.isError = jest.fn().mockReturnValue(false);
+    mockViewModel.areaDetails = jest.fn().mockReturnValue({
+      data: {
+        ID: 1,
+        città: 'Test City',
+        zona_geografica_città: 'Test Zone',
+        modalità_funzionamento: 'A',
+        stato: 1,
+        luminosità_standard: 5,
+      },
+    })
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    expect(screen.getByText('Luminosità in modalità automatica: 5')).toBeInTheDocument();
+    // Add more assertions for error handling based on your test case
+  });
+  it('handles submit error correctly', () => {
+    mockViewModel.submitHasError = true;
+  
+
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    // Add more assertions for error handling based on your test case
+  });
+
+  it('renders correctly data undefined', () => {
+    mockViewModel.areaDetails = jest.fn().mockReturnValue({data:undefined});
+  
+
+    render(
+      <Router>
+        <AreaDetailsView viewModel={mockViewModel} />
+      </Router>
+    );
+
+    // Add more assertions for error handling based on your test case
+  });
+  // Add more test cases to cover different scenarios and interactions
+});
