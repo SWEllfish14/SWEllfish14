@@ -15,9 +15,9 @@ export const ModificaLampioneViewModel = () => {
     const navigate = useNavigate()
     return {
         dettagliLampione: ()=> store.getdettagliLampioni(id!),
-        isLoading: ()=> store.getdettagliLampioni(id!).isLoading,
-        isError: () => store.getdettagliLampioni(id!).isError,
-        error:() => store.getdettagliLampioni(id!).error,
+        // isLoading: ()=> store.getdettagliLampioni(id!).isLoading,
+        // isError: () => store.getdettagliLampioni(id!).isError,
+        // error:() => store.getdettagliLampioni(id!).error,
         
        // IDAree: () => AreeId.data,
         modificaLampione: async (e:any) => {
@@ -51,7 +51,7 @@ export const ModificaLampioneViewModel = () => {
     clearError:() =>{
         store.clearSubmitError()
     },
-    submitError:() => store.submitError
+    // submitError:() => store.submitError
     
   
 }

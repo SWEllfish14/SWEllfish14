@@ -58,13 +58,13 @@ describe('ModificaLampioneViewModel', () => {
 
     // Assert
     expect(result.current.dettagliLampione).toBeDefined();
-    expect(result.current.isLoading).toBeDefined();
-    expect(result.current.isError).toBeDefined();
-    expect(result.current.error).toBeDefined();
+    // expect(result.current.isLoading).toBeDefined();
+    // expect(result.current.isError).toBeDefined();
+    // expect(result.current.error).toBeDefined();
     expect(result.current.submitIsError).toBeDefined();
     expect(result.current.modificaLampione).toBeDefined();
     expect(result.current.clearError).toBeDefined();
-    expect(result.current.submitError).toBeDefined();
+    // expect(result.current.submitError).toBeDefined();
   });
 
   it('should call store methods when ViewModel functions are invoked', async () => {
@@ -73,13 +73,13 @@ describe('ModificaLampioneViewModel', () => {
 
     // Act
     await result.current.dettagliLampione();
-    await result.current.isLoading();
-    await result.current.isError();
-    await result.current.error();
+    // await result.current.isLoading();
+    // await result.current.isError();
+    // await result.current.error();
     await result.current.submitIsError();
     await result.current.clearError();
     await result.current.modificaLampione({preventDefault: jest.fn()});
-    await result.current.submitError();
+    // await result.current.submitError();
     await result.current.eliminaLampione()
 
     // Assert

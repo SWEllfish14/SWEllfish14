@@ -13,9 +13,9 @@ export const ModificaGuastoViewModel = () => {
     const navigate = useNavigate()
     return {
         guastoDetails: ()=> store.getGuastoDetails(id!),
-        isLoading: ()=> store.getGuastoDetails(id!).isLoading,
-        isError: () => store.getGuastoDetails(id!).isError,
-        error:() => store.getGuastoDetails(id!).error,
+        // isLoading: ()=> store.getGuastoDetails(id!).isLoading,
+        // isError: () => store.getGuastoDetails(id!).isError,
+        // error:() => store.getGuastoDetails(id!).error,
         submitIsError:()=>store.submitError!=='',
         submit:async (e:any) => {
             

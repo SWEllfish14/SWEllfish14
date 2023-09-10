@@ -4,6 +4,7 @@ import { GuastiStore } from "../stores/GuastiStore";
 import { LampioniStore } from "../stores/LampioniStore";
 import { SensoriStore } from "../stores/SensoriStore";
 import { AuthStore } from "../stores/AuthStore";
+import Cookies from "js-cookie";
 
 export type IHomeViewModel = ReturnType<typeof HomeViewModel>;
 
@@ -13,8 +14,8 @@ export const HomeViewModel=()=> {
      const {numeroLampioni} = useInstance(LampioniStore);
      const {numeroSensori} = useInstance(SensoriStore);
      return {
-        aree: ()=> aree.data,
-        areeisLoading: ()=> aree.isLoading,
+        // aree: ()=> aree.data,
+        // areeisLoading: ()=> aree.isLoading,
         numeroAree: () => numeroAree.data,
         numeroAreeisLoading: () => numeroAree.isLoading,
         areeLimit: () => areeLimit.data,
@@ -26,7 +27,11 @@ export const HomeViewModel=()=> {
         lampioniNumber:() => numeroLampioni.data,
         lampioniisLoading: () =>numeroLampioni.isLoading,
         sensoriNumber:() => numeroSensori.data,
-        sensoriisLoading: () =>numeroSensori.isLoading
+        sensoriisLoading: () =>numeroSensori.isLoading,
+        logout: () => {
+            Cookies.remove("user-token")
+            window.location.replace("/login")
+          }
     };
 }
 

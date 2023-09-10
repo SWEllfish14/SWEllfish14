@@ -13,7 +13,7 @@ import {IAggiungiLampioneViewModel } from "../ViewModel/AggiungiLampioneViewMode
   <article className="tile is-child box">
   <h1>Aggiunta Lampione</h1>
   <p className="menu-label">
-                <label htmlFor="IP">IP</label>
+                <label htmlFor="ip">IP</label>
                 <input
                   id="ip"
                   name="ip"

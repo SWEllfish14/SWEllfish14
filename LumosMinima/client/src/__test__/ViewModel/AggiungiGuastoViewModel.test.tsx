@@ -55,14 +55,11 @@ describe('ModificaSensoreViewModel', () => {
 
     // Assert
     expect(result.current.areaDetails).toBeDefined();
-    expect(result.current.isLoading).toBeDefined();
-    expect(result.current.isError).toBeDefined();
-    expect(result.current.error).toBeDefined();
     expect(result.current.submitIsError).toBeDefined();
     expect(result.current.submit).toBeDefined();
     expect(result.current.clearError).toBeDefined();
     expect(result.current.submitError).toBeDefined();
-    expect(result.current.IDAreeMax).toBeDefined();
+
   });
 
   it('should call store methods when ViewModel functions are invoked', async () => {
@@ -71,14 +68,10 @@ describe('ModificaSensoreViewModel', () => {
 
     // Act
     await result.current.areaDetails();
-    await result.current.isLoading();
-    await result.current.isError();
-    await result.current.error();
     await result.current.submitIsError();
     await result.current.clearError();
     await result.current.submit({preventDefault: jest.fn()});
     await result.current.submitError();
-    await result.current.IDAreeMax();
 
     // Assert
     expect(mockStore.getAreaDetails).toHaveBeenCalledWith(mockId);

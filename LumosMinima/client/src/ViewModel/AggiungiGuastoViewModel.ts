@@ -17,11 +17,11 @@ export const AggiungiGuastoViewModel = () => {
     const navigate = useNavigate()
     return {
         areaDetails: ()=> areeStore.getAreaDetails(id!),
-        isLoading: ()=> areeStore.getAreaDetails(id!).isLoading,
-        isError: () => areeStore.getAreaDetails(id!).isError,
-        error:() => areeStore.getAreaDetails(id!).error,
+        // isLoading: ()=> areeStore.getAreaDetails(id!).isLoading,
+        // isError: () => areeStore.getAreaDetails(id!).isError,
+        // error:() => areeStore.getAreaDetails(id!).error,
         submitIsError:()=>areeStore.submitError !== '',
-        IDAreeMax: () => areeStore.AreeIdMax.data,
+        // IDAreeMax: () => areeStore.AreeIdMax.data,
         submit:async (e:any) => {
             e.preventDefault()
             var data = new FormData(e.target)

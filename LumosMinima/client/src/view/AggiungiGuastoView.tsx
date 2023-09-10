@@ -40,6 +40,7 @@ const AggiungiGuastoView = ({ viewModel }: Props) => (
               <label htmlFor="id_area">Id area illuminata afferenza</label>
               <input
                   id="id_area"
+                  data-testid="id_area"
                   name="id_area"
                   className="input"
                   type="text"

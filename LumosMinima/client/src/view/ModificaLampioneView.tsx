@@ -23,7 +23,7 @@ import {IModificaLampioneViewModel } from "../ViewModel/ModificaLampioneViewMode
                   readOnly
                 ></input> 
   <p className="menu-label">
-                <label htmlFor="IP">IP</label>
+                <label htmlFor="ip">IP</label>
                 <input
                   id="ip"
                   name="ip"

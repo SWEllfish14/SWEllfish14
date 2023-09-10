@@ -13,9 +13,9 @@ export const ModificaAreaViewModel = () => {
   const navigate = useNavigate();
   return {
     areaDetails: () => store.getAreaDetails(id!),
-    isLoading: () => store.getAreaDetails(id!).isLoading,
-    isError: () => store.getAreaDetails(id!).isError,
-    error: () => store.getAreaDetails(id!).error,
+    // isLoading: () => store.getAreaDetails(id!).isLoading,
+    // isError: () => store.getAreaDetails(id!).isError,
+    // error: () => store.getAreaDetails(id!).error,
     submitIsError: () => store.submitError!=='',
     submit: async (e: any) => {
       e.preventDefault()

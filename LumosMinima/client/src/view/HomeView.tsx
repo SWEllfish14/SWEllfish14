@@ -2,10 +2,7 @@ import { observer } from "mobx-react-lite";
 import { IHomeViewModel } from "../ViewModel/HomeViewModel";
 import { Link, useNavigate } from "react-router-dom";
 
-const rimuovi = ()=>{
-  localStorage.removeItem("user-token");
-  window.location.replace("/login")
-}
+
 
 
 interface Props {
@@ -119,7 +116,7 @@ const HomeView = ({ viewModel }: Props) => (
           <a href="/">Manuale Utente</a>
           </p>
           <p>
-          <button className="button is-danger is-small" onClick={rimuovi}>Logout</button>
+          <button className="button is-danger is-small" onClick={viewModel.logout}>Logout</button>
           </p>
         </article>
       </div>

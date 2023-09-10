@@ -50,9 +50,9 @@ describe('ModificaAreaViewModel', () => {
 
     // Assert
     expect(result.current.areaDetails).toBeDefined();
-    expect(result.current.isLoading).toBeDefined();
-    expect(result.current.isError).toBeDefined();
-    expect(result.current.error).toBeDefined();
+    // expect(result.current.isLoading).toBeDefined();
+    // expect(result.current.isError).toBeDefined();
+    // expect(result.current.error).toBeDefined();
     expect(result.current.submitIsError).toBeDefined();
     expect(result.current.submit).toBeDefined();
     expect(result.current.clearError).toBeDefined();
@@ -65,9 +65,9 @@ describe('ModificaAreaViewModel', () => {
 
     // Act
     await result.current.areaDetails();
-    await result.current.isLoading();
-    await result.current.isError();
-    await result.current.error();
+    // await result.current.isLoading();
+    // await result.current.isError();
+    // await result.current.error();
     await result.current.submitIsError();
     await result.current.clearError();
     await result.current.submit({preventDefault: jest.fn()});

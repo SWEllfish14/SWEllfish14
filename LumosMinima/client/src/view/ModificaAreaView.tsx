@@ -5,7 +5,7 @@ interface Props {
 }
 const ModificaAreaView = ({ viewModel }: Props) => (
   <div>
-    <form action="" method="post" onSubmit={viewModel.submit} onFocus={viewModel.clearError}>
+    <form action="" method="post" onSubmit={viewModel.submit}>
       <div className="tile is-ancestor">
         <div className="tile is-parent">
           <article className="tile is-child box">
@@ -40,13 +40,14 @@ const ModificaAreaView = ({ viewModel }: Props) => (
               ></input>
               <label htmlFor="modalita">Modalità funzionamento</label>
               <select id="modalita"
+              data-testid="modalita-select"
                 name="modalita" className="input">
                 <option value="A">Automatico</option>
                 <option value="M">Manuale</option>
                 <option defaultValue = {viewModel.areaDetails().data?.modalità_funzionamento.toString()}></option>
               </select>
               <label htmlFor="stato">Stato</label>
-              <select id="stato" name="stato" className="input">
+              <select id="stato" data-testid="stato-select" name="stato" className="input">
                 <option value="0">Spento</option>
                 <option value="1">Acceso</option>
                 <option defaultValue={viewModel.areaDetails().data?.stato}></option>

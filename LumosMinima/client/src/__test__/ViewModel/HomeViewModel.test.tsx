@@ -142,40 +142,40 @@ describe("HomeViewModel", () => {
     );
   });
 
-  it("should return aree", () => {
-    const viewModel = HomeViewModel();
-    const result = viewModel.aree();
+  // it("should return aree", () => {
+  //   const viewModel = HomeViewModel();
+  //   const result = viewModel.aree();
 
-    expect(result).toEqual([
-      {
-        ID: 1,
-        città: "Firenze",
-        zona_geografica_città: "Duomo",
-        modalità_funzionamento: "A",
-        luminosità_standard: 10,
-        luminosità_rilevamento: 10,
-        luminosità_manuale: 5,
-        stato: 1,
-      },
-      {
-        ID: 2,
-        città: "Venezia",
-        zona_geografica_città: "Piazza San Marco",
-        modalità_funzionamento: "M",
-        luminosità_standard: 6,
-        luminosità_rilevamento: 4,
-        luminosità_manuale: 3,
-        stato: 0,
-      },
-    ]);
-  });
+  //   expect(result).toEqual([
+  //     {
+  //       ID: 1,
+  //       città: "Firenze",
+  //       zona_geografica_città: "Duomo",
+  //       modalità_funzionamento: "A",
+  //       luminosità_standard: 10,
+  //       luminosità_rilevamento: 10,
+  //       luminosità_manuale: 5,
+  //       stato: 1,
+  //     },
+  //     {
+  //       ID: 2,
+  //       città: "Venezia",
+  //       zona_geografica_città: "Piazza San Marco",
+  //       modalità_funzionamento: "M",
+  //       luminosità_standard: 6,
+  //       luminosità_rilevamento: 4,
+  //       luminosità_manuale: 3,
+  //       stato: 0,
+  //     },
+  //   ]);
+  // });
 
-  it("should return areeisLoading", () => {
-    const viewModel = HomeViewModel();
-    const result = viewModel.areeisLoading();
+  // it("should return areeisLoading", () => {
+  //   const viewModel = HomeViewModel();
+  //   const result = viewModel.areeisLoading();
 
-    expect(result).toBe(true)
-  });
+  //   expect(result).toBe(true)
+  // });
 
   it("should return numeroAree", () => {
     const viewModel = HomeViewModel();
